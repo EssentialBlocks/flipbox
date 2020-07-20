@@ -316,3 +316,9 @@
 	background: linear-gradient(to bottom, #82c8a0 0%, #7cb995 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82c8a0', endColorstr='#82c79e', GradientType=0 );
 }
+
+// Typography style
+.eb-typography-base div{
+		display: flex;
+		justify-content: space-between;
+}
