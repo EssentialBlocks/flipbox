@@ -6,6 +6,7 @@ import "./style.scss";
 
 import Edit from "./edit";
 import save from "./save";
+import example from "./example";
 import icon from "./icon";
 
 registerBlockType("essential-blocks/flipbox", {
@@ -16,6 +17,8 @@ registerBlockType("essential-blocks/flipbox", {
 	category: "widgets",
 
 	icon,
+
+	example,
 
 	edit: Edit,
 
