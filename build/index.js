@@ -7077,28 +7077,397 @@ var Inspector = function Inspector(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return save; });
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
+/* harmony import */ var _flipbox_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./flipbox-button */ "./src/flipbox-button.js");
+/* harmony import */ var _flipbox_content__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./flipbox-content */ "./src/flipbox-content.js");
+/* harmony import */ var _flipbox_wrapper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./flipbox-wrapper */ "./src/flipbox-wrapper.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./src/constants.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#save
- *
- * @return {WPElement} Element to render.
+ * Internal dependencies
  */
 
-function save() {
-  return /*#__PURE__*/React.createElement("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Flipbox – hello from the saved content!', 'create-block'));
-}
+
+
+
+
+var Save = function Save(_ref) {
+  var attributes = _ref.attributes;
+  var boxHeight = attributes.boxHeight,
+      boxWidth = attributes.boxWidth,
+      flipType = attributes.flipType,
+      selectedSide = attributes.selectedSide,
+      frontBackground = attributes.frontBackground,
+      frontIconOrImage = attributes.frontIconOrImage,
+      frontImageUrl = attributes.frontImageUrl,
+      frontImageSize = attributes.frontImageSize,
+      frontIcon = attributes.frontIcon,
+      frontTitle = attributes.frontTitle,
+      frontContent = attributes.frontContent,
+      backBackground = attributes.backBackground,
+      backIconOrImage = attributes.backIconOrImage,
+      backImageUrl = attributes.backImageUrl,
+      backImageSize = attributes.backImageSize,
+      backIcon = attributes.backIcon,
+      backTitle = attributes.backTitle,
+      backContent = attributes.backContent,
+      borderStyle = attributes.borderStyle,
+      borderColor = attributes.borderColor,
+      borderWidth = attributes.borderWidth,
+      borderRadius = attributes.borderRadius,
+      link = attributes.link,
+      linkType = attributes.linkType,
+      buttonText = attributes.buttonText,
+      buttonIcon = attributes.buttonIcon,
+      buttonIconPos = attributes.buttonIconPos,
+      frontTitleColor = attributes.frontTitleColor,
+      frontContentColor = attributes.frontContentColor,
+      backTitleColor = attributes.backTitleColor,
+      backContentColor = attributes.backContentColor,
+      frontImageRadius = attributes.frontImageRadius,
+      backImageRadius = attributes.backImageRadius,
+      frontIconSize = attributes.frontIconSize,
+      backIconSize = attributes.backIconSize,
+      frontIconColor = attributes.frontIconColor,
+      backIconColor = attributes.backIconColor,
+      boxShadowColor = attributes.boxShadowColor,
+      shadowVOffset = attributes.shadowVOffset,
+      shadowHOffset = attributes.shadowHOffset,
+      shadowSpread = attributes.shadowSpread,
+      shadowBlur = attributes.shadowBlur,
+      buttonStyle = attributes.buttonStyle,
+      buttonClasses = attributes.buttonClasses,
+      buttonBackground = attributes.buttonBackground,
+      buttonColor = attributes.buttonColor,
+      buttonSize = attributes.buttonSize,
+      buttonBorderSize = attributes.buttonBorderSize,
+      buttonBorderColor = attributes.buttonBorderColor,
+      buttonBorderType = attributes.buttonBorderType,
+      buttonBorderRadius = attributes.buttonBorderRadius,
+      buttonPaddingTop = attributes.buttonPaddingTop,
+      buttonPaddingRight = attributes.buttonPaddingRight,
+      buttonPaddingBottom = attributes.buttonPaddingBottom,
+      buttonPaddingLeft = attributes.buttonPaddingLeft,
+      btnShadowColor = attributes.btnShadowColor,
+      btnShadowVOffset = attributes.btnShadowVOffset,
+      btnShadowHOffset = attributes.btnShadowHOffset,
+      btnShadowBlur = attributes.btnShadowBlur,
+      btnShadowSpread = attributes.btnShadowSpread,
+      frontIconBackground = attributes.frontIconBackground,
+      frontIconPadding = attributes.frontIconPadding,
+      frontIconBorderRadius = attributes.frontIconBorderRadius,
+      frontIconTopMargin = attributes.frontIconTopMargin,
+      frontIconBorderSize = attributes.frontIconBorderSize,
+      frontIconBorderType = attributes.frontIconBorderType,
+      frontIconBorderColor = attributes.frontIconBorderColor,
+      backIconBackground = attributes.backIconBackground,
+      backIconPadding = attributes.backIconPadding,
+      backIconBorderRadius = attributes.backIconBorderRadius,
+      backIconTopMargin = attributes.backIconTopMargin,
+      backIconBorderSize = attributes.backIconBorderSize,
+      backIconBorderType = attributes.backIconBorderType,
+      backIconBorderColor = attributes.backIconBorderColor,
+      frontBackgroundType = attributes.frontBackgroundType,
+      frontBackgroundGradient = attributes.frontBackgroundGradient,
+      backBackgroundType = attributes.backBackgroundType,
+      backBackgroundGradient = attributes.backBackgroundGradient,
+      transitionSpeed = attributes.transitionSpeed,
+      frontBackgroundImageURL = attributes.frontBackgroundImageURL,
+      frontBackgroundPosition = attributes.frontBackgroundPosition,
+      frontBackgroundPosX = attributes.frontBackgroundPosX,
+      frontBackgroundPosXUnit = attributes.frontBackgroundPosXUnit,
+      frontBackgroundPosY = attributes.frontBackgroundPosY,
+      frontBackgroundPosYUnit = attributes.frontBackgroundPosYUnit,
+      frontBackgroundSize = attributes.frontBackgroundSize,
+      frontBackgroundWidth = attributes.frontBackgroundWidth,
+      frontBackgroundWidthUnit = attributes.frontBackgroundWidthUnit,
+      frontBackgroundRepeat = attributes.frontBackgroundRepeat,
+      backBackgroundImageURL = attributes.backBackgroundImageURL,
+      backBackgroundPosition = attributes.backBackgroundPosition,
+      backBackgroundPosX = attributes.backBackgroundPosX,
+      backBackgroundPosXUnit = attributes.backBackgroundPosXUnit,
+      backBackgroundPosY = attributes.backBackgroundPosY,
+      backBackgroundPosYUnit = attributes.backBackgroundPosYUnit,
+      backBackgroundSize = attributes.backBackgroundSize,
+      backBackgroundWidth = attributes.backBackgroundWidth,
+      backBackgroundWidthUnit = attributes.backBackgroundWidthUnit,
+      backBackgroundRepeat = attributes.backBackgroundRepeat,
+      displayButtonIcon = attributes.displayButtonIcon,
+      titleFontSize = attributes.titleFontSize,
+      titleFontSizeUnit = attributes.titleFontSizeUnit,
+      contentFontSize = attributes.contentFontSize,
+      contentFontSizeUnit = attributes.contentFontSizeUnit,
+      containerMarginTop = attributes.containerMarginTop,
+      containerMarginRight = attributes.containerMarginRight,
+      containerMarginBottom = attributes.containerMarginBottom,
+      containerMarginLeft = attributes.containerMarginLeft,
+      containerPaddingTop = attributes.containerPaddingTop,
+      containerPaddingRight = attributes.containerPaddingRight,
+      containerPaddingBottom = attributes.containerPaddingBottom,
+      containerPaddingLeft = attributes.containerPaddingLeft,
+      align = attributes.align,
+      marginUnit = attributes.marginUnit,
+      paddingUnit = attributes.paddingUnit,
+      radiusUnit = attributes.radiusUnit,
+      buttonPaddingUnit = attributes.buttonPaddingUnit,
+      buttonSizeUnit = attributes.buttonSizeUnit,
+      heightUnit = attributes.heightUnit,
+      widthUnit = attributes.widthUnit,
+      titleFontFamily = attributes.titleFontFamily,
+      titleFontWeight = attributes.titleFontWeight,
+      titleTextTransform = attributes.titleTextTransform,
+      titleTextDecoration = attributes.titleTextDecoration,
+      titleLetterSpacing = attributes.titleLetterSpacing,
+      titleLetterSpacingUnit = attributes.titleLetterSpacingUnit,
+      titleLineHeight = attributes.titleLineHeight,
+      titleLineHeightUnit = attributes.titleLineHeightUnit,
+      contentFontFamily = attributes.contentFontFamily,
+      contentFontWeight = attributes.contentFontWeight,
+      contentTextTransform = attributes.contentTextTransform,
+      contentTextDecoration = attributes.contentTextDecoration,
+      contentLetterSpacing = attributes.contentLetterSpacing,
+      contentLetterSpacingUnit = attributes.contentLetterSpacingUnit,
+      contentLineHeight = attributes.contentLineHeight,
+      contentLineHeightUnit = attributes.contentLineHeightUnit; // Default colors
+
+  var defaultFrontBackground = "#7967ff";
+  var deafultFrontTitleColor = "#ffffff";
+  var defaultFrontContentColor = "#ffffff";
+  var defautlBackContentColor = "#ffffff";
+  var defaultBackBackground = "#3074ff";
+  var defaultBackTitleColor = "#ffffff";
+  var defaultBorderColor = "#000000";
+  var defaultBoxShadowColor = "#abb8c3";
+  var defaultButtonBorderColor = "#eeeeee";
+  var deafultBtnShadowColor = "#abb8c3";
+  var defaultFrontIconBackground = "transparent";
+  var defaultFrontIconBorderColor = "#000000";
+  var defaultBackIconBackground = "transparent";
+  var defaultBackIconBorderColor = "#000000";
+  var flipContainerStyle = {
+    height: "".concat(boxHeight || 310).concat(heightUnit),
+    maxWidth: "".concat(boxWidth || 600).concat(widthUnit),
+    width: "100%",
+    margin: "".concat(containerMarginTop).concat(marginUnit, " ").concat(containerMarginRight).concat(marginUnit, " ").concat(containerMarginBottom).concat(marginUnit, " ").concat(containerMarginLeft).concat(marginUnit),
+    padding: "".concat(containerPaddingTop).concat(paddingUnit, " ").concat(containerPaddingRight).concat(paddingUnit, " ").concat(containerPaddingBottom).concat(paddingUnit, " ").concat(containerPaddingLeft).concat(paddingUnit)
+  };
+  var flipperStyle = {
+    transition: "".concat(transitionSpeed ? transitionSpeed / 10 : 0.6, "s")
+  };
+  var frontStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "".concat(boxHeight || 310).concat(heightUnit),
+    maxWidth: "".concat(boxWidth || 600).concat(widthUnit),
+    height: "auto",
+    width: "100%",
+    backgroundImage: frontBackgroundType === "gradient" && frontBackgroundGradient || frontBackgroundType === "image" && frontBackgroundImageURL && "url(".concat(frontBackgroundImageURL, ")") || "none",
+    backgroundSize: frontBackgroundSize === "custom" ? "".concat(frontBackgroundWidth).concat(frontBackgroundWidthUnit) : frontBackgroundSize,
+    backgroundPosition: frontBackgroundPosition === "custom" ? "".concat(frontBackgroundPosX).concat(frontBackgroundPosXUnit, " ").concat(frontBackgroundPosY).concat(frontBackgroundPosYUnit) : frontBackgroundPosition,
+    backgroundRepeat: frontBackgroundRepeat,
+    backgroundColor: frontBackgroundType === "fill" && frontBackground ? frontBackground : defaultFrontBackground,
+    borderStyle: borderStyle,
+    borderColor: borderColor || defaultBorderColor,
+    borderWidth: "".concat(borderWidth || 0, "px"),
+    borderRadius: "".concat(borderRadius || 0).concat(radiusUnit),
+    boxShadow: "".concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor)
+  };
+  var frontIconStyle = {
+    fontSize: "".concat(frontIconSize || _constants__WEBPACK_IMPORTED_MODULE_3__["DEFAULT_ICON_SIZE"], "px"),
+    color: frontIconColor || "#ffffff",
+    borderRadius: "".concat(frontIconBorderRadius || 0, "px"),
+    background: frontIconBackground || defaultFrontIconBackground,
+    padding: "".concat(frontIconPadding || 0, "px"),
+    marginTop: "".concat(frontIconTopMargin || 0, "px"),
+    borderStyle: frontIconBorderType,
+    borderColor: frontIconBorderColor || defaultFrontIconBorderColor,
+    borderWidth: "".concat(frontIconBorderSize || 0, "px"),
+    textAlign: align,
+    width: "100%"
+  };
+  var frontImageStyle = {
+    wrapper: {
+      display: frontIconOrImage === "image" && frontImageUrl ? "block" : "none",
+      alignSelf: align === "left" && "flex-start" || align === "right" && "flex-end" || "center"
+    },
+    image: {
+      height: "".concat(frontImageSize || 100, "px"),
+      width: "".concat(frontImageSize || 100, "px"),
+      borderRadius: "".concat(frontImageRadius || 0, "%")
+    }
+  };
+  var frontTitleStyle = {
+    fontFamily: titleFontFamily,
+    fontSize: titleFontSize ? "".concat(titleFontSize).concat(titleFontSizeUnit) : undefined,
+    fontWeight: titleFontWeight,
+    textDecoration: titleTextDecoration,
+    textTransform: titleTextTransform,
+    lineHeight: titleLineHeight ? "".concat(titleLineHeight).concat(titleLineHeightUnit) : undefined,
+    letterSpacing: titleLetterSpacing ? "".concat(titleLetterSpacing).concat(titleLetterSpacingUnit) : undefined,
+    color: frontTitleColor || deafultFrontTitleColor,
+    width: "100%",
+    textAlign: align
+  };
+  var frontContentStyle = {
+    fontFamily: contentFontFamily,
+    fontSize: contentFontSize ? "".concat(contentFontSize).concat(contentFontSizeUnit) : undefined,
+    fontWeight: contentFontWeight,
+    textDecoration: contentTextDecoration,
+    textTransform: contentTextTransform,
+    lineHeight: contentLineHeight ? "".concat(contentLineHeight).concat(contentLineHeightUnit) : undefined,
+    letterSpacing: contentLetterSpacing ? "".concat(contentLetterSpacing).concat(contentLetterSpacingUnit) : undefined,
+    color: frontContentColor || defaultFrontContentColor,
+    width: "100%",
+    textAlign: align
+  };
+  var backStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "".concat(boxHeight || 310).concat(heightUnit),
+    maxWidth: "".concat(boxWidth || 600).concat(widthUnit),
+    height: "auto",
+    width: "100%",
+    backgroundImage: backBackgroundType === "gradient" && backBackgroundGradient || backBackgroundType === "image" && backBackgroundImageURL && "url(".concat(backBackgroundImageURL, ")") || "none",
+    backgroundSize: backBackgroundSize === "custom" ? "".concat(backBackgroundWidth).concat(backBackgroundWidthUnit) : backBackgroundSize,
+    backgroundPosition: backBackgroundPosition === "custom" ? "".concat(backBackgroundPosX).concat(backBackgroundPosXUnit, " ").concat(backBackgroundPosY).concat(backBackgroundPosYUnit) : backBackgroundPosition,
+    backgroundRepeat: backBackgroundRepeat,
+    backgroundColor: backBackgroundType === "fill" && backBackground ? backBackground : defaultBackBackground,
+    borderStyle: borderStyle,
+    bordercolor: borderColor || defaultBorderColor,
+    borderWidth: "".concat(borderWidth || 0, "px"),
+    borderRadius: "".concat(borderRadius || 0).concat(radiusUnit),
+    transform: flipType === "flip-up" && "rotateX(180deg)" || flipType === "flip-bottom" && "rotateX(-180deg)",
+    boxShadow: "".concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor),
+    cursor: linkType === "box" && link ? "pointer" : "default"
+  };
+  var backImageStyle = {
+    wrapper: {
+      display: backIconOrImage === "image" && backImageUrl ? "block" : "none",
+      alignSelf: align === "left" && "flex-start" || align === "right" && "flex-end" || "center"
+    },
+    image: {
+      height: "".concat(backImageSize || 100, "px"),
+      width: "".concat(backImageSize || 100, "px"),
+      borderRadius: "".concat(backImageRadius || 0, "%")
+    }
+  };
+  var backIconStyle = {
+    fontSize: "".concat(backIconSize || _constants__WEBPACK_IMPORTED_MODULE_3__["DEFAULT_ICON_SIZE"], "px"),
+    color: backIconColor || "#ffffff",
+    borderRadius: "".concat(backIconBorderRadius || 0, "%"),
+    background: backIconBackground || defaultBackIconBackground,
+    padding: "".concat(backIconPadding || 0, "px"),
+    marginTop: "".concat(backIconTopMargin || 0, "px"),
+    borderStyle: backIconBorderType,
+    borderColor: backIconBorderColor || defaultBackIconBorderColor,
+    borderWidth: "".concat(backIconBorderSize || 0, "px"),
+    display: backIconOrImage === "icon" ? "block" : "none",
+    width: "100%",
+    textAlign: align
+  };
+  var backTitleStyle = {
+    fontFamily: titleFontFamily,
+    fontSize: titleFontSize ? "".concat(titleFontSize).concat(titleFontSizeUnit) : undefined,
+    fontWeight: titleFontWeight,
+    textDecoration: titleTextDecoration,
+    textTransform: titleTextTransform,
+    lineHeight: titleLineHeight ? "".concat(titleLineHeight).concat(titleLineHeightUnit) : undefined,
+    letterSpacing: titleLetterSpacing ? "".concat(titleLetterSpacing).concat(titleLetterSpacingUnit) : undefined,
+    color: backTitleColor || defaultBackTitleColor,
+    cursor: linkType === "title" && link ? "pointer" : "default",
+    width: "100%",
+    textAlign: align
+  };
+  var backContentStyle = {
+    fontFamily: contentFontFamily,
+    fontSize: contentFontSize ? "".concat(contentFontSize).concat(contentFontSizeUnit) : undefined,
+    fontWeight: contentFontWeight,
+    textDecoration: contentTextDecoration,
+    textTransform: contentTextTransform,
+    lineHeight: contentLineHeight ? "".concat(contentLineHeight).concat(contentLineHeightUnit) : undefined,
+    letterSpacing: contentLetterSpacing ? "".concat(contentLetterSpacing).concat(contentLetterSpacingUnit) : undefined,
+    color: backContentColor || defautlBackContentColor,
+    width: "100%",
+    textAlign: align
+  };
+  var backButtonStyle = buttonStyle === "custom" ? {
+    background: buttonBackground,
+    color: buttonColor,
+    width: "".concat(buttonSize || 18).concat(buttonSizeUnit),
+    border: "".concat(buttonBorderSize || 0, "px ").concat(buttonBorderType, " ").concat(buttonBorderColor || defaultButtonBorderColor),
+    borderRadius: "".concat(buttonBorderRadius || 0, "px"),
+    padding: "".concat(buttonPaddingTop).concat(buttonPaddingUnit, " ").concat(buttonPaddingRight).concat(buttonPaddingUnit, " ").concat(buttonPaddingBottom).concat(buttonPaddingUnit, " ").concat(buttonPaddingLeft).concat(buttonPaddingUnit),
+    boxShadow: "".concat(btnShadowVOffset || 0, "px ").concat(btnShadowHOffset || 0, "px ").concat(btnShadowBlur || 0, "px ").concat(btnShadowSpread || 0, "px ").concat(btnShadowColor || deafultBtnShadowColor),
+    textDecoration: "none"
+  } : {};
+  return /*#__PURE__*/React.createElement("div", {
+    className: "flip-container",
+    style: flipContainerStyle,
+    "data-flip-type": flipType
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flipper ".concat(flipType),
+    style: flipperStyle
+  }, /*#__PURE__*/React.createElement(_flipbox_wrapper__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    className: "front",
+    style: frontStyle
+  }, /*#__PURE__*/React.createElement(_flipbox_content__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedSide: selectedSide,
+    iconOrImage: frontIconOrImage,
+    imageUrl: frontImageUrl,
+    imageStyle: frontImageStyle,
+    icon: frontIcon,
+    iconStyle: frontIconStyle,
+    linkType: linkType,
+    title: frontTitle,
+    titleStyle: frontTitleStyle,
+    content: frontContent,
+    contentStyle: frontContentStyle
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "back",
+    style: backStyle,
+    onClick: linkType === "box" && link ? "window.location='".concat(link, "'") : undefined
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flipbox-items-container"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "back-image-container",
+    style: backImageStyle.wrapper
+  }, /*#__PURE__*/React.createElement("img", {
+    src: backImageUrl,
+    style: backImageStyle.image
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "flipbox-icon-wrapper-back",
+    style: backIconStyle,
+    "data-icon": backIcon
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "".concat(backIcon, " flipbox-icon")
+  })), /*#__PURE__*/React.createElement("h3", {
+    className: "back-title",
+    style: backTitleStyle,
+    onClick: linkType === "title" && link ? "window.location='".concat(link, "'") : undefined
+  }, backTitle), /*#__PURE__*/React.createElement("p", {
+    className: "back-content",
+    style: backContentStyle
+  }, backContent)), /*#__PURE__*/React.createElement(_flipbox_button__WEBPACK_IMPORTED_MODULE_0__["FlipboxButton"], {
+    classNames: buttonClasses,
+    style: _objectSpread(_objectSpread({}, backButtonStyle), {}, {
+      display: linkType === "button" ? "block" : "none"
+    }),
+    link: link,
+    buttonText: buttonText,
+    buttonIcon: buttonIcon,
+    displayButtonIcon: displayButtonIcon,
+    buttonIconPos: buttonIconPos
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Save);
 
 /***/ }),
 
