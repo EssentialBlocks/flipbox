@@ -1,0 +1,10 @@
+{
+	"name": "essential-blocks/flipbox",
+	"title": "Flipbox",
+	"category": "widgets",
+	"description": "Flipbox Essential Blocks",
+	"textdomain": "essential-blocks",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
