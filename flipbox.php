@@ -6,9 +6,9 @@
  * Author:          The WordPress Contributors
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:     create-block
+ * Text Domain:     essential-blocks
  *
- * @package         create-block
+ * @package         essential-blocks 
  */
 
 /**
@@ -51,10 +51,34 @@ function create_block_flipbox_block_init() {
 		filemtime( "$dir/$style_css" )
 	);
 
+	$fontpicker_theme = 'src/css/fonticonpicker.base-theme.react.css';
+	wp_enqueue_style(
+		'fontpicker-default-theme',
+		plugins_url( $fontpicker_theme, __FILE__),
+		array()
+	);
+
+	$fontpicker_material_theme = 'src/css/fonticonpicker.material-theme.react.css';
+	wp_enqueue_style(
+		'fontpicker-matetial-theme',
+		plugins_url( $fontpicker_material_theme, __FILE__),
+		array()
+	);
+
+	$fontawesome_css = 'src/css/font-awesome5.css';
+	wp_enqueue_style(
+		'fontawesome-frontend-css',
+		plugins_url( $fontawesome_css, __FILE__),
+		array()
+	);
+
 	register_block_type( 'create-block/flipbox', array(
 		'editor_script' => 'create-block-flipbox-block-editor',
 		'editor_style'  => 'create-block-flipbox-block-editor',
 		'style'         => 'create-block-flipbox-block',
+		'fontpicker_theme' => 'fontpicker-default-theme',
+		'fontpicker_material_theme' => 'fontpicker-material-theme',
+		'fontawesome_css' => 'fontawesome-frontend-css',
 	) );
 }
 add_action( 'init', 'create_block_flipbox_block_init' );
