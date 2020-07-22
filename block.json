@@ -3,7 +3,7 @@
 	"title": "Flipbox",
 	"category": "widgets",
 	"description": "Flipbox",
-	"textdomain": "block",
+	"textdomain": "flipbox",
 	"editorScript": "file:./build/index.js",
 	"style": "file:./build/style-index.css"
 }
