@@ -8,9 +8,9 @@ import attributes from "./attributes";
 import example from "./example";
 import icon from "./icon";
 
-registerBlockType("essential-blocks/flipbox", {
-	title: __("Flipbox", "essential-blocks"),
-	description: __("", "essential-blocks"),
+registerBlockType("flipbox", {
+	title: __("Flipbox"),
+	description: __(""),
 	category: "widgets",
 	icon,
 	attributes,
