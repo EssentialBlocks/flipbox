@@ -6,9 +6,9 @@
  * Author:          The WordPress Contributors
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:     create-block
+ * Text Domain:     block
  *
- * @package         create-block
+ * @package         block
  */
 
 /**
@@ -23,7 +23,7 @@ function create_block_flipbox_block_init() {
 	$script_asset_path = "$dir/build/index.asset.php";
 	if ( ! file_exists( $script_asset_path ) ) {
 		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "create-block/flipbox" block first.'
+			'You need to run `npm start` or `npm run build` for the "block/flipbox" block first.'
 		);
 	}
 	$index_js     = 'build/index.js';
@@ -64,9 +64,8 @@ function create_block_flipbox_block_init() {
 		array()
 	);
 
-	register_block_type( 'create-block/flipbox', array(
+	register_block_type( 'block/flipbox', array(
 		'editor_script' => 'create-block-flipbox-block-editor',
-		// 'editor_style'  => 'create-block-flipbox-block-editor',
 		'style'         => 'create-block-flipbox-block',
 		'fontpicker_theme' => 'fontpicker-default-theme',
 		'fontpicker_material_theme' => 'fontpicker-material-theme',

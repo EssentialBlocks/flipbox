@@ -1,9 +1,9 @@
 {
-	"name": "create-block/flipbox",
+	"name": "block/flipbox",
 	"title": "Flipbox",
 	"category": "widgets",
 	"description": "Flipbox",
-	"textdomain": "create-block",
+	"textdomain": "block",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
 	"style": "file:./build/style-index.css"
