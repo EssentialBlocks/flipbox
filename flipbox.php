@@ -6,6 +6,9 @@
  * Author:          The WordPress Contributors
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:     create-block
+ *
+ * @package         create-block
  */
 
 /**
@@ -30,14 +33,6 @@ function create_block_flipbox_block_init() {
 		plugins_url( $index_js, __FILE__ ),
 		$script_asset['dependencies'],
 		$script_asset['version']
-	);
-
-	$editor_css = 'build/index.css';
-	wp_register_style(
-		'create-block-flipbox-block-editor',
-		plugins_url( $editor_css, __FILE__ ),
-		array(),
-		filemtime( "$dir/$editor_css" )
 	);
 
 	$style_css = 'build/style-index.css';
@@ -71,7 +66,7 @@ function create_block_flipbox_block_init() {
 
 	register_block_type( 'create-block/flipbox', array(
 		'editor_script' => 'create-block-flipbox-block-editor',
-		'editor_style'  => 'create-block-flipbox-block-editor',
+		// 'editor_style'  => 'create-block-flipbox-block-editor',
 		'style'         => 'create-block-flipbox-block',
 		'fontpicker_theme' => 'fontpicker-default-theme',
 		'fontpicker_material_theme' => 'fontpicker-material-theme',
