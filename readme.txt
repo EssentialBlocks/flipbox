@@ -43,18 +43,13 @@ Consider checking out our other WordPress solutions & boost your WordPress websi
 
 ☁ [Templately](https://wordpress.org/plugins/templately/): Free templates library for Elementor & Gutenberg along with the cloud collaboration for WordPress
 
-
 🔔 [NotificationX](https://wordpress.org/plugins/notificationx/): Best Social Proof & FOMO Marketing Solution to increase conversion rates
-
 
 📚 [BetterDocs](https://wordpress.org/plugins/betterdocs/): Best Documentation & Knowledge Base Plugin for WordPress reduce manual support tickets & improve user experience.
 
-
 ⏰ [WP Scheduled Posts](https://wordpress.org/plugins/wp-scheduled-posts/): Advanced editorial calendar & complete solution for WordPress Post Scheduling, social sharing, missed scheduled alerts and more.
 
-
 ⭐ [ReviewX](https://wordpress.org/plugins/reviewx/): WooCommerce Product review plugin that allows users to submit product reviews with multiple criteria, photos, video and more
-
 
 ⚡ [Flexia](http://wordpress.org/plugins/flexia): Most lightweight, customizable & multi purpose theme for WordPress
 
