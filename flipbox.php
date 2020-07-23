@@ -17,6 +17,14 @@
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
  */
+
+if( ! class_exists('EB_Font_Loader') ) {
+	require_once __DIR__ . '/includes/font-loader.php';
+}
+if( ! class_exists('EB_Post_Meta') ) {
+	require_once __DIR__ . '/includes/post-meta.php';
+}
+
 function create_block_flipbox_block_init() {
 	$dir = dirname( __FILE__ );
 
@@ -64,12 +72,14 @@ function create_block_flipbox_block_init() {
 		array()
 	);
 
-	register_block_type( 'block/flipbox', array(
-		'editor_script' => 'create-block-flipbox-block-editor',
-		'style'         => 'create-block-flipbox-block',
-		'fontpicker_theme' => 'fontpicker-default-theme',
-		'fontpicker_material_theme' => 'fontpicker-material-theme',
-		'fontawesome_css' => 'fontawesome-frontend-css',
-	) );
+	if( ! WP_Block_Type_Registry::get_instance()->is_registered( 'essential-blocks/flipbox' ) ) {
+    register_block_type( 'block/flipbox', array(
+      'editor_script' => 'create-block-flipbox-block-editor',
+      'style'         => 'create-block-flipbox-block',
+      'fontpicker_theme' => 'fontpicker-default-theme',
+      'fontpicker_material_theme' => 'fontpicker-material-theme',
+      'fontawesome_css' => 'fontawesome-frontend-css',
+    ) );
+  }
 }
 add_action( 'init', 'create_block_flipbox_block_init' );
