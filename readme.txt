@@ -2,10 +2,10 @@
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, alam789
 Tags: block, blocks, flipbox, flip box, flipper, animated box, gutenberg, gutenberg blocks
 Requires at least: 5.0
-Tested up to: 5.4
+Tested up to: 5.5
 Stable tag: 1.0.1
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Deliver your content beautifully to grab attention with an animated Flipbox block.
 
@@ -30,10 +30,11 @@ This Block is brought to you by [WPDeveloper](https://wpdeveloper.net), the team
 
 ## 🙌 JOIN THE COMMUNITY ##
 
-- 🎦 Subscribe to our [Youtube Channel](https://www.youtube.com/wpdevelopernet/?sub_confirmation=1) to watch video tutorials on WordPress.
-- 🤝 Join our [Facebook Community](https://www.facebook.com/groups/wpdeveloper.net/) & get connected with expert web creators like yourself.
+🎦 Subscribe to our [Youtube Channel](https://www.youtube.com/wpdevelopernet/?sub_confirmation=1) to watch video tutorials on WordPress.
 
-🧡 LOVED FLIPBOX? Rate us on WordPress Repository
+🤝 Join our [Facebook Community](https://www.facebook.com/groups/wpdeveloper.net/) & get connected with expert web creators like yourself.
+
+🧡 LOVED FLIPBOX? Rate us on [WordPress Repository](https://wordpress.org/support/plugin/flipbox/reviews/#new-post)
 
 🔥 GET FREEBIES FOR YOUR WORDPRESS SITE
 
