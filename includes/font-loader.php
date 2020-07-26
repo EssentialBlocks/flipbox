@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class EB_Font_Loader
+class Flipbox_Font_Loader
 {
 
     private static $instance;
@@ -91,4 +91,4 @@ class EB_Font_Loader
         }
     }
 }
-EB_Font_Loader::register();
+Flipbox_Font_Loader::register();
