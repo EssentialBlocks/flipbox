@@ -80,6 +80,9 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
+= 1.0.2 - 07/09/2020 =
+* Fixed : Missing css files
+
 = 1.0.1 - 24/07/2020 =
 * Improved : Typography controls
 
