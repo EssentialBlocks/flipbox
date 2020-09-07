@@ -10,8 +10,9 @@ import icon from "./icon";
 
 registerBlockType("block/flipbox", {
 	title: __("Flipbox"),
-	description: __(""),
+	description: __("Deliver Your Content Beautifully To Grab Attention"),
 	category: "widgets",
+	keywords: ["flipbox", "flip", "box"],
 	icon,
 	attributes,
 	example,
