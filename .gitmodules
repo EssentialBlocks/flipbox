@@ -4,3 +4,6 @@
 [submodule "util/dimensions-control"]
 	path = util/dimensions-control
 	url = git@github.com:EssentialBlocks/dimensions-control.git
+[submodule "util/gradient-color-controller"]
+	path = util/gradient-color-controller
+	url = git@github.com:EssentialBlocks/gradient-color-controller.git
