@@ -7,3 +7,6 @@
 [submodule "util/gradient-color-controller"]
 	path = util/gradient-color-controller
 	url = git@github.com:EssentialBlocks/gradient-color-controller.git
+[submodule "util/image-avatar"]
+	path = util/image-avatar
+	url = git@github.com:EssentialBlocks/image-avatar.git
