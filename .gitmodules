@@ -10,3 +10,6 @@
 [submodule "util/image-avatar"]
 	path = util/image-avatar
 	url = git@github.com:EssentialBlocks/image-avatar.git
+[submodule "util/typography-control"]
+	path = util/typography-control
+	url = git@github.com:EssentialBlocks/typography-control.git
