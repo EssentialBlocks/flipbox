@@ -303,6 +303,46 @@
 	box-shadow: none;
 }
 
+.eb-switch-control {
+  display: flex;
+  border: 1px solid #ededed;
+  padding: 2px;
+  border-radius: 30px;
+  position: relative;
+  font-family: sans-serif;
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 8px; }
+  .eb-switch-control input {
+    visibility: hidden;
+    position: absolute;
+    padding: 10px; }
+    .eb-switch-control input:checked + label {
+      color: #fff; }
+  .eb-switch-control .individual:checked ~ span,
+  .eb-switch-control .business:checked ~ span {
+    color: white; }
+  .eb-switch-control .individual:checked ~ .slideBg {
+    transform: translateX(100%); }
+  .eb-switch-control .business:checked ~ .slideBg {
+    transform: translateX(0); }
+  .eb-switch-control label {
+    display: block;
+    padding: 4px;
+    width: 50%;
+    z-index: 1; }
+
+.slideBg {
+  position: absolute;
+  background-color: #551ef7;
+  color: white;
+  border-radius: 30px;
+  height: 100%;
+  width: 50%;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease; }
+
 .image-avatar {
   height: 100px;
   width: 100%;
@@ -310,6 +350,11 @@
   background-repeat: no-repeat;
   margin-bottom: 8px;
   padding: 2px; }
+
+.image-avatar-delete {
+  background-color: blue; }
+  .image-avatar-delete:hover {
+    background-color: red; }
 
 .input-wrapper {
   width: 20%;
@@ -333,7 +378,7 @@
   margin-right: 100px; }
 
 .dimentions-input-label {
-  font-size: .75em;
+  font-size: 0.75em;
   text-align: center; }
 
 .input-container {
@@ -341,8 +386,10 @@
   flex-direction: row; }
   .input-container .input-wrapper:first-child input {
     border-width: 1px;
-    border-radius: 5px 0px 0px 5px; }
+    border-radius: 4px 0px 0px 4px; }
   .input-container .input-wrapper input {
+    min-height: 24px;
+    height: 24px;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -351,8 +398,13 @@
     border-style: solid;
     border-radius: 0;
     width: 100%; }
-  .input-container .input-wrapper:nth-child(4) input {
-    border-radius: 0px 5px 5px 0px; }
+  .input-container .input-wrapper:nth-child(5) input {
+    border-radius: 0px 4px 4px 0px; }
+  .input-container .input-wrapper button {
+    margin-left: 0px;
+    border-radius: 0px 4px 4px 0px;
+    border: 1px solid #8d96a0;
+    border-left: none; }
 
 .eb-unit-control-btn-group {
   margin: 0px 0px -20px 0px;
@@ -368,7 +420,7 @@
   text-shadow: none !important; }
 
 .eb-unit-active {
-  color: #0084bc !important;
+  color: #6c40f7 !important;
   font-weight: bold; }
 
 
