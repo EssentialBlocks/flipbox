@@ -5984,9 +5984,7 @@ var Inspector = function Inspector(_ref) {
   }), selectedSide === "front" && frontBackgroundType === "gradient" && /*#__PURE__*/React.createElement(PanelBody, {
     title: __("Background Gradient Colors")
   }, /*#__PURE__*/React.createElement(_util_gradient_color_controller__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    colorOne: "#11998e",
-    colorTwo: "#38ef7d",
-    angle: 45,
+    gradientColor: frontBackgroundGradient,
     onChange: function onChange(frontBackgroundGradient) {
       return setAttributes({
         frontBackgroundGradient: frontBackgroundGradient
@@ -6166,12 +6164,10 @@ var Inspector = function Inspector(_ref) {
   }), backBackgroundType === "gradient" && /*#__PURE__*/React.createElement(PanelBody, {
     title: __("Background Gradient Colors")
   }, /*#__PURE__*/React.createElement(_util_gradient_color_controller__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    colorOne: "#f12711",
-    colorTwo: "#f5af19",
-    angle: 45,
-    onChange: function onChange(newValue) {
+    gradientColor: backBackgroundGradient,
+    onChange: function onChange(backBackgroundGradient) {
       return setAttributes({
-        backBackgroundGradient: newValue
+        backBackgroundGradient: backBackgroundGradient
       });
     }
   })), backBackgroundType === "image" && /*#__PURE__*/React.createElement(MediaUpload, {

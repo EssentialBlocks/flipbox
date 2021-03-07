@@ -793,9 +793,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 				{selectedSide === "front" && frontBackgroundType === "gradient" && (
 					<PanelBody title={__("Background Gradient Colors")}>
 						<GradientColorControl
-							colorOne="#11998e"
-							colorTwo="#38ef7d"
-							angle={45}
+              gradientColor={frontBackgroundGradient }
 							onChange={(frontBackgroundGradient) =>
 								setAttributes({ frontBackgroundGradient })
 							}
@@ -990,12 +988,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 				{backBackgroundType === "gradient" && (
 					<PanelBody title={__("Background Gradient Colors")}>
 						<GradientColorControl
-							colorOne="#f12711"
-							colorTwo="#f5af19"
-							angle={45}
-							onChange={(newValue) =>
+							gradientColor={backBackgroundGradient}
+							onChange={(backBackgroundGradient) =>
 								setAttributes({
-									backBackgroundGradient: newValue,
+									backBackgroundGradient,
 								})
 							}
 						/>
