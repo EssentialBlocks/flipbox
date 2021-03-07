@@ -38,6 +38,13 @@ function create_block_flipbox_block_init() {
 		'create-block-flipbox-block-editor',
 		plugins_url( $index_js, __FILE__ ),
 		$script_asset['dependencies'],
+    array(
+      'wp-blocks',
+      'wp-i18n',
+      'wp-element',
+      'wp-components',
+      'wp-editor'
+    ),
 		$script_asset['version']
 	);
 
