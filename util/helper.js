@@ -18,6 +18,9 @@ export const getFlipTransform = flipType => {
 
     case "zoom-out":
       return "scale(0.8)";
+
+    case "fade":
+      return "none";
   }
 };
 

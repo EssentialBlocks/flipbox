@@ -241,6 +241,10 @@ class Edit extends Component {
 			boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
 				shadowBlur || 0
 			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
+			transition:
+				flipType === "fade" && "opacity 0.6s",
+			opacity:
+				isHover && flipType === "fade" && 0,
 		};
 
 		const frontImageStyle = {
@@ -343,13 +347,18 @@ class Edit extends Component {
 			transform:
 				(flipType === "flip-up" && "rotateX(-180deg)") ||
 				(flipType === "flip-bottom" && "rotateX(180deg)") ||
-				((flipType === "zoom-in" || flipType === "zoom-out") && "none"),
+				((flipType === "zoom-in" || flipType === "zoom-out" || flipType === "fade") && "none"),
+			transition:
+				flipType === "fade" && "opacity 0.6s",
 			zIndex:
 				isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0),
 			boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
 				shadowBlur || 0
 			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
 			cursor: linkType === "box" && link ? "pointer" : "default",
+			opacity:
+				(flipType === "fade") &&
+				(isHover ? 1 : 0 ),
 		};
 
 		const backImageStyle = {
