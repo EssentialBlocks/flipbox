@@ -16,6 +16,7 @@ export const FLIPBOX_TYPE = [
 	{ label: __("Flip Bottom"), value: "flip-bottom" },
 	{ label: __("Zoom In"), value: "zoom-in" },
 	{ label: __("Zoom Out"), value: "zoom-out" },
+	{ label: __("Fade"), value: "fade" },
 ];
 
 export const BORDER_STYLES = [

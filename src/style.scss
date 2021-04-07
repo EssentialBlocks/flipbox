@@ -156,6 +156,18 @@
 	z-index: 5;
 	transform: none;
 }
+.fade .front, .fade .back {
+	transition: opacity 0.6s;
+}
+.fade .back {
+	transform: none;
+}
+.fade:hover .front, .fade .back {
+	opacity: 0;
+}
+.fade:hover .back {
+	opacity: 1;
+}
 .eb-flipbox-upload-button {
 	height: 100px;
 	width: 100%;
