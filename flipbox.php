@@ -22,6 +22,7 @@
 
 require_once __DIR__ . '/includes/font-loader.php';
 require_once __DIR__ . '/includes/post-meta.php';
+require_once __DIR__ . '/util/style-handler/style-handler.php';
 
 function create_block_flipbox_block_init() {
 	$dir = dirname( __FILE__ );
@@ -29,7 +30,7 @@ function create_block_flipbox_block_init() {
 	$script_asset_path = "$dir/build/index.asset.php";
 	if ( ! file_exists( $script_asset_path ) ) {
 		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "block/flipbox" block first.'
+			'You need to run `npm start` or `npm run build` for the "flipbox/flipbox-block" block first.'
 		);
 	}
 	$index_js     = 'build/index.js';
@@ -46,6 +47,14 @@ function create_block_flipbox_block_init() {
       'wp-editor'
     ),
 		$script_asset['version']
+	);
+
+	$editor_css = 'build/index.css';
+	wp_register_style(
+		'create-block-flipbox-block-editor',
+		plugins_url($editor_css, __FILE__),
+		array(),
+		filemtime("$dir/$editor_css")
 	);
 
 	$style_css = 'build/style-index.css';
@@ -78,8 +87,9 @@ function create_block_flipbox_block_init() {
 	);
 
 	if( ! WP_Block_Type_Registry::get_instance()->is_registered( 'essential-blocks/flipbox' ) ) {
-    register_block_type( 'block/flipbox', array(
+    register_block_type( 'flipbox/flipbox-block', array(
       'editor_script' => 'create-block-flipbox-block-editor',
+      'editor_style' => 'create-block-flipbox-block-editor',
       'style'         => 'create-block-flipbox-block',
       'fontpicker_theme' => 'fontpicker-default-theme',
       'fontpicker_material_theme' => 'fontpicker-material-theme',

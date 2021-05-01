@@ -19,3 +19,6 @@
 [submodule "util/toggle-button"]
 	path = util/toggle-button
 	url = https://github.com/EssentialBlocks/toggle-button.git
+[submodule "util/style-handler"]
+	path = util/style-handler
+	url = git@github.com:EssentialBlocks/style-handler.git

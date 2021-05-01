@@ -5,6 +5,7 @@ import { FlipboxButton } from "./flipbox-button";
 import FlipboxContent from "./flipbox-content";
 import FlipboxWrapper from "./flipbox-wrapper";
 import { DEFAULT_ICON_SIZE } from "./constants";
+import { useBlockProps } from "@wordpress/block-editor";
 
 const Save = ({ attributes }) => {
 	const {
@@ -409,80 +410,84 @@ const Save = ({ attributes }) => {
 			: {};
 
 	return (
-		<div
-			className="flip-container"
-			style={flipContainerStyle}
-			data-flip-type={flipType}
-		>
-			<div className={`flipper ${flipType}`} style={flipperStyle}>
-				<FlipboxWrapper className="front" style={frontStyle}>
-					<FlipboxContent
-						selectedSide={selectedSide}
-						iconOrImage={frontIconOrImage}
-						imageUrl={frontImageUrl}
-						imageStyle={frontImageStyle}
-						icon={frontIcon}
-						iconStyle={frontIconStyle}
-						linkType={linkType}
-						title={frontTitle}
-						titleStyle={frontTitleStyle}
-						content={frontContent}
-						contentStyle={frontContentStyle}
-					/>
-				</FlipboxWrapper>
+		<div {...useBlockProps.save()}>
+			<div
+				className="flip-container"
+				style={flipContainerStyle}
+				data-flip-type={flipType}
+			>
+				<div className={`flipper ${flipType}`} style={flipperStyle}>
+					<FlipboxWrapper className="front" style={frontStyle}>
+						<FlipboxContent
+							selectedSide={selectedSide}
+							iconOrImage={frontIconOrImage}
+							imageUrl={frontImageUrl}
+							imageStyle={frontImageStyle}
+							icon={frontIcon}
+							iconStyle={frontIconStyle}
+							linkType={linkType}
+							title={frontTitle}
+							titleStyle={frontTitleStyle}
+							content={frontContent}
+							contentStyle={frontContentStyle}
+						/>
+					</FlipboxWrapper>
 
-				<div
-					className="back"
-					style={backStyle}
-					onClick={
-						linkType === "box" && link ? `window.location='${link}'` : undefined
-					}
-				>
-					<div className="flipbox-items-container">
-						<div
-							className={`back-image-container`}
-							style={backImageStyle.wrapper}
-						>
-							<img src={backImageUrl} style={backImageStyle.image} />
+					<div
+						className="back"
+						style={backStyle}
+						onClick={
+							linkType === "box" && link
+								? `window.location='${link}'`
+								: undefined
+						}
+					>
+						<div className="flipbox-items-container">
+							<div
+								className={`back-image-container`}
+								style={backImageStyle.wrapper}
+							>
+								<img src={backImageUrl} style={backImageStyle.image} />
+							</div>
+
+							<div
+								className={`flipbox-icon-wrapper-back`}
+								style={backIconStyle}
+								data-icon={backIcon}
+							>
+								<span className={`${backIcon} flipbox-icon`} />
+							</div>
+
+							<h3
+								className={`back-title`}
+								style={backTitleStyle}
+								onClick={
+									linkType === "title" && link
+										? `window.location='${link}'`
+										: undefined
+								}
+							>
+								{backTitle}
+							</h3>
+
+							<p className={`back-content`} style={backContentStyle}>
+								{backContent}
+							</p>
 						</div>
 
-						<div
-							className={`flipbox-icon-wrapper-back`}
-							style={backIconStyle}
-							data-icon={backIcon}
-						>
-							<span className={`${backIcon} flipbox-icon`} />
-						</div>
-
-						<h3
-							className={`back-title`}
-							style={backTitleStyle}
-							onClick={
-								linkType === "title" && link
-									? `window.location='${link}'`
-									: undefined
-							}
-						>
-							{backTitle}
-						</h3>
-
-						<p className={`back-content`} style={backContentStyle}>
-							{backContent}
-						</p>
+						<FlipboxButton
+							classNames={buttonClasses}
+							style={{
+								...backButtonStyle,
+								display: linkType === "button" ? "block" : "none",
+							}}
+							link={link}
+							buttonText={buttonText}
+							buttonIcon={buttonIcon}
+							displayButtonIcon={displayButtonIcon}
+							buttonIconPos={buttonIconPos}
+						/>
 					</div>
-
-					<FlipboxButton
-						classNames={buttonClasses}
-						style={{
-							...backButtonStyle,
-							display: linkType === "button" ? "block" : "none",
-						}}
-						link={link}
-						buttonText={buttonText}
-						buttonIcon={buttonIcon}
-						displayButtonIcon={displayButtonIcon}
-						buttonIconPos={buttonIconPos}
-					/>
 				</div>
 			</div>
 		</div>

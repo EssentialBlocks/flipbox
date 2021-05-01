@@ -1,4 +1,4 @@
-const { __ } = wp.i18n;
+import { __ } from "@wordpress/i18n";
 
 export const DEFAULT_ICON_SIZE = "100";
 export const DEFAULT_FRONT_BACKGROUND = "#7967ff";
@@ -129,3 +129,9 @@ export const TEXT_DECORATION = [
 	{ label: __("Underline"), value: "underline" },
 	{ label: __("Underline Oveline"), value: "underline overline" },
 ];
+
+export const UNIT_TYPES = [
+	{ label: "px", value: "px" },
+	{ label: "%", value: "%" },
+	{ label: "em", value: "em" }
+  ];

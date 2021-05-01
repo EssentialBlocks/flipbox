@@ -8,7 +8,8 @@ import attributes from "./attributes";
 import example from "./example";
 import icon from "./icon";
 
-registerBlockType("block/flipbox", {
+registerBlockType("flipbox/flipbox-block", {
+	apiVersion: 2,
 	title: __("Flipbox"),
 	description: __("Deliver Your Content Beautifully To Grab Attention"),
 	category: "widgets",

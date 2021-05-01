@@ -1,9 +1,9 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { Fragment } = wp.element;
-const {
+import { __ } from "@wordpress/i18n";
+import { Fragment, useEffect } from "@wordpress/element";
+import {
 	PanelBody,
 	SelectControl,
 	Button,
@@ -14,8 +14,8 @@ const {
 	ButtonGroup,
 	BaseControl,
 	Dropdown,
-} = wp.components;
-const { InspectorControls, MediaUpload } = wp.blockEditor;
+} from "@wordpress/components";
+import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
 
 /*
  * Internal dependencies
@@ -40,15 +40,18 @@ import {
 	FONT_WEIGHTS,
 	TEXT_TRANSFORM,
 	TEXT_DECORATION,
+	UNIT_TYPES
 } from "./constants";
 import { getButtonClasses } from "../util/helper";
 import DimensionsControl from "../util/dimensions-control";
 import UnitControl from "../util/unit-control";
 import FontPicker from "../util/typography-control/FontPicker";
 import ColorControl from "../util/color-control";
+import ResPanelBody from "./ResPanelBody";
 
 const Inspector = ({ attributes, setAttributes }) => {
 	const {
+		resOption,
 		flipboxStyle,
 		boxHeight,
 		boxWidth,
@@ -173,8 +176,32 @@ const Inspector = ({ attributes, setAttributes }) => {
 		containerPaddingRight,
 		containerPaddingBottom,
 		containerPaddingLeft,
+
+		TABcontainerMarginTop,
+		TABcontainerMarginRight,
+		TABcontainerMarginBottom,
+		TABcontainerMarginLeft,
+		TABcontainerPaddingTop,
+		TABcontainerPaddingRight,
+		TABcontainerPaddingBottom,
+		TABcontainerPaddingLeft,
+
+		MOBcontainerMarginTop,
+		MOBcontainerMarginRight,
+		MOBcontainerMarginBottom,
+		MOBcontainerMarginLeft,
+		MOBcontainerPaddingTop,
+		MOBcontainerPaddingRight,
+		MOBcontainerPaddingBottom,
+		MOBcontainerPaddingLeft,
+
+
 		marginUnit,
 		paddingUnit,
+		TABmarginUnit,
+		TABpaddingUnit,
+		MOBmarginUnit,
+		MOBpaddingUnit,
 		radiusUnit,
 		buttonSizeUnit,
 		buttonPaddingUnit,
@@ -223,6 +250,71 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 	const CONTENT_SPACING_STEP = contentLetterSpacingUnit === "em" ? 0.1 : 1;
 	const CONTENT_SPACING_MAX = contentLetterSpacingUnit === "em" ? 10 : 100;
+
+
+		// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class only the first time once
+		useEffect(() => {
+			const bodyClasses = document.body.className;
+	
+			if (!/eb\-res\-option\-/i.test(bodyClasses)) {
+				document.body.classList.add("eb-res-option-desktop");
+				setAttributes({
+					resOption: "desktop",
+				});
+			} else {
+				const resOption = bodyClasses
+					.match(/eb-res-option-[^\s]+/g)[0]
+					.split("-")[3];
+				setAttributes({ resOption });
+			}
+		}, []);
+	
+		// this useEffect is for mimmiking css for all the eb blocks on resOption changing
+		useEffect(() => {
+			const allEbBlocksWrapper = document.querySelectorAll(
+				".eb-guten-block-main-parent-wrapper:not(.is-selected) > style"
+			);
+			if (allEbBlocksWrapper.length < 1) return;
+			allEbBlocksWrapper.forEach((styleTag) => {
+				const cssStrings = styleTag.textContent;
+				const minCss = cssStrings.replace(/\s+/g, " ");
+				const regexCssMimmikSpace = /(?<=mimmikcssStart\s\*\/).+(?=\/\*\smimmikcssEnd)/i;
+				let newCssStrings = " ";
+				if (resOption === "tab") {
+					const tabCssStrings = (minCss.match(
+						/(?<=tabcssStart\s\*\/).+(?=\/\*\stabcssEnd)/i
+					) || [" "])[0];
+					newCssStrings = minCss.replace(regexCssMimmikSpace, tabCssStrings);
+				} else if (resOption === "mobile") {
+					const tabCssStrings = (minCss.match(
+						/(?<=tabcssStart\s\*\/).+(?=\/\*\stabcssEnd)/i
+					) || [" "])[0];
+	
+					const mobCssStrings = (minCss.match(
+						/(?<=mobcssStart\s\*\/).+(?=\/\*\smobcssEnd)/i
+					) || [" "])[0];
+	
+					newCssStrings = minCss.replace(
+						regexCssMimmikSpace,
+						`${tabCssStrings} ${mobCssStrings}`
+					);
+				} else {
+					newCssStrings = minCss.replace(regexCssMimmikSpace, " ");
+				}
+				styleTag.textContent = newCssStrings;
+			});
+		}, [resOption]);
+	
+		const resRequiredProps = {
+			setAttributes,
+			resOption,
+		};
+	
+		const typoRequiredProps = {
+			attributes,
+			setAttributes,
+			resOption,
+		};
 
 	return (
 		<InspectorControls keys="controls">
@@ -1149,60 +1241,154 @@ const Inspector = ({ attributes, setAttributes }) => {
 					</>
 				)}
 
-				<PanelBody title={__("Margin & Padding")} initialOpen={false}>
-					<UnitControl
-						selectedUnit={marginUnit}
-						unitTypes={[
-							{ label: "px", value: "px" },
-							{ label: "em", value: "em" },
-							{ label: "%", value: "%" },
-						]}
-						onClick={(marginUnit) => setAttributes({ marginUnit })}
-					/>
+				<ResPanelBody
+					title={__("Margin & Padding")}
+					initialOpen={false}
+					resRequiredProps={resRequiredProps}
+				>
+					{resOption == "desktop" && (
+						<>
+							<UnitControl
+								selectedUnit={marginUnit}
+								unitTypes={UNIT_TYPES}
+								onClick={(marginUnit) => setAttributes({ marginUnit })}
+							/>
 
-					<DimensionsControl
-						label={__("Margin")}
-						top={containerMarginTop}
-						right={containerMarginRight}
-						bottom={containerMarginBottom}
-						left={containerMarginLeft}
-						onChange={({ top, right, bottom, left }) =>
-							setAttributes({
-								containerMarginTop: top,
-								containerMarginRight: right,
-								containerMarginBottom: bottom,
-								containerMarginLeft: left,
-							})
-						}
-					/>
+							<DimensionsControl
+								label={__("Margin")}
+								top={containerMarginTop}
+								right={containerMarginRight}
+								bottom={containerMarginBottom}
+								left={containerMarginLeft}
+								onChange={({ top, right, bottom, left }) =>
+									setAttributes({
+										containerMarginTop: top,
+										containerMarginRight: right,
+										containerMarginBottom: bottom,
+										containerMarginLeft: left,
+									})
+								}
+							/>
 
-					<UnitControl
-						selectedUnit={paddingUnit}
-						unitTypes={[
-							{ label: "px", value: "px" },
-							{ label: "em", value: "em" },
-							{ label: "%", value: "%" },
-						]}
-						onClick={(paddingUnit) => setAttributes({ paddingUnit })}
-					/>
+							<UnitControl
+								selectedUnit={paddingUnit}
+								unitTypes={UNIT_TYPES}
+								onClick={(paddingUnit) => setAttributes({ paddingUnit })}
+							/>
 
-					<DimensionsControl
-						label={__("Padding")}
-						top={containerPaddingTop}
-						right={containerPaddingRight}
-						bottom={containerPaddingBottom}
-						left={containerPaddingLeft}
-						onChange={({ top, right, bottom, left }) =>
-							setAttributes({
-								containerPaddingTop: top,
-								containerPaddingRight: right,
-								containerPaddingBottom: bottom,
-								containerPaddingLeft: left,
-							})
-						}
-					/>
-				</PanelBody>
+							<DimensionsControl
+								label={__("Padding")}
+								top={containerPaddingTop}
+								right={containerPaddingRight}
+								bottom={containerPaddingBottom}
+								left={containerPaddingLeft}
+								onChange={({ top, right, bottom, left }) =>
+									setAttributes({
+										containerPaddingTop: top,
+										containerPaddingRight: right,
+										containerPaddingBottom: bottom,
+										containerPaddingLeft: left,
+									})
+								}
+							/>
+						</>
+					)}
+					{resOption == "tab" && (
+						<>
+							<UnitControl
+								selectedUnit={TABmarginUnit}
+								unitTypes={UNIT_TYPES}
+								onClick={(TABmarginUnit) => setAttributes({ TABmarginUnit })}
+							/>
 
+							<DimensionsControl
+								label={__("Margin")}
+								top={TABcontainerMarginTop}
+								right={TABcontainerMarginRight}
+								bottom={TABcontainerMarginBottom}
+								left={TABcontainerMarginLeft}
+								onChange={({ top, right, bottom, left }) =>
+									setAttributes({
+										TABcontainerMarginTop: top,
+										TABcontainerMarginRight: right,
+										TABcontainerMarginBottom: bottom,
+										TABcontainerMarginLeft: left,
+									})
+								}
+							/>
+
+							<UnitControl
+								selectedUnit={TABpaddingUnit}
+								unitTypes={UNIT_TYPES}
+								onClick={(TABpaddingUnit) => setAttributes({ TABpaddingUnit })}
+							/>
+
+							<DimensionsControl
+								label={__("Padding")}
+								top={TABcontainerPaddingTop}
+								right={TABcontainerPaddingRight}
+								bottom={TABcontainerPaddingBottom}
+								left={TABcontainerPaddingLeft}
+								onChange={({ top, right, bottom, left }) =>
+									setAttributes({
+										TABcontainerPaddingTop: top,
+										TABcontainerPaddingRight: right,
+										TABcontainerPaddingBottom: bottom,
+										TABcontainerPaddingLeft: left,
+									})
+								}
+							/>
+						</>
+					)}
+					{resOption == "mobile" && (
+						<>
+							<UnitControl
+								selectedUnit={MOBmarginUnit}
+								unitTypes={UNIT_TYPES}
+								onClick={(MOBmarginUnit) => setAttributes({ MOBmarginUnit })}
+							/>
+
+							<DimensionsControl
+								label={__("Margin")}
+								top={MOBcontainerMarginTop}
+								right={MOBcontainerMarginRight}
+								bottom={MOBcontainerMarginBottom}
+								left={MOBcontainerMarginLeft}
+								onChange={({ top, right, bottom, left }) =>
+									setAttributes({
+										MOBcontainerMarginTop: top,
+										MOBcontainerMarginRight: right,
+										MOBcontainerMarginBottom: bottom,
+										MOBcontainerMarginLeft: left,
+									})
+								}
+							/>
+
+							<UnitControl
+								selectedUnit={MOBpaddingUnit}
+								unitTypes={UNIT_TYPES}
+								onClick={(MOBpaddingUnit) => setAttributes({ MOBpaddingUnit })}
+							/>
+
+							<DimensionsControl
+								label={__("Padding")}
+								top={MOBcontainerPaddingTop}
+								right={MOBcontainerPaddingRight}
+								bottom={MOBcontainerPaddingBottom}
+								left={MOBcontainerPaddingLeft}
+								onChange={({ top, right, bottom, left }) =>
+									setAttributes({
+										MOBcontainerPaddingTop: top,
+										MOBcontainerPaddingRight: right,
+										MOBcontainerPaddingBottom: bottom,
+										MOBcontainerPaddingLeft: left,
+									})
+								}
+							/>
+						</>
+					)}
+				</ResPanelBody>
+				
 				<PanelBody title={__("Border Settings")} initialOpen={false}>
 					<SelectControl
 						label={__("Border Style")}

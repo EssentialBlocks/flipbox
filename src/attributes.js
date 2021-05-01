@@ -1,4 +1,23 @@
 const attributes = {
+	// responsive control attributes ⬇
+	resOption: {
+		type: "string",
+		default: "desktop",
+	},
+	// uniqueIdNumber attribute for making unique className
+	uniqueIdNumber: {
+		type: "number",
+	},
+	blockId: {
+		type: "string",
+	},
+	blockRoot: {
+		type: "string",
+		default: "essential_block",
+	},
+	blockMeta: {
+		type: "object",
+	},
 	flipboxStyle: {
 		type: "string",
 		default: "default",
@@ -413,40 +432,80 @@ const attributes = {
 		default: true,
 	},
 	containerMarginTop: {
-		type: "number",
-		default: 0,
+		type: "string",
 	},
 	containerMarginRight: {
-		type: "number",
-		default: 0,
+		type: "string",
 	},
 	containerMarginBottom: {
-		type: "number",
-		default: 0,
+		type: "string",
 	},
 	containerMarginLeft: {
-		type: "number",
-		default: 0,
+		type: "string",
+	},
+	TABcontainerMarginTop: {
+		type: "string",
+	},
+	TABcontainerMarginRight: {
+		type: "string",
+	},
+	TABcontainerMarginBottom: {
+		type: "string",
+	},
+	TABcontainerMarginLeft: {
+		type: "string",
+	},
+	MOBcontainerMarginTop: {
+		type: "string",
+	},
+	MOBcontainerMarginRight: {
+		type: "string",
+	},
+	MOBcontainerMarginBottom: {
+		type: "string",
+	},
+	MOBcontainerMarginLeft: {
+		type: "string",
 	},
 	linkedContainerPadding: {
 		type: "boolean",
 		default: true,
 	},
 	containerPaddingTop: {
-		type: "number",
-		default: 0,
+		type: "string",
 	},
 	containerPaddingRight: {
-		type: "number",
-		default: 0,
+		type: "string",
 	},
 	containerPaddingBottom: {
-		type: "number",
-		default: 0,
+		type: "string",
 	},
 	containerPaddingLeft: {
-		type: "number",
-		default: 0,
+		type: "string",
+	},
+	TABcontainerPaddingTop: {
+		type: "string",
+	},
+	TABcontainerPaddingRight: {
+		type: "string",
+	},
+	TABcontainerPaddingBottom: {
+		type: "string",
+	},
+	TABcontainerPaddingLeft: {
+		type: "string",
+	},
+	MOBcontainerPaddingTop: {
+		type: "string",
+	},
+	MOBcontainerPaddingRight: {
+		type: "string",
+	},
+	MOBcontainerPaddingBottom: {
+		type: "string",
+	},
+	MOBcontainerPaddingLeft: {
+		type: "string",
 	},
 	align: {
 		type: "string",
@@ -457,6 +516,22 @@ const attributes = {
 		default: "px",
 	},
 	paddingUnit: {
+		type: "string",
+		default: "px",
+	},
+	TABmarginUnit: {
+		type: "string",
+		default: "px",
+	},
+	TABpaddingUnit: {
+		type: "string",
+		default: "px",
+	},
+	MOBmarginUnit: {
+		type: "string",
+		default: "px",
+	},
+	MOBpaddingUnit: {
 		type: "string",
 		default: "px",
 	},
