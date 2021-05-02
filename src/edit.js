@@ -25,6 +25,7 @@ import FlipboxWrapper from "./flipbox-wrapper";
 import { getBackgroundImage, getFlipTransform } from "../util/helper";
 import { DEFAULT_ICON_SIZE } from "./constants";
 import Inspector from "./inspector";
+import { typoPrefix_title, typoPrefix_content } from "./typographyPrefixConstants";
 import {
 	softMinifyCssStrings,
 	isCssExists,
@@ -192,14 +193,14 @@ function Edit(props) {
 		buttonPaddingUnit,
 		heightUnit,
 		widthUnit,
-		titleFontFamily,
-		titleFontWeight,
-		titleTextTransform,
-		titleTextDecoration,
-		titleLetterSpacing,
-		titleLetterSpacingUnit,
-		titleLineHeight,
-		titleLineHeightUnit,
+		// titleFontFamily,
+		// titleFontWeight,
+		// titleTextTransform,
+		// titleTextDecoration,
+		// titleLetterSpacing,
+		// titleLetterSpacingUnit,
+		// titleLineHeight,
+		// titleLineHeightUnit,
 		contentFontFamily,
 		contentFontWeight,
 		contentTextTransform,
@@ -321,19 +322,53 @@ function Edit(props) {
 	}
 	`;
 
+	const {
+		typoStylesDesktop: titleTypoStylesDesktop,
+		typoStylesTab: titleTypoStylesTab,
+		typoStylesMobile: titleTypoStylesMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: typoPrefix_title,
+	});
+
+	// prefix title styles css in strings ⬇
+	const titleStylesDesktop = `
+	.${blockId} .${selectedSide}-title {
+		${titleTypoStylesDesktop}
+		color: frontTitleColor || deafultFrontTitleColor;
+		width: "100%";
+		text-align: ${align};
+	}
+	`;
+
+	const titleStylesTab = `
+	.${blockId} .${selectedSide}-title {
+		${titleTypoStylesTab}
+	}
+	`;
+
+	const titleStylesMobile = `
+	.${blockId} .${selectedSide}-title {
+		${titleTypoStylesMobile}
+	}
+	`;
+
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
+		${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
 	`);
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
+		${isCssExists(titleStylesTab) ? titleStylesTab : " "}
 	`);
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleMobile) ? flipContainerStyleMobile : " "}
+		${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
 	`);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {
@@ -422,24 +457,24 @@ function Edit(props) {
 		textAlign: align,
 	};
 
-	const frontTitleStyle = {
-		fontFamily: titleFontFamily,
-		fontSize: titleFontSize
-			? `${titleFontSize}${titleFontSizeUnit}`
-			: undefined,
-		fontWeight: titleFontWeight,
-		textDecoration: titleTextDecoration,
-		textTransform: titleTextTransform,
-		lineHeight: titleLineHeight
-			? `${titleLineHeight}${titleLineHeightUnit}`
-			: undefined,
-		letterSpacing: titleLetterSpacing
-			? `${titleLetterSpacing}${titleLetterSpacingUnit}`
-			: undefined,
-		color: frontTitleColor || deafultFrontTitleColor,
-		width: "100%",
-		textAlign: align,
-	};
+	// const frontTitleStyle = {
+	// 	fontFamily: titleFontFamily,
+	// 	fontSize: titleFontSize
+	// 		? `${titleFontSize}${titleFontSizeUnit}`
+	// 		: undefined,
+	// 	fontWeight: titleFontWeight,
+	// 	textDecoration: titleTextDecoration,
+	// 	textTransform: titleTextTransform,
+	// 	lineHeight: titleLineHeight
+	// 		? `${titleLineHeight}${titleLineHeightUnit}`
+	// 		: undefined,
+	// 	letterSpacing: titleLetterSpacing
+	// 		? `${titleLetterSpacing}${titleLetterSpacingUnit}`
+	// 		: undefined,
+	// 	color: frontTitleColor || deafultFrontTitleColor,
+	// 	width: "100%",
+	// 	textAlign: align,
+	// };
 
 	const frontContentStyle = {
 		fontFamily: contentFontFamily,
@@ -530,24 +565,24 @@ function Edit(props) {
 		textAlign: align,
 	};
 
-	const backTitleStyle = {
-		fontFamily: titleFontFamily,
-		fontSize: titleFontSize
-			? `${titleFontSize}${titleFontSizeUnit}`
-			: undefined,
-		fontWeight: titleFontWeight,
-		textDecoration: titleTextDecoration,
-		textTransform: titleTextTransform,
-		lineHeight: titleLineHeight
-			? `${titleLineHeight}${titleLineHeightUnit}`
-			: undefined,
-		letterSpacing: titleLetterSpacing
-			? `${titleLetterSpacing}${titleLetterSpacingUnit}`
-			: undefined,
-		color: backTitleColor || defaultBackTitleColor,
-		width: "100%",
-		textAlign: align,
-	};
+	// const backTitleStyle = {
+	// 	fontFamily: titleFontFamily,
+	// 	fontSize: titleFontSize
+	// 		? `${titleFontSize}${titleFontSizeUnit}`
+	// 		: undefined,
+	// 	fontWeight: titleFontWeight,
+	// 	textDecoration: titleTextDecoration,
+	// 	textTransform: titleTextTransform,
+	// 	lineHeight: titleLineHeight
+	// 		? `${titleLineHeight}${titleLineHeightUnit}`
+	// 		: undefined,
+	// 	letterSpacing: titleLetterSpacing
+	// 		? `${titleLetterSpacing}${titleLetterSpacingUnit}`
+	// 		: undefined,
+	// 	color: backTitleColor || defaultBackTitleColor,
+	// 	width: "100%",
+	// 	textAlign: align,
+	// };
 
 	const backContentStyle = {
 		fontFamily: contentFontFamily,
@@ -721,7 +756,7 @@ function Edit(props) {
 							iconStyle={frontIconStyle}
 							linkType={linkType}
 							title={frontTitle}
-							titleStyle={frontTitleStyle}
+							// titleStyle={frontTitleStyle}
 							content={frontContent}
 							contentStyle={frontContentStyle}
 						/>

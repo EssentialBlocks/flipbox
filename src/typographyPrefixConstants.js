@@ -1,3 +1,2 @@
-export const typoPrefix_prefixText = "prefixText";
-export const typoPrefix_suffixText = "suffixText";
-export const typoPrefix_typedText = "typedText";
+export const typoPrefix_title = "title";
+export const typoPrefix_content = "content";

@@ -1,3 +1,5 @@
+import * as prefixObjs from "./typographyPrefixConstants";
+import { generateTypographyAttributes } from "./helpers";
 const attributes = {
 	// responsive control attributes ⬇
 	resOption: {
@@ -18,6 +20,8 @@ const attributes = {
 	blockMeta: {
 		type: "object",
 	},
+	// typography attributes ⬇
+	...generateTypographyAttributes(Object.values(prefixObjs)),
 	flipboxStyle: {
 		type: "string",
 		default: "default",

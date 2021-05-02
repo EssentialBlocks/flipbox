@@ -15,7 +15,7 @@ const FlipboxContent = ({
   link,
   imageStyle,
   iconStyle,
-  titleStyle,
+  // titleStyle,
   contentStyle
 }) => (
   <div className="flipbox-items-container">
@@ -39,7 +39,7 @@ const FlipboxContent = ({
       linkType={linkType}
       link={link}
       title={title}
-      titleStyle={titleStyle}
+      // titleStyle={titleStyle}
     />
 
     <p className={`${selectedSide}-content`} style={contentStyle}>
@@ -57,7 +57,7 @@ FlipboxContent.propTypes = {
   iconStyle: PropTypes.object,
   linkType: PropTypes.string,
   title: PropTypes.string,
-  titleStyle: PropTypes.string,
+  // titleStyle: PropTypes.string,
   content: PropTypes.string,
   contentStyle: PropTypes.object
 };
