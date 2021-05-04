@@ -1,5 +1,12 @@
 import * as prefixObjs from "./typographyPrefixConstants";
-import { generateTypographyAttributes } from "./helpers";
+import {
+	dimensionsMargin,
+	dimensionsPadding,
+} from "./dimensionsNames";
+import {
+	generateTypographyAttributes,
+	generateDimensionsAttributes,
+} from "./helpers";
 const attributes = {
 	// responsive control attributes ⬇
 	resOption: {
@@ -22,6 +29,9 @@ const attributes = {
 	},
 	// typography attributes ⬇
 	...generateTypographyAttributes(Object.values(prefixObjs)),
+	// margin padding attributes ⬇
+	...generateDimensionsAttributes(dimensionsMargin),
+	...generateDimensionsAttributes(dimensionsPadding),
 	flipboxStyle: {
 		type: "string",
 		default: "default",

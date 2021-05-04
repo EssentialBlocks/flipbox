@@ -9,6 +9,7 @@ import { useBlockProps } from "@wordpress/block-editor";
 
 const Save = ({ attributes }) => {
 	const {
+		blockId,
 		boxHeight,
 		boxWidth,
 		flipType,
@@ -164,13 +165,13 @@ const Save = ({ attributes }) => {
 	const defaultBackIconBackground = "transparent";
 	const defaultBackIconBorderColor = "#000000";
 
-	const flipContainerStyle = {
-		height: `${boxHeight || 310}${heightUnit}`,
-		maxWidth: `${boxWidth || 600}${widthUnit}`,
-		width: "100%",
-		margin: `${containerMarginTop}${marginUnit} ${containerMarginRight}${marginUnit} ${containerMarginBottom}${marginUnit} ${containerMarginLeft}${marginUnit}`,
-		padding: `${containerPaddingTop}${paddingUnit} ${containerPaddingRight}${paddingUnit} ${containerPaddingBottom}${paddingUnit} ${containerPaddingLeft}${paddingUnit}`,
-	};
+	// const flipContainerStyle = {
+	// 	height: `${boxHeight || 310}${heightUnit}`,
+	// 	maxWidth: `${boxWidth || 600}${widthUnit}`,
+	// 	width: "100%",
+	// 	margin: `${containerMarginTop}${marginUnit} ${containerMarginRight}${marginUnit} ${containerMarginBottom}${marginUnit} ${containerMarginLeft}${marginUnit}`,
+	// 	padding: `${containerPaddingTop}${paddingUnit} ${containerPaddingRight}${paddingUnit} ${containerPaddingBottom}${paddingUnit} ${containerPaddingLeft}${paddingUnit}`,
+	// };
 
 	const flipperStyle = {
 		transition: `${transitionSpeed ? transitionSpeed / 10 : 0.6}s`,
@@ -207,9 +208,8 @@ const Save = ({ attributes }) => {
 		borderColor: borderColor || defaultBorderColor,
 		borderWidth: `${borderWidth || 0}px`,
 		borderRadius: `${borderRadius || 0}${radiusUnit}`,
-		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-			shadowBlur || 0
-		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
+		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
+			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
 	};
 
 	const frontIconStyle = {
@@ -314,9 +314,8 @@ const Save = ({ attributes }) => {
 		transform:
 			(flipType === "flip-up" && "rotateX(180deg)") ||
 			(flipType === "flip-bottom" && "rotateX(-180deg)"),
-		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-			shadowBlur || 0
-		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
+		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
+			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
 		cursor: linkType === "box" && link ? "pointer" : "default",
 	};
 
@@ -392,28 +391,25 @@ const Save = ({ attributes }) => {
 	const backButtonStyle =
 		buttonStyle === "custom"
 			? {
-					background: buttonBackground,
-					color: buttonColor,
-					width: `${buttonSize || 18}${buttonSizeUnit}`,
-					border: `${buttonBorderSize || 0}px ${buttonBorderType} ${
-						buttonBorderColor || defaultButtonBorderColor
+				background: buttonBackground,
+				color: buttonColor,
+				width: `${buttonSize || 18}${buttonSizeUnit}`,
+				border: `${buttonBorderSize || 0}px ${buttonBorderType} ${buttonBorderColor || defaultButtonBorderColor
 					}`,
-					borderRadius: `${buttonBorderRadius || 0}px`,
-					padding: `${buttonPaddingTop}${buttonPaddingUnit} ${buttonPaddingRight}${buttonPaddingUnit} ${buttonPaddingBottom}${buttonPaddingUnit} ${buttonPaddingLeft}${buttonPaddingUnit}`,
-					boxShadow: `${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${
-						btnShadowBlur || 0
-					}px ${btnShadowSpread || 0}px ${
-						btnShadowColor || deafultBtnShadowColor
+				borderRadius: `${buttonBorderRadius || 0}px`,
+				padding: `${buttonPaddingTop}${buttonPaddingUnit} ${buttonPaddingRight}${buttonPaddingUnit} ${buttonPaddingBottom}${buttonPaddingUnit} ${buttonPaddingLeft}${buttonPaddingUnit}`,
+				boxShadow: `${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${btnShadowBlur || 0
+					}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor
 					}`,
-					textDecoration: "none",
-			  }
+				textDecoration: "none",
+			}
 			: {};
 
 	return (
 		<div {...useBlockProps.save()}>
 			<div
-				className="flip-container"
-				style={flipContainerStyle}
+				className={`flip-container ${blockId}`}
+				data-id={blockId}
 				data-flip-type={flipType}
 			>
 				<div className={`flipper ${flipType}`} style={flipperStyle}>
@@ -427,9 +423,9 @@ const Save = ({ attributes }) => {
 							iconStyle={frontIconStyle}
 							linkType={linkType}
 							title={frontTitle}
-							titleStyle={frontTitleStyle}
+							// titleStyle={frontTitleStyle}
 							content={frontContent}
-							contentStyle={frontContentStyle}
+							// contentStyle={frontContentStyle}
 						/>
 					</FlipboxWrapper>
 
@@ -437,9 +433,7 @@ const Save = ({ attributes }) => {
 						className="back"
 						style={backStyle}
 						onClick={
-							linkType === "box" && link
-								? `window.location='${link}'`
-								: undefined
+							linkType === "box" && link ? `window.location='${link}'` : undefined
 						}
 					>
 						<div className="flipbox-items-container">
@@ -460,7 +454,7 @@ const Save = ({ attributes }) => {
 
 							<h3
 								className={`back-title`}
-								style={backTitleStyle}
+								// style={backTitleStyle}
 								onClick={
 									linkType === "title" && link
 										? `window.location='${link}'`
@@ -470,7 +464,7 @@ const Save = ({ attributes }) => {
 								{backTitle}
 							</h3>
 
-							<p className={`back-content`} style={backContentStyle}>
+							<p className={`back-content`}>
 								{backContent}
 							</p>
 						</div>

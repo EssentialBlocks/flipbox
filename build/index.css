@@ -606,4 +606,9 @@ body.eb-res-option-mobile .editor-styles-wrapper {
   left: 83px;
 }
 
+.withResWrapperInDimension .dimention-label {
+  display: inline-block;
+  margin-right: 5px;
+}
+
 /*# sourceMappingURL=index.css.map*/

@@ -25,12 +25,9 @@ import FlipboxWrapper from "./flipbox-wrapper";
 import { getBackgroundImage, getFlipTransform } from "../util/helper";
 import { DEFAULT_ICON_SIZE } from "./constants";
 import Inspector from "./inspector";
+import { dimensionsMargin, dimensionsPadding } from "./dimensionsNames";
 import { typoPrefix_title, typoPrefix_content } from "./typographyPrefixConstants";
-import {
-	softMinifyCssStrings,
-	isCssExists,
-	generateTypographyStyles,
-} from "./helpers";
+import { softMinifyCssStrings, isCssExists, generateTypographyStyles, generateDimensionsControlStyles } from "./helpers";
 
 function Edit(props) {
 	const getImageAlign = (align) => {
@@ -193,14 +190,14 @@ function Edit(props) {
 		buttonPaddingUnit,
 		heightUnit,
 		widthUnit,
-		// titleFontFamily,
-		// titleFontWeight,
-		// titleTextTransform,
-		// titleTextDecoration,
-		// titleLetterSpacing,
-		// titleLetterSpacingUnit,
-		// titleLineHeight,
-		// titleLineHeightUnit,
+		titleFontFamily,
+		titleFontWeight,
+		titleTextTransform,
+		titleTextDecoration,
+		titleLetterSpacing,
+		titleLetterSpacingUnit,
+		titleLineHeight,
+		titleLineHeightUnit,
 		contentFontFamily,
 		contentFontWeight,
 		contentTextTransform,
@@ -228,97 +225,48 @@ function Edit(props) {
 	const defaultBackIconBorderColor = "#000000";
 
 	// wrapper styles css in strings ⬇
+
+	const {
+		dimensionStylesDesktop: wrapperMarginStylesDesktop,
+		dimensionStylesTab: wrapperMarginStylesTab,
+		dimensionStylesMobile: wrapperMarginStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: dimensionsMargin,
+		isStyleForMargin: true,
+		attributes,
+	});
+
+	const {
+		dimensionStylesDesktop: wrapperPaddingStylesDesktop,
+		dimensionStylesTab: wrapperPaddingStylesTab,
+		dimensionStylesMobile: wrapperPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: dimensionsPadding,
+		isStyleForMargin: false,
+		attributes,
+	});
+
 	const flipContainerStyleDesktop = `
 	.${blockId}{
-		${
-			containerMarginTop
-				? `margin-top: ${parseFloat(containerMarginTop)}${marginUnit};`
-				: " "
-		}
-		${
-			containerMarginRight
-				? `margin-right: ${parseFloat(containerMarginRight)}${marginUnit};`
-				: " "
-		}
-		${
-			containerMarginLeft
-				? `margin-left: ${parseFloat(containerMarginLeft)}${marginUnit};`
-				: " "
-		}
-		${
-			containerMarginBottom
-				? `margin-bottom: ${parseFloat(containerMarginBottom)}${marginUnit};`
-				: " "
-		}
-		padding: 
-			${containerPaddingTop || 0}${paddingUnit} 
-			${containerPaddingRight || 0}${paddingUnit} 
-			${containerPaddingBottom || 0}${paddingUnit} 
-			${containerPaddingLeft || 0}${paddingUnit};
-
-			height: ${boxHeight || 310}${heightUnit};
-			max-width: ${boxWidth || 600}${widthUnit};
-			width: 100%;
+		${wrapperMarginStylesDesktop}
+		${wrapperPaddingStylesDesktop}
+		height: ${boxHeight || 310}${heightUnit};
+		max-width: ${boxWidth || 600}${widthUnit};
+		width: 100%;
 	}
 	`;
 
 	const flipContainerStyleTab = `
 	.${blockId}{
-		${
-			TABcontainerMarginTop
-				? `margin-top: ${parseFloat(TABcontainerMarginTop)}${marginUnit};`
-				: " "
-		}
-		${
-			TABcontainerMarginRight
-				? `margin-right: ${parseFloat(TABcontainerMarginRight)}${marginUnit};`
-				: " "
-		}
-		${
-			TABcontainerMarginLeft
-				? `margin-left: ${parseFloat(TABcontainerMarginLeft)}${marginUnit};`
-				: " "
-		}
-		${
-			TABcontainerMarginBottom
-				? `margin-bottom: ${parseFloat(TABcontainerMarginBottom)}${marginUnit};`
-				: " "
-		}
-		padding: 
-			${TABcontainerPaddingTop || 0}${paddingUnit} 
-			${TABcontainerPaddingRight || 0}${paddingUnit} 
-			${TABcontainerPaddingBottom || 0}${paddingUnit} 
-			${TABcontainerPaddingLeft || 0}${paddingUnit};
+		${wrapperMarginStylesTab}
+		${wrapperPaddingStylesTab}
 	}
 	`;
 
 	const flipContainerStyleMobile = `
 	.${blockId}{
-		${
-			MOBcontainerMarginTop
-				? `margin-top: ${parseFloat(MOBcontainerMarginTop)}${marginUnit};`
-				: " "
-		}
-		${
-			MOBcontainerMarginRight
-				? `margin-right: ${parseFloat(MOBcontainerMarginRight)}${marginUnit};`
-				: " "
-		}
-		${
-			MOBcontainerMarginLeft
-				? `margin-left: ${parseFloat(MOBcontainerMarginLeft)}${marginUnit};`
-				: " "
-		}
-		${
-			MOBcontainerMarginBottom
-				? `margin-bottom: ${parseFloat(MOBcontainerMarginBottom)}${marginUnit};`
-				: " "
-		}
-		padding: 
-			${MOBcontainerPaddingTop || 0}${paddingUnit} 
-			${MOBcontainerPaddingRight || 0}${paddingUnit} 
-			${MOBcontainerPaddingBottom || 0}${paddingUnit} 
-			${MOBcontainerPaddingLeft || 0}${paddingUnit};
+		${wrapperMarginStylesMobile}
+		${wrapperPaddingStylesMobile}
 	}
 	`;
 
@@ -333,23 +281,68 @@ function Edit(props) {
 
 	// prefix title styles css in strings ⬇
 	const titleStylesDesktop = `
-	.${blockId} .${selectedSide}-title {
+	.${blockId} .front-title, .${blockId} .back-title {
 		${titleTypoStylesDesktop}
-		color: frontTitleColor || deafultFrontTitleColor;
 		width: "100%";
 		text-align: ${align};
+	}
+
+	.${blockId} .front-title {
+		color: ${frontTitleColor || deafultFrontTitleColor};
+	}
+
+	.${blockId} .back-title {
+		color: ${backTitleColor || defaultBackTitleColor},
 	}
 	`;
 
 	const titleStylesTab = `
-	.${blockId} .${selectedSide}-title {
+	.${blockId} .front-title, .${blockId} .back-title {
 		${titleTypoStylesTab}
 	}
 	`;
 
 	const titleStylesMobile = `
-	.${blockId} .${selectedSide}-title {
+	.${blockId} .front-title, .${blockId} .back-title {
 		${titleTypoStylesMobile}
+	}
+	`;
+
+	const {
+		typoStylesDesktop: contentTypoStylesDesktop,
+		typoStylesTab: contentTypoStylesTab,
+		typoStylesMobile: contentTypoStylesMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: typoPrefix_content,
+	});
+
+	// prefix content styles css in strings ⬇
+	const contentStylesDesktop = `
+	.${blockId} .front-content, .${blockId} .back-content {
+		${contentTypoStylesDesktop}
+		width: "100%";
+		text-align: ${align};
+	}
+
+	.${blockId} .front-content {
+		color: ${frontContentColor || defaultFrontContentColor};
+	}
+
+	.${blockId} .back-content {
+		color: ${backContentColor || defautlBackContentColor},
+	}
+	`;
+
+	const contentStylesTab = `
+	.${blockId} .front-content, .${blockId} .back-content {
+		${contentTypoStylesTab}
+	}
+	`;
+
+	const contentStylesMobile = `
+	.${blockId} .front-content, .${blockId} .back-content {
+		${contentTypoStylesMobile}
 	}
 	`;
 
@@ -357,18 +350,21 @@ function Edit(props) {
 	const desktopAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
 		${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
+		${isCssExists(contentStylesDesktop) ? contentStylesDesktop : " "}
 	`);
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
 		${isCssExists(titleStylesTab) ? titleStylesTab : " "}
+		${isCssExists(contentStylesTab) ? contentStylesTab : " "}
 	`);
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleMobile) ? flipContainerStyleMobile : " "}
 		${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
+		${isCssExists(contentStylesMobile) ? contentStylesMobile : " "}
 	`);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {
@@ -426,9 +422,8 @@ function Edit(props) {
 		borderColor: borderColor || defaultBorderColor,
 		borderWidth: `${borderWidth || 0}px`,
 		borderRadius: `${borderRadius || 0}${radiusUnit}`,
-		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-			shadowBlur || 0
-		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
+		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
+			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
 	};
 
 	const frontImageStyle = {
@@ -476,24 +471,24 @@ function Edit(props) {
 	// 	textAlign: align,
 	// };
 
-	const frontContentStyle = {
-		fontFamily: contentFontFamily,
-		fontSize: contentFontSize
-			? `${contentFontSize}${contentFontSizeUnit}`
-			: undefined,
-		fontWeight: contentFontWeight,
-		textDecoration: contentTextDecoration,
-		textTransform: contentTextTransform,
-		lineHeight: contentLineHeight
-			? `${contentLineHeight}${contentLineHeightUnit}`
-			: undefined,
-		letterSpacing: contentLetterSpacing
-			? `${contentLetterSpacing}${contentLetterSpacingUnit}`
-			: undefined,
-		color: frontContentColor || defaultFrontContentColor,
-		width: "100%",
-		textAlign: align,
-	};
+	// const frontContentStyle = {
+	// 	fontFamily: contentFontFamily,
+	// 	fontSize: contentFontSize
+	// 		? `${contentFontSize}${contentFontSizeUnit}`
+	// 		: undefined,
+	// 	fontWeight: contentFontWeight,
+	// 	textDecoration: contentTextDecoration,
+	// 	textTransform: contentTextTransform,
+	// 	lineHeight: contentLineHeight
+	// 		? `${contentLineHeight}${contentLineHeightUnit}`
+	// 		: undefined,
+	// 	letterSpacing: contentLetterSpacing
+	// 		? `${contentLetterSpacing}${contentLetterSpacingUnit}`
+	// 		: undefined,
+	// 	color: frontContentColor || defaultFrontContentColor,
+	// 	width: "100%",
+	// 	textAlign: align,
+	// };
 
 	const backStyle = {
 		display: "flex",
@@ -533,9 +528,8 @@ function Edit(props) {
 			((flipType === "zoom-in" || flipType === "zoom-out") && "none"),
 		zIndex:
 			isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0),
-		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-			shadowBlur || 0
-		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
+		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
+			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
 		cursor: linkType === "box" && link ? "pointer" : "default",
 	};
 
@@ -584,44 +578,41 @@ function Edit(props) {
 	// 	textAlign: align,
 	// };
 
-	const backContentStyle = {
-		fontFamily: contentFontFamily,
-		fontSize: contentFontSize
-			? `${contentFontSize}${contentFontSizeUnit}`
-			: undefined,
-		fontWeight: contentFontWeight,
-		textDecoration: contentTextDecoration,
-		textTransform: contentTextTransform,
-		lineHeight: contentLineHeight
-			? `${contentLineHeight}${contentLineHeightUnit}`
-			: undefined,
-		letterSpacing: contentLetterSpacing
-			? `${contentLetterSpacing}${contentLetterSpacingUnit}`
-			: undefined,
-		color: backContentColor || defautlBackContentColor,
-		width: "100%",
-		textAlign: align,
-	};
+	// const backContentStyle = {
+	// 	fontFamily: contentFontFamily,
+	// 	fontSize: contentFontSize
+	// 		? `${contentFontSize}${contentFontSizeUnit}`
+	// 		: undefined,
+	// 	fontWeight: contentFontWeight,
+	// 	textDecoration: contentTextDecoration,
+	// 	textTransform: contentTextTransform,
+	// 	lineHeight: contentLineHeight
+	// 		? `${contentLineHeight}${contentLineHeightUnit}`
+	// 		: undefined,
+	// 	letterSpacing: contentLetterSpacing
+	// 		? `${contentLetterSpacing}${contentLetterSpacingUnit}`
+	// 		: undefined,
+	// 	color: backContentColor || defautlBackContentColor,
+	// 	width: "100%",
+	// 	textAlign: align,
+	// };
 
 	// Empty button object for custom styling
 	const backButtonStyle =
 		buttonStyle === "custom"
 			? {
-					background: buttonBackground,
-					color: buttonColor,
-					width: `${buttonSize || 18}${buttonSizeUnit}`,
-					border: `${buttonBorderSize || 0}px ${buttonBorderType} ${
-						buttonBorderColor || defaultButtonBorderColor
+				background: buttonBackground,
+				color: buttonColor,
+				width: `${buttonSize || 18}${buttonSizeUnit}`,
+				border: `${buttonBorderSize || 0}px ${buttonBorderType} ${buttonBorderColor || defaultButtonBorderColor
 					}`,
-					borderRadius: `${buttonBorderRadius || 0}px`,
-					padding: `${buttonPaddingTop}${buttonPaddingUnit} ${buttonPaddingRight}${buttonPaddingUnit} ${buttonPaddingBottom}${buttonPaddingUnit} ${buttonPaddingLeft}${buttonPaddingUnit}`,
-					boxShadow: `${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${
-						btnShadowBlur || 0
-					}px ${btnShadowSpread || 0}px ${
-						btnShadowColor || deafultBtnShadowColor
+				borderRadius: `${buttonBorderRadius || 0}px`,
+				padding: `${buttonPaddingTop}${buttonPaddingUnit} ${buttonPaddingRight}${buttonPaddingUnit} ${buttonPaddingBottom}${buttonPaddingUnit} ${buttonPaddingLeft}${buttonPaddingUnit}`,
+				boxShadow: `${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${btnShadowBlur || 0
+					}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor
 					}`,
-					textDecoration: "none",
-			  }
+				textDecoration: "none",
+			}
 			: {};
 
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
@@ -758,7 +749,7 @@ function Edit(props) {
 							title={frontTitle}
 							// titleStyle={frontTitleStyle}
 							content={frontContent}
-							contentStyle={frontContentStyle}
+							// contentStyle={frontContentStyle}
 						/>
 					</FlipboxWrapper>
 
@@ -772,9 +763,9 @@ function Edit(props) {
 							iconStyle={backIconStyle}
 							linkType={linkType}
 							title={backTitle}
-							titleStyle={backTitleStyle}
+							// titleStyle={backTitleStyle}
 							content={backContent}
-							contentStyle={backContentStyle}
+							// contentStyle={backContentStyle}
 						/>
 
 						<FlipboxButton
