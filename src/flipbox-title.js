@@ -6,7 +6,7 @@ export const FlipboxTitle = ({
   linkType,
   link,
   title,
-  titleStyle
+  // titleStyle
 }) => (
   <Fragment>
     <a
@@ -14,7 +14,7 @@ export const FlipboxTitle = ({
       className="title-link"
       style={{ display: linkType === "title" ? "block" : "none" }}
     >
-      <h3 className={`${selectedSide}-title`} style={titleStyle}>
+      <h3 className={`${selectedSide}-title`}>
         {title}
       </h3>
     </a>
@@ -22,7 +22,6 @@ export const FlipboxTitle = ({
     <h3
       className={`${selectedSide}-title`}
       style={{
-        ...titleStyle,
         display: linkType !== "title" ? "block" : "none"
       }}
     >
@@ -36,5 +35,5 @@ FlipboxTitle.propTypes = {
   linkType: PropTypes.string,
   link: PropTypes.string,
   title: PropTypes.string,
-  titleStyle: PropTypes.object
+  // titleStyle: PropTypes.object
 };

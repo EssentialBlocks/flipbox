@@ -4,55 +4,55 @@ export const generateDimensionsAttributes = (controlName, defaults = {}) => {
 
 	const desktopTop = top
 		? {
-				[`${controlName}Top`]: {
-					type: "string",
-					default: `${top}`,
-				},
-		  }
+			[`${controlName}Top`]: {
+				type: "string",
+				default: `${top}`,
+			},
+		}
 		: {
-				[`${controlName}Top`]: {
-					type: "string",
-				},
-		  };
+			[`${controlName}Top`]: {
+				type: "string",
+			},
+		};
 
 	const desktopRight = right
 		? {
-				[`${controlName}Right`]: {
-					type: "string",
-					default: `${right}`,
-				},
-		  }
+			[`${controlName}Right`]: {
+				type: "string",
+				default: `${right}`,
+			},
+		}
 		: {
-				[`${controlName}Right`]: {
-					type: "string",
-				},
-		  };
+			[`${controlName}Right`]: {
+				type: "string",
+			},
+		};
 
 	const desktopBottom = bottom
 		? {
-				[`${controlName}Bottom`]: {
-					type: "string",
-					default: `${bottom}`,
-				},
-		  }
+			[`${controlName}Bottom`]: {
+				type: "string",
+				default: `${bottom}`,
+			},
+		}
 		: {
-				[`${controlName}Bottom`]: {
-					type: "string",
-				},
-		  };
+			[`${controlName}Bottom`]: {
+				type: "string",
+			},
+		};
 
 	const desktopLeft = left
 		? {
-				[`${controlName}Left`]: {
-					type: "string",
-					default: `${left}`,
-				},
-		  }
+			[`${controlName}Left`]: {
+				type: "string",
+				default: `${left}`,
+			},
+		}
 		: {
-				[`${controlName}Left`]: {
-					type: "string",
-				},
-		  };
+			[`${controlName}Left`]: {
+				type: "string",
+			},
+		};
 
 	return {
 		[`${controlName}Unit`]: {
@@ -272,39 +272,34 @@ export const generateTypographyStyles = ({
 			${fontWeight ? `font-weight: ${fontWeight};` : " "}
 			${textDecoration ? `text-decoration: ${textDecoration};` : " "}
 			${textTransform ? `text-transform: ${textTransform};` : " "}
-			${
-				hasVal(letterSpacing)
-					? `letter-spacing: ${letterSpacing}${letterSpacingUnit};`
-					: " "
-			}
+			${hasVal(letterSpacing)
+			? `letter-spacing: ${letterSpacing}${letterSpacingUnit};`
+			: " "
+		}
 		`;
 
 	const typoStylesTab = `
 			${hasVal(TABfontSize) ? `font-size: ${TABfontSize}${TABsizeUnit};` : " "}
-			${
-				hasVal(TABlineHeight)
-					? `line-height: ${TABlineHeight}${TABlineHeightUnit};`
-					: " "
-			}
-			${
-				hasVal(TABletterSpacing)
-					? `letter-spacing: ${TABletterSpacing}${TABletterSpacingUnit};`
-					: " "
-			}
+			${hasVal(TABlineHeight)
+			? `line-height: ${TABlineHeight}${TABlineHeightUnit};`
+			: " "
+		}
+			${hasVal(TABletterSpacing)
+			? `letter-spacing: ${TABletterSpacing}${TABletterSpacingUnit};`
+			: " "
+		}
 		`;
 
 	const typoStylesMobile = `
 			${hasVal(MOBfontSize) ? `font-size: ${MOBfontSize}${MOBsizeUnit};` : " "}
-			${
-				hasVal(MOBlineHeight)
-					? `line-height: ${MOBlineHeight}${MOBlineHeightUnit};`
-					: " "
-			}
-			${
-				hasVal(MOBletterSpacing)
-					? `letter-spacing: ${MOBletterSpacing}${MOBletterSpacingUnit};`
-					: " "
-			}
+			${hasVal(MOBlineHeight)
+			? `line-height: ${MOBlineHeight}${MOBlineHeightUnit};`
+			: " "
+		}
+			${hasVal(MOBletterSpacing)
+			? `letter-spacing: ${MOBletterSpacing}${MOBletterSpacingUnit};`
+			: " "
+		}
 		`;
 
 	return {
@@ -314,11 +309,10 @@ export const generateTypographyStyles = ({
 	};
 };
 
-//
 // function to generate dimensions-controls styles for an element based on it's controlName(prefix)
 export const generateDimensionsControlStyles = ({
 	controlName,
-	isStyleForMargin,
+	styleFor,
 	attributes,
 }) => {
 	const {
@@ -345,161 +339,161 @@ export const generateDimensionsControlStyles = ({
 	let dimensionStylesTab = " ";
 	let dimensionStylesMobile = " ";
 
-	if (isStyleForMargin === true) {
+	if (styleFor !== "border-radius") {
 		dimensionStylesDesktop = `
-		${
-			dimensionTop
-				? `margin-top: ${parseFloat(dimensionTop)}${dimensionUnit};`
+		${dimensionTop
+				? `${styleFor}-top: ${parseFloat(dimensionTop)}${dimensionUnit};`
 				: " "
-		}
-		${
-			dimensionRight
-				? `margin-right: ${parseFloat(dimensionRight)}${dimensionUnit};`
+			}
+		${dimensionRight
+				? `${styleFor}-right: ${parseFloat(dimensionRight)}${dimensionUnit};`
 				: " "
-		}
-		${
-			dimensionLeft
-				? `margin-left: ${parseFloat(dimensionLeft)}${dimensionUnit};`
+			}
+		${dimensionLeft
+				? `${styleFor}-left: ${parseFloat(dimensionLeft)}${dimensionUnit};`
 				: " "
-		}
-		${
-			dimensionBottom
-				? `margin-bottom: ${parseFloat(dimensionBottom)}${dimensionUnit};`
+			}
+		${dimensionBottom
+				? `${styleFor}-bottom: ${parseFloat(dimensionBottom)}${dimensionUnit};`
 				: " "
-		}
+			}
 	
 		`;
 
 		dimensionStylesTab = `
-			${
-				TABdimensionTop
-					? `margin-top: ${parseFloat(TABdimensionTop)}${TABdimensionUnit};`
-					: " "
+			${TABdimensionTop
+				? `${styleFor}-top: ${parseFloat(
+					TABdimensionTop
+				)}${TABdimensionUnit};`
+				: " "
 			}
-			${
-				TABdimensionRight
-					? `margin-right: ${parseFloat(TABdimensionRight)}${TABdimensionUnit};`
-					: " "
+			${TABdimensionRight
+				? `${styleFor}-right: ${parseFloat(
+					TABdimensionRight
+				)}${TABdimensionUnit};`
+				: " "
 			}
-			${
-				TABdimensionLeft
-					? `margin-left: ${parseFloat(TABdimensionLeft)}${TABdimensionUnit};`
-					: " "
+			${TABdimensionLeft
+				? `${styleFor}-left: ${parseFloat(
+					TABdimensionLeft
+				)}${TABdimensionUnit};`
+				: " "
 			}
-			${
-				TABdimensionBottom
-					? `margin-bottom: ${parseFloat(
-							TABdimensionBottom
-					  )}${TABdimensionUnit};`
-					: " "
+			${TABdimensionBottom
+				? `${styleFor}-bottom: ${parseFloat(
+					TABdimensionBottom
+				)}${TABdimensionUnit};`
+				: " "
 			}
-
 		`;
 
 		dimensionStylesMobile = `
-			${
-				MOBdimensionTop
-					? `margin-top: ${parseFloat(MOBdimensionTop)}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionTop
+				? `${styleFor}-top: ${parseFloat(
+					MOBdimensionTop
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-			${
-				MOBdimensionRight
-					? `margin-right: ${parseFloat(MOBdimensionRight)}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionRight
+				? `${styleFor}-right: ${parseFloat(
+					MOBdimensionRight
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-			${
-				MOBdimensionLeft
-					? `margin-left: ${parseFloat(MOBdimensionLeft)}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionLeft
+				? `${styleFor}-left: ${parseFloat(
+					MOBdimensionLeft
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-			${
-				MOBdimensionBottom
-					? `margin-bottom: ${parseFloat(
-							MOBdimensionBottom
-					  )}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionBottom
+				? `${styleFor}-bottom: ${parseFloat(
+					MOBdimensionBottom
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-
 		`;
 	} else {
 		dimensionStylesDesktop = `
-			${
-				dimensionTop
-					? `padding-top: ${parseFloat(dimensionTop)}${dimensionUnit};`
-					: " "
+			${dimensionTop
+				? `border-top-left-radius: ${parseFloat(
+					dimensionTop
+				)}${dimensionUnit};`
+				: " "
 			}
-			${
-				dimensionRight
-					? `padding-right: ${parseFloat(dimensionRight)}${dimensionUnit};`
-					: " "
+			${dimensionRight
+				? `border-top-right-radius: ${parseFloat(
+					dimensionRight
+				)}${dimensionUnit};`
+				: " "
 			}
-			${
-				dimensionLeft
-					? `padding-left: ${parseFloat(dimensionLeft)}${dimensionUnit};`
-					: " "
+			${dimensionLeft
+				? `border-bottom-right-radius: ${parseFloat(
+					dimensionLeft
+				)}${dimensionUnit};`
+				: " "
 			}
-			${
-				dimensionBottom
-					? `padding-bottom: ${parseFloat(dimensionBottom)}${dimensionUnit};`
-					: " "
+			${dimensionBottom
+				? `border-bottom-left-radius: ${parseFloat(
+					dimensionBottom
+				)}${dimensionUnit};`
+				: " "
 			}
 	
 		`;
 
 		dimensionStylesTab = `
-			${
-				TABdimensionTop
-					? `padding-top: ${parseFloat(TABdimensionTop)}${TABdimensionUnit};`
-					: " "
+			${TABdimensionTop
+				? `border-top-left-radius: ${parseFloat(
+					TABdimensionTop
+				)}${TABdimensionUnit};`
+				: " "
 			}
-			${
-				TABdimensionRight
-					? `padding-right: ${parseFloat(
-							TABdimensionRight
-					  )}${TABdimensionUnit};`
-					: " "
+			${TABdimensionRight
+				? `border-top-right-radius: ${parseFloat(
+					TABdimensionRight
+				)}${TABdimensionUnit};`
+				: " "
 			}
-			${
-				TABdimensionLeft
-					? `padding-left: ${parseFloat(TABdimensionLeft)}${TABdimensionUnit};`
-					: " "
+			${TABdimensionLeft
+				? `border-bottom-right-radius: ${parseFloat(
+					TABdimensionLeft
+				)}${TABdimensionUnit};`
+				: " "
 			}
-			${
-				TABdimensionBottom
-					? `padding-bottom: ${parseFloat(
-							TABdimensionBottom
-					  )}${TABdimensionUnit};`
-					: " "
+			${TABdimensionBottom
+				? `border-bottom-left-radius: ${parseFloat(
+					TABdimensionBottom
+				)}${TABdimensionUnit};`
+				: " "
 			}
-
 		`;
 
 		dimensionStylesMobile = `
-			${
-				MOBdimensionTop
-					? `padding-top: ${parseFloat(MOBdimensionTop)}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionTop
+				? `border-top-left-radius: ${parseFloat(
+					MOBdimensionTop
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-			${
-				MOBdimensionRight
-					? `padding-right: ${parseFloat(
-							MOBdimensionRight
-					  )}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionRight
+				? `border-top-right-radius: ${parseFloat(
+					MOBdimensionRight
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-			${
-				MOBdimensionLeft
-					? `padding-left: ${parseFloat(MOBdimensionLeft)}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionLeft
+				? `border-bottom-right-radius: ${parseFloat(
+					MOBdimensionLeft
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-			${
-				MOBdimensionBottom
-					? `padding-bottom: ${parseFloat(
-							MOBdimensionBottom
-					  )}${MOBdimensionUnit};`
-					: " "
+			${MOBdimensionBottom
+				? `border-bottom-left-radius: ${parseFloat(
+					MOBdimensionBottom
+				)}${MOBdimensionUnit};`
+				: " "
 			}
-
 		`;
 	}
 

@@ -1133,7 +1133,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                                         backBackgroundGradient,
                                     })
                                 }
-                            />   
+                            />
                         </PanelBody>
                     )}
 
@@ -1391,45 +1391,19 @@ const Inspector = ({ attributes, setAttributes }) => {
 
                 <PanelBody title={__("Typography")} initialOpen={false}>
 
-				<TypographyDropdown
-					baseLabel={__("Title", "flipbox")}
-					typographyPrefixConstant={typoPrefix_title}
-					typoRequiredProps={typoRequiredProps}
-				/>
+                    <TypographyDropdown
+                        baseLabel={__("Title", "flipbox")}
+                        typographyPrefixConstant={typoPrefix_title}
+                        typoRequiredProps={typoRequiredProps}
+                    />
 
-				<TypographyDropdown
-					baseLabel={__("Content", "flipbox")}
-					typographyPrefixConstant={typoPrefix_content}
-					typoRequiredProps={typoRequiredProps}
-				/>
+                    <TypographyDropdown
+                        baseLabel={__("Content", "flipbox")}
+                        typographyPrefixConstant={typoPrefix_content}
+                        typoRequiredProps={typoRequiredProps}
+                    />
 
-			</PanelBody> 
-
-                {/* <PanelBody title={__("Font Sizes")} initialOpen={false}>
-                    <ResetControl
-                        onReset={() => setAttributes({ titleFontSize: undefined })}
-                    >
-                        <RangeControl
-                            label={__("Title Font Size")}
-                            value={titleFontSize}
-                            onChange={(titleFontSize) => setAttributes({ titleFontSize })}
-                            min={0}
-                            max={64}
-                        />
-                    </ResetControl>
-
-                    <ResetControl
-                        onReset={() => setAttributes({ contentFontSize: undefined })}
-                    >
-                        <RangeControl
-                            label={__("Content Font Size")}
-                            value={contentFontSize}
-                            onChange={(contentFontSize) => setAttributes({ contentFontSize })}
-                            min={0}
-                            max={64}
-                        />
-                    </ResetControl>
-                </PanelBody> */}
+                </PanelBody>
 
                 <PanelBody title={__("Link Settings")} initialOpen={false}>
                     <BaseControl label={__("Link Type")} id="eb-flipbox-link-type">

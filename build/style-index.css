@@ -1,124 +1,9 @@
-.eb-color-base div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.eb-color-base .components-base-control__label {
-  flex: 10;
-  margin-right: 0px !important;
-  /* There was no other way */
-}
-
-.eb-color-base .components-dropdown {
-  flex: 1;
-}
-
-.eb-color-ball {
-  background-image: linear-gradient(45deg, #ddd 25%, transparent 0), linear-gradient(-45deg, #ddd 25%, transparent 0), linear-gradient(45deg, transparent 75%, #ddd 0), linear-gradient(-45deg, transparent 75%, #ddd 0);
-  background-size: 10px 10px;
-  background-position: 0 0, 0 5px, 5px -5px, -5px 0;
-  border-radius: 50%;
-}
-
-.eb-color-undo {
-  flex: 1;
-  color: gray;
-}
-
-.eb-color-undo :focus,
-.eb-color-undo :hover {
-  box-shadow: none;
-}
-
-.image-avatar {
-  height: 100px;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin-bottom: 8px;
-  padding: 2px;
-}
-
-.input-wrapper {
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-}
-
-.linked-btn {
-  width: 40px;
-  height: 30px;
-  border-radius: 5px;
-  margin-left: 8px;
-  padding-left: 12px;
-}
-
-.dimention-container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
-}
-
-.dimention-label {
-  margin-bottom: 4px;
-  margin-right: 100px;
-}
-
-.dimentions-input-label {
-  font-size: 0.75em;
-  text-align: center;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.input-container .input-wrapper:first-child input {
-  border-width: 1px;
-  border-radius: 5px 0px 0px 5px;
-}
-
-.input-container .input-wrapper input {
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  border-width: 1px 1px 1px 0px;
-  border-color: #8d96a0;
-  border-style: solid;
-  border-radius: 0;
-  width: 100%;
-}
-
-.input-container .input-wrapper:nth-child(4) input {
-  border-radius: 0px 5px 5px 0px;
-}
-
-.eb-unit-control-btn-group {
-  margin: 0px 0px -20px 0px;
-  text-align: right;
-  display: block;
-}
-
-.eb-unit-control-btn {
-  color: black;
-  background: transparent !important;
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  text-shadow: none !important;
-}
-
-.eb-unit-active {
-  color: #0084bc !important;
-  font-weight: bold;
-}
-
+/* entire container, keeps perspective */
 .flip-container {
   perspective: 1000px;
 }
 
+/* flip speed goes here */
 .flipper {
   height: 100%;
   width: 100%;
@@ -126,6 +11,7 @@
   position: relative;
 }
 
+/* hide back of pane during swap */
 .front,
 .back {
   -webkit-backface-visibility: hidden;
@@ -135,33 +21,41 @@
   left: 0;
 }
 
+/* front pane, placed above back */
 .front {
   z-index: 2;
+  /* for firefox 31 */
   transform: rotateY(0deg);
 }
 
+/* back, initially hidden pane */
 .back {
   transform: rotateY(180deg);
 }
 
+/* 
+	--------------------------
+	Flip hover animation types
+	--------------------------
+  */
 .flip-up:hover {
-  transform: rotateX(180deg);
+  transform: rotateX(180deg) !important;
 }
 
 .flip-bottom:hover {
-  transform: rotateX(-180deg);
+  transform: rotateX(-180deg) !important;
 }
 
 .flip-left:hover {
-  transform: rotateY(-180deg);
+  transform: rotateY(-180deg) !important;
 }
 
 .flip-right:hover {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) !important;
 }
 
 .zoom-in:hover {
-  transform: scale(1.1);
+  transform: scale(1.1) !important;
 }
 
 .zoom-in:hover .back {
@@ -170,7 +64,7 @@
 }
 
 .zoom-out:hover {
-  transform: scale(0.8);
+  transform: scale(0.8) !important;
 }
 
 .zoom-out:hover .back {
@@ -191,6 +85,11 @@
   margin: 0 !important;
 }
 
+/* 
+	------------------
+	Flipbox items style 
+	--------------------
+  */
 .flipbox-items-container {
   display: flex;
   flex-direction: column;
@@ -209,6 +108,7 @@
      object-fit: cover;
 }
 
+/* flipbox icon style */
 .flipbox-icon-wrapper {
   height: 1em;
   width: 1em;
@@ -249,6 +149,7 @@
   max-width: 100%;
 }
 
+/* icon position before or after button */
 .before {
   order: 1;
 }
@@ -262,6 +163,11 @@
   padding-top: 4px;
 }
 
+/* 
+	-------------
+	Button Styles
+	-------------
+  */
 .btn-gradient {
   text-decoration: none;
   color: white;
@@ -274,6 +180,7 @@
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
 }
 
+/* Gradient - ugly css is ugly */
 .btn-gradient.cyan {
   background: #1bbcc2;
   background: linear-gradient(#1bbcc2 0%, #18a3a8 100%);
@@ -316,11 +223,6 @@
   background: -webkit-gradient(left top, left bottom, color-stop(0%, #82c8a0), color-stop(100%, #82c79e));
   background: linear-gradient(to bottom, #82c8a0 0%, #7cb995 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#82c8a0", endColorstr="#82c79e", GradientType=0 );
-}
-
-.eb-typography-base div {
-  display: flex;
-  justify-content: space-between;
 }
 .eb-color-base div {
 	display: flex;

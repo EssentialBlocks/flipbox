@@ -208,6 +208,8 @@ function Edit(props) {
 		contentLineHeightUnit,
 	} = attributes;
 
+	console.log(frontImageUrl);
+
 	// Default colors
 	const defaultFrontBackground = "#7967ff";
 	const deafultFrontTitleColor = "#ffffff";
@@ -232,7 +234,7 @@ function Edit(props) {
 		dimensionStylesMobile: wrapperMarginStylesMobile,
 	} = generateDimensionsControlStyles({
 		controlName: dimensionsMargin,
-		isStyleForMargin: true,
+		styleFor: "margin",
 		attributes,
 	});
 
@@ -242,7 +244,7 @@ function Edit(props) {
 		dimensionStylesMobile: wrapperPaddingStylesMobile,
 	} = generateDimensionsControlStyles({
 		controlName: dimensionsPadding,
-		isStyleForMargin: false,
+		styleFor: "padding",
 		attributes,
 	});
 
@@ -346,11 +348,123 @@ function Edit(props) {
 	}
 	`;
 
+	// flipper style
+	const flipperStyle = `
+	.${blockId} .flipper {
+		transform: ${isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none"};
+		transition: ${transitionSpeed ? transitionSpeed / 10 : 0.6}s
+	}
+	`;
+
+	const frontStyleDesktop = `
+	.${blockId} .flipper .front {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: ${boxHeight || 310}${heightUnit};
+		max-width: ${boxWidth || 600}${widthUnit};
+		height: auto;
+		width: 100%;
+		background-image: ${getBackgroundImage(frontBackgroundType, frontBackgroundGradient, frontBackgroundImageURL)};
+		background-size: ${frontBackgroundSize === "custom" ? frontBackgroundWidth + frontBackgroundWidthUnit : frontBackgroundSize};
+		background-position: ${frontBackgroundPosition === "custom" ? frontBackgroundPosX + frontBackgroundPosXUnit + " " + frontBackgroundPosY + frontBackgroundPosYUnit : frontBackgroundPosition};
+		background-repeat: ${frontBackgroundRepeat};
+		background-color: ${frontBackgroundType === "fill" && frontBackground ? frontBackground : defaultFrontBackground};
+		border-style: ${borderStyle};
+		border-color: ${borderColor || defaultBorderColor};
+		border-width: ${borderWidth || 0}px;
+		border-radius: ${borderRadius || 0}${radiusUnit};
+		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+	}`;
+
+	const frontImageStyleDesktop = `
+	.${blockId} .front .front-image-container {
+		align-self: ${getImageAlign(align)};
+		display: ${frontIconOrImage === "image" && frontImageUrl ? "block" : "none"};
+	}
+
+	.${blockId} .front .front-image-container img {
+		height: ${frontImageSize || 100}px;
+		width: ${frontImageSize || 100}px;
+		border-radius: ${frontImageRadius || 0}%;
+	}
+	`;
+
+
+	const backStyle = {
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "center",
+		alignItems: "center",
+		minHeight: `${boxHeight || 310}${heightUnit}`,
+		maxWidth: `${boxWidth || 600}${widthUnit}`,
+		height: "auto",
+		width: "100%",
+		backgroundImage: getBackgroundImage(
+			backBackgroundType,
+			backBackgroundGradient,
+			backBackgroundImageURL
+		),
+		backgroundSize:
+			backBackgroundSize === "custom"
+				? `${backBackgroundWidth}${backBackgroundWidthUnit}`
+				: backBackgroundSize,
+		backgroundPosition:
+			backBackgroundPosition === "custom"
+				? `${backBackgroundPosX}${backBackgroundPosXUnit} ${backBackgroundPosY}${backBackgroundPosYUnit}`
+				: backBackgroundPosition,
+		backgroundRepeat: backBackgroundRepeat,
+		backgroundColor:
+			backBackgroundType === "fill" && backBackground
+				? backBackground
+				: defaultBackBackground,
+		borderStyle: borderStyle,
+		bordercolor: borderColor || defaultBorderColor,
+		borderWidth: `${borderWidth || 0}px`,
+		borderRadius: `${borderRadius || 0}${radiusUnit}`,
+		//  ? move it to helper file
+		transform:
+			(flipType === "flip-up" && "rotateX(-180deg)") ||
+			(flipType === "flip-bottom" && "rotateX(180deg)") ||
+			((flipType === "zoom-in" || flipType === "zoom-out") && "none"),
+		zIndex:
+			isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0),
+		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
+			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
+		cursor: linkType === "box" && link ? "pointer" : "default",
+	};
+
+	const backStyleDesktop = `
+	.${blockId} .flipper .front {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: ${boxHeight || 310}${heightUnit};
+		max-width: ${boxWidth || 600}${widthUnit};
+		height: auto;
+		width: 100%;
+		background-image: ${getBackgroundImage(frontBackgroundType, frontBackgroundGradient, frontBackgroundImageURL)};
+		background-size: ${frontBackgroundSize === "custom" ? frontBackgroundWidth + frontBackgroundWidthUnit : frontBackgroundSize};
+		background-position: ${frontBackgroundPosition === "custom" ? frontBackgroundPosX + frontBackgroundPosXUnit + " " + frontBackgroundPosY + frontBackgroundPosYUnit : frontBackgroundPosition};
+		background-repeat: ${frontBackgroundRepeat};
+		background-color: ${frontBackgroundType === "fill" && frontBackground ? frontBackground : defaultFrontBackground};
+		border-style: ${borderStyle};
+		border-color: ${borderColor || defaultBorderColor};
+		border-width: ${borderWidth || 0}px;
+		border-radius: ${borderRadius || 0}${radiusUnit};
+		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+	}`;
+
+
+
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
 		${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
 		${isCssExists(contentStylesDesktop) ? contentStylesDesktop : " "}
+		${isCssExists(flipperStyle) ? flipperStyle : " "}
+		${isCssExists(frontStyleDesktop) ? frontStyleDesktop : " "}
+		${isCssExists(frontImageStyleDesktop) ? frontImageStyleDesktop : " "}
 	`);
 
 	// all css styles for Tab in strings ⬇
@@ -377,66 +491,6 @@ function Edit(props) {
 			setAttributes({ blockMeta: styleObject });
 		}
 	}, [attributes]);
-
-	// const flipContainerStyle = {
-	// 	height: `${boxHeight || 310}${heightUnit}`,
-	// 	maxWidth: `${boxWidth || 600}${widthUnit}`,
-	// 	width: "100%",
-	// 	margin: `${containerMarginTop}${marginUnit} ${containerMarginRight}${marginUnit} ${containerMarginBottom}${marginUnit} ${containerMarginLeft}${marginUnit}`,
-	// 	padding: `${containerPaddingTop}${paddingUnit} ${containerPaddingRight}${paddingUnit} ${containerPaddingBottom}${paddingUnit} ${containerPaddingLeft}${paddingUnit}`,
-	// };
-
-	const flipperStyle = {
-		transform:
-			isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none",
-		transition: `${transitionSpeed ? transitionSpeed / 10 : 0.6}s`,
-	};
-
-	const frontStyle = {
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center",
-		minHeight: `${boxHeight || 310}${heightUnit}`,
-		maxWidth: `${boxWidth || 600}${widthUnit}`,
-		height: "auto",
-		width: "100%",
-		backgroundImage: getBackgroundImage(
-			frontBackgroundType,
-			frontBackgroundGradient,
-			frontBackgroundImageURL
-		),
-		backgroundSize:
-			frontBackgroundSize === "custom"
-				? `${frontBackgroundWidth}${frontBackgroundWidthUnit}`
-				: frontBackgroundSize,
-		backgroundPosition:
-			frontBackgroundPosition === "custom"
-				? `${frontBackgroundPosX}${frontBackgroundPosXUnit} ${frontBackgroundPosY}${frontBackgroundPosYUnit}`
-				: frontBackgroundPosition,
-		backgroundRepeat: frontBackgroundRepeat,
-		backgroundColor:
-			frontBackgroundType === "fill" && frontBackground
-				? frontBackground
-				: defaultFrontBackground,
-		borderStyle: borderStyle,
-		borderColor: borderColor || defaultBorderColor,
-		borderWidth: `${borderWidth || 0}px`,
-		borderRadius: `${borderRadius || 0}${radiusUnit}`,
-		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
-			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
-	};
-
-	const frontImageStyle = {
-		wrapper: {
-			alignSelf: getImageAlign(align),
-			display: frontIconOrImage === "image" && frontImageUrl ? "block" : "none",
-		},
-		image: {
-			height: `${frontImageSize || 100}px`,
-			width: `${frontImageSize || 100}px`,
-			borderRadius: `${frontImageRadius || 0}%`,
-		},
-	};
 
 	const frontIconStyle = {
 		fontSize: `${frontIconSize || DEFAULT_ICON_SIZE}px`,
@@ -490,48 +544,7 @@ function Edit(props) {
 	// 	textAlign: align,
 	// };
 
-	const backStyle = {
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		minHeight: `${boxHeight || 310}${heightUnit}`,
-		maxWidth: `${boxWidth || 600}${widthUnit}`,
-		height: "auto",
-		width: "100%",
-		backgroundImage: getBackgroundImage(
-			backBackgroundType,
-			backBackgroundGradient,
-			backBackgroundImageURL
-		),
-		backgroundSize:
-			backBackgroundSize === "custom"
-				? `${backBackgroundWidth}${backBackgroundWidthUnit}`
-				: backBackgroundSize,
-		backgroundPosition:
-			backBackgroundPosition === "custom"
-				? `${backBackgroundPosX}${backBackgroundPosXUnit} ${backBackgroundPosY}${backBackgroundPosYUnit}`
-				: backBackgroundPosition,
-		backgroundRepeat: backBackgroundRepeat,
-		backgroundColor:
-			backBackgroundType === "fill" && backBackground
-				? backBackground
-				: defaultBackBackground,
-		borderStyle: borderStyle,
-		bordercolor: borderColor || defaultBorderColor,
-		borderWidth: `${borderWidth || 0}px`,
-		borderRadius: `${borderRadius || 0}${radiusUnit}`,
-		//  ? move it to helper file
-		transform:
-			(flipType === "flip-up" && "rotateX(-180deg)") ||
-			(flipType === "flip-bottom" && "rotateX(180deg)") ||
-			((flipType === "zoom-in" || flipType === "zoom-out") && "none"),
-		zIndex:
-			isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0),
-		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
-			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
-		cursor: linkType === "box" && link ? "pointer" : "default",
-	};
+	
 
 	const backImageStyle = {
 		wrapper: {
@@ -736,20 +749,20 @@ function Edit(props) {
 				onMouseEnter={() => setAttributes({ isHover: true })}
 				onMouseLeave={() => setAttributes({ isHover: false })}
 			>
-				<div className="flipper" style={flipperStyle}>
-					<FlipboxWrapper className="front" style={frontStyle}>
+				<div className="flipper">
+					<FlipboxWrapper className="front">
 						<FlipboxContent
 							selectedSide={selectedSide}
 							iconOrImage={frontIconOrImage}
 							imageUrl={frontImageUrl}
-							imageStyle={frontImageStyle}
+							// imageStyle={frontImageStyle}
 							icon={frontIcon}
 							iconStyle={frontIconStyle}
 							linkType={linkType}
 							title={frontTitle}
 							// titleStyle={frontTitleStyle}
 							content={frontContent}
-							// contentStyle={frontContentStyle}
+						// contentStyle={frontContentStyle}
 						/>
 					</FlipboxWrapper>
 
@@ -765,7 +778,7 @@ function Edit(props) {
 							title={backTitle}
 							// titleStyle={backTitleStyle}
 							content={backContent}
-							// contentStyle={backContentStyle}
+						// contentStyle={backContentStyle}
 						/>
 
 						<FlipboxButton

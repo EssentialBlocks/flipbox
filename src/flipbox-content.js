@@ -13,7 +13,7 @@ const FlipboxContent = ({
   content,
   linkType,
   link,
-  imageStyle,
+  // imageStyle,
   iconStyle,
   // titleStyle,
   contentStyle
@@ -22,7 +22,7 @@ const FlipboxContent = ({
     <FlipboxImage
       selectedSide={selectedSide}
       url={imageUrl}
-      style={imageStyle}
+      // style={imageStyle}
     />
 
     <FlipboxIcon
@@ -52,7 +52,7 @@ FlipboxContent.propTypes = {
   selectedSide: PropTypes.string,
   iconOrImage: PropTypes.string,
   imageUrl: PropTypes.string,
-  imageStyle: PropTypes.object,
+  // imageStyle: PropTypes.object,
   icon: PropTypes.string,
   iconStyle: PropTypes.object,
   linkType: PropTypes.string,
