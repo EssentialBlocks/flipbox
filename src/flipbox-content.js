@@ -14,7 +14,7 @@ const FlipboxContent = ({
   linkType,
   link,
   // imageStyle,
-  iconStyle,
+  // iconStyle,
   // titleStyle,
   contentStyle
 }) => (
@@ -28,10 +28,6 @@ const FlipboxContent = ({
     <FlipboxIcon
       selectedSide={selectedSide}
       icon={icon}
-      style={{
-        ...iconStyle,
-        display: iconOrImage === "icon" && icon ? "block" : "none"
-      }}
     />
 
     <FlipboxTitle
@@ -54,7 +50,7 @@ FlipboxContent.propTypes = {
   imageUrl: PropTypes.string,
   // imageStyle: PropTypes.object,
   icon: PropTypes.string,
-  iconStyle: PropTypes.object,
+  // iconStyle: PropTypes.object,
   linkType: PropTypes.string,
   title: PropTypes.string,
   // titleStyle: PropTypes.string,

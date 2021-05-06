@@ -13,7 +13,7 @@ export const FlipboxButton = ({
     <a
       className={`${classNames}  flipbox-button-link`}
       href={link ? link : "#"}
-      style={style}
+      // style={style}
     >
       <div
         style={{

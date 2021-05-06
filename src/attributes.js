@@ -2,6 +2,7 @@ import * as prefixObjs from "./typographyPrefixConstants";
 import {
 	dimensionsMargin,
 	dimensionsPadding,
+	buttonPadding
 } from "./dimensionsNames";
 import {
 	generateTypographyAttributes,
@@ -32,6 +33,7 @@ const attributes = {
 	// margin padding attributes ⬇
 	...generateDimensionsAttributes(dimensionsMargin),
 	...generateDimensionsAttributes(dimensionsPadding),
+	...generateDimensionsAttributes(buttonPadding),
 	flipboxStyle: {
 		type: "string",
 		default: "default",
@@ -353,6 +355,7 @@ const attributes = {
 	},
 	frontBackgroundPosition: {
 		type: "string",
+		default: "initial"
 	},
 	frontBackgroundPosX: {
 		type: "number",
@@ -383,6 +386,7 @@ const attributes = {
 	},
 	frontBackgroundRepeat: {
 		type: "string",
+		default: "initial"
 	},
 	backBackgroundImageID: {
 		type: "number",
@@ -392,6 +396,7 @@ const attributes = {
 	},
 	backBackgroundPosition: {
 		type: "string",
+		default: "initial"
 	},
 	backBackgroundPosX: {
 		type: "number",
@@ -418,6 +423,7 @@ const attributes = {
 	},
 	backBackgroundRepeat: {
 		type: "string",
+		default: "initial"
 	},
 	backBackgroundSize: {
 		type: "string",

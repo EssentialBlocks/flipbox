@@ -51,7 +51,7 @@ import ColorControl from "../util/color-control";
 import ResetControl from "../util/reset-control";
 import ToggleButton from "../util/toggle-button";
 import ResPanelBody from "./ResPanelBody";
-import { dimensionsMargin, dimensionsPadding } from "./dimensionsNames";
+import { dimensionsMargin, dimensionsPadding, buttonPadding } from "./dimensionsNames";
 import {
     typoPrefix_title,
     typoPrefix_content
@@ -1492,7 +1492,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                                     </PanelBody>
 
                                     <PanelBody title={__("Button Padding")} initialOpen={false}>
-                                        <UnitControl
+                                        {/* <UnitControl
                                             selectedUnit={buttonPaddingUnit}
                                             unitTypes={[
                                                 { label: "px", value: "px" },
@@ -1518,7 +1518,17 @@ const Inspector = ({ attributes, setAttributes }) => {
                                                     buttonPaddingLeft: left,
                                                 })
                                             }
+                                        /> */}
+
+
+                                        <ResponsiveDimensionsControl
+                                            resRequiredProps={resRequiredProps}
+                                            className="forWrapperPadding"
+                                            controlName={buttonPadding}
+                                            baseLabel="Padding"
                                         />
+
+
                                     </PanelBody>
 
                                     <PanelBody title={__("Button Border")} initialOpen={false}>

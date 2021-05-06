@@ -25,7 +25,7 @@ import FlipboxWrapper from "./flipbox-wrapper";
 import { getBackgroundImage, getFlipTransform } from "../util/helper";
 import { DEFAULT_ICON_SIZE } from "./constants";
 import Inspector from "./inspector";
-import { dimensionsMargin, dimensionsPadding } from "./dimensionsNames";
+import { dimensionsMargin, dimensionsPadding, buttonPadding } from "./dimensionsNames";
 import { typoPrefix_title, typoPrefix_content } from "./typographyPrefixConstants";
 import { softMinifyCssStrings, isCssExists, generateTypographyStyles, generateDimensionsControlStyles } from "./helpers";
 
@@ -208,7 +208,6 @@ function Edit(props) {
 		contentLineHeightUnit,
 	} = attributes;
 
-	console.log(frontImageUrl);
 
 	// Default colors
 	const defaultFrontBackground = "#7967ff";
@@ -294,7 +293,7 @@ function Edit(props) {
 	}
 
 	.${blockId} .back-title {
-		color: ${backTitleColor || defaultBackTitleColor},
+		color: ${backTitleColor || defaultBackTitleColor};
 	}
 	`;
 
@@ -332,7 +331,7 @@ function Edit(props) {
 	}
 
 	.${blockId} .back-content {
-		color: ${backContentColor || defautlBackContentColor},
+		color: ${backContentColor || defautlBackContentColor};
 	}
 	`;
 
@@ -347,7 +346,7 @@ function Edit(props) {
 		${contentTypoStylesMobile}
 	}
 	`;
-
+	
 	// flipper style
 	const flipperStyle = `
 	.${blockId} .flipper {
@@ -378,7 +377,7 @@ function Edit(props) {
 	}`;
 
 	const frontImageStyleDesktop = `
-	.${blockId} .front .front-image-container {
+	.${blockId} .front .front-image-container, .${blockId} .back .front-image-container {
 		align-self: ${getImageAlign(align)};
 		display: ${frontIconOrImage === "image" && frontImageUrl ? "block" : "none"};
 	}
@@ -390,72 +389,122 @@ function Edit(props) {
 	}
 	`;
 
-
-	const backStyle = {
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		minHeight: `${boxHeight || 310}${heightUnit}`,
-		maxWidth: `${boxWidth || 600}${widthUnit}`,
-		height: "auto",
-		width: "100%",
-		backgroundImage: getBackgroundImage(
-			backBackgroundType,
-			backBackgroundGradient,
-			backBackgroundImageURL
-		),
-		backgroundSize:
-			backBackgroundSize === "custom"
-				? `${backBackgroundWidth}${backBackgroundWidthUnit}`
-				: backBackgroundSize,
-		backgroundPosition:
-			backBackgroundPosition === "custom"
-				? `${backBackgroundPosX}${backBackgroundPosXUnit} ${backBackgroundPosY}${backBackgroundPosYUnit}`
-				: backBackgroundPosition,
-		backgroundRepeat: backBackgroundRepeat,
-		backgroundColor:
-			backBackgroundType === "fill" && backBackground
-				? backBackground
-				: defaultBackBackground,
-		borderStyle: borderStyle,
-		bordercolor: borderColor || defaultBorderColor,
-		borderWidth: `${borderWidth || 0}px`,
-		borderRadius: `${borderRadius || 0}${radiusUnit}`,
-		//  ? move it to helper file
-		transform:
-			(flipType === "flip-up" && "rotateX(-180deg)") ||
-			(flipType === "flip-bottom" && "rotateX(180deg)") ||
-			((flipType === "zoom-in" || flipType === "zoom-out") && "none"),
-		zIndex:
-			isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0),
-		boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
-			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
-		cursor: linkType === "box" && link ? "pointer" : "default",
-	};
-
 	const backStyleDesktop = `
-	.${blockId} .flipper .front {
+	.${blockId} .flipper .back {
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		min-height: ${boxHeight || 310}${heightUnit};
 		max-width: ${boxWidth || 600}${widthUnit};
 		height: auto;
 		width: 100%;
-		background-image: ${getBackgroundImage(frontBackgroundType, frontBackgroundGradient, frontBackgroundImageURL)};
-		background-size: ${frontBackgroundSize === "custom" ? frontBackgroundWidth + frontBackgroundWidthUnit : frontBackgroundSize};
-		background-position: ${frontBackgroundPosition === "custom" ? frontBackgroundPosX + frontBackgroundPosXUnit + " " + frontBackgroundPosY + frontBackgroundPosYUnit : frontBackgroundPosition};
-		background-repeat: ${frontBackgroundRepeat};
-		background-color: ${frontBackgroundType === "fill" && frontBackground ? frontBackground : defaultFrontBackground};
+		background-image: ${getBackgroundImage(backBackgroundType, backBackgroundGradient, backBackgroundImageURL)};
+		background-size: ${backBackgroundSize === "custom" ? backBackgroundWidth + backBackgroundWidthUnit : backBackgroundSize};
+		background-position: ${backBackgroundPosition === "custom" ? backBackgroundPosX + backBackgroundPosXUnit + " " + backBackgroundPosY + backBackgroundPosYUnit : backBackgroundPosition};
+		background-repeat: ${backBackgroundRepeat};
+		background-color: ${backBackgroundType === "fill" && backBackground ? backBackground : defaultBackBackground};
 		border-style: ${borderStyle};
 		border-color: ${borderColor || defaultBorderColor};
 		border-width: ${borderWidth || 0}px;
 		border-radius: ${borderRadius || 0}${radiusUnit};
 		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+		transform:  ${(flipType === "flip-up" && "rotateX(-180deg)") || (flipType === "flip-bottom" && "rotateX(180deg)") || ((flipType === "zoom-in" || flipType === "zoom-out") && "none")};
+		z-index: ${isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0)};
+		cursor: ${linkType === "box" && link ? "pointer" : "default"};
 	}`;
 
+	const frontIconStyleDesktop = `
+		.${blockId} .flipbox-icon-wrapper-front {
+			font-size: ${frontIconSize || DEFAULT_ICON_SIZE}px;
+			color: ${frontIconColor || "#ffffff"};
+			border-radius: ${frontIconBorderRadius || 0}px;
+			background: ${frontIconBackground || defaultFrontIconBackground};
+			padding: ${frontIconPadding || 0}px;
+			margin-top: ${frontIconTopMargin || 0}px;
+			border-style: ${frontIconBorderType};
+			border-color: ${frontIconBorderColor || defaultFrontIconBorderColor};
+			border-width: ${frontIconBorderSize || 0}px;
+			width: 100%;
+			text-align:${align};
+			display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
+		}
+	`;
 
+	const backImageStyleDesktop = `
+	.${blockId} .back .back-image-container {
+		align-self: ${getImageAlign(align)};
+		display: ${backIconOrImage === "image" && backImageUrl ? "block" : "none"};
+	}
+
+	.${blockId} .back .back-image-container img {
+		height: ${backImageSize || 100}px;
+		width: ${backImageSize || 100}px;
+		border-radius: ${backImageRadius || 0}%;
+	}
+	`;
+
+	const backIconStyleDesktop = `
+	.${blockId} .flipbox-icon-wrapper-back {
+		font-size: ${backIconSize || DEFAULT_ICON_SIZE}px;
+		color: ${backIconColor || "#ffffff"};
+		border-radius:${backIconBorderRadius || 0}%;
+		background: ${backIconBackground || defaultBackIconBackground};
+		padding: ${backIconPadding || 0}px;
+		margin-top: ${backIconTopMargin || 0}px;
+		border-style: ${backIconBorderType};
+		border-color: ${backIconBorderColor || defaultBackIconBorderColor};
+		border-width: ${backIconBorderSize || 0}px;
+		width: 100%;
+		text-align: ${align};
+	}
+	`;
+	console.log(buttonStyle);
+	console.log('link type', linkType);
+	const backButtonStyleDisplay = `
+	.${blockId} .flipbox-button-container .flipbox-button-link {
+		display: ${linkType === "button" ? "block" : "none"};
+	}
+	`;
+	let backButtonStyleDesktop, backButtonStyleTab, backButtonStyleMobile = '';
+	if (buttonStyle === 'custom') {
+		const {
+			dimensionStylesDesktop: buttonPaddingStylesDesktop,
+			dimensionStylesTab: buttonPaddingStylesTab,
+			dimensionStylesMobile: buttonPaddingStylesMobile,
+		} = generateDimensionsControlStyles({
+			controlName: buttonPadding,
+			styleFor: "padding",
+			attributes,
+		});
+
+		
+
+		backButtonStyleDesktop = `
+		.${blockId} .flipbox-button-container .flipbox-button-link {
+			${buttonPaddingStylesDesktop}
+			background: ${buttonBackground};
+			color: ${buttonColor};
+			width: ${buttonSize || 18}${buttonSizeUnit};
+			border: ${buttonBorderSize || 0}px ${buttonBorderType} ${buttonBorderColor || defaultButtonBorderColor };
+			border-radius: ${buttonBorderRadius || 0}px;
+			box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${btnShadowBlur || 0 }px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor };
+			text-decoration: none;
+		}
+		`;
+
+		backButtonStyleTab = `
+		.${blockId} .flipbox-button-container .flipbox-button-link {
+			${buttonPaddingStylesTab}
+		}
+		`;
+
+		backButtonStyleMobile = `
+		.${blockId} .flipbox-button-container .flipbox-button-link {
+			${buttonPaddingStylesMobile}
+		}
+		`;
+	}
 
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
@@ -465,13 +514,20 @@ function Edit(props) {
 		${isCssExists(flipperStyle) ? flipperStyle : " "}
 		${isCssExists(frontStyleDesktop) ? frontStyleDesktop : " "}
 		${isCssExists(frontImageStyleDesktop) ? frontImageStyleDesktop : " "}
+		${isCssExists(frontIconStyleDesktop) ? frontIconStyleDesktop : " "}
+		${isCssExists(backStyleDesktop) ? backStyleDesktop : " "}
+		${isCssExists(backImageStyleDesktop) ? backImageStyleDesktop : " "}
+		${isCssExists(backIconStyleDesktop) ? backIconStyleDesktop : " "}
+		${isCssExists(backButtonStyleDisplay) ? backButtonStyleDisplay : " "}
+		${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
 	`);
 
-	// all css styles for Tab in strings ⬇
+	// all css styles for Tab in strings ⬇ 
 	const tabAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
 		${isCssExists(titleStylesTab) ? titleStylesTab : " "}
 		${isCssExists(contentStylesTab) ? contentStylesTab : " "}
+		${isCssExists(backButtonStyleTab) ? backButtonStyleTab : " "}
 	`);
 
 	// all css styles for Mobile in strings ⬇
@@ -479,6 +535,7 @@ function Edit(props) {
 		${isCssExists(flipContainerStyleMobile) ? flipContainerStyleMobile : " "}
 		${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
 		${isCssExists(contentStylesMobile) ? contentStylesMobile : " "}
+		${isCssExists(backButtonStyleMobile) ? backButtonStyleMobile : " "}
 	`);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {
@@ -491,142 +548,6 @@ function Edit(props) {
 			setAttributes({ blockMeta: styleObject });
 		}
 	}, [attributes]);
-
-	const frontIconStyle = {
-		fontSize: `${frontIconSize || DEFAULT_ICON_SIZE}px`,
-		color: frontIconColor || "#ffffff",
-		borderRadius: `${frontIconBorderRadius || 0}px`,
-		background: frontIconBackground || defaultFrontIconBackground,
-		padding: `${frontIconPadding || 0}px`,
-		marginTop: `${frontIconTopMargin || 0}px`,
-		borderStyle: frontIconBorderType,
-		borderColor: frontIconBorderColor || defaultFrontIconBorderColor,
-		borderWidth: `${frontIconBorderSize || 0}px`,
-		width: "100%",
-		textAlign: align,
-	};
-
-	// const frontTitleStyle = {
-	// 	fontFamily: titleFontFamily,
-	// 	fontSize: titleFontSize
-	// 		? `${titleFontSize}${titleFontSizeUnit}`
-	// 		: undefined,
-	// 	fontWeight: titleFontWeight,
-	// 	textDecoration: titleTextDecoration,
-	// 	textTransform: titleTextTransform,
-	// 	lineHeight: titleLineHeight
-	// 		? `${titleLineHeight}${titleLineHeightUnit}`
-	// 		: undefined,
-	// 	letterSpacing: titleLetterSpacing
-	// 		? `${titleLetterSpacing}${titleLetterSpacingUnit}`
-	// 		: undefined,
-	// 	color: frontTitleColor || deafultFrontTitleColor,
-	// 	width: "100%",
-	// 	textAlign: align,
-	// };
-
-	// const frontContentStyle = {
-	// 	fontFamily: contentFontFamily,
-	// 	fontSize: contentFontSize
-	// 		? `${contentFontSize}${contentFontSizeUnit}`
-	// 		: undefined,
-	// 	fontWeight: contentFontWeight,
-	// 	textDecoration: contentTextDecoration,
-	// 	textTransform: contentTextTransform,
-	// 	lineHeight: contentLineHeight
-	// 		? `${contentLineHeight}${contentLineHeightUnit}`
-	// 		: undefined,
-	// 	letterSpacing: contentLetterSpacing
-	// 		? `${contentLetterSpacing}${contentLetterSpacingUnit}`
-	// 		: undefined,
-	// 	color: frontContentColor || defaultFrontContentColor,
-	// 	width: "100%",
-	// 	textAlign: align,
-	// };
-
-	
-
-	const backImageStyle = {
-		wrapper: {
-			alignSelf: getImageAlign(align),
-			display: backIconOrImage === "image" && backImageUrl ? "block" : "none",
-		},
-		image: {
-			height: `${backImageSize || 100}px`,
-			width: `${backImageSize || 100}px`,
-			borderRadius: `${backImageRadius || 0}%`,
-		},
-	};
-
-	const backIconStyle = {
-		fontSize: `${backIconSize || DEFAULT_ICON_SIZE}px`,
-		color: backIconColor || "#ffffff",
-		borderRadius: `${backIconBorderRadius || 0}%`,
-		background: backIconBackground || defaultBackIconBackground,
-		padding: `${backIconPadding || 0}px`,
-		marginTop: `${backIconTopMargin || 0}px`,
-		borderStyle: backIconBorderType,
-		borderColor: backIconBorderColor || defaultBackIconBorderColor,
-		borderWidth: `${backIconBorderSize || 0}px`,
-		width: "100%",
-		textAlign: align,
-	};
-
-	// const backTitleStyle = {
-	// 	fontFamily: titleFontFamily,
-	// 	fontSize: titleFontSize
-	// 		? `${titleFontSize}${titleFontSizeUnit}`
-	// 		: undefined,
-	// 	fontWeight: titleFontWeight,
-	// 	textDecoration: titleTextDecoration,
-	// 	textTransform: titleTextTransform,
-	// 	lineHeight: titleLineHeight
-	// 		? `${titleLineHeight}${titleLineHeightUnit}`
-	// 		: undefined,
-	// 	letterSpacing: titleLetterSpacing
-	// 		? `${titleLetterSpacing}${titleLetterSpacingUnit}`
-	// 		: undefined,
-	// 	color: backTitleColor || defaultBackTitleColor,
-	// 	width: "100%",
-	// 	textAlign: align,
-	// };
-
-	// const backContentStyle = {
-	// 	fontFamily: contentFontFamily,
-	// 	fontSize: contentFontSize
-	// 		? `${contentFontSize}${contentFontSizeUnit}`
-	// 		: undefined,
-	// 	fontWeight: contentFontWeight,
-	// 	textDecoration: contentTextDecoration,
-	// 	textTransform: contentTextTransform,
-	// 	lineHeight: contentLineHeight
-	// 		? `${contentLineHeight}${contentLineHeightUnit}`
-	// 		: undefined,
-	// 	letterSpacing: contentLetterSpacing
-	// 		? `${contentLetterSpacing}${contentLetterSpacingUnit}`
-	// 		: undefined,
-	// 	color: backContentColor || defautlBackContentColor,
-	// 	width: "100%",
-	// 	textAlign: align,
-	// };
-
-	// Empty button object for custom styling
-	const backButtonStyle =
-		buttonStyle === "custom"
-			? {
-				background: buttonBackground,
-				color: buttonColor,
-				width: `${buttonSize || 18}${buttonSizeUnit}`,
-				border: `${buttonBorderSize || 0}px ${buttonBorderType} ${buttonBorderColor || defaultButtonBorderColor
-					}`,
-				borderRadius: `${buttonBorderRadius || 0}px`,
-				padding: `${buttonPaddingTop}${buttonPaddingUnit} ${buttonPaddingRight}${buttonPaddingUnit} ${buttonPaddingBottom}${buttonPaddingUnit} ${buttonPaddingLeft}${buttonPaddingUnit}`,
-				boxShadow: `${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${btnShadowBlur || 0
-					}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor
-					}`,
-				textDecoration: "none",
-			}
-			: {};
 
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
 	useEffect(() => {
@@ -755,39 +676,27 @@ function Edit(props) {
 							selectedSide={selectedSide}
 							iconOrImage={frontIconOrImage}
 							imageUrl={frontImageUrl}
-							// imageStyle={frontImageStyle}
 							icon={frontIcon}
-							iconStyle={frontIconStyle}
 							linkType={linkType}
 							title={frontTitle}
-							// titleStyle={frontTitleStyle}
 							content={frontContent}
-						// contentStyle={frontContentStyle}
 						/>
 					</FlipboxWrapper>
 
-					<div className="back" style={backStyle}>
+					<div className="back">
 						<FlipboxContent
 							selectedSide={selectedSide}
 							iconOrImage={backIconOrImage}
 							imageUrl={backImageUrl}
-							imageStyle={backImageStyle}
 							icon={backIcon}
-							iconStyle={backIconStyle}
 							linkType={linkType}
 							title={backTitle}
-							// titleStyle={backTitleStyle}
 							content={backContent}
-						// contentStyle={backContentStyle}
 						/>
 
 						<FlipboxButton
 							link={link}
 							classNames={buttonClasses}
-							style={{
-								...backButtonStyle,
-								display: linkType === "button" ? "block" : "none",
-							}}
 							displayButtonIcon={displayButtonIcon}
 							buttonText={buttonText}
 							buttonIcon={buttonIcon}
