@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
 
-export const DEFAULT_ICON_SIZE = "100";
+export const DEFAULT_ICON_SIZE = "50";
 export const DEFAULT_FRONT_BACKGROUND = "#7967ff";
 export const DEFAULT_BACK_BACKGROUND = "#4a5059";
 

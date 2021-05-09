@@ -1,9 +1,8 @@
 import React from "react";
 
-export const FlipboxIcon = ({ selectedSide, icon, style }) => (
+export const FlipboxIcon = ({ selectedSide, icon }) => (
 	<div
 		className={`flipbox-icon-wrapper-${selectedSide}`}
-		style={style}
 		data-icon={icon}
 	>
 		<span className={icon} />

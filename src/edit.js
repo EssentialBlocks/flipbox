@@ -1,7 +1,6 @@
 /**
  * WordPress dependencits
  */
-
 import { __ } from "@wordpress/i18n";
 import { Toolbar, ToolbarButton } from "@wordpress/components";
 import {
@@ -25,9 +24,21 @@ import FlipboxWrapper from "./flipbox-wrapper";
 import { getBackgroundImage, getFlipTransform } from "../util/helper";
 import { DEFAULT_ICON_SIZE } from "./constants";
 import Inspector from "./inspector";
-import { dimensionsMargin, dimensionsPadding, buttonPadding } from "./dimensionsNames";
-import { typoPrefix_title, typoPrefix_content } from "./typographyPrefixConstants";
-import { softMinifyCssStrings, isCssExists, generateTypographyStyles, generateDimensionsControlStyles } from "./helpers";
+import {
+	dimensionsMargin,
+	dimensionsPadding,
+	buttonPadding,
+} from "./dimensionsNames";
+import {
+	typoPrefix_title,
+	typoPrefix_content,
+} from "./typographyPrefixConstants";
+import {
+	softMinifyCssStrings,
+	isCssExists,
+	generateTypographyStyles,
+	generateDimensionsControlStyles,
+} from "./helpers";
 
 function Edit(props) {
 	const getImageAlign = (align) => {
@@ -47,7 +58,6 @@ function Edit(props) {
 		blockMeta,
 		// responsive control attribute ⬇
 		resOption,
-		flipboxStyle,
 		boxHeight,
 		boxWidth,
 		isHover,
@@ -56,11 +66,9 @@ function Edit(props) {
 		frontIconOrImage,
 		frontIcon,
 		frontImageUrl,
-		frontImageId,
 		backIconOrImage,
 		backIcon,
 		backImageUrl,
-		backImageId,
 		frontTitle,
 		frontContent,
 		backTitle,
@@ -73,14 +81,15 @@ function Edit(props) {
 		borderColor,
 		borderWidth,
 		borderRadius,
-		addLink,
 		linkType,
 		buttonText,
 		buttonIcon,
 		buttonIconPos,
 		link,
 		frontTitleColor,
+		frontOpacityColor,
 		backTitleColor,
+		backOpacityColor,
 		frontContentColor,
 		backContentColor,
 		frontImageRadius,
@@ -103,10 +112,6 @@ function Edit(props) {
 		buttonBorderColor,
 		buttonBorderType,
 		buttonBorderRadius,
-		buttonPaddingTop,
-		buttonPaddingRight,
-		buttonPaddingBottom,
-		buttonPaddingLeft,
 		btnShadowColor,
 		btnShadowVOffset,
 		btnShadowHOffset,
@@ -131,7 +136,6 @@ function Edit(props) {
 		backBackgroundType,
 		backBackgroundGradient,
 		transitionSpeed,
-		frontBackgroundImageID,
 		frontBackgroundImageURL,
 		frontBackgroundPosition,
 		frontBackgroundPosX,
@@ -142,7 +146,6 @@ function Edit(props) {
 		frontBackgroundWidth,
 		frontBackgroundWidthUnit,
 		frontBackgroundRepeat,
-		backBackgroundImageID,
 		backBackgroundImageURL,
 		backBackgroundPosition,
 		backBackgroundPosX,
@@ -154,67 +157,17 @@ function Edit(props) {
 		backBackgroundWidthUnit,
 		backBackgroundRepeat,
 		displayButtonIcon,
-		titleFontSize,
-		titleFontSizeUnit,
-		contentFontSize,
-		contentFontSizeUnit,
-		containerMarginTop,
-		containerMarginRight,
-		containerMarginBottom,
-		containerMarginLeft,
-		containerPaddingTop,
-		containerPaddingRight,
-		containerPaddingBottom,
-		containerPaddingLeft,
-		TABcontainerMarginTop,
-		TABcontainerMarginRight,
-		TABcontainerMarginBottom,
-		TABcontainerMarginLeft,
-		TABcontainerPaddingTop,
-		TABcontainerPaddingRight,
-		TABcontainerPaddingBottom,
-		TABcontainerPaddingLeft,
-		MOBcontainerMarginTop,
-		MOBcontainerMarginRight,
-		MOBcontainerMarginBottom,
-		MOBcontainerMarginLeft,
-		MOBcontainerPaddingTop,
-		MOBcontainerPaddingRight,
-		MOBcontainerPaddingBottom,
-		MOBcontainerPaddingLeft,
 		align,
-		marginUnit,
-		paddingUnit,
 		radiusUnit,
 		buttonSizeUnit,
-		buttonPaddingUnit,
 		heightUnit,
 		widthUnit,
-		titleFontFamily,
-		titleFontWeight,
-		titleTextTransform,
-		titleTextDecoration,
-		titleLetterSpacing,
-		titleLetterSpacingUnit,
-		titleLineHeight,
-		titleLineHeightUnit,
-		contentFontFamily,
-		contentFontWeight,
-		contentTextTransform,
-		contentTextDecoration,
-		contentLetterSpacing,
-		contentLetterSpacingUnit,
-		contentLineHeight,
-		contentLineHeightUnit,
 	} = attributes;
 
-
 	// Default colors
-	const defaultFrontBackground = "#7967ff";
 	const deafultFrontTitleColor = "#ffffff";
 	const defaultFrontContentColor = "#ffffff";
 	const defautlBackContentColor = "#ffffff";
-	const defaultBackBackground = "#3074ff";
 	const defaultBackTitleColor = "#ffffff";
 	const defaultBorderColor = "#000000";
 	const defaultBoxShadowColor = "#abb8c3";
@@ -226,7 +179,6 @@ function Edit(props) {
 	const defaultBackIconBorderColor = "#000000";
 
 	// wrapper styles css in strings ⬇
-
 	const {
 		dimensionStylesDesktop: wrapperMarginStylesDesktop,
 		dimensionStylesTab: wrapperMarginStylesTab,
@@ -284,16 +236,22 @@ function Edit(props) {
 	const titleStylesDesktop = `
 	.${blockId} .front-title, .${blockId} .back-title {
 		${titleTypoStylesDesktop}
-		width: "100%";
+		width: 100%;
 		text-align: ${align};
 	}
 
 	.${blockId} .front-title {
 		color: ${frontTitleColor || deafultFrontTitleColor};
+		display: ${linkType !== "title" ? "block" : "none"};
 	}
 
 	.${blockId} .back-title {
 		color: ${backTitleColor || defaultBackTitleColor};
+		display: ${linkType !== "title" ? "block" : "none"};
+	}
+
+	.${blockId} .front .title-link, .${blockId} .front .title-link .front-title, .${blockId} .back .title-link, .${blockId} .back .title-link .back-title {
+		display: ${linkType === "title" ? "block" : "none"};
 	}
 	`;
 
@@ -322,7 +280,7 @@ function Edit(props) {
 	const contentStylesDesktop = `
 	.${blockId} .front-content, .${blockId} .back-content {
 		${contentTypoStylesDesktop}
-		width: "100%";
+		width: 100%;
 		text-align: ${align};
 	}
 
@@ -346,12 +304,15 @@ function Edit(props) {
 		${contentTypoStylesMobile}
 	}
 	`;
-	
+
 	// flipper style
 	const flipperStyle = `
 	.${blockId} .flipper {
-		transform: ${isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none"};
 		transition: ${transitionSpeed ? transitionSpeed / 10 : 0.6}s
+	}
+	.${blockId} .flipper.back-is-selected {
+		transform:
+		 	${isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none"};
 	}
 	`;
 
@@ -364,17 +325,46 @@ function Edit(props) {
 		max-width: ${boxWidth || 600}${widthUnit};
 		height: auto;
 		width: 100%;
-		background-image: ${getBackgroundImage(frontBackgroundType, frontBackgroundGradient, frontBackgroundImageURL)};
-		background-size: ${frontBackgroundSize === "custom" ? frontBackgroundWidth + frontBackgroundWidthUnit : frontBackgroundSize};
-		background-position: ${frontBackgroundPosition === "custom" ? frontBackgroundPosX + frontBackgroundPosXUnit + " " + frontBackgroundPosY + frontBackgroundPosYUnit : frontBackgroundPosition};
+		background-image: ${getBackgroundImage(
+			frontBackgroundType,
+			frontBackgroundGradient,
+			frontBackgroundImageURL
+		)};
+		background-size: ${
+			frontBackgroundSize === "custom"
+				? frontBackgroundWidth + frontBackgroundWidthUnit
+				: frontBackgroundSize
+		};
+		background-position: ${
+			frontBackgroundPosition === "custom"
+				? frontBackgroundPosX +
+				  frontBackgroundPosXUnit +
+				  " " +
+				  frontBackgroundPosY +
+				  frontBackgroundPosYUnit
+				: frontBackgroundPosition
+		};
 		background-repeat: ${frontBackgroundRepeat};
-		background-color: ${frontBackgroundType === "fill" && frontBackground ? frontBackground : defaultFrontBackground};
+		${frontBackgroundType === 'fill' ? 'background-color:' + frontBackground + ';' : ''}
 		border-style: ${borderStyle};
 		border-color: ${borderColor || defaultBorderColor};
 		border-width: ${borderWidth || 0}px;
 		border-radius: ${borderRadius || 0}${radiusUnit};
-		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
-	}`;
+		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
+		shadowBlur || 0
+	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+	}
+	.${blockId} .flipper .front::before {
+		content: "";
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		left: 0px;
+		${frontBackgroundType === 'image' ? 'background-color:' + frontOpacityColor + ';' : ''}
+		z-index: -99999;
+	}
+	`;
 
 	const frontImageStyleDesktop = `
 	.${blockId} .front .front-image-container, .${blockId} .back .front-image-container {
@@ -399,20 +389,55 @@ function Edit(props) {
 		max-width: ${boxWidth || 600}${widthUnit};
 		height: auto;
 		width: 100%;
-		background-image: ${getBackgroundImage(backBackgroundType, backBackgroundGradient, backBackgroundImageURL)};
-		background-size: ${backBackgroundSize === "custom" ? backBackgroundWidth + backBackgroundWidthUnit : backBackgroundSize};
-		background-position: ${backBackgroundPosition === "custom" ? backBackgroundPosX + backBackgroundPosXUnit + " " + backBackgroundPosY + backBackgroundPosYUnit : backBackgroundPosition};
+		background-image: ${getBackgroundImage(
+			backBackgroundType,
+			backBackgroundGradient,
+			backBackgroundImageURL
+		)};
+		background-size: ${
+			backBackgroundSize === "custom"
+				? backBackgroundWidth + backBackgroundWidthUnit
+				: backBackgroundSize
+		};
+		background-position: ${
+			backBackgroundPosition === "custom"
+				? backBackgroundPosX +
+				  backBackgroundPosXUnit +
+				  " " +
+				  backBackgroundPosY +
+				  backBackgroundPosYUnit
+				: backBackgroundPosition
+		};
 		background-repeat: ${backBackgroundRepeat};
-		background-color: ${backBackgroundType === "fill" && backBackground ? backBackground : defaultBackBackground};
+		${backBackgroundType === 'fill' ? 'background-color:' + backBackground + ';' : ''}
 		border-style: ${borderStyle};
 		border-color: ${borderColor || defaultBorderColor};
 		border-width: ${borderWidth || 0}px;
 		border-radius: ${borderRadius || 0}${radiusUnit};
-		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
-		transform:  ${(flipType === "flip-up" && "rotateX(-180deg)") || (flipType === "flip-bottom" && "rotateX(180deg)") || ((flipType === "zoom-in" || flipType === "zoom-out") && "none")};
-		z-index: ${isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0)};
+		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
+		shadowBlur || 0
+	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+		transform:  ${
+			(flipType === "flip-up" && "rotateX(-180deg)") ||
+			(flipType === "flip-bottom" && "rotateX(180deg)") ||
+			((flipType === "zoom-in" || flipType === "zoom-out") && "none")
+		};
 		cursor: ${linkType === "box" && link ? "pointer" : "default"};
-	}`;
+		position: relative;
+		${isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? 'z-index: 5;' : ''}
+	}
+	
+	.${blockId} .flipper .back::before {
+		content: "";
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		left: 0px;
+		${backBackgroundType === 'image' ? 'background-color:' + backOpacityColor + ';' : ''}
+		z-index: -99999;
+	}
+	`;
 
 	const frontIconStyleDesktop = `
 		.${blockId} .flipbox-icon-wrapper-front {
@@ -457,17 +482,19 @@ function Edit(props) {
 		border-width: ${backIconBorderSize || 0}px;
 		width: 100%;
 		text-align: ${align};
+		display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
 	}
 	`;
-	console.log(buttonStyle);
-	console.log('link type', linkType);
+
 	const backButtonStyleDisplay = `
 	.${blockId} .flipbox-button-container .flipbox-button-link {
 		display: ${linkType === "button" ? "block" : "none"};
 	}
 	`;
-	let backButtonStyleDesktop, backButtonStyleTab, backButtonStyleMobile = '';
-	if (buttonStyle === 'custom') {
+	let backButtonStyleDesktop,
+		backButtonStyleTab,
+		backButtonStyleMobile = "";
+	if (buttonStyle === "custom") {
 		const {
 			dimensionStylesDesktop: buttonPaddingStylesDesktop,
 			dimensionStylesTab: buttonPaddingStylesTab,
@@ -478,18 +505,30 @@ function Edit(props) {
 			attributes,
 		});
 
-		
-
 		backButtonStyleDesktop = `
 		.${blockId} .flipbox-button-container .flipbox-button-link {
 			${buttonPaddingStylesDesktop}
 			background: ${buttonBackground};
 			color: ${buttonColor};
 			width: ${buttonSize || 18}${buttonSizeUnit};
-			border: ${buttonBorderSize || 0}px ${buttonBorderType} ${buttonBorderColor || defaultButtonBorderColor };
+			border: ${buttonBorderSize || 0}px ${buttonBorderType} ${
+			buttonBorderColor || defaultButtonBorderColor
+		};
 			border-radius: ${buttonBorderRadius || 0}px;
-			box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${btnShadowBlur || 0 }px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor };
+			box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${
+			btnShadowBlur || 0
+		}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor};
 			text-decoration: none;
+		}
+
+		.${blockId} .flipbox-button-container .flipbox-button-content {
+			display: flex;
+			flex-direction: ${buttonIconPos === "after" ? "row" : "row-reverse"};
+			justify-content: space-around;
+		}
+
+		.${blockId} .flipbox-button-container .flipbox-button-content .flipbox-button-icon {
+			display: ${displayButtonIcon ? "block" : "none" };
 		}
 		`;
 
@@ -522,7 +561,7 @@ function Edit(props) {
 		${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
 	`);
 
-	// all css styles for Tab in strings ⬇ 
+	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
 		${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
 		${isCssExists(titleStylesTab) ? titleStylesTab : " "}
@@ -666,18 +705,23 @@ function Edit(props) {
 				`}
 			</style>
 			<div
-				className={`flip-container ${blockId}`} data-id={blockId}
+				className={`flip-container ${blockId}`}
+				data-id={blockId}
 				onMouseEnter={() => setAttributes({ isHover: true })}
 				onMouseLeave={() => setAttributes({ isHover: false })}
 			>
-				<div className="flipper">
+				<div
+					className={`flipper${
+						isHover || selectedSide === "back" ? " back-is-selected" : ""
+					}`}
+				>
 					<FlipboxWrapper className="front">
 						<FlipboxContent
-							selectedSide={selectedSide}
-							iconOrImage={frontIconOrImage}
+							selectedSide="front"
 							imageUrl={frontImageUrl}
 							icon={frontIcon}
 							linkType={linkType}
+							link={link}
 							title={frontTitle}
 							content={frontContent}
 						/>
@@ -685,11 +729,11 @@ function Edit(props) {
 
 					<div className="back">
 						<FlipboxContent
-							selectedSide={selectedSide}
-							iconOrImage={backIconOrImage}
+							selectedSide="back"
 							imageUrl={backImageUrl}
 							icon={backIcon}
 							linkType={linkType}
+							link={link}
 							title={backTitle}
 							content={backContent}
 						/>
@@ -697,10 +741,8 @@ function Edit(props) {
 						<FlipboxButton
 							link={link}
 							classNames={buttonClasses}
-							displayButtonIcon={displayButtonIcon}
 							buttonText={buttonText}
 							buttonIcon={buttonIcon}
-							buttonIconPos={buttonIconPos}
 						/>
 					</div>
 				</div>

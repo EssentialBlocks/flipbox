@@ -127,9 +127,11 @@ const attributes = {
 	},
 	frontBackground: {
 		type: "string",
+		default: "#7967ff"
 	},
 	backBackground: {
 		type: "string",
+		default: "#3074ff"
 	},
 	borderStyle: {
 		type: "string",
@@ -169,8 +171,16 @@ const attributes = {
 	frontTitleColor: {
 		type: "string",
 	},
+	frontOpacityColor: {
+		type: "string",
+		default: "rgba(121, 103, 255, 0.5)"
+	},
 	backTitleColor: {
 		type: "string",
+	},
+	backOpacityColor: {
+		type: "string",
+		default: "rgba(48, 116, 255, 0.5)"
 	},
 	frontContentColor: {
 		type: "string",

@@ -50,7 +50,6 @@ import UnitControl from "../util/unit-control";
 import ColorControl from "../util/color-control";
 import ResetControl from "../util/reset-control";
 import ToggleButton from "../util/toggle-button";
-import ResPanelBody from "./ResPanelBody";
 import { dimensionsMargin, dimensionsPadding, buttonPadding } from "./dimensionsNames";
 import {
     typoPrefix_title,
@@ -60,10 +59,8 @@ import {
 const Inspector = ({ attributes, setAttributes }) => {
     const {
         resOption,
-        flipboxStyle,
         boxHeight,
         boxWidth,
-        isHover,
         flipType,
         selectedSide,
         frontIconOrImage,
@@ -86,14 +83,15 @@ const Inspector = ({ attributes, setAttributes }) => {
         borderColor,
         borderWidth,
         borderRadius,
-        addLink,
         linkType,
         buttonText,
         buttonIcon,
         buttonIconPos,
         link,
         frontTitleColor,
+        frontOpacityColor,
         backTitleColor,
+        backOpacityColor,
         frontContentColor,
         backContentColor,
         frontImageRadius,
@@ -108,7 +106,6 @@ const Inspector = ({ attributes, setAttributes }) => {
         shadowSpread,
         shadowBlur,
         buttonStyle,
-        buttonClasses,
         buttonBackground,
         buttonColor,
         buttonSize,
@@ -116,10 +113,6 @@ const Inspector = ({ attributes, setAttributes }) => {
         buttonBorderColor,
         buttonBorderType,
         buttonBorderRadius,
-        buttonPaddingTop,
-        buttonPaddingRight,
-        buttonPaddingBottom,
-        buttonPaddingLeft,
         btnShadowColor,
         btnShadowVOffset,
         btnShadowHOffset,
@@ -132,7 +125,6 @@ const Inspector = ({ attributes, setAttributes }) => {
         frontIconBorderSize,
         frontIconBorderType,
         frontIconBorderColor,
-        displayFrontIconBorder,
         backIconBackground,
         backIconPadding,
         backIconBorderRadius,
@@ -140,7 +132,6 @@ const Inspector = ({ attributes, setAttributes }) => {
         backIconBorderSize,
         backIconBorderType,
         backIconBorderColor,
-        displayBackIconBorder,
         frontBackgroundType,
         frontBackgroundGradient,
         backBackgroundType,
@@ -169,68 +160,10 @@ const Inspector = ({ attributes, setAttributes }) => {
         backBackgroundWidthUnit,
         backBackgroundRepeat,
         displayButtonIcon,
-        linkedButtonPadding,
-        titleFontSize,
-        titleFontSizeUnit,
-        contentFontSize,
-        contentFontSizeUnit,
-        linkedContainerMargin,
-        containerMarginTop,
-        containerMarginRight,
-        containerMarginBottom,
-        containerMarginLeft,
-        linkedContainerPadding,
-        containerPaddingTop,
-        containerPaddingRight,
-        containerPaddingBottom,
-        containerPaddingLeft,
-
-        TABcontainerMarginTop,
-        TABcontainerMarginRight,
-        TABcontainerMarginBottom,
-        TABcontainerMarginLeft,
-        TABcontainerPaddingTop,
-        TABcontainerPaddingRight,
-        TABcontainerPaddingBottom,
-        TABcontainerPaddingLeft,
-
-        MOBcontainerMarginTop,
-        MOBcontainerMarginRight,
-        MOBcontainerMarginBottom,
-        MOBcontainerMarginLeft,
-        MOBcontainerPaddingTop,
-        MOBcontainerPaddingRight,
-        MOBcontainerPaddingBottom,
-        MOBcontainerPaddingLeft,
-
-
-        marginUnit,
-        paddingUnit,
-        TABmarginUnit,
-        TABpaddingUnit,
-        MOBmarginUnit,
-        MOBpaddingUnit,
         radiusUnit,
         buttonSizeUnit,
-        buttonPaddingUnit,
         heightUnit,
         widthUnit,
-        titleFontFamily,
-        titleFontWeight,
-        titleTextTransform,
-        titleTextDecoration,
-        titleLetterSpacing,
-        titleLetterSpacingUnit,
-        titleLineHeight,
-        titleLineHeightUnit,
-        contentFontFamily,
-        contentFontWeight,
-        contentTextTransform,
-        contentTextDecoration,
-        contentLetterSpacing,
-        contentLetterSpacingUnit,
-        contentLineHeight,
-        contentLineHeightUnit,
     } = attributes;
 
     // Genereate different button styles
@@ -240,25 +173,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 
         setAttributes({ buttonStyle, buttonClasses });
     };
-
-    const TITLE_SIZE_STEP = titleFontSizeUnit === "em" ? 0.1 : 1;
-    const TITLE_SIZE_MAX = titleFontSizeUnit === "em" ? 10 : 100;
-
-    const TITLE_LINE_HEIGHT_STEP = titleLineHeightUnit === "em" ? 0.1 : 1;
-    const TITLE_LINE_HEIGHT_MAX = titleLineHeightUnit === "em" ? 10 : 100;
-
-    const TITLE_SPACING_STEP = titleLetterSpacingUnit === "em" ? 0.1 : 1;
-    const TITLE_SPACING_MAX = titleLetterSpacingUnit === "em" ? 10 : 100;
-
-    const CONTENT_SIZE_STEP = contentFontSizeUnit === "em" ? 0.1 : 1;
-    const CONTENT_SIZE_MAX = contentFontSizeUnit === "em" ? 10 : 100;
-
-    const CONTENT_LINE_HEIGHT_STEP = contentLineHeightUnit === "em" ? 0.1 : 1;
-    const CONTENT_LINE_HEIGHT_MAX = contentLineHeightUnit === "em" ? 10 : 100;
-
-    const CONTENT_SPACING_STEP = contentLetterSpacingUnit === "em" ? 0.1 : 1;
-    const CONTENT_SPACING_MAX = contentLetterSpacingUnit === "em" ? 10 : 100;
-
 
     // this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class only the first time once
     useEffect(() => {
@@ -1069,6 +983,14 @@ const Inspector = ({ attributes, setAttributes }) => {
                                         setAttributes({ frontBackgroundRepeat })
                                     }
                                 />
+
+                                <ColorControl
+                                    label={__("Background Color & Opacity")}
+                                    color={frontOpacityColor}
+                                    onChange={(frontOpacityColor) =>
+                                        setAttributes({ frontOpacityColor })
+                                    }
+                                />
                             </PanelBody>
                         )}
 
@@ -1267,6 +1189,12 @@ const Inspector = ({ attributes, setAttributes }) => {
                                         setAttributes({ backBackgroundRepeat })
                                     }
                                 />
+
+                                <ColorControl
+                                    label={__("Background Color & Opacity")}
+                                    color={backOpacityColor}
+                                    onChange={(backOpacityColor) => setAttributes({ backOpacityColor })}
+                                />
                             </PanelBody>
                         )}
 
@@ -1394,13 +1322,13 @@ const Inspector = ({ attributes, setAttributes }) => {
                     <TypographyDropdown
                         baseLabel={__("Title", "flipbox")}
                         typographyPrefixConstant={typoPrefix_title}
-                        typoRequiredProps={typoRequiredProps}
+                        resRequiredProps={resRequiredProps}
                     />
 
                     <TypographyDropdown
                         baseLabel={__("Content", "flipbox")}
                         typographyPrefixConstant={typoPrefix_content}
-                        typoRequiredProps={typoRequiredProps}
+                        resRequiredProps={resRequiredProps}
                     />
 
                 </PanelBody>
@@ -1492,34 +1420,6 @@ const Inspector = ({ attributes, setAttributes }) => {
                                     </PanelBody>
 
                                     <PanelBody title={__("Button Padding")} initialOpen={false}>
-                                        {/* <UnitControl
-                                            selectedUnit={buttonPaddingUnit}
-                                            unitTypes={[
-                                                { label: "px", value: "px" },
-                                                { label: "em", value: "em" },
-                                                { label: "%", value: "%" },
-                                            ]}
-                                            onClick={(buttonPaddingUnit) =>
-                                                setAttributes({ buttonPaddingUnit })
-                                            }
-                                        />
-
-                                        <DimensionsControl
-                                            label={__("Padding")}
-                                            top={buttonPaddingTop}
-                                            right={buttonPaddingRight}
-                                            bottom={buttonPaddingBottom}
-                                            left={buttonPaddingLeft}
-                                            onChange={({ top, right, bottom, left }) =>
-                                                setAttributes({
-                                                    buttonPaddingTop: top,
-                                                    buttonPaddingRight: right,
-                                                    buttonPaddingBottom: bottom,
-                                                    buttonPaddingLeft: left,
-                                                })
-                                            }
-                                        /> */}
-
 
                                         <ResponsiveDimensionsControl
                                             resRequiredProps={resRequiredProps}
@@ -1527,7 +1427,6 @@ const Inspector = ({ attributes, setAttributes }) => {
                                             controlName={buttonPadding}
                                             baseLabel="Padding"
                                         />
-
 
                                     </PanelBody>
 
