@@ -34,3 +34,6 @@
 [submodule "dimensions-control-v2"]
 	path = dimensions-control-v2
 	url = git@github.com:EssentialBlocks/dimensions-control-v2.git
+[submodule "util/responsive-range-control"]
+	path = util/responsive-range-control
+	url = https://github.com/EssentialBlocks/responsive-range-control

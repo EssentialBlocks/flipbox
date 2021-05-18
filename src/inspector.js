@@ -44,6 +44,7 @@ import {
 } from "./constants";
 import { getButtonClasses } from "../util/helper";
 import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
+import ResponsiveRangeController from "../util/responsive-range-control";
 // import DimensionsControl from "../util/dimensions-control";
 import TypographyDropdown from "../util/typography-control-v2";
 import UnitControl from "../util/unit-control";
@@ -261,6 +262,12 @@ const Inspector = ({ attributes, setAttributes }) => {
                             max={heightUnit === "px" ? 600 : 100}
                         />
                     </ResetControl>
+
+                    <ResponsiveRangeController
+                        baseLabel={__("New Box Height", "flipbox")}
+                        // prefixConstant="new_box_height"
+                        requiredProps={resRequiredProps}
+                    />
 
                     <UnitControl
                         selectedUnit={widthUnit}
