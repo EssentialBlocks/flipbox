@@ -13,7 +13,7 @@ const FlipboxContent = ({
   linkType,
   link,
 }) => (
-  <div className="flipbox-items-container">
+  <div>
     <FlipboxImage
       selectedSide={selectedSide}
       url={imageUrl}

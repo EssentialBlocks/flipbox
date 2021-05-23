@@ -1,12 +1,15 @@
 import * as prefixObjs from "./typographyPrefixConstants";
+import * as rangePrefixObjs from "./rangeNames";
 import {
 	dimensionsMargin,
 	dimensionsPadding,
-	buttonPadding
+	buttonPadding,
+	boxHeight
 } from "./dimensionsNames";
 import {
 	generateTypographyAttributes,
 	generateDimensionsAttributes,
+	generateResponsiveRangeAttributes
 } from "./helpers";
 const attributes = {
 	// responsive control attributes ⬇
@@ -34,6 +37,8 @@ const attributes = {
 	...generateDimensionsAttributes(dimensionsMargin),
 	...generateDimensionsAttributes(dimensionsPadding),
 	...generateDimensionsAttributes(buttonPadding),
+	// range controller
+	...generateResponsiveRangeAttributes(Object.values(rangePrefixObjs)),
 	flipboxStyle: {
 		type: "string",
 		default: "default",

@@ -7,7 +7,7 @@ import save from "./save";
 import attributes from "./attributes";
 import example from "./example";
 import icon from "./icon";
-
+console.log(attributes)
 registerBlockType("flipbox/flipbox-block", {
 	apiVersion: 2,
 	title: __("Flipbox"),

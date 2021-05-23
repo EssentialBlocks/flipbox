@@ -45,7 +45,6 @@ import {
 import { getButtonClasses } from "../util/helper";
 import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
 import ResponsiveRangeController from "../util/responsive-range-control";
-// import DimensionsControl from "../util/dimensions-control";
 import TypographyDropdown from "../util/typography-control-v2";
 import UnitControl from "../util/unit-control";
 import ColorControl from "../util/color-control";
@@ -56,6 +55,9 @@ import {
     typoPrefix_title,
     typoPrefix_content
 } from "./typographyPrefixConstants";
+import {
+    boxHeightAttr
+} from "./rangeNames";
 
 const Inspector = ({ attributes, setAttributes }) => {
     const {
@@ -234,12 +236,6 @@ const Inspector = ({ attributes, setAttributes }) => {
         attributes,
     };
 
-    const typoRequiredProps = {
-        attributes,
-        setAttributes,
-        resOption,
-    };
-
     return (
         <InspectorControls keys="controls">
             <span className="eb-panel-control">
@@ -265,8 +261,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 
                     <ResponsiveRangeController
                         baseLabel={__("New Box Height", "flipbox")}
-                        // prefixConstant="new_box_height"
+                        controlName={boxHeightAttr}
                         requiredProps={resRequiredProps}
+                        min={0}
+                        max={500}
+                        step={2}
                     />
 
                     <UnitControl

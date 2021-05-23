@@ -34,10 +34,14 @@ import {
 	typoPrefix_content,
 } from "./typographyPrefixConstants";
 import {
+    boxHeightAttr
+} from "./rangeNames";
+import {
 	softMinifyCssStrings,
 	isCssExists,
 	generateTypographyStyles,
 	generateDimensionsControlStyles,
+	generateResponsiveRangeStyles
 } from "./helpers";
 
 function Edit(props) {
@@ -199,11 +203,23 @@ function Edit(props) {
 		attributes,
 	});
 
+	const {
+		rangeStylesDesktop: wrapperHeightStylesDesktop,
+		rangeStylesTab: wrapperHeightStylesTab,
+		rangeStylesMobile: wrapperHeightStylesMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxHeightAttr,
+		property: "height",
+		attributes,
+	});
+
+	// height: ${boxHeight || 310}${heightUnit};
+		// ${wrapperHeightStylesDesktop}
 	const flipContainerStyleDesktop = `
 	.${blockId}{
 		${wrapperMarginStylesDesktop}
 		${wrapperPaddingStylesDesktop}
-		height: ${boxHeight || 310}${heightUnit};
+		${wrapperHeightStylesDesktop}
 		max-width: ${boxWidth || 600}${widthUnit};
 		width: 100%;
 	}
@@ -213,6 +229,7 @@ function Edit(props) {
 	.${blockId}{
 		${wrapperMarginStylesTab}
 		${wrapperPaddingStylesTab}
+		${wrapperHeightStylesTab}
 	}
 	`;
 
@@ -220,6 +237,7 @@ function Edit(props) {
 	.${blockId}{
 		${wrapperMarginStylesMobile}
 		${wrapperPaddingStylesMobile}
+		${wrapperHeightStylesMobile}
 	}
 	`;
 
@@ -316,12 +334,22 @@ function Edit(props) {
 	}
 	`;
 
+	const {
+		rangeStylesDesktop: wrapperMinHeightStylesDesktop,
+		rangeStylesTab: wrapperMinHeightStylesTab,
+		rangeStylesMobile: wrapperMinHeightStylesMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxHeightAttr,
+		property: "min-height",
+		attributes,
+	});
+
 	const frontStyleDesktop = `
 	.${blockId} .flipper .front {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		min-height: ${boxHeight || 310}${heightUnit};
+		${wrapperMinHeightStylesDesktop}
 		max-width: ${boxWidth || 600}${widthUnit};
 		height: auto;
 		width: 100%;
@@ -366,6 +394,18 @@ function Edit(props) {
 	}
 	`;
 
+	const frontStyleTab = `
+		.${blockId} .flipper .front {
+			${wrapperMinHeightStylesTab}
+		}
+	`;
+
+	const frontStyleMobile = `
+		.${blockId} .flipper .front {
+			${wrapperMinHeightStylesMobile}
+		}
+	`;
+
 	const frontImageStyleDesktop = `
 	.${blockId} .front .front-image-container, .${blockId} .back .front-image-container {
 		align-self: ${getImageAlign(align)};
@@ -385,7 +425,7 @@ function Edit(props) {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		min-height: ${boxHeight || 310}${heightUnit};
+		${wrapperMinHeightStylesDesktop}
 		max-width: ${boxWidth || 600}${widthUnit};
 		height: auto;
 		width: 100%;
@@ -437,6 +477,18 @@ function Edit(props) {
 		${backBackgroundType === 'image' ? 'background-color:' + backOpacityColor + ';' : ''}
 		z-index: -99999;
 	}
+	`;
+
+	const backStyleTab = `
+		.${blockId} .flipper .back {
+			${wrapperMinHeightStylesTab}
+		}
+	`;
+
+	const backStyleMobile = `
+		.${blockId} .flipper .back {
+			${wrapperMinHeightStylesMobile}
+		}
 	`;
 
 	const frontIconStyleDesktop = `
@@ -567,6 +619,8 @@ function Edit(props) {
 		${isCssExists(titleStylesTab) ? titleStylesTab : " "}
 		${isCssExists(contentStylesTab) ? contentStylesTab : " "}
 		${isCssExists(backButtonStyleTab) ? backButtonStyleTab : " "}
+		${isCssExists(frontStyleTab) ? frontStyleTab : " "}
+		${isCssExists(backStyleTab) ? backStyleTab : " "}
 	`);
 
 	// all css styles for Mobile in strings ⬇
@@ -575,6 +629,8 @@ function Edit(props) {
 		${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
 		${isCssExists(contentStylesMobile) ? contentStylesMobile : " "}
 		${isCssExists(backButtonStyleMobile) ? backButtonStyleMobile : " "}
+		${isCssExists(frontStyleMobile) ? frontStyleMobile : " "}
+		${isCssExists(backStyleMobile) ? backStyleMobile : " "}
 	`);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {

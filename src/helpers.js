@@ -192,6 +192,70 @@ export const generateTypographyAttributes = (prefixArray) => {
 	return typoAttrs;
 };
 
+// function to generate responsive range controller attributes for multiple range control based on the array of prefix
+export const generateResponsiveRangeAttributes = (prefixArray) => {
+	const rangeAttrs = prefixArray.reduce((total, current) => {
+		const result = {
+			[`${current}Unit`]: {
+				type: "string",
+				default: "px",
+			},
+			[`${current}Range`]: {
+				type: "number",
+			},
+			[`TAB${current}Unit`]: {
+				type: "string",
+				default: "px",
+			},
+			[`TAB${current}Range`]: {
+				type: "number",
+			},
+			[`MOB${current}Unit`]: {
+				type: "string",
+				default: "px",
+			},
+			[`MOB${current}Range`]: {
+				type: "number",
+			},
+		};
+		return {
+			...total,
+			...result,
+		};
+	}, {});
+
+	// console.log({ rangeAttrs });
+	return rangeAttrs;
+};
+
+// function to generate typography styles for an element based on it's prefix
+export const generateResponsiveRangeStyles = ({
+	controlName,
+	property,
+	attributes,
+}) => {
+	const {
+		[`${controlName}Unit`]: desktopSizeUnit,
+		[`${controlName}Range`]: desktopRange,
+
+		[`TAB${controlName}Unit`]: TABsizeUnit,
+		[`TAB${controlName}Range`]: TABrange,
+
+		[`MOB${controlName}Unit`]: MOBsizeUnit,
+		[`MOB${controlName}Range`]: MOBrange,
+	} = attributes;
+
+	const rangeStylesDesktop = desktopRange ? property + ':' + desktopRange + desktopSizeUnit + ';' : '';
+	const rangeStylesTab = TABrange ? property + ':' + TABrange + TABsizeUnit + ';' : '';
+	const rangeStylesMobile = MOBrange ? property + ':' + MOBrange + MOBsizeUnit + ';' : '';
+
+	return {
+		rangeStylesDesktop,
+		rangeStylesTab,
+		rangeStylesMobile,
+	}; 
+}; 
+
 // helper Functions: function 'textInsideForEdit' is for setting the innertext depending on whether separator should be shown and which separator should be shown
 export const textInsideForEdit = (value, isShowSeparator, separator) =>
 	isShowSeparator
