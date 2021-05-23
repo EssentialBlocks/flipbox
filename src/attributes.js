@@ -56,7 +56,7 @@ const attributes = {
 	flipType: {
 		type: "string",
 		source: "attribute",
-		selector: ".flip-container",
+		selector: ".eb-flip-container",
 		attribute: "data-flip-type",
 		default: "flip-left",
 	},
@@ -70,13 +70,13 @@ const attributes = {
 	},
 	frontIcon: {
 		type: "attribute",
-		selector: "flipbox-icon-wrapper-front",
+		selector: "eb-flipbox-icon-wrapper-front",
 		attribute: "data-icon",
 		default: "fab fa-rev",
 	},
 	frontImageUrl: {
 		type: "attribute",
-		selector: "front-image-container img",
+		selector: "eb-flipbox-front-image-container img",
 		attribute: "src",
 	},
 	frontImageId: {

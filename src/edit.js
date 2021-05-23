@@ -18,9 +18,6 @@ import "./editor.scss";
 /*
  * Internal dependencies
  */
-import { FlipboxButton } from "./flipbox-button";
-import FlipboxContent from "./flipbox-content";
-import FlipboxWrapper from "./flipbox-wrapper";
 import { getBackgroundImage, getFlipTransform } from "../util/helper";
 import { DEFAULT_ICON_SIZE } from "./constants";
 import Inspector from "./inspector";
@@ -34,7 +31,7 @@ import {
 	typoPrefix_content,
 } from "./typographyPrefixConstants";
 import {
-    boxHeightAttr
+	boxHeightAttr
 } from "./rangeNames";
 import {
 	softMinifyCssStrings,
@@ -213,33 +210,31 @@ function Edit(props) {
 		attributes,
 	});
 
-	// height: ${boxHeight || 310}${heightUnit};
-		// ${wrapperHeightStylesDesktop}
 	const flipContainerStyleDesktop = `
-	.${blockId}{
-		${wrapperMarginStylesDesktop}
-		${wrapperPaddingStylesDesktop}
-		${wrapperHeightStylesDesktop}
-		max-width: ${boxWidth || 600}${widthUnit};
-		width: 100%;
-	}
-	`;
+	 .${blockId}{
+		 ${wrapperMarginStylesDesktop}
+		 ${wrapperPaddingStylesDesktop}
+		 ${wrapperHeightStylesDesktop}
+		 max-width: ${boxWidth || 600}${widthUnit};
+		 width: 100%;
+	 }
+	 `;
 
 	const flipContainerStyleTab = `
-	.${blockId}{
-		${wrapperMarginStylesTab}
-		${wrapperPaddingStylesTab}
-		${wrapperHeightStylesTab}
-	}
-	`;
+	 .${blockId}{
+		 ${wrapperMarginStylesTab}
+		 ${wrapperPaddingStylesTab}
+		 ${wrapperHeightStylesTab}
+	 }
+	 `;
 
 	const flipContainerStyleMobile = `
-	.${blockId}{
-		${wrapperMarginStylesMobile}
-		${wrapperPaddingStylesMobile}
-		${wrapperHeightStylesMobile}
-	}
-	`;
+	 .${blockId}{
+		 ${wrapperMarginStylesMobile}
+		 ${wrapperPaddingStylesMobile}
+		 ${wrapperHeightStylesMobile}
+	 }
+	 `;
 
 	const {
 		typoStylesDesktop: titleTypoStylesDesktop,
@@ -252,38 +247,32 @@ function Edit(props) {
 
 	// prefix title styles css in strings ⬇
 	const titleStylesDesktop = `
-	.${blockId} .front-title, .${blockId} .back-title {
-		${titleTypoStylesDesktop}
-		width: 100%;
-		text-align: ${align};
-	}
-
-	.${blockId} .front-title {
-		color: ${frontTitleColor || deafultFrontTitleColor};
-		display: ${linkType !== "title" ? "block" : "none"};
-	}
-
-	.${blockId} .back-title {
-		color: ${backTitleColor || defaultBackTitleColor};
-		display: ${linkType !== "title" ? "block" : "none"};
-	}
-
-	.${blockId} .front .title-link, .${blockId} .front .title-link .front-title, .${blockId} .back .title-link, .${blockId} .back .title-link .back-title {
-		display: ${linkType === "title" ? "block" : "none"};
-	}
-	`;
+	 .${blockId} .eb-flipbox-front-title, .${blockId} .eb-flipbox-back-title {
+		 ${titleTypoStylesDesktop}
+		 width: 100%;
+		 text-align: ${align};
+	 }
+ 
+	 .${blockId} .eb-flipbox-front-title {
+		 color: ${frontTitleColor || deafultFrontTitleColor};
+	 }
+ 
+	 .${blockId} .eb-flipbox-back-title {
+		 color: ${backTitleColor || defaultBackTitleColor};
+	 }
+	 `;
 
 	const titleStylesTab = `
-	.${blockId} .front-title, .${blockId} .back-title {
-		${titleTypoStylesTab}
-	}
-	`;
+	 .${blockId} .eb-flipbox-front-title, .${blockId} .eb-flipbox-back-title {
+		 ${titleTypoStylesTab}
+	 }
+	 `;
 
 	const titleStylesMobile = `
-	.${blockId} .front-title, .${blockId} .back-title {
-		${titleTypoStylesMobile}
-	}
-	`;
+	 .${blockId} .eb-flipbox-front-title, .${blockId} .eb-flipbox-back-title {
+		 ${titleTypoStylesMobile}
+	 }
+	 `;
 
 	const {
 		typoStylesDesktop: contentTypoStylesDesktop,
@@ -296,43 +285,43 @@ function Edit(props) {
 
 	// prefix content styles css in strings ⬇
 	const contentStylesDesktop = `
-	.${blockId} .front-content, .${blockId} .back-content {
-		${contentTypoStylesDesktop}
-		width: 100%;
-		text-align: ${align};
-	}
-
-	.${blockId} .front-content {
-		color: ${frontContentColor || defaultFrontContentColor};
-	}
-
-	.${blockId} .back-content {
-		color: ${backContentColor || defautlBackContentColor};
-	}
-	`;
+	 .${blockId} .eb-flipbox-front-content, .${blockId} .eb-flipbox-back-content {
+		 ${contentTypoStylesDesktop}
+		 width: 100%;
+		 text-align: ${align};
+	 }
+ 
+	 .${blockId} .eb-flipbox-front-content {
+		 color: ${frontContentColor || defaultFrontContentColor};
+	 }
+ 
+	 .${blockId} .eb-flipbox-back-content {
+		 color: ${backContentColor || defautlBackContentColor};
+	 }
+	 `;
 
 	const contentStylesTab = `
-	.${blockId} .front-content, .${blockId} .back-content {
-		${contentTypoStylesTab}
-	}
-	`;
+	 .${blockId} .eb-flipbox-front-content, .${blockId} .eb-flipbox-back-content {
+		 ${contentTypoStylesTab}
+	 }
+	 `;
 
 	const contentStylesMobile = `
-	.${blockId} .front-content, .${blockId} .back-content {
-		${contentTypoStylesMobile}
-	}
-	`;
+	 .${blockId} .eb-flipbox-front-content, .${blockId} .eb-flipbox-back-content {
+		 ${contentTypoStylesMobile}
+	 }
+	 `;
 
 	// flipper style
 	const flipperStyle = `
-	.${blockId} .flipper {
-		transition: ${transitionSpeed ? transitionSpeed / 10 : 0.6}s
-	}
-	.${blockId} .flipper.back-is-selected {
-		transform:
-		 	${isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none"};
-	}
-	`;
+	 .${blockId} .eb-flipper {
+		 transition: ${transitionSpeed ? transitionSpeed / 10 : 0.6}s
+	 }
+	 .${blockId} .eb-flipper.back-is-selected {
+		 transform:
+			  ${isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none"};
+	 }
+	 `;
 
 	const {
 		rangeStylesDesktop: wrapperMinHeightStylesDesktop,
@@ -345,204 +334,192 @@ function Edit(props) {
 	});
 
 	const frontStyleDesktop = `
-	.${blockId} .flipper .front {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		${wrapperMinHeightStylesDesktop}
-		max-width: ${boxWidth || 600}${widthUnit};
-		height: auto;
-		width: 100%;
-		background-image: ${getBackgroundImage(
-			frontBackgroundType,
-			frontBackgroundGradient,
-			frontBackgroundImageURL
-		)};
-		background-size: ${
-			frontBackgroundSize === "custom"
-				? frontBackgroundWidth + frontBackgroundWidthUnit
-				: frontBackgroundSize
+	 .${blockId} .eb-flipper .eb-flipbox-front {
+		 display: flex;
+		 justify-content: center;
+		 align-items: center;
+		 ${wrapperMinHeightStylesDesktop}
+		 max-width: ${boxWidth || 600}${widthUnit};
+		 height: auto;
+		 width: 100%;
+		 background-image: ${getBackgroundImage(
+		frontBackgroundType,
+		frontBackgroundGradient,
+		frontBackgroundImageURL
+	)};
+		 background-size: ${frontBackgroundSize === "custom"
+			? frontBackgroundWidth + frontBackgroundWidthUnit
+			: frontBackgroundSize
 		};
-		background-position: ${
-			frontBackgroundPosition === "custom"
-				? frontBackgroundPosX +
-				  frontBackgroundPosXUnit +
-				  " " +
-				  frontBackgroundPosY +
-				  frontBackgroundPosYUnit
-				: frontBackgroundPosition
+		 background-position: ${frontBackgroundPosition === "custom"
+			? frontBackgroundPosX +
+			frontBackgroundPosXUnit +
+			" " +
+			frontBackgroundPosY +
+			frontBackgroundPosYUnit
+			: frontBackgroundPosition
 		};
-		background-repeat: ${frontBackgroundRepeat};
-		${frontBackgroundType === 'fill' ? 'background-color:' + frontBackground + ';' : ''}
-		border-style: ${borderStyle};
-		border-color: ${borderColor || defaultBorderColor};
-		border-width: ${borderWidth || 0}px;
-		border-radius: ${borderRadius || 0}${radiusUnit};
-		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-		shadowBlur || 0
-	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
-	}
-	.${blockId} .flipper .front::before {
-		content: "";
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		bottom: 0px;
-		left: 0px;
-		${frontBackgroundType === 'image' ? 'background-color:' + frontOpacityColor + ';' : ''}
-		z-index: -99999;
-	}
-	`;
+		 background-repeat: ${frontBackgroundRepeat};
+		 ${frontBackgroundType === 'fill' ? 'background-color:' + frontBackground + ';' : ''}
+		 border-style: ${borderStyle};
+		 border-color: ${borderColor || defaultBorderColor};
+		 border-width: ${borderWidth || 0}px;
+		 border-radius: ${borderRadius || 0}${radiusUnit};
+		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
+		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+	 }
+	 .${blockId} .eb-flipper .eb-flipbox-front::before {
+		 content: "";
+		 position: absolute;
+		 top: 0px;
+		 right: 0px;
+		 bottom: 0px;
+		 left: 0px;
+		 ${frontBackgroundType === 'image' ? 'background-color:' + frontOpacityColor + ';' : ''}
+		 z-index: -99999;
+	 }
+	 `;
 
 	const frontStyleTab = `
-		.${blockId} .flipper .front {
-			${wrapperMinHeightStylesTab}
-		}
-	`;
+		 .${blockId} .eb-flipper .eb-flipbox-front {
+			 ${wrapperMinHeightStylesTab}
+		 }
+	 `;
 
 	const frontStyleMobile = `
-		.${blockId} .flipper .front {
-			${wrapperMinHeightStylesMobile}
-		}
-	`;
+		 .${blockId} .eb-flipper .eb-flipbox-front {
+			 ${wrapperMinHeightStylesMobile}
+		 }
+	 `;
 
 	const frontImageStyleDesktop = `
-	.${blockId} .front .front-image-container, .${blockId} .back .front-image-container {
-		align-self: ${getImageAlign(align)};
-		display: ${frontIconOrImage === "image" && frontImageUrl ? "block" : "none"};
-	}
-
-	.${blockId} .front .front-image-container img {
-		height: ${frontImageSize || 100}px;
-		width: ${frontImageSize || 100}px;
-		border-radius: ${frontImageRadius || 0}%;
-	}
-	`;
+	 .${blockId} .eb-flipbox-front .eb-flipbox-front-image-container, .${blockId} .eb-flipbox-back .eb-flipbox-front-image-container {
+		 align-self: ${getImageAlign(align)};
+		 display: ${frontIconOrImage === "image" && frontImageUrl ? "block" : "none"};
+	 }
+ 
+	 .${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
+		 height: ${frontImageSize || 100}px;
+		 width: ${frontImageSize || 100}px;
+		 border-radius: ${frontImageRadius || 0}%;
+	 }
+	 `;
 
 	const backStyleDesktop = `
-	.${blockId} .flipper .back {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		${wrapperMinHeightStylesDesktop}
-		max-width: ${boxWidth || 600}${widthUnit};
-		height: auto;
-		width: 100%;
-		background-image: ${getBackgroundImage(
-			backBackgroundType,
-			backBackgroundGradient,
-			backBackgroundImageURL
-		)};
-		background-size: ${
-			backBackgroundSize === "custom"
-				? backBackgroundWidth + backBackgroundWidthUnit
-				: backBackgroundSize
+	 .${blockId} .eb-flipper .eb-flipbox-back {
+		 display: flex;
+		 flex-direction: column;
+		 justify-content: center;
+		 align-items: center;
+		 ${wrapperMinHeightStylesDesktop}
+		 max-width: ${boxWidth || 600}${widthUnit};
+		 height: auto;
+		 width: 100%;
+		 background-image: ${getBackgroundImage(
+		backBackgroundType,
+		backBackgroundGradient,
+		backBackgroundImageURL
+	)};
+		 background-size: ${backBackgroundSize === "custom"
+			? backBackgroundWidth + backBackgroundWidthUnit
+			: backBackgroundSize
 		};
-		background-position: ${
-			backBackgroundPosition === "custom"
-				? backBackgroundPosX +
-				  backBackgroundPosXUnit +
-				  " " +
-				  backBackgroundPosY +
-				  backBackgroundPosYUnit
-				: backBackgroundPosition
+		 background-position: ${backBackgroundPosition === "custom"
+			? backBackgroundPosX +
+			backBackgroundPosXUnit +
+			" " +
+			backBackgroundPosY +
+			backBackgroundPosYUnit
+			: backBackgroundPosition
 		};
-		background-repeat: ${backBackgroundRepeat};
-		${backBackgroundType === 'fill' ? 'background-color:' + backBackground + ';' : ''}
-		border-style: ${borderStyle};
-		border-color: ${borderColor || defaultBorderColor};
-		border-width: ${borderWidth || 0}px;
-		border-radius: ${borderRadius || 0}${radiusUnit};
-		box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-		shadowBlur || 0
-	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
-		transform:  ${
-			(flipType === "flip-up" && "rotateX(-180deg)") ||
-			(flipType === "flip-bottom" && "rotateX(180deg)") ||
-			((flipType === "zoom-in" || flipType === "zoom-out") && "none")
+		 background-repeat: ${backBackgroundRepeat};
+		 ${backBackgroundType === 'fill' ? 'background-color:' + backBackground + ';' : ''}
+		 border-style: ${borderStyle};
+		 border-color: ${borderColor || defaultBorderColor};
+		 border-width: ${borderWidth || 0}px;
+		 border-radius: ${borderRadius || 0}${radiusUnit};
+		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
+		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+		 transform:  ${(flipType === "flip-up" && "rotateX(-180deg)") ||
+		(flipType === "flip-bottom" && "rotateX(180deg)") ||
+		((flipType === "zoom-in" || flipType === "zoom-out") && "none")
 		};
-		cursor: ${linkType === "box" && link ? "pointer" : "default"};
-		position: relative;
-		${isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? 'z-index: 5;' : ''}
-	}
-	
-	.${blockId} .flipper .back::before {
-		content: "";
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		bottom: 0px;
-		left: 0px;
-		${backBackgroundType === 'image' ? 'background-color:' + backOpacityColor + ';' : ''}
-		z-index: -99999;
-	}
-	`;
+		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
+		 position: relative;
+		 ${isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? 'z-index: 5;' : ''}
+	 }
+	 
+	 .${blockId} .eb-flipper .eb-flipbox-back::before {
+		 content: "";
+		 position: absolute;
+		 top: 0px;
+		 right: 0px;
+		 bottom: 0px;
+		 left: 0px;
+		 ${backBackgroundType === 'image' ? 'background-color:' + backOpacityColor + ';' : ''}
+		 z-index: -99999;
+	 }
+	 `;
 
 	const backStyleTab = `
-		.${blockId} .flipper .back {
-			${wrapperMinHeightStylesTab}
-		}
-	`;
+		 .${blockId} .eb-flipper .eb-flipbox-back {
+			 ${wrapperMinHeightStylesTab}
+		 }
+	 `;
 
 	const backStyleMobile = `
-		.${blockId} .flipper .back {
-			${wrapperMinHeightStylesMobile}
-		}
-	`;
+		 .${blockId} .eb-flipper .eb-flipbox-back {
+			 ${wrapperMinHeightStylesMobile}
+		 }
+	 `;
 
 	const frontIconStyleDesktop = `
-		.${blockId} .flipbox-icon-wrapper-front {
-			font-size: ${frontIconSize || DEFAULT_ICON_SIZE}px;
-			color: ${frontIconColor || "#ffffff"};
-			border-radius: ${frontIconBorderRadius || 0}px;
-			background: ${frontIconBackground || defaultFrontIconBackground};
-			padding: ${frontIconPadding || 0}px;
-			margin-top: ${frontIconTopMargin || 0}px;
-			border-style: ${frontIconBorderType};
-			border-color: ${frontIconBorderColor || defaultFrontIconBorderColor};
-			border-width: ${frontIconBorderSize || 0}px;
-			width: 100%;
-			text-align:${align};
-			display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
-		}
-	`;
+		 .${blockId} .eb-flipbox-icon-front {
+			 font-size: ${frontIconSize || DEFAULT_ICON_SIZE}px;
+			 color: ${frontIconColor || "#ffffff"};
+			 border-radius: ${frontIconBorderRadius || 0}px;
+			 background: ${frontIconBackground || defaultFrontIconBackground};
+			 padding: ${frontIconPadding || 0}px;
+			 margin-top: ${frontIconTopMargin || 0}px;
+			 border-style: ${frontIconBorderType};
+			 border-color: ${frontIconBorderColor || defaultFrontIconBorderColor};
+			 border-width: ${frontIconBorderSize || 0}px;
+			 width: 100%;
+			 text-align:${align};
+			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
+		 }
+	 `;
 
 	const backImageStyleDesktop = `
-	.${blockId} .back .back-image-container {
-		align-self: ${getImageAlign(align)};
-		display: ${backIconOrImage === "image" && backImageUrl ? "block" : "none"};
-	}
-
-	.${blockId} .back .back-image-container img {
-		height: ${backImageSize || 100}px;
-		width: ${backImageSize || 100}px;
-		border-radius: ${backImageRadius || 0}%;
-	}
-	`;
+	 .${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
+		 align-self: ${getImageAlign(align)};
+		 display: ${backIconOrImage === "image" && backImageUrl ? "block" : "none"};
+	 }
+ 
+	 .${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
+		 height: ${backImageSize || 100}px;
+		 width: ${backImageSize || 100}px;
+		 border-radius: ${backImageRadius || 0}%;
+	 }
+	 `;
 
 	const backIconStyleDesktop = `
-	.${blockId} .flipbox-icon-wrapper-back {
-		font-size: ${backIconSize || DEFAULT_ICON_SIZE}px;
-		color: ${backIconColor || "#ffffff"};
-		border-radius:${backIconBorderRadius || 0}%;
-		background: ${backIconBackground || defaultBackIconBackground};
-		padding: ${backIconPadding || 0}px;
-		margin-top: ${backIconTopMargin || 0}px;
-		border-style: ${backIconBorderType};
-		border-color: ${backIconBorderColor || defaultBackIconBorderColor};
-		border-width: ${backIconBorderSize || 0}px;
-		width: 100%;
-		text-align: ${align};
-		display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
-	}
-	`;
+	 .${blockId} .eb-flipbox-icon-back {
+		 font-size: ${backIconSize || DEFAULT_ICON_SIZE}px;
+		 color: ${backIconColor || "#ffffff"};
+		 border-radius:${backIconBorderRadius || 0}%;
+		 background: ${backIconBackground || defaultBackIconBackground};
+		 padding: ${backIconPadding || 0}px;
+		 margin-top: ${backIconTopMargin || 0}px;
+		 border-style: ${backIconBorderType};
+		 border-color: ${backIconBorderColor || defaultBackIconBorderColor};
+		 border-width: ${backIconBorderSize || 0}px;
+		 width: 100%;
+		 text-align: ${align};
+		 display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
+	 }
+	 `;
 
-	const backButtonStyleDisplay = `
-	.${blockId} .flipbox-button-container .flipbox-button-link {
-		display: ${linkType === "button" ? "block" : "none"};
-	}
-	`;
 	let backButtonStyleDesktop,
 		backButtonStyleTab,
 		backButtonStyleMobile = "";
@@ -558,80 +535,79 @@ function Edit(props) {
 		});
 
 		backButtonStyleDesktop = `
-		.${blockId} .flipbox-button-container .flipbox-button-link {
-			${buttonPaddingStylesDesktop}
-			background: ${buttonBackground};
-			color: ${buttonColor};
-			width: ${buttonSize || 18}${buttonSizeUnit};
-			border: ${buttonBorderSize || 0}px ${buttonBorderType} ${
-			buttonBorderColor || defaultButtonBorderColor
-		};
-			border-radius: ${buttonBorderRadius || 0}px;
-			box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${
-			btnShadowBlur || 0
-		}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor};
-			text-decoration: none;
-		}
-
-		.${blockId} .flipbox-button-container .flipbox-button-content {
-			display: flex;
-			flex-direction: ${buttonIconPos === "after" ? "row" : "row-reverse"};
-			justify-content: space-around;
-		}
-
-		.${blockId} .flipbox-button-container .flipbox-button-content .flipbox-button-icon {
-			display: ${displayButtonIcon ? "block" : "none" };
-		}
-		`;
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
+			 ${buttonPaddingStylesDesktop}
+			 background: ${buttonBackground};
+			 color: ${buttonColor};
+			 width: ${buttonSize || 18}${buttonSizeUnit};
+			 border: ${buttonBorderSize || 0}px ${buttonBorderType} ${buttonBorderColor || defaultButtonBorderColor
+			};
+			 border-radius: ${buttonBorderRadius || 0}px;
+			 box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${btnShadowBlur || 0
+			}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor};
+			 text-decoration: none;
+		 }
+ 
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-content {
+			 display: flex;
+			 flex-direction: ${buttonIconPos === "after" ? "row" : "row-reverse"};
+			 justify-content: space-around;
+		 }
+ 
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-content .eb-flipbox-button-icon {
+			 display: ${displayButtonIcon ? "block" : "none"};
+		 }
+		 `;
 
 		backButtonStyleTab = `
-		.${blockId} .flipbox-button-container .flipbox-button-link {
-			${buttonPaddingStylesTab}
-		}
-		`;
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
+			 ${buttonPaddingStylesTab}
+		 }
+		 `;
 
 		backButtonStyleMobile = `
-		.${blockId} .flipbox-button-container .flipbox-button-link {
-			${buttonPaddingStylesMobile}
-		}
-		`;
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
+			 ${buttonPaddingStylesMobile}
+		 }
+		 `;
 	}
 
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
-		${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
-		${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
-		${isCssExists(contentStylesDesktop) ? contentStylesDesktop : " "}
-		${isCssExists(flipperStyle) ? flipperStyle : " "}
-		${isCssExists(frontStyleDesktop) ? frontStyleDesktop : " "}
-		${isCssExists(frontImageStyleDesktop) ? frontImageStyleDesktop : " "}
-		${isCssExists(frontIconStyleDesktop) ? frontIconStyleDesktop : " "}
-		${isCssExists(backStyleDesktop) ? backStyleDesktop : " "}
-		${isCssExists(backImageStyleDesktop) ? backImageStyleDesktop : " "}
-		${isCssExists(backIconStyleDesktop) ? backIconStyleDesktop : " "}
-		${isCssExists(backButtonStyleDisplay) ? backButtonStyleDisplay : " "}
-		${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
-	`);
+		 ${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
+		 ${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
+		 ${isCssExists(contentStylesDesktop) ? contentStylesDesktop : " "}
+		 ${isCssExists(flipperStyle) ? flipperStyle : " "}
+		 ${isCssExists(frontStyleDesktop) ? frontStyleDesktop : " "}
+		 ${isCssExists(frontImageStyleDesktop) ? frontImageStyleDesktop : " "}
+		 ${isCssExists(frontIconStyleDesktop) ? frontIconStyleDesktop : " "}
+		 ${isCssExists(backStyleDesktop) ? backStyleDesktop : " "}
+		 ${isCssExists(backImageStyleDesktop) ? backImageStyleDesktop : " "}
+		 ${isCssExists(backIconStyleDesktop) ? backIconStyleDesktop : " "}
+		 ${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
+	 `);
+
+	//  ${isCssExists(backButtonStyleDisplay) ? backButtonStyleDisplay : " "}
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
-		${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
-		${isCssExists(titleStylesTab) ? titleStylesTab : " "}
-		${isCssExists(contentStylesTab) ? contentStylesTab : " "}
-		${isCssExists(backButtonStyleTab) ? backButtonStyleTab : " "}
-		${isCssExists(frontStyleTab) ? frontStyleTab : " "}
-		${isCssExists(backStyleTab) ? backStyleTab : " "}
-	`);
+		 ${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
+		 ${isCssExists(titleStylesTab) ? titleStylesTab : " "}
+		 ${isCssExists(contentStylesTab) ? contentStylesTab : " "}
+		 ${isCssExists(backButtonStyleTab) ? backButtonStyleTab : " "}
+		 ${isCssExists(frontStyleTab) ? frontStyleTab : " "}
+		 ${isCssExists(backStyleTab) ? backStyleTab : " "}
+	 `);
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
-		${isCssExists(flipContainerStyleMobile) ? flipContainerStyleMobile : " "}
-		${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
-		${isCssExists(contentStylesMobile) ? contentStylesMobile : " "}
-		${isCssExists(backButtonStyleMobile) ? backButtonStyleMobile : " "}
-		${isCssExists(frontStyleMobile) ? frontStyleMobile : " "}
-		${isCssExists(backStyleMobile) ? backStyleMobile : " "}
-	`);
+		 ${isCssExists(flipContainerStyleMobile) ? flipContainerStyleMobile : " "}
+		 ${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
+		 ${isCssExists(contentStylesMobile) ? contentStylesMobile : " "}
+		 ${isCssExists(backButtonStyleMobile) ? backButtonStyleMobile : " "}
+		 ${isCssExists(frontStyleMobile) ? frontStyleMobile : " "}
+		 ${isCssExists(backStyleMobile) ? backStyleMobile : " "}
+	 `);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {
 		const styleObject = {
@@ -734,72 +710,140 @@ function Edit(props) {
 		<div {...blockProps}>
 			<style>
 				{`
-				${desktopAllStyles}
-
-				/* mimmikcssStart */
-
-				${resOption === "tab" ? tabAllStyles : " "}
-				${resOption === "mobile" ? tabAllStyles + mobileAllStyles : " "}
-
-				/* mimmikcssEnd */
-
-				@media all and (max-width: 1024px) {	
-
-					/* tabcssStart */			
-					${softMinifyCssStrings(tabAllStyles)}
-					/* tabcssEnd */			
-				
-				}
-				
-				@media all and (max-width: 767px) {
-					
-					/* mobcssStart */			
-					${softMinifyCssStrings(mobileAllStyles)}
-					/* mobcssEnd */			
-				
-				}
-				`}
+				 ${desktopAllStyles}
+ 
+				 /* mimmikcssStart */
+ 
+				 ${resOption === "tab" ? tabAllStyles : " "}
+				 ${resOption === "mobile" ? tabAllStyles + mobileAllStyles : " "}
+ 
+				 /* mimmikcssEnd */
+ 
+				 @media all and (max-width: 1024px) {	
+ 
+					 /* tabcssStart */			
+					 ${softMinifyCssStrings(tabAllStyles)}
+					 /* tabcssEnd */			
+				 
+				 }
+				 
+				 @media all and (max-width: 767px) {
+					 
+					 /* mobcssStart */			
+					 ${softMinifyCssStrings(mobileAllStyles)}
+					 /* mobcssEnd */			
+				 
+				 }
+				 `}
 			</style>
 			<div
-				className={`flip-container ${blockId}`}
+				className={`eb-flipbox-container ${blockId}`}
 				data-id={blockId}
 				onMouseEnter={() => setAttributes({ isHover: true })}
 				onMouseLeave={() => setAttributes({ isHover: false })}
 			>
-				<div
-					className={`flipper${
-						isHover || selectedSide === "back" ? " back-is-selected" : ""
+				<div className={`eb-flipper${isHover || selectedSide === "back" ? " back-is-selected" : ""
 					}`}
 				>
-					<FlipboxWrapper className="front">
-						<FlipboxContent
-							selectedSide="front"
-							imageUrl={frontImageUrl}
-							icon={frontIcon}
-							linkType={linkType}
-							link={link}
-							title={frontTitle}
-							content={frontContent}
-						/>
-					</FlipboxWrapper>
-
-					<div className="back">
-						<FlipboxContent
-							selectedSide="back"
-							imageUrl={backImageUrl}
-							icon={backIcon}
-							linkType={linkType}
-							link={link}
-							title={backTitle}
-							content={backContent}
-						/>
-
-						<FlipboxButton
-							link={link}
-							classNames={buttonClasses}
-							buttonText={buttonText}
-							buttonIcon={buttonIcon}
-						/>
+					<div className="eb-flipbox-front">
+						<div className="eb-flipbox-items-container">
+							{frontIconOrImage !== 'none' && (
+								<div className="eb-flipbox-icon-wrapper">
+									{(frontIconOrImage === 'image' && frontImageUrl) && (
+										<div className="eb-flipbox-front-image-container">
+											<img src={frontImageUrl} />
+										</div>
+									)}
+									{(frontIconOrImage === 'icon' && frontIcon) && (
+										<div className="eb-flipbox-icon-front" data-icon={frontIcon}>
+											<span className={frontIcon} />
+										</div>
+									)}
+								</div>
+							)}
+							{frontTitle && (
+								<div className="eb-flipbox-front-title-wrapper">
+									{
+										linkType === "title" && link ?
+											<a
+												href={link ? link : "#"}
+												className="title-link"
+											>
+												<h3 className="eb-flipbox-front-title">
+													{frontTitle}
+												</h3>
+											</a> :
+											<h3 className="eb-flipbox-front-title">
+												{frontTitle}
+											</h3>
+									}
+								</div>
+							)}
+							{frontContent && (
+								<div className="eb-flipbox-front-content-wrapper">
+									<p className="eb-flipbox-front-content">
+										{frontContent}
+									</p>
+								</div>
+							)}
+						</div>
+					</div>
+					<div className="eb-flipbox-back">
+						<div className="eb-flipbox-items-container">
+							{backIconOrImage !== 'none' && (
+								<div className="eb-flipbox-icon-wrapper">
+									{(backIconOrImage === 'image' && backImageUrl) && (
+										<div className="eb-flipbox-back-image-container">
+											<img src={backImageUrl} />
+										</div>
+									)}
+									{(backIconOrImage === 'icon' && backIcon) && (
+										<div className="eb-flipbox-icon-back" data-icon={backIcon}>
+											<span className={backIcon} />
+										</div>
+									)}
+								</div>
+							)}
+							{backTitle && (
+								<div className="eb-flipbox-back-title-wrapper">
+									{
+										linkType === "title" && link ?
+											<a
+												href={link ? link : "#"}
+												className="title-link"
+											>
+												<h3 className="eb-flipbox-back-title">
+													{backTitle}
+												</h3>
+											</a> :
+											<h3 className="eb-flipbox-back-title">
+												{backTitle}
+											</h3>
+									}
+								</div>
+							)}
+							{backContent && (
+								<div className="eb-flipbox-back-content-wrapper">
+									<p className="eb-flipbox-back-content">
+										{backContent}
+									</p>
+								</div>
+							)}
+							{linkType === 'button' && (
+								<div className="eb-flipbox-button-container">
+									<a className={`eb-flipbox-button-link ${buttonClasses}`} href={link ? link : "#"}>
+										<div
+											className="eb-flipbox-button-content"
+										>
+											<span>{buttonText}</span>
+											<span
+												className={`${buttonIcon ? "fa fa-" + buttonIcon + " " : ''}eb-flipbox-button-icon`}
+											/>
+										</div>
+									</a>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
