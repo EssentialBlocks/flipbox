@@ -1,5 +1,4 @@
 import * as prefixObjs from "./typographyPrefixConstants";
-import * as rangePrefixObjs from "./rangeNames";
 import {
 	dimensionsMargin,
 	dimensionsPadding,
@@ -7,10 +6,13 @@ import {
 	boxHeight
 } from "./dimensionsNames";
 import {
+	boxHeightAttr
+} from './rangeNames';
+import {
 	generateTypographyAttributes,
 	generateDimensionsAttributes,
 	generateResponsiveRangeAttributes
-} from "./helpers";
+} from "../util/helpers";
 const attributes = {
 	// responsive control attributes ⬇
 	resOption: {
@@ -38,7 +40,7 @@ const attributes = {
 	...generateDimensionsAttributes(dimensionsPadding),
 	...generateDimensionsAttributes(buttonPadding),
 	// range controller
-	...generateResponsiveRangeAttributes(Object.values(rangePrefixObjs)),
+	...generateResponsiveRangeAttributes(boxHeightAttr, 'auto'),
 	flipboxStyle: {
 		type: "string",
 		default: "default",
@@ -102,24 +104,40 @@ const attributes = {
 		type: "string",
 		default: null,
 	},
+	showFrontTitle: {
+		type: "boolean",
+		default: true
+	},
 	frontTitle: {
 		type: "string",
-		selector: "front-title",
+		selector: "eb-flipbox-front-title",
 		default: "Front Title Here",
+	},
+	showFrontContent: {
+		type: "boolean",
+		default: true
 	},
 	frontContent: {
 		type: "string",
-		selector: "front-content",
+		selector: "eb-flipbox-front-content",
 		default: "Front Content Here",
+	},
+	showBackTitle: {
+		type: "boolean",
+		default: true
 	},
 	backTitle: {
 		type: "string",
-		selector: "back-title",
+		selector: "eb-flipbox-back-title",
 		default: "Back Title Here",
+	},
+	showBackContent: {
+		type: "boolean",
+		default: true
 	},
 	backContent: {
 		type: "string",
-		selector: "back-content",
+		selector: "eb-flipbox-back-content",
 		default: "Back Content Here",
 	},
 	frontImageSize: {

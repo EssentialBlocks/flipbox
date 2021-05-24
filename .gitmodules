@@ -37,3 +37,6 @@
 [submodule "util/responsive-range-control"]
 	path = util/responsive-range-control
 	url = https://github.com/EssentialBlocks/responsive-range-control
+[submodule "util/helpers"]
+	path = util/helpers
+	url = https://github.com/EssentialBlocks/helpers.git

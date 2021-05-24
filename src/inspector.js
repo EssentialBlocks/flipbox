@@ -2,9 +2,10 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { Fragment, useEffect } from "@wordpress/element";
+import { useEffect } from "@wordpress/element";
 import {
     PanelBody,
+    PanelRow,
     SelectControl,
     Button,
     TextControl,
@@ -12,8 +13,7 @@ import {
     RangeControl,
     ToggleControl,
     ButtonGroup,
-    BaseControl,
-    Dropdown,
+    BaseControl
 } from "@wordpress/components";
 import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
 
@@ -37,12 +37,8 @@ import {
     ICON_TYPE,
     LINK_TYPE,
     DEFAULT_ICON_SIZE,
-    FONT_WEIGHTS,
-    TEXT_TRANSFORM,
-    TEXT_DECORATION,
-    UNIT_TYPES
 } from "./constants";
-import { getButtonClasses } from "../util/helper";
+import { getButtonClasses } from "../util/helpers";
 import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
 import ResponsiveRangeController from "../util/responsive-range-control";
 import TypographyDropdown from "../util/typography-control-v2";
@@ -74,9 +70,13 @@ const Inspector = ({ attributes, setAttributes }) => {
         backIcon,
         backImageUrl,
         backImageId,
+        showFrontTitle,
         frontTitle,
+        showFrontContent,
         frontContent,
+        showBackTitle,
         backTitle,
+        showBackContent,
         backContent,
         frontImageSize,
         backImageSize,
@@ -239,7 +239,15 @@ const Inspector = ({ attributes, setAttributes }) => {
     return (
         <InspectorControls keys="controls">
             <span className="eb-panel-control">
-                <PanelBody title={__("Flipbox setting")}>
+                <PanelBody>
+                    <BaseControl label={__("Selected Side")}>
+                        <ToggleButton
+                            options={FLIPBOX_SIDES}
+                            onChange={(value) => setAttributes({ selectedSide: value })}
+                        />
+                    </BaseControl>
+                </PanelBody>
+                <PanelBody title={__("Flipbox Settings")} initialOpen={false}>
                     <UnitControl
                         selectedUnit={heightUnit}
                         unitTypes={[
@@ -306,13 +314,6 @@ const Inspector = ({ attributes, setAttributes }) => {
                         max={20}
                     />
 
-                    <BaseControl label={__("Selected Side")}>
-                        <ToggleButton
-                            options={FLIPBOX_SIDES}
-                            onChange={(value) => setAttributes({ selectedSide: value })}
-                        />
-                    </BaseControl>
-
                     {selectedSide === "front" && (
                         <>
                             <BaseControl label={__("Icon Type")} id="eb-flipbox-icon-type">
@@ -361,7 +362,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                 </PanelBody>
 
                 {selectedSide === "front" && frontIconOrImage === "icon" && (
-                    <PanelBody title={__("Front Icon Settings")}>
+                    <PanelBody title={__("Front Icon Settings")} initialOpen={false}>
                         <>
                             <BaseControl label={__("Select Front Icon")}>
                                 <FontIconPicker
@@ -506,7 +507,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                 )}
 
                 {selectedSide === "front" && frontIconOrImage === "image" && (
-                    <PanelBody title={__("Front Image Settings")}>
+                    <PanelBody title={__("Front Image Settings")} initialOpen={false}>
                         <BaseControl
                             label={__("Flipbox Image")}
                             id="eb-flipbox-front-image"
@@ -573,7 +574,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                 )}
 
                 {selectedSide === "back" && backIconOrImage === "icon" && (
-                    <PanelBody title={__("Back Icon Settings")}>
+                    <PanelBody title={__("Back Icon Settings")} initialOpen={false}>
                         <>
                             <BaseControl
                                 label={__("Select Back Icon")}
@@ -718,7 +719,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                 )}
 
                 {selectedSide === "back" && backIconOrImage === "image" && (
-                    <PanelBody title={__("Back Image Settings")}>
+                    <PanelBody title={__("Back Image Settings")} initialOpen={false}>
                         <BaseControl label={__("Flipbox Image")}>
                             {backImageUrl ? (
                                 <>
@@ -783,32 +784,70 @@ const Inspector = ({ attributes, setAttributes }) => {
                 <PanelBody title={__(`Flipbox Content`)} initialOpen={false}>
                     {selectedSide === "front" && (
                         <>
-                            <TextControl
-                                label={__("Front Title")}
-                                value={frontTitle}
-                                onChange={(newText) => setAttributes({ frontTitle: newText })}
+                            <ToggleControl
+                                label={__("Show Title?")}
+                                checked={showFrontTitle}
+                                onChange={() => {
+                                    setAttributes({ showFrontTitle: !showFrontTitle })
+                                }
+                                }
                             />
-
-                            <TextareaControl
-                                label={__("Front Content")}
-                                value={frontContent}
-                                onChange={(newText) => setAttributes({ frontContent: newText })}
+                            {showFrontTitle && (
+                                <TextControl
+                                    label={__("Front Title")}
+                                    value={frontTitle}
+                                    onChange={(newText) => setAttributes({ frontTitle: newText })}
+                                />
+                            )}
+                            <ToggleControl
+                                label={__("Show Content?")}
+                                checked={showFrontContent}
+                                onChange={() => {
+                                    setAttributes({ showFrontContent: !showFrontContent })
+                                }
+                                }
                             />
+                            {showFrontContent && (
+                                <TextareaControl
+                                    label={__("Front Content")}
+                                    value={frontContent}
+                                    onChange={(newText) => setAttributes({ frontContent: newText })}
+                                />
+                            )}
                         </>
                     )}
                     {selectedSide === "back" && (
                         <>
-                            <TextControl
-                                label={__("Back Title")}
-                                value={backTitle}
-                                onChange={(newText) => setAttributes({ backTitle: newText })}
+                            <ToggleControl
+                                label={__("Show Title?")}
+                                checked={showBackTitle}
+                                onChange={() => {
+                                    setAttributes({ showBackTitle: !showBackTitle })
+                                }
+                                }
                             />
-
-                            <TextareaControl
-                                label={__("Back Content")}
-                                value={backContent}
-                                onChange={(newText) => setAttributes({ backContent: newText })}
+                            {showBackTitle && (
+                                <TextControl
+                                    label={__("Back Title")}
+                                    value={backTitle}
+                                    onChange={(newText) => setAttributes({ backTitle: newText })}
+                                />
+                            )}
+                            <ToggleControl
+                                label={__("Show Content?")}
+                                checked={showBackContent}
+                                onChange={() => {
+                                    setAttributes({ showBackContent: !showBackContent })
+                                }
+                                }
                             />
+                            {showBackContent && (
+                                <TextareaControl
+                                    label={__("Back Content")}
+                                    value={backContent}
+                                    onChange={(newText) => setAttributes({ backContent: newText })}
+                                />
+                            )}
                         </>
                     )}
                 </PanelBody>
@@ -1336,10 +1375,10 @@ const Inspector = ({ attributes, setAttributes }) => {
                         typographyPrefixConstant={typoPrefix_content}
                         resRequiredProps={resRequiredProps}
                     />
-
                 </PanelBody>
 
                 <PanelBody title={__("Link Settings")} initialOpen={false}>
+                <PanelRow><em>{__("Note: Link settings will only work on back side.")}</em></PanelRow>
                     <BaseControl label={__("Link Type")} id="eb-flipbox-link-type">
                         <ButtonGroup id="eb-flipbox-link-type">
                             {LINK_TYPE.map((item) => (

@@ -39,7 +39,7 @@ import {
 	generateTypographyStyles,
 	generateDimensionsControlStyles,
 	generateResponsiveRangeStyles
-} from "./helpers";
+} from "../util/helpers";
 
 function Edit(props) {
 	const getImageAlign = (align) => {
@@ -70,9 +70,13 @@ function Edit(props) {
 		backIconOrImage,
 		backIcon,
 		backImageUrl,
+		showFrontTitle,
 		frontTitle,
+		showFrontContent,
 		frontContent,
+		showBackTitle,
 		backTitle,
+		showBackContent,
 		backContent,
 		frontImageSize,
 		backImageSize,
@@ -210,6 +214,8 @@ function Edit(props) {
 		attributes,
 	});
 
+	console.log('responsive: ', wrapperHeightStylesDesktop)
+
 	const flipContainerStyleDesktop = `
 	 .${blockId}{
 		 ${wrapperMarginStylesDesktop}
@@ -289,6 +295,7 @@ function Edit(props) {
 		 ${contentTypoStylesDesktop}
 		 width: 100%;
 		 text-align: ${align};
+		 margin: 10px 0;
 	 }
  
 	 .${blockId} .eb-flipbox-front-content {
@@ -761,7 +768,7 @@ function Edit(props) {
 									)}
 								</div>
 							)}
-							{frontTitle && (
+							{showFrontTitle && (
 								<div className="eb-flipbox-front-title-wrapper">
 									{
 										linkType === "title" && link ?
@@ -779,7 +786,7 @@ function Edit(props) {
 									}
 								</div>
 							)}
-							{frontContent && (
+							{showFrontContent && (
 								<div className="eb-flipbox-front-content-wrapper">
 									<p className="eb-flipbox-front-content">
 										{frontContent}
@@ -804,7 +811,7 @@ function Edit(props) {
 									)}
 								</div>
 							)}
-							{backTitle && (
+							{showBackTitle && (
 								<div className="eb-flipbox-back-title-wrapper">
 									{
 										linkType === "title" && link ?
@@ -822,7 +829,7 @@ function Edit(props) {
 									}
 								</div>
 							)}
-							{backContent && (
+							{showBackContent && (
 								<div className="eb-flipbox-back-content-wrapper">
 									<p className="eb-flipbox-back-content">
 										{backContent}

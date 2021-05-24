@@ -13,12 +13,16 @@ const Save = ({ attributes }) => {
 		frontIconOrImage,
 		frontImageUrl,
 		frontIcon,
+		showFrontTitle,
 		frontTitle,
+		showFrontContent,
 		frontContent,
 		backIconOrImage,
 		backImageUrl,
 		backIcon,
+		showBackTitle,
 		backTitle,
+		showBackContent,
 		backContent,
 		link,
 		linkType,
@@ -36,15 +40,6 @@ const Save = ({ attributes }) => {
 			>
 				<div className={`eb-flipper ${flipType}`}>
 					<div className="eb-flipbox-front">
-						{/* <FlipboxContent
-							selectedSide="front"
-							iconOrImage={frontIconOrImage}
-							imageUrl={frontImageUrl}
-							icon={frontIcon}
-							linkType={linkType}
-							title={frontTitle}
-							content={frontContent}
-						/> */}
 						<div className="eb-flipbox-items-container">
 							{frontIconOrImage !== 'none' && (
 								<div className="eb-flipbox-icon-wrapper">
@@ -60,7 +55,7 @@ const Save = ({ attributes }) => {
 									)}
 								</div>
 							)}
-							{frontTitle && (
+							{showFrontTitle && (
 								<div className="eb-flipbox-front-title-wrapper">
 									{
 										linkType === "title" && link ?
@@ -78,7 +73,7 @@ const Save = ({ attributes }) => {
 									}
 								</div>
 							)}
-							{frontContent && (
+							{showFrontContent && (
 								<div className="eb-flipbox-front-content-wrapper">
 									<p className="eb-flipbox-front-content">
 										{frontContent}
@@ -96,30 +91,6 @@ const Save = ({ attributes }) => {
 								: undefined
 						}
 					>
-						{/* <div className="eb-flipbox-items-container">
-							<div className={`back-image-container`}>
-								<img src={backImageUrl} />
-							</div>
-
-							<div className={`flipbox-icon-wrapper-back`} data-icon={backIcon}>
-								<span className={`${backIcon} flipbox-icon`} />
-							</div>
-							<a href={link ? link : "#"} className="title-link">
-								<h3 className="back-title">{backTitle}</h3>
-							</a>
-							<h3 className={`back-title`}>{backTitle}</h3>
-
-							<p className={`back-content`}>{backContent}</p>
-						</div>
-
-						<FlipboxButton
-							classNames={buttonClasses}
-							link={link}
-							buttonText={buttonText}
-							buttonIcon={buttonIcon}
-							displayButtonIcon={displayButtonIcon}
-							buttonIconPos={buttonIconPos}
-						/> */}
 						<div className="eb-flipbox-items-container">
 							{backIconOrImage !== 'none' && (
 								<div className="eb-flipbox-icon-wrapper">
@@ -135,7 +106,7 @@ const Save = ({ attributes }) => {
 									)}
 								</div>
 							)}
-							{backTitle && (
+							{showBackTitle && (
 								<div className="eb-flipbox-back-title-wrapper">
 									{
 										linkType === "title" && link ?
@@ -153,7 +124,7 @@ const Save = ({ attributes }) => {
 									}
 								</div>
 							)}
-							{backContent && (
+							{showBackContent && (
 								<div className="eb-flipbox-back-content-wrapper">
 									<p className="eb-flipbox-back-content">
 										{backContent}

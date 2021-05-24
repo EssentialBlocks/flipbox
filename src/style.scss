@@ -58,7 +58,7 @@
 	transform: scale(1.1) !important;
 }
 
-.zoom-in:hover .back {
+.zoom-in:hover .eb-flipbox-back {
 	z-index: 5;
 	transform: none;
 }
@@ -67,7 +67,7 @@
 	transform: scale(0.8) !important;
 }
 
-.zoom-out:hover .back {
+.zoom-out:hover .eb-flipbox-back {
 	z-index: 5;
 	transform: none;
 }
