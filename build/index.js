@@ -3583,7 +3583,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({
+var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({
   // responsive control attributes ⬇
   resOption: {
     type: "string",
@@ -4228,6 +4228,9 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
 }, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateBackgroundAttributes"])(_constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_4__["flipboxFrontWrapper"], {
   isBgDefaultFill: true,
   defaultFillColor: "#7967ff"
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateBackgroundAttributes"])(_constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_4__["flipboxBackWrapper"], {
+  isBgDefaultFill: true,
+  defaultFillColor: "#3074ff"
 }));
 
 /* harmony default export */ __webpack_exports__["default"] = (attributes);
@@ -4821,7 +4824,8 @@ function Edit(props) {
   }),
       wrapperHeightStylesDesktop = _generateResponsiveRa.rangeStylesDesktop,
       wrapperHeightStylesTab = _generateResponsiveRa.rangeStylesTab,
-      wrapperHeightStylesMobile = _generateResponsiveRa.rangeStylesMobile;
+      wrapperHeightStylesMobile = _generateResponsiveRa.rangeStylesMobile; // front background controller
+
 
   var _generateBackgroundCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBackgroundControlStyles"])({
     attributes: attributes,
@@ -4834,7 +4838,21 @@ function Edit(props) {
       frontOverlyType = _generateBackgroundCo.overlyType,
       frontOverlyColor = _generateBackgroundCo.overlyColor,
       frontOverlyGradient = _generateBackgroundCo.overlyGradient,
-      frontBgType = _generateBackgroundCo.backgroundType;
+      frontBgType = _generateBackgroundCo.backgroundType; // back background controller
+
+
+  var _generateBackgroundCo2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBackgroundControlStyles"])({
+    attributes: attributes,
+    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_10__["flipboxBackWrapper"]
+  }),
+      backBackgroundStylesDesktop = _generateBackgroundCo2.backgroundStylesDesktop,
+      backBackgroundStylesTab = _generateBackgroundCo2.backgroundStylesTab,
+      backBackgroundStylesMobile = _generateBackgroundCo2.backgroundStylesMobile,
+      backIsBgOverly = _generateBackgroundCo2.isBgOverly,
+      backOverlyType = _generateBackgroundCo2.overlyType,
+      backOverlyColor = _generateBackgroundCo2.overlyColor,
+      backOverlyGradient = _generateBackgroundCo2.overlyGradient,
+      backBgType = _generateBackgroundCo2.backgroundType;
 
   var _generateTypographySt = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateTypographyStyles"])({
     attributes: attributes,
@@ -4876,13 +4894,13 @@ function Edit(props) {
       wrapperMinHeightStylesTab = _generateResponsiveRa2.rangeStylesTab,
       wrapperMinHeightStylesMobile = _generateResponsiveRa2.rangeStylesMobile;
 
-  var frontStyleDesktop = "\n\n\t".concat(frontBgType === "image" && frontIsBgOverly ? "\n\t\t.".concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\tcontent: \"\";\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n\t\t\tright: 0;\n\t\t\tleft: 0;\n\t\t\tz-index: -1;\n\n\t\t\t").concat(frontOverlyType === "fill" ? "background-color: ".concat(frontOverlyColor, ";") : frontOverlyType === "gradient" ? "background-image: ".concat(frontOverlyGradient, ";") : " ", "\n\t\t} \n\n\t\t") : " ", "\n\n\t .").concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t display: flex;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t ").concat(wrapperMinHeightStylesDesktop, "\n\t\t max-width: ").concat(boxWidth || 600).concat(widthUnit, ";\n\t\t height: auto;\n\t\t width: 100%;\n\t\t z-index: 1;\n\n\t\t /* \n\t\t\n\t\t background-image: ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["getBackgroundImage"])(frontBackgroundType, frontBackgroundGradient, frontBackgroundImageURL), ";\n\t\t background-size: ").concat(frontBackgroundSize === "custom" ? frontBackgroundWidth + frontBackgroundWidthUnit : frontBackgroundSize, ";\n\t\t background-position: ").concat(frontBackgroundPosition === "custom" ? frontBackgroundPosX + frontBackgroundPosXUnit + " " + frontBackgroundPosY + frontBackgroundPosYUnit : frontBackgroundPosition, ";\n\t\t background-repeat: ").concat(frontBackgroundRepeat, ";\n\t\t ").concat(frontBackgroundType === "fill" ? "background-color:" + frontBackground + ";" : "", "\n\t\t\t\n\t\t\t*/\t\n\t\t\t\n\t\t\t").concat(frontBackgroundStylesDesktop, "\n\n\t\t\t\n\t\t\t\n\t\t border-style: ").concat(borderStyle, ";\n\t\t border-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t border-width: ").concat(borderWidth || 0, "px;\n\t\t border-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t box-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t }\n\t .").concat(blockId, " .eb-flipper .eb-flipbox-front::before {\n\t\t content: \"\";\n\t\t position: absolute;\n\t\t top: 0px;\n\t\t right: 0px;\n\t\t bottom: 0px;\n\t\t left: 0px;\n\t\t ").concat(frontBackgroundType === "image" ? "background-color:" + frontOpacityColor + ";" : "", "\n\t\t z-index: -99999;\n\t }\n\t ");
-  var frontStyleTab = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t ").concat(wrapperMinHeightStylesTab, "\n\t\t\t").concat(frontBackgroundStylesTab, "\n\n\t\t }\n\t ");
-  var frontStyleMobile = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t").concat(frontBackgroundStylesMobile, "\n\n\t\t }\n\t ");
+  var frontStyleDesktop = "\n\t".concat(frontBgType === "image" && frontIsBgOverly ? "\n\t\t.".concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\tcontent: \"\";\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n\t\t\tright: 0;\n\t\t\tleft: 0;\n\t\t\tz-index: -1;\n\n\t\t\t").concat(frontOverlyType === "fill" ? "background-color: ".concat(frontOverlyColor, ";") : frontOverlyType === "gradient" ? "background-image: ".concat(frontOverlyGradient, ";") : " ", "\n\t\t} \n\n\t\t") : " ", "\n\t .").concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t display: flex;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t ").concat(wrapperMinHeightStylesDesktop, "\n\t\t max-width: ").concat(boxWidth || 600).concat(widthUnit, ";\n\t\t height: auto;\n\t\t width: 100%;\n\t\t z-index: 1;\n\n\t\t /* \n\t\t\n\t\t background-image: ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["getBackgroundImage"])(frontBackgroundType, frontBackgroundGradient, frontBackgroundImageURL), ";\n\t\t background-size: ").concat(frontBackgroundSize === "custom" ? frontBackgroundWidth + frontBackgroundWidthUnit : frontBackgroundSize, ";\n\t\t background-position: ").concat(frontBackgroundPosition === "custom" ? frontBackgroundPosX + frontBackgroundPosXUnit + " " + frontBackgroundPosY + frontBackgroundPosYUnit : frontBackgroundPosition, ";\n\t\t background-repeat: ").concat(frontBackgroundRepeat, ";\n\t\t ").concat(frontBackgroundType === "fill" ? "background-color:" + frontBackground + ";" : "", "\n\t\t\t\n\t\t\t*/\t\n\t\t\t\n\t\t\t").concat(frontBackgroundStylesDesktop, "\n\n\t\t\t\n\t\t\t\n\t\t border-style: ").concat(borderStyle, ";\n\t\t border-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t border-width: ").concat(borderWidth || 0, "px;\n\t\t border-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t box-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t }\n\t .").concat(blockId, " .eb-flipper .eb-flipbox-front::before {\n\t\t content: \"\";\n\t\t position: absolute;\n\t\t top: 0px;\n\t\t right: 0px;\n\t\t bottom: 0px;\n\t\t left: 0px;\n\t\t ").concat(frontBackgroundType === "image" ? "background-color:" + frontOpacityColor + ";" : "", "\n\t\t z-index: -99999;\n\t }\n\t ");
+  var frontStyleTab = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t ").concat(wrapperMinHeightStylesTab, "\n\t\t\t").concat(frontBackgroundStylesTab, "\n\t\t }\n\t ");
+  var frontStyleMobile = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t").concat(frontBackgroundStylesMobile, "\n\t\t }\n\t ");
   var frontImageStyleDesktop = "\n\t .".concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container, .").concat(blockId, " .eb-flipbox-back .eb-flipbox-front-image-container {\n\t\t align-self: ").concat(getImageAlign(align), ";\n\t\t display: ").concat(frontIconOrImage === "image" && frontImageUrl ? "block" : "none", ";\n\t }\n \n\t .").concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container img {\n\t\t height: ").concat(frontImageSize || 100, "px;\n\t\t width: ").concat(frontImageSize || 100, "px;\n\t\t border-radius: ").concat(frontImageRadius || 0, "%;\n\t }\n\t ");
-  var backStyleDesktop = "\n\t .".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t display: flex;\n\t\t flex-direction: column;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t ").concat(wrapperMinHeightStylesDesktop, "\n\t\t max-width: ").concat(boxWidth || 600).concat(widthUnit, ";\n\t\t height: auto;\n\t\t width: 100%;\n\t\t background-image: ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["getBackgroundImage"])(backBackgroundType, backBackgroundGradient, backBackgroundImageURL), ";\n\t\t background-size: ").concat(backBackgroundSize === "custom" ? backBackgroundWidth + backBackgroundWidthUnit : backBackgroundSize, ";\n\t\t background-position: ").concat(backBackgroundPosition === "custom" ? backBackgroundPosX + backBackgroundPosXUnit + " " + backBackgroundPosY + backBackgroundPosYUnit : backBackgroundPosition, ";\n\t\t background-repeat: ").concat(backBackgroundRepeat, ";\n\t\t ").concat(backBackgroundType === "fill" ? "background-color:" + backBackground + ";" : "", "\n\t\t border-style: ").concat(borderStyle, ";\n\t\t border-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t border-width: ").concat(borderWidth || 0, "px;\n\t\t border-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t box-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t\t transform:  ").concat(flipType === "flip-up" && "rotateX(-180deg)" || flipType === "flip-bottom" && "rotateX(180deg)" || (flipType === "zoom-in" || flipType === "zoom-out") && "none", ";\n\t\t cursor: ").concat(linkType === "box" && link ? "pointer" : "default", ";\n\t\t position: relative;\n\t\t ").concat(isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? "z-index: 5;" : "", "\n\t }\n\t \n\t .").concat(blockId, " .eb-flipper .eb-flipbox-back::before {\n\t\t content: \"\";\n\t\t position: absolute;\n\t\t top: 0px;\n\t\t right: 0px;\n\t\t bottom: 0px;\n\t\t left: 0px;\n\t\t ").concat(backBackgroundType === "image" ? "background-color:" + backOpacityColor + ";" : "", "\n\t\t z-index: -99999;\n\t }\n\t ");
-  var backStyleTab = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesTab, "\n\t\t }\n\t ");
-  var backStyleMobile = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t }\n\t ");
+  var backStyleDesktop = "\n\t".concat(backBgType === "image" && backIsBgOverly ? "\n\t.".concat(blockId, " .eb-flipper .eb-flipbox-back:before{\n\t\tcontent: \"\";\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tright: 0;\n\t\tleft: 0;\n\t\tz-index: -1;\n\n\t\t").concat(backOverlyType === "fill" ? "background-color: ".concat(backOverlyColor, ";") : backOverlyType === "gradient" ? "background-image: ".concat(backOverlyGradient, ";") : " ", "\n\t} \n\t") : " ", "\n\n\t .").concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t").concat(backBackgroundStylesDesktop, "\n\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t display: flex;\n\t\t flex-direction: column;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t max-width: ").concat(boxWidth || 600).concat(widthUnit, ";\n\t\t height: auto;\n\t\t width: 100%;\n\t\t border-style: ").concat(borderStyle, ";\n\t\t border-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t border-width: ").concat(borderWidth || 0, "px;\n\t\t border-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t box-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t\t transform:  ").concat(flipType === "flip-up" && "rotateX(-180deg)" || flipType === "flip-bottom" && "rotateX(180deg)" || (flipType === "zoom-in" || flipType === "zoom-out") && "none", ";\n\t\t cursor: ").concat(linkType === "box" && link ? "pointer" : "default", ";\n\t\t position: relative;\n\t\t ").concat(isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? "z-index: 5;" : "", "\n\t }\n\t ");
+  var backStyleTab = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesTab, "\n\t\t\t ").concat(backBackgroundStylesTab, "\n\t\t }\n\t ");
+  var backStyleMobile = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t ").concat(backBackgroundStylesMobile, "\n\t\t }\n\t ");
   var frontIconStyleDesktop = "\n\t\t .".concat(blockId, " .eb-flipbox-icon-front {\n\t\t\t font-size: ").concat(frontIconSize || _constants__WEBPACK_IMPORTED_MODULE_6__["DEFAULT_ICON_SIZE"], "px;\n\t\t\t color: ").concat(frontIconColor || "#ffffff", ";\n\t\t\t border-radius: ").concat(frontIconBorderRadius || 0, "px;\n\t\t\t background: ").concat(frontIconBackground || defaultFrontIconBackground, ";\n\t\t\t padding: ").concat(frontIconPadding || 0, "px;\n\t\t\t margin-top: ").concat(frontIconTopMargin || 0, "px;\n\t\t\t border-style: ").concat(frontIconBorderType, ";\n\t\t\t border-color: ").concat(frontIconBorderColor || defaultFrontIconBorderColor, ";\n\t\t\t border-width: ").concat(frontIconBorderSize || 0, "px;\n\t\t\t width: 100%;\n\t\t\t text-align:").concat(align, ";\n\t\t\t display: ").concat(frontIconOrImage === "icon" && frontIcon ? "block" : "none", ";\n\t\t }\n\t ");
   var backImageStyleDesktop = "\n\t .".concat(blockId, " .eb-flipbox-back .eb-flipbox-back-image-container {\n\t\t align-self: ").concat(getImageAlign(align), ";\n\t\t display: ").concat(backIconOrImage === "image" && backImageUrl ? "block" : "none", ";\n\t }\n \n\t .").concat(blockId, " .eb-flipbox-back .eb-flipbox-back-image-container img {\n\t\t height: ").concat(backImageSize || 100, "px;\n\t\t width: ").concat(backImageSize || 100, "px;\n\t\t border-radius: ").concat(backImageRadius || 0, "%;\n\t }\n\t ");
   var backIconStyleDesktop = "\n\t .".concat(blockId, " .eb-flipbox-icon-back {\n\t\t font-size: ").concat(backIconSize || _constants__WEBPACK_IMPORTED_MODULE_6__["DEFAULT_ICON_SIZE"], "px;\n\t\t color: ").concat(backIconColor || "#ffffff", ";\n\t\t border-radius:").concat(backIconBorderRadius || 0, "%;\n\t\t background: ").concat(backIconBackground || defaultBackIconBackground, ";\n\t\t padding: ").concat(backIconPadding || 0, "px;\n\t\t margin-top: ").concat(backIconTopMargin || 0, "px;\n\t\t border-style: ").concat(backIconBorderType, ";\n\t\t border-color: ").concat(backIconBorderColor || defaultBackIconBorderColor, ";\n\t\t border-width: ").concat(backIconBorderSize || 0, "px;\n\t\t width: 100%;\n\t\t text-align: ").concat(align, ";\n\t\t display: ").concat(backIconOrImage === "icon" && backIcon ? "block" : "none", ";\n\t }\n\t ");
@@ -6059,178 +6077,10 @@ var Inspector = function Inspector(_ref) {
         frontContentColor: frontContentColor
       });
     }
-  })), selectedSide === "back" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Background Type"),
-    id: "eb-flipbox-back-background-type"
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
-    id: "eb-flipbox-back-background-type"
-  }, _constants__WEBPACK_IMPORTED_MODULE_8__["BACKGROUND_TYPE"].map(function (item) {
-    return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-      isLarge: true,
-      isPrimary: backBackgroundType === item.value,
-      isSecondary: backBackgroundType !== item.value,
-      onClick: function onClick() {
-        return setAttributes({
-          backBackgroundType: item.value
-        });
-      }
-    }, item.label);
-  }))), selectedSide === "back" && backBackgroundType === "fill" && /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Background"),
-    color: backBackground,
-    onChange: function onChange(backBackground) {
-      return setAttributes({
-        backBackground: backBackground
-      });
-    }
-  }), backBackgroundType === "gradient" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Background Gradient Colors")
-  }, /*#__PURE__*/React.createElement(_util_gradient_color_controller__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    gradientColor: backBackgroundGradient,
-    onChange: function onChange(backBackgroundGradient) {
-      return setAttributes({
-        backBackgroundGradient: backBackgroundGradient
-      });
-    }
-  })), backBackgroundType === "image" && /*#__PURE__*/React.createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["MediaUpload"], {
-    onSelect: function onSelect(media) {
-      setAttributes({
-        backBackgroundImageID: media.id,
-        backBackgroundImageURL: media.url
-      });
-    },
-    allowedTypes: ["image"],
-    value: backBackgroundImageID,
-    render: function render(_ref4) {
-      var open = _ref4.open;
-      return !backBackgroundImageID && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        className: "eb-flipbox-upload-button",
-        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Upload Image"),
-        icon: "format-image",
-        onClick: open
-      });
-    }
-  }), selectedSide === "back" && backBackgroundType === "image" && backBackgroundImageID && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Background Image")
-  }, /*#__PURE__*/React.createElement(_util_image_avatar_ImageAvater__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    imageUrl: backBackgroundImageURL,
-    onDeleteImage: function onDeleteImage() {
-      return setAttributes({
-        backBackgroundImageID: null,
-        backBackgroundImageURL: null
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Background Position"),
-    value: backBackgroundPosition,
-    options: _constants__WEBPACK_IMPORTED_MODULE_8__["BACKGROUND_POSITION"],
-    onChange: function onChange(backBackgroundPosition) {
-      return setAttributes({
-        backBackgroundPosition: backBackgroundPosition
-      });
-    }
-  }), backBackgroundPosition === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_unit_control__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    selectedUnit: backBackgroundPosXUnit,
-    unitTypes: [{
-      label: "px",
-      value: "px"
-    }, {
-      label: "em",
-      value: "em"
-    }, {
-      label: "%",
-      value: "%"
-    }],
-    onClick: function onClick(backBackgroundPosXUnit) {
-      return setAttributes({
-        backBackgroundPosXUnit: backBackgroundPosXUnit
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["RangeControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("X Position"),
-    value: backBackgroundPosX,
-    onChange: function onChange(backBackgroundPosX) {
-      return setAttributes({
-        backBackgroundPosX: backBackgroundPosX
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_unit_control__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    selectedUnit: backBackgroundPosYUnit,
-    unitTypes: [{
-      label: "px",
-      value: "px"
-    }, {
-      label: "em",
-      value: "em"
-    }, {
-      label: "%",
-      value: "%"
-    }],
-    onClick: function onClick(backBackgroundPosYUnit) {
-      return setAttributes({
-        backBackgroundPosYUnit: backBackgroundPosYUnit
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["RangeControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Y Position"),
-    value: backBackgroundPosY,
-    onChange: function onChange(backBackgroundPosY) {
-      return setAttributes({
-        backBackgroundPosY: backBackgroundPosY
-      });
-    }
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Background Size"),
-    value: backBackgroundSize,
-    options: _constants__WEBPACK_IMPORTED_MODULE_8__["BACKGROUND_SIZE"],
-    onChange: function onChange(backBackgroundSize) {
-      return setAttributes({
-        backBackgroundSize: backBackgroundSize
-      });
-    }
-  }), backBackgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_unit_control__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    selectedUnit: backBackgroundWidthUnit,
-    unitTypes: [{
-      label: "px",
-      value: "px"
-    }, {
-      label: "em",
-      value: "em"
-    }, {
-      label: "%",
-      value: "%"
-    }],
-    onClick: function onClick(backBackgroundWidthUnit) {
-      return setAttributes({
-        backBackgroundWidthUnit: backBackgroundWidthUnit
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["RangeControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Width"),
-    value: backBackgroundWidth,
-    onChange: function onChange(backBackgroundWidth) {
-      return setAttributes({
-        backBackgroundWidth: backBackgroundWidth
-      });
-    }
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Background Repeat"),
-    value: backBackgroundRepeat,
-    options: _constants__WEBPACK_IMPORTED_MODULE_8__["BACKGROUND_REPEAT"],
-    onChange: function onChange(backBackgroundRepeat) {
-      return setAttributes({
-        backBackgroundRepeat: backBackgroundRepeat
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Background Color & Opacity"),
-    color: backOpacityColor,
-    onChange: function onChange(backOpacityColor) {
-      return setAttributes({
-        backOpacityColor: backOpacityColor
-      });
-    }
-  })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  })), selectedSide === "back" && /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_18__["flipboxBackWrapper"],
+    resRequiredProps: resRequiredProps
+  }), /*#__PURE__*/React.createElement(React.Fragment, null), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Title Color"),
     color: backTitleColor,
     onChange: function onChange(backTitleColor) {

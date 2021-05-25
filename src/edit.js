@@ -219,6 +219,7 @@ function Edit(props) {
 		attributes,
 	});
 
+	// front background controller
 	const {
 		backgroundStylesDesktop: frontBackgroundStylesDesktop,
 		backgroundStylesTab: frontBackgroundStylesTab,
@@ -231,6 +232,21 @@ function Edit(props) {
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxFrontWrapper,
+	});
+
+	// back background controller
+	const {
+		backgroundStylesDesktop: backBackgroundStylesDesktop,
+		backgroundStylesTab: backBackgroundStylesTab,
+		backgroundStylesMobile: backBackgroundStylesMobile,
+		isBgOverly: backIsBgOverly,
+		overlyType: backOverlyType,
+		overlyColor: backOverlyColor,
+		overlyGradient: backOverlyGradient,
+		backgroundType: backBgType,
+	} = generateBackgroundControlStyles({
+		attributes,
+		controlName: flipboxBackWrapper,
 	});
 
 	const {
@@ -360,7 +376,6 @@ function Edit(props) {
 	});
 
 	const frontStyleDesktop = `
-
 	${
 		frontBgType === "image" && frontIsBgOverly
 			? `
@@ -385,7 +400,6 @@ function Edit(props) {
 		`
 			: " "
 	}
-
 	 .${blockId} .eb-flipper .eb-flipbox-front {
 		 display: flex;
 		 justify-content: center;
@@ -458,7 +472,6 @@ function Edit(props) {
 		 .${blockId} .eb-flipper .eb-flipbox-front {
 			 ${wrapperMinHeightStylesTab}
 			${frontBackgroundStylesTab}
-
 		 }
 	 `;
 
@@ -466,7 +479,6 @@ function Edit(props) {
 		 .${blockId} .eb-flipper .eb-flipbox-front {
 			 ${wrapperMinHeightStylesMobile}
 			${frontBackgroundStylesMobile}
-
 		 }
 	 `;
 
@@ -484,40 +496,40 @@ function Edit(props) {
 	 `;
 
 	const backStyleDesktop = `
+	${
+		backBgType === "image" && backIsBgOverly
+			? `
+	.${blockId} .eb-flipper .eb-flipbox-back:before{
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: -1;
+
+		${
+			backOverlyType === "fill"
+				? `background-color: ${backOverlyColor};`
+				: backOverlyType === "gradient"
+				? `background-image: ${backOverlyGradient};`
+				: " "
+		}
+	} 
+	`
+			: " "
+	}
+
 	 .${blockId} .eb-flipper .eb-flipbox-back {
+		${backBackgroundStylesDesktop}
+		${wrapperMinHeightStylesDesktop}
 		 display: flex;
 		 flex-direction: column;
 		 justify-content: center;
 		 align-items: center;
-		 ${wrapperMinHeightStylesDesktop}
 		 max-width: ${boxWidth || 600}${widthUnit};
 		 height: auto;
 		 width: 100%;
-		 background-image: ${getBackgroundImage(
-				backBackgroundType,
-				backBackgroundGradient,
-				backBackgroundImageURL
-			)};
-		 background-size: ${
-				backBackgroundSize === "custom"
-					? backBackgroundWidth + backBackgroundWidthUnit
-					: backBackgroundSize
-			};
-		 background-position: ${
-				backBackgroundPosition === "custom"
-					? backBackgroundPosX +
-					  backBackgroundPosXUnit +
-					  " " +
-					  backBackgroundPosY +
-					  backBackgroundPosYUnit
-					: backBackgroundPosition
-			};
-		 background-repeat: ${backBackgroundRepeat};
-		 ${
-				backBackgroundType === "fill"
-					? "background-color:" + backBackground + ";"
-					: ""
-			}
 		 border-style: ${borderStyle};
 		 border-color: ${borderColor || defaultBorderColor};
 		 border-width: ${borderWidth || 0}px;
@@ -538,32 +550,19 @@ function Edit(props) {
 					: ""
 			}
 	 }
-	 
-	 .${blockId} .eb-flipper .eb-flipbox-back::before {
-		 content: "";
-		 position: absolute;
-		 top: 0px;
-		 right: 0px;
-		 bottom: 0px;
-		 left: 0px;
-		 ${
-				backBackgroundType === "image"
-					? "background-color:" + backOpacityColor + ";"
-					: ""
-			}
-		 z-index: -99999;
-	 }
 	 `;
 
 	const backStyleTab = `
 		 .${blockId} .eb-flipper .eb-flipbox-back {
 			 ${wrapperMinHeightStylesTab}
+			 ${backBackgroundStylesTab}
 		 }
 	 `;
 
 	const backStyleMobile = `
 		 .${blockId} .eb-flipper .eb-flipbox-back {
 			 ${wrapperMinHeightStylesMobile}
+			 ${backBackgroundStylesMobile}
 		 }
 	 `;
 

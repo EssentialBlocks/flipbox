@@ -670,6 +670,10 @@ const attributes = {
 		isBgDefaultFill: true,
 		defaultFillColor: "#7967ff",
 	}),
+	...generateBackgroundAttributes(flipboxBackWrapper, {
+		isBgDefaultFill: true,
+		defaultFillColor: "#3074ff",
+	}),
 };
 
 export default attributes;

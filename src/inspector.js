@@ -1074,190 +1074,199 @@ const Inspector = ({ attributes, setAttributes }) => {
 					)}
 
 					{selectedSide === "back" && (
-						<BaseControl
-							label={__("Back Background Type")}
-							id="eb-flipbox-back-background-type"
-						>
-							<ButtonGroup id="eb-flipbox-back-background-type">
-								{BACKGROUND_TYPE.map((item) => (
-									<Button
-										isLarge
-										isPrimary={backBackgroundType === item.value}
-										isSecondary={backBackgroundType !== item.value}
-										onClick={() =>
-											setAttributes({
-												backBackgroundType: item.value,
-											})
-										}
-									>
-										{item.label}
-									</Button>
-								))}
-							</ButtonGroup>
-						</BaseControl>
-					)}
-
-					{selectedSide === "back" && backBackgroundType === "fill" && (
-						<ColorControl
-							label={__("Back Background")}
-							color={backBackground}
-							onChange={(backBackground) => setAttributes({ backBackground })}
+						<BackgroundControl
+							controlName={flipboxBackWrapper}
+							resRequiredProps={resRequiredProps}
 						/>
 					)}
 
-					{backBackgroundType === "gradient" && (
-						<PanelBody title={__("Background Gradient Colors")}>
-							<GradientColorControl
-								gradientColor={backBackgroundGradient}
-								onChange={(backBackgroundGradient) =>
-									setAttributes({
-										backBackgroundGradient,
-									})
-								}
+					<>
+						{/* {selectedSide === "back" && (
+							<BaseControl
+								label={__("Back Background Type")}
+								id="eb-flipbox-back-background-type"
+							>
+								<ButtonGroup id="eb-flipbox-back-background-type">
+									{BACKGROUND_TYPE.map((item) => (
+										<Button
+											isLarge
+											isPrimary={backBackgroundType === item.value}
+											isSecondary={backBackgroundType !== item.value}
+											onClick={() =>
+												setAttributes({
+													backBackgroundType: item.value,
+												})
+											}
+										>
+											{item.label}
+										</Button>
+									))}
+								</ButtonGroup>
+							</BaseControl>
+						)}
+
+						{selectedSide === "back" && backBackgroundType === "fill" && (
+							<ColorControl
+								label={__("Back Background")}
+								color={backBackground}
+								onChange={(backBackground) => setAttributes({ backBackground })}
 							/>
-						</PanelBody>
-					)}
+						)}
 
-					{backBackgroundType === "image" && (
-						<MediaUpload
-							onSelect={(media) => {
-								setAttributes({
-									backBackgroundImageID: media.id,
-									backBackgroundImageURL: media.url,
-								});
-							}}
-							allowedTypes={["image"]}
-							value={backBackgroundImageID}
-							render={({ open }) =>
-								!backBackgroundImageID && (
-									<Button
-										className="eb-flipbox-upload-button"
-										label={__("Upload Image")}
-										icon="format-image"
-										onClick={open}
-									></Button>
-								)
-							}
-						/>
-					)}
-
-					{selectedSide === "back" &&
-						backBackgroundType === "image" &&
-						backBackgroundImageID && (
-							<PanelBody title={__("Background Image")}>
-								<ImageAvater
-									imageUrl={backBackgroundImageURL}
-									onDeleteImage={() =>
+						{backBackgroundType === "gradient" && (
+							<PanelBody title={__("Background Gradient Colors")}>
+								<GradientColorControl
+									gradientColor={backBackgroundGradient}
+									onChange={(backBackgroundGradient) =>
 										setAttributes({
-											backBackgroundImageID: null,
-											backBackgroundImageURL: null,
+											backBackgroundGradient,
 										})
-									}
-								/>
-
-								<SelectControl
-									label={__("Background Position")}
-									value={backBackgroundPosition}
-									options={BACKGROUND_POSITION}
-									onChange={(backBackgroundPosition) =>
-										setAttributes({ backBackgroundPosition })
-									}
-								/>
-
-								{backBackgroundPosition === "custom" && (
-									<>
-										<UnitControl
-											selectedUnit={backBackgroundPosXUnit}
-											unitTypes={[
-												{ label: "px", value: "px" },
-												{ label: "em", value: "em" },
-												{ label: "%", value: "%" },
-											]}
-											onClick={(backBackgroundPosXUnit) =>
-												setAttributes({ backBackgroundPosXUnit })
-											}
-										/>
-
-										<RangeControl
-											label={__("X Position")}
-											value={backBackgroundPosX}
-											onChange={(backBackgroundPosX) =>
-												setAttributes({ backBackgroundPosX })
-											}
-										/>
-
-										<UnitControl
-											selectedUnit={backBackgroundPosYUnit}
-											unitTypes={[
-												{ label: "px", value: "px" },
-												{ label: "em", value: "em" },
-												{ label: "%", value: "%" },
-											]}
-											onClick={(backBackgroundPosYUnit) =>
-												setAttributes({ backBackgroundPosYUnit })
-											}
-										/>
-										<RangeControl
-											label={__("Y Position")}
-											value={backBackgroundPosY}
-											onChange={(backBackgroundPosY) =>
-												setAttributes({ backBackgroundPosY })
-											}
-										/>
-									</>
-								)}
-
-								<SelectControl
-									label={__("Background Size")}
-									value={backBackgroundSize}
-									options={BACKGROUND_SIZE}
-									onChange={(backBackgroundSize) =>
-										setAttributes({ backBackgroundSize })
-									}
-								/>
-
-								{backBackgroundSize === "custom" && (
-									<>
-										<UnitControl
-											selectedUnit={backBackgroundWidthUnit}
-											unitTypes={[
-												{ label: "px", value: "px" },
-												{ label: "em", value: "em" },
-												{ label: "%", value: "%" },
-											]}
-											onClick={(backBackgroundWidthUnit) =>
-												setAttributes({ backBackgroundWidthUnit })
-											}
-										/>
-
-										<RangeControl
-											label={__("Width")}
-											value={backBackgroundWidth}
-											onChange={(backBackgroundWidth) =>
-												setAttributes({ backBackgroundWidth })
-											}
-										/>
-									</>
-								)}
-
-								<SelectControl
-									label={__("Background Repeat")}
-									value={backBackgroundRepeat}
-									options={BACKGROUND_REPEAT}
-									onChange={(backBackgroundRepeat) =>
-										setAttributes({ backBackgroundRepeat })
-									}
-								/>
-
-								<ColorControl
-									label={__("Background Color & Opacity")}
-									color={backOpacityColor}
-									onChange={(backOpacityColor) =>
-										setAttributes({ backOpacityColor })
 									}
 								/>
 							</PanelBody>
 						)}
+
+						{backBackgroundType === "image" && (
+							<MediaUpload
+								onSelect={(media) => {
+									setAttributes({
+										backBackgroundImageID: media.id,
+										backBackgroundImageURL: media.url,
+									});
+								}}
+								allowedTypes={["image"]}
+								value={backBackgroundImageID}
+								render={({ open }) =>
+									!backBackgroundImageID && (
+										<Button
+											className="eb-flipbox-upload-button"
+											label={__("Upload Image")}
+											icon="format-image"
+											onClick={open}
+										></Button>
+									)
+								}
+							/>
+						)}
+
+						{selectedSide === "back" &&
+							backBackgroundType === "image" &&
+							backBackgroundImageID && (
+								<PanelBody title={__("Background Image")}>
+									<ImageAvater
+										imageUrl={backBackgroundImageURL}
+										onDeleteImage={() =>
+											setAttributes({
+												backBackgroundImageID: null,
+												backBackgroundImageURL: null,
+											})
+										}
+									/>
+
+									<SelectControl
+										label={__("Background Position")}
+										value={backBackgroundPosition}
+										options={BACKGROUND_POSITION}
+										onChange={(backBackgroundPosition) =>
+											setAttributes({ backBackgroundPosition })
+										}
+									/>
+
+									{backBackgroundPosition === "custom" && (
+										<>
+											<UnitControl
+												selectedUnit={backBackgroundPosXUnit}
+												unitTypes={[
+													{ label: "px", value: "px" },
+													{ label: "em", value: "em" },
+													{ label: "%", value: "%" },
+												]}
+												onClick={(backBackgroundPosXUnit) =>
+													setAttributes({ backBackgroundPosXUnit })
+												}
+											/>
+
+											<RangeControl
+												label={__("X Position")}
+												value={backBackgroundPosX}
+												onChange={(backBackgroundPosX) =>
+													setAttributes({ backBackgroundPosX })
+												}
+											/>
+
+											<UnitControl
+												selectedUnit={backBackgroundPosYUnit}
+												unitTypes={[
+													{ label: "px", value: "px" },
+													{ label: "em", value: "em" },
+													{ label: "%", value: "%" },
+												]}
+												onClick={(backBackgroundPosYUnit) =>
+													setAttributes({ backBackgroundPosYUnit })
+												}
+											/>
+											<RangeControl
+												label={__("Y Position")}
+												value={backBackgroundPosY}
+												onChange={(backBackgroundPosY) =>
+													setAttributes({ backBackgroundPosY })
+												}
+											/>
+										</>
+									)}
+
+									<SelectControl
+										label={__("Background Size")}
+										value={backBackgroundSize}
+										options={BACKGROUND_SIZE}
+										onChange={(backBackgroundSize) =>
+											setAttributes({ backBackgroundSize })
+										}
+									/>
+
+									{backBackgroundSize === "custom" && (
+										<>
+											<UnitControl
+												selectedUnit={backBackgroundWidthUnit}
+												unitTypes={[
+													{ label: "px", value: "px" },
+													{ label: "em", value: "em" },
+													{ label: "%", value: "%" },
+												]}
+												onClick={(backBackgroundWidthUnit) =>
+													setAttributes({ backBackgroundWidthUnit })
+												}
+											/>
+
+											<RangeControl
+												label={__("Width")}
+												value={backBackgroundWidth}
+												onChange={(backBackgroundWidth) =>
+													setAttributes({ backBackgroundWidth })
+												}
+											/>
+										</>
+									)}
+
+									<SelectControl
+										label={__("Background Repeat")}
+										value={backBackgroundRepeat}
+										options={BACKGROUND_REPEAT}
+										onChange={(backBackgroundRepeat) =>
+											setAttributes({ backBackgroundRepeat })
+										}
+									/>
+
+									<ColorControl
+										label={__("Background Color & Opacity")}
+										color={backOpacityColor}
+										onChange={(backOpacityColor) =>
+											setAttributes({ backOpacityColor })
+										}
+									/>
+								</PanelBody>
+							)} */}
+					</>
 
 					{selectedSide === "back" && (
 						<>
