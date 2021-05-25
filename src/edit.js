@@ -18,27 +18,32 @@ import "./editor.scss";
 /*
  * Internal dependencies
  */
-import { getBackgroundImage, getFlipTransform } from "../util/helper";
+import { getBackgroundImage, getFlipTransform } from "../util/helpers";
 import { DEFAULT_ICON_SIZE } from "./constants";
 import Inspector from "./inspector";
 import {
 	dimensionsMargin,
 	dimensionsPadding,
 	buttonPadding,
-} from "./dimensionsNames";
+} from "./constants/dimensionsNames";
 import {
 	typoPrefix_title,
 	typoPrefix_content,
-} from "./typographyPrefixConstants";
+} from "./constants/typographyPrefixConstants";
+
 import {
-	boxHeightAttr
-} from "./rangeNames";
+	flipboxBackWrapper,
+	flipboxFrontWrapper,
+} from "./constants/backgroundsConstants";
+
+import { boxHeightAttr } from "./constants/rangeNames";
 import {
 	softMinifyCssStrings,
 	isCssExists,
 	generateTypographyStyles,
 	generateDimensionsControlStyles,
-	generateResponsiveRangeStyles
+	generateResponsiveRangeStyles,
+	generateBackgroundControlStyles,
 } from "../util/helpers";
 
 function Edit(props) {
@@ -214,7 +219,39 @@ function Edit(props) {
 		attributes,
 	});
 
-	console.log('responsive: ', wrapperHeightStylesDesktop)
+	const {
+		backgroundStylesDesktop: frontBackgroundStylesDesktop,
+		backgroundStylesTab: frontBackgroundStylesTab,
+		backgroundStylesMobile: frontBackgroundStylesMobile,
+		isBgOverly: frontIsBgOverly,
+		overlyType: frontOverlyType,
+		overlyColor: frontOverlyColor,
+		overlyGradient: frontOverlyGradient,
+		backgroundType: frontBgType,
+	} = generateBackgroundControlStyles({
+		attributes,
+		controlName: flipboxFrontWrapper,
+	});
+
+	const {
+		typoStylesDesktop: titleTypoStylesDesktop,
+		typoStylesTab: titleTypoStylesTab,
+		typoStylesMobile: titleTypoStylesMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: typoPrefix_title,
+	});
+
+	const {
+		typoStylesDesktop: contentTypoStylesDesktop,
+		typoStylesTab: contentTypoStylesTab,
+		typoStylesMobile: contentTypoStylesMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: typoPrefix_content,
+	});
+
+	console.log("responsive: ", wrapperHeightStylesDesktop);
 
 	const flipContainerStyleDesktop = `
 	 .${blockId}{
@@ -241,15 +278,6 @@ function Edit(props) {
 		 ${wrapperHeightStylesMobile}
 	 }
 	 `;
-
-	const {
-		typoStylesDesktop: titleTypoStylesDesktop,
-		typoStylesTab: titleTypoStylesTab,
-		typoStylesMobile: titleTypoStylesMobile,
-	} = generateTypographyStyles({
-		attributes,
-		prefixConstant: typoPrefix_title,
-	});
 
 	// prefix title styles css in strings ⬇
 	const titleStylesDesktop = `
@@ -279,15 +307,6 @@ function Edit(props) {
 		 ${titleTypoStylesMobile}
 	 }
 	 `;
-
-	const {
-		typoStylesDesktop: contentTypoStylesDesktop,
-		typoStylesTab: contentTypoStylesTab,
-		typoStylesMobile: contentTypoStylesMobile,
-	} = generateTypographyStyles({
-		attributes,
-		prefixConstant: typoPrefix_content,
-	});
 
 	// prefix content styles css in strings ⬇
 	const contentStylesDesktop = `
@@ -341,6 +360,32 @@ function Edit(props) {
 	});
 
 	const frontStyleDesktop = `
+
+	${
+		frontBgType === "image" && frontIsBgOverly
+			? `
+		.${blockId} .eb-flipper .eb-flipbox-front:before{
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			z-index: -1;
+
+			${
+				frontOverlyType === "fill"
+					? `background-color: ${frontOverlyColor};`
+					: frontOverlyType === "gradient"
+					? `background-image: ${frontOverlyGradient};`
+					: " "
+			}
+		} 
+
+		`
+			: " "
+	}
+
 	 .${blockId} .eb-flipper .eb-flipbox-front {
 		 display: flex;
 		 justify-content: center;
@@ -349,31 +394,49 @@ function Edit(props) {
 		 max-width: ${boxWidth || 600}${widthUnit};
 		 height: auto;
 		 width: 100%;
+		 z-index: 1;
+
+		 /* 
+		
 		 background-image: ${getBackgroundImage(
-		frontBackgroundType,
-		frontBackgroundGradient,
-		frontBackgroundImageURL
-	)};
-		 background-size: ${frontBackgroundSize === "custom"
-			? frontBackgroundWidth + frontBackgroundWidthUnit
-			: frontBackgroundSize
-		};
-		 background-position: ${frontBackgroundPosition === "custom"
-			? frontBackgroundPosX +
-			frontBackgroundPosXUnit +
-			" " +
-			frontBackgroundPosY +
-			frontBackgroundPosYUnit
-			: frontBackgroundPosition
-		};
+				frontBackgroundType,
+				frontBackgroundGradient,
+				frontBackgroundImageURL
+			)};
+		 background-size: ${
+				frontBackgroundSize === "custom"
+					? frontBackgroundWidth + frontBackgroundWidthUnit
+					: frontBackgroundSize
+			};
+		 background-position: ${
+				frontBackgroundPosition === "custom"
+					? frontBackgroundPosX +
+					  frontBackgroundPosXUnit +
+					  " " +
+					  frontBackgroundPosY +
+					  frontBackgroundPosYUnit
+					: frontBackgroundPosition
+			};
 		 background-repeat: ${frontBackgroundRepeat};
-		 ${frontBackgroundType === 'fill' ? 'background-color:' + frontBackground + ';' : ''}
+		 ${
+				frontBackgroundType === "fill"
+					? "background-color:" + frontBackground + ";"
+					: ""
+			}
+			
+			*/	
+			
+			${frontBackgroundStylesDesktop}
+
+			
+			
 		 border-style: ${borderStyle};
 		 border-color: ${borderColor || defaultBorderColor};
 		 border-width: ${borderWidth || 0}px;
 		 border-radius: ${borderRadius || 0}${radiusUnit};
-		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
-		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
+		shadowBlur || 0
+	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
 	 }
 	 .${blockId} .eb-flipper .eb-flipbox-front::before {
 		 content: "";
@@ -382,7 +445,11 @@ function Edit(props) {
 		 right: 0px;
 		 bottom: 0px;
 		 left: 0px;
-		 ${frontBackgroundType === 'image' ? 'background-color:' + frontOpacityColor + ';' : ''}
+		 ${
+				frontBackgroundType === "image"
+					? "background-color:" + frontOpacityColor + ";"
+					: ""
+			}
 		 z-index: -99999;
 	 }
 	 `;
@@ -390,12 +457,16 @@ function Edit(props) {
 	const frontStyleTab = `
 		 .${blockId} .eb-flipper .eb-flipbox-front {
 			 ${wrapperMinHeightStylesTab}
+			${frontBackgroundStylesTab}
+
 		 }
 	 `;
 
 	const frontStyleMobile = `
 		 .${blockId} .eb-flipper .eb-flipbox-front {
 			 ${wrapperMinHeightStylesMobile}
+			${frontBackgroundStylesMobile}
+
 		 }
 	 `;
 
@@ -423,37 +494,49 @@ function Edit(props) {
 		 height: auto;
 		 width: 100%;
 		 background-image: ${getBackgroundImage(
-		backBackgroundType,
-		backBackgroundGradient,
-		backBackgroundImageURL
-	)};
-		 background-size: ${backBackgroundSize === "custom"
-			? backBackgroundWidth + backBackgroundWidthUnit
-			: backBackgroundSize
-		};
-		 background-position: ${backBackgroundPosition === "custom"
-			? backBackgroundPosX +
-			backBackgroundPosXUnit +
-			" " +
-			backBackgroundPosY +
-			backBackgroundPosYUnit
-			: backBackgroundPosition
-		};
+				backBackgroundType,
+				backBackgroundGradient,
+				backBackgroundImageURL
+			)};
+		 background-size: ${
+				backBackgroundSize === "custom"
+					? backBackgroundWidth + backBackgroundWidthUnit
+					: backBackgroundSize
+			};
+		 background-position: ${
+				backBackgroundPosition === "custom"
+					? backBackgroundPosX +
+					  backBackgroundPosXUnit +
+					  " " +
+					  backBackgroundPosY +
+					  backBackgroundPosYUnit
+					: backBackgroundPosition
+			};
 		 background-repeat: ${backBackgroundRepeat};
-		 ${backBackgroundType === 'fill' ? 'background-color:' + backBackground + ';' : ''}
+		 ${
+				backBackgroundType === "fill"
+					? "background-color:" + backBackground + ";"
+					: ""
+			}
 		 border-style: ${borderStyle};
 		 border-color: ${borderColor || defaultBorderColor};
 		 border-width: ${borderWidth || 0}px;
 		 border-radius: ${borderRadius || 0}${radiusUnit};
-		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${shadowBlur || 0
-		}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
-		 transform:  ${(flipType === "flip-up" && "rotateX(-180deg)") ||
-		(flipType === "flip-bottom" && "rotateX(180deg)") ||
-		((flipType === "zoom-in" || flipType === "zoom-out") && "none")
-		};
+		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
+		shadowBlur || 0
+	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
+		 transform:  ${
+				(flipType === "flip-up" && "rotateX(-180deg)") ||
+				(flipType === "flip-bottom" && "rotateX(180deg)") ||
+				((flipType === "zoom-in" || flipType === "zoom-out") && "none")
+			};
 		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
 		 position: relative;
-		 ${isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? 'z-index: 5;' : ''}
+		 ${
+				isHover && (flipType === "zoom-in" || flipType === "zoom-out")
+					? "z-index: 5;"
+					: ""
+			}
 	 }
 	 
 	 .${blockId} .eb-flipper .eb-flipbox-back::before {
@@ -463,7 +546,11 @@ function Edit(props) {
 		 right: 0px;
 		 bottom: 0px;
 		 left: 0px;
-		 ${backBackgroundType === 'image' ? 'background-color:' + backOpacityColor + ';' : ''}
+		 ${
+				backBackgroundType === "image"
+					? "background-color:" + backOpacityColor + ";"
+					: ""
+			}
 		 z-index: -99999;
 	 }
 	 `;
@@ -547,11 +634,13 @@ function Edit(props) {
 			 background: ${buttonBackground};
 			 color: ${buttonColor};
 			 width: ${buttonSize || 18}${buttonSizeUnit};
-			 border: ${buttonBorderSize || 0}px ${buttonBorderType} ${buttonBorderColor || defaultButtonBorderColor
-			};
+			 border: ${buttonBorderSize || 0}px ${buttonBorderType} ${
+			buttonBorderColor || defaultButtonBorderColor
+		};
 			 border-radius: ${buttonBorderRadius || 0}px;
-			 box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${btnShadowBlur || 0
-			}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor};
+			 box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${
+			btnShadowBlur || 0
+		}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor};
 			 text-decoration: none;
 		 }
  
@@ -749,20 +838,25 @@ function Edit(props) {
 				onMouseEnter={() => setAttributes({ isHover: true })}
 				onMouseLeave={() => setAttributes({ isHover: false })}
 			>
-				<div className={`eb-flipper${isHover || selectedSide === "back" ? " back-is-selected" : ""
+				<div
+					className={`eb-flipper${
+						isHover || selectedSide === "back" ? " back-is-selected" : ""
 					}`}
 				>
 					<div className="eb-flipbox-front">
 						<div className="eb-flipbox-items-container">
-							{frontIconOrImage !== 'none' && (
+							{frontIconOrImage !== "none" && (
 								<div className="eb-flipbox-icon-wrapper">
-									{(frontIconOrImage === 'image' && frontImageUrl) && (
+									{frontIconOrImage === "image" && frontImageUrl && (
 										<div className="eb-flipbox-front-image-container">
 											<img src={frontImageUrl} />
 										</div>
 									)}
-									{(frontIconOrImage === 'icon' && frontIcon) && (
-										<div className="eb-flipbox-icon-front" data-icon={frontIcon}>
+									{frontIconOrImage === "icon" && frontIcon && (
+										<div
+											className="eb-flipbox-icon-front"
+											data-icon={frontIcon}
+										>
 											<span className={frontIcon} />
 										</div>
 									)}
@@ -770,41 +864,32 @@ function Edit(props) {
 							)}
 							{showFrontTitle && (
 								<div className="eb-flipbox-front-title-wrapper">
-									{
-										linkType === "title" && link ?
-											<a
-												href={link ? link : "#"}
-												className="title-link"
-											>
-												<h3 className="eb-flipbox-front-title">
-													{frontTitle}
-												</h3>
-											</a> :
-											<h3 className="eb-flipbox-front-title">
-												{frontTitle}
-											</h3>
-									}
+									{linkType === "title" && link ? (
+										<a href={link ? link : "#"} className="title-link">
+											<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+										</a>
+									) : (
+										<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+									)}
 								</div>
 							)}
 							{showFrontContent && (
 								<div className="eb-flipbox-front-content-wrapper">
-									<p className="eb-flipbox-front-content">
-										{frontContent}
-									</p>
+									<p className="eb-flipbox-front-content">{frontContent}</p>
 								</div>
 							)}
 						</div>
 					</div>
 					<div className="eb-flipbox-back">
 						<div className="eb-flipbox-items-container">
-							{backIconOrImage !== 'none' && (
+							{backIconOrImage !== "none" && (
 								<div className="eb-flipbox-icon-wrapper">
-									{(backIconOrImage === 'image' && backImageUrl) && (
+									{backIconOrImage === "image" && backImageUrl && (
 										<div className="eb-flipbox-back-image-container">
 											<img src={backImageUrl} />
 										</div>
 									)}
-									{(backIconOrImage === 'icon' && backIcon) && (
+									{backIconOrImage === "icon" && backIcon && (
 										<div className="eb-flipbox-icon-back" data-icon={backIcon}>
 											<span className={backIcon} />
 										</div>
@@ -813,38 +898,32 @@ function Edit(props) {
 							)}
 							{showBackTitle && (
 								<div className="eb-flipbox-back-title-wrapper">
-									{
-										linkType === "title" && link ?
-											<a
-												href={link ? link : "#"}
-												className="title-link"
-											>
-												<h3 className="eb-flipbox-back-title">
-													{backTitle}
-												</h3>
-											</a> :
-											<h3 className="eb-flipbox-back-title">
-												{backTitle}
-											</h3>
-									}
+									{linkType === "title" && link ? (
+										<a href={link ? link : "#"} className="title-link">
+											<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+										</a>
+									) : (
+										<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+									)}
 								</div>
 							)}
 							{showBackContent && (
 								<div className="eb-flipbox-back-content-wrapper">
-									<p className="eb-flipbox-back-content">
-										{backContent}
-									</p>
+									<p className="eb-flipbox-back-content">{backContent}</p>
 								</div>
 							)}
-							{linkType === 'button' && (
+							{linkType === "button" && (
 								<div className="eb-flipbox-button-container">
-									<a className={`eb-flipbox-button-link ${buttonClasses}`} href={link ? link : "#"}>
-										<div
-											className="eb-flipbox-button-content"
-										>
+									<a
+										className={`eb-flipbox-button-link ${buttonClasses}`}
+										href={link ? link : "#"}
+									>
+										<div className="eb-flipbox-button-content">
 											<span>{buttonText}</span>
 											<span
-												className={`${buttonIcon ? "fa fa-" + buttonIcon + " " : ''}eb-flipbox-button-icon`}
+												className={`${
+													buttonIcon ? "fa fa-" + buttonIcon + " " : ""
+												}eb-flipbox-button-icon`}
 											/>
 										</div>
 									</a>

@@ -1,4 +1,220 @@
-.eb-flipbox-container{perspective:1000px}.eb-flipper{height:100%;width:100%;transform-style:preserve-3d;position:relative}.eb-flipbox-front,.eb-flipbox-back{-webkit-backface-visibility:hidden;backface-visibility:hidden;position:absolute;top:0;left:0}.eb-flipbox-front{z-index:2;transform:rotateY(0deg)}.eb-flipbox-back{transform:rotateY(180deg)}.flip-up:hover{transform:rotateX(180deg) !important}.flip-bottom:hover{transform:rotateX(-180deg) !important}.flip-left:hover{transform:rotateY(-180deg) !important}.flip-right:hover{transform:rotateY(180deg) !important}.zoom-in:hover{transform:scale(1.1) !important}.zoom-in:hover .eb-flipbox-back{z-index:5;transform:none}.zoom-out:hover{transform:scale(0.8) !important}.zoom-out:hover .eb-flipbox-back{z-index:5;transform:none}.eb-flipbox-upload-button{height:100px;width:100%;background:#e3e3e3;color:#666;display:inline-block}.eb-flipbox-front-title,.eb-flipbox-back-title{margin:0 !important}.eb-flipbox-items-container{display:flex;flex-direction:column;align-items:center;padding:10px;height:100%;width:100%}.image-container{padding:5px}.image-container img{-o-object-fit:cover;object-fit:cover}.eb-flipbox-icon-front,.eb-flipbox-icon-back{line-height:1.8}.eb-flipbox-button-link,.eb-flipbox-button-link:visited,.title-link,.title-link:visited{text-decoration:none;display:flex;flex-direction:column;align-items:center}.eb-flipbox-button-link{line-height:inherit}.eb-flipbox-button-link:hover{color:#fff}.eb-flipbox-button-container{display:flex;text-align:center;align-items:center;justify-content:center;max-width:100%}.before{order:1}.after{order:0}.eb-flipbox-button-icon{margin:2px;padding-top:4px}.btn-gradient{text-decoration:none;color:#fff;padding:5px 10px;display:inline-block;position:relative;border:1px solid rgba(0,0,0,.21);border-bottom:4px solid rgba(0,0,0,.21);border-radius:4px;text-shadow:0 1px 0 rgba(0,0,0,.15)}.btn-gradient.cyan{background:#1bbcc2;background:linear-gradient(#1bbcc2 0%, #18a3a8 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#1bbcc2", endColorstr="#18a3a8", GradientType=0)}.btn-gradient.red{background:#fa5a5a;background:linear-gradient(#fa5a5a 0%, #e85151 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr="#fa5a5a", endColorstr="#e85151", GradientType=0 )}.btn-gradient.orange{background:#ff691e;background:linear-gradient(#ff691e 0%, #e65f1c 100%)}.btn-gradient.blue{background:#6698cb;background:-webkit-gradient(left top, left bottom, color-stop(0%, #6698cb), color-stop(100%, #5c8ab8));background:linear-gradient(to bottom, #6698cb 0%, #5c8ab8 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr="#6698cb", endColorstr="#5c8ab8", GradientType=0 )}.btn-gradient.purple{background:#cb99c5;background:-webkit-gradient(left top, left bottom, color-stop(0%, #cb99c5), color-stop(100%, #b586b0));background:linear-gradient(to bottom, #cb99c5 0%, #b586b0 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr="#cb99c5", endColorstr="#b586b0", GradientType=0 )}.btn-gradient.yellow{background:#f0d264;background:linear-gradient(#f0d264 0%, #e5c960 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr="#f0d264", endColorstr="#e5c960", GradientType=0 )}.btn-gradient.green{background:#82c8a0;background:-webkit-gradient(left top, left bottom, color-stop(0%, #82c8a0), color-stop(100%, #82c79e));background:linear-gradient(to bottom, #82c8a0 0%, #7cb995 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr="#82c8a0", endColorstr="#82c79e", GradientType=0 )}
+/* entire container, keeps perspective */
+.eb-flipbox-container {
+  perspective: 1000px;
+}
+
+/* flip speed goes here */
+.eb-flipper {
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* hide back of pane during swap */
+.eb-flipbox-front,
+.eb-flipbox-back {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.eb-flipbox-front {
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.eb-flipbox-back {
+  transform: rotateY(180deg);
+}
+
+/* 
+	--------------------------
+	Flip hover animation types
+	--------------------------
+  */
+.flip-up:hover {
+  transform: rotateX(180deg) !important;
+}
+
+.flip-bottom:hover {
+  transform: rotateX(-180deg) !important;
+}
+
+.flip-left:hover {
+  transform: rotateY(-180deg) !important;
+}
+
+.flip-right:hover {
+  transform: rotateY(180deg) !important;
+}
+
+.zoom-in:hover {
+  transform: scale(1.1) !important;
+}
+
+.zoom-in:hover .eb-flipbox-back {
+  z-index: 5;
+  transform: none;
+}
+
+.zoom-out:hover {
+  transform: scale(0.8) !important;
+}
+
+.zoom-out:hover .eb-flipbox-back {
+  z-index: 5;
+  transform: none;
+}
+
+.eb-flipbox-upload-button {
+  height: 100px;
+  width: 100%;
+  background: #e3e3e3;
+  color: #666666;
+  display: inline-block;
+}
+
+.eb-flipbox-front-title,
+.eb-flipbox-back-title {
+  margin: 0 !important;
+}
+
+/* 
+	------------------
+	Flipbox items style 
+	--------------------
+  */
+.eb-flipbox-items-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.image-container {
+  padding: 5px;
+}
+
+.image-container img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+/* flipbox icon style */
+.eb-flipbox-icon-front,
+.eb-flipbox-icon-back {
+  line-height: 1.8;
+}
+
+.eb-flipbox-button-link,
+.eb-flipbox-button-link:visited,
+.title-link,
+.title-link:visited {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eb-flipbox-button-link {
+  line-height: inherit;
+}
+
+.eb-flipbox-button-link:hover {
+  color: #ffffff;
+}
+
+.eb-flipbox-button-container {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+/* icon position before or after button */
+.before {
+  order: 1;
+}
+
+.after {
+  order: 0;
+}
+
+.eb-flipbox-button-icon {
+  margin: 2px;
+  padding-top: 4px;
+}
+
+/* 
+	-------------
+	Button Styles
+	-------------
+  */
+.btn-gradient {
+  text-decoration: none;
+  color: white;
+  padding: 5px 10px;
+  display: inline-block;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.21);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.21);
+  border-radius: 4px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* Gradient - ugly css is ugly */
+.btn-gradient.cyan {
+  background: #1bbcc2;
+  background: linear-gradient(#1bbcc2 0%, #18a3a8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1bbcc2", endColorstr="#18a3a8", GradientType=0);
+}
+
+.btn-gradient.red {
+  background: #fa5a5a;
+  background: linear-gradient(#fa5a5a 0%, #e85151 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#fa5a5a", endColorstr="#e85151", GradientType=0 );
+}
+
+.btn-gradient.orange {
+  background: #ff691e;
+  background: linear-gradient(#ff691e 0%, #e65f1c 100%);
+}
+
+.btn-gradient.blue {
+  background: #6698cb;
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #6698cb), color-stop(100%, #5c8ab8));
+  background: linear-gradient(to bottom, #6698cb 0%, #5c8ab8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#6698cb", endColorstr="#5c8ab8", GradientType=0 );
+}
+
+.btn-gradient.purple {
+  background: #cb99c5;
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #cb99c5), color-stop(100%, #b586b0));
+  background: linear-gradient(to bottom, #cb99c5 0%, #b586b0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#cb99c5", endColorstr="#b586b0", GradientType=0 );
+}
+
+.btn-gradient.yellow {
+  background: #f0d264;
+  background: linear-gradient(#f0d264 0%, #e5c960 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#f0d264", endColorstr="#e5c960", GradientType=0 );
+}
+
+.btn-gradient.green {
+  background: #82c8a0;
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #82c8a0), color-stop(100%, #82c79e));
+  background: linear-gradient(to bottom, #82c8a0 0%, #7cb995 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#82c8a0", endColorstr="#82c79e", GradientType=0 );
+}
 .eb-color-base div {
 	display: flex;
 	justify-content: space-between;
@@ -34,9 +250,87 @@
 	box-shadow: none;
 }
 
-.eb-switch-control{display:flex;border:1px solid #ededed;padding:2px;border-radius:30px;position:relative;font-family:sans-serif;text-align:center;margin-bottom:8px;margin-top:8px}.eb-switch-control input{visibility:hidden;position:absolute;padding:10px}.eb-switch-control input:checked+label{color:#fff}.eb-switch-control .individual:checked~span,.eb-switch-control .business:checked~span{color:#fff}.eb-switch-control .individual:checked~.slideBg{transform:translateX(100%)}.eb-switch-control .business:checked~.slideBg{transform:translateX(0)}.eb-switch-control label{display:block;padding:4px;width:50%;z-index:1}.slideBg{position:absolute;background-color:#551ef7;color:#fff;border-radius:30px;height:100%;width:50%;top:0;left:0;transition:transform .3s ease}
-.image-avatar{height:100px;width:100%;background-size:cover;background-repeat:no-repeat;margin-bottom:8px;padding:2px}.image-avatar-delete{background-color:blue}.image-avatar-delete:hover{background-color:red}
-.eb-unit-control-btn-group{margin:0px 0px -20px 0px;text-align:right;display:block}.eb-unit-control-btn{color:#000;background:transparent !important;outline:none !important;box-shadow:none !important;border:none !important;text-shadow:none !important}.eb-unit-active{color:#6c40f7 !important;font-weight:bold}
+.eb-switch-control {
+  display: flex;
+  border: 1px solid #ededed;
+  padding: 2px;
+  border-radius: 30px;
+  position: relative;
+  font-family: sans-serif;
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+.eb-switch-control input {
+  visibility: hidden;
+  position: absolute;
+  padding: 10px;
+}
+.eb-switch-control input:checked + label {
+  color: #fff;
+}
+.eb-switch-control .individual:checked ~ span,
+.eb-switch-control .business:checked ~ span {
+  color: white;
+}
+.eb-switch-control .individual:checked ~ .slideBg {
+  transform: translateX(100%);
+}
+.eb-switch-control .business:checked ~ .slideBg {
+  transform: translateX(0);
+}
+.eb-switch-control label {
+  display: block;
+  padding: 4px;
+  width: 50%;
+  z-index: 1;
+}
+
+.slideBg {
+  position: absolute;
+  background-color: #551ef7;
+  color: white;
+  border-radius: 30px;
+  height: 100%;
+  width: 50%;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease;
+}
+.image-avatar {
+  height: 100px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 8px;
+  padding: 2px;
+}
+
+.image-avatar-delete {
+  background-color: blue;
+}
+.image-avatar-delete:hover {
+  background-color: red;
+}
+.eb-unit-control-btn-group {
+  margin: 0px 0px -20px 0px;
+  text-align: right;
+  display: block;
+}
+
+.eb-unit-control-btn {
+  color: black;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  text-shadow: none !important;
+}
+
+.eb-unit-active {
+  color: #6c40f7 !important;
+  font-weight: bold;
+}
 /*
  * Responsive Range Controller
  */
@@ -70,3 +364,5 @@
   margin-right: 8px;
 }
 
+
+/*# sourceMappingURL=style-index.css.map*/

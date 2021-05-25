@@ -1,18 +1,22 @@
-import * as prefixObjs from "./typographyPrefixConstants";
+import * as prefixObjs from "./constants/typographyPrefixConstants";
 import {
 	dimensionsMargin,
 	dimensionsPadding,
 	buttonPadding,
-	boxHeight
-} from "./dimensionsNames";
-import {
-	boxHeightAttr
-} from './rangeNames';
+	boxHeight,
+} from "./constants/dimensionsNames";
+import { boxHeightAttr } from "./constants/rangeNames";
 import {
 	generateTypographyAttributes,
 	generateDimensionsAttributes,
-	generateResponsiveRangeAttributes
+	generateResponsiveRangeAttributes,
+	generateBackgroundAttributes,
 } from "../util/helpers";
+
+import {
+	flipboxFrontWrapper,
+	flipboxBackWrapper,
+} from "./constants/backgroundsConstants";
 const attributes = {
 	// responsive control attributes ⬇
 	resOption: {
@@ -40,7 +44,7 @@ const attributes = {
 	...generateDimensionsAttributes(dimensionsPadding),
 	...generateDimensionsAttributes(buttonPadding),
 	// range controller
-	...generateResponsiveRangeAttributes(boxHeightAttr, 'auto'),
+	...generateResponsiveRangeAttributes(boxHeightAttr, "auto"),
 	flipboxStyle: {
 		type: "string",
 		default: "default",
@@ -106,7 +110,7 @@ const attributes = {
 	},
 	showFrontTitle: {
 		type: "boolean",
-		default: true
+		default: true,
 	},
 	frontTitle: {
 		type: "string",
@@ -115,7 +119,7 @@ const attributes = {
 	},
 	showFrontContent: {
 		type: "boolean",
-		default: true
+		default: true,
 	},
 	frontContent: {
 		type: "string",
@@ -124,7 +128,7 @@ const attributes = {
 	},
 	showBackTitle: {
 		type: "boolean",
-		default: true
+		default: true,
 	},
 	backTitle: {
 		type: "string",
@@ -133,7 +137,7 @@ const attributes = {
 	},
 	showBackContent: {
 		type: "boolean",
-		default: true
+		default: true,
 	},
 	backContent: {
 		type: "string",
@@ -150,11 +154,11 @@ const attributes = {
 	},
 	frontBackground: {
 		type: "string",
-		default: "#7967ff"
+		default: "#7967ff",
 	},
 	backBackground: {
 		type: "string",
-		default: "#3074ff"
+		default: "#3074ff",
 	},
 	borderStyle: {
 		type: "string",
@@ -196,14 +200,14 @@ const attributes = {
 	},
 	frontOpacityColor: {
 		type: "string",
-		default: "rgba(121, 103, 255, 0.5)"
+		default: "rgba(121, 103, 255, 0.5)",
 	},
 	backTitleColor: {
 		type: "string",
 	},
 	backOpacityColor: {
 		type: "string",
-		default: "rgba(48, 116, 255, 0.5)"
+		default: "rgba(48, 116, 255, 0.5)",
 	},
 	frontContentColor: {
 		type: "string",
@@ -388,7 +392,7 @@ const attributes = {
 	},
 	frontBackgroundPosition: {
 		type: "string",
-		default: "initial"
+		default: "initial",
 	},
 	frontBackgroundPosX: {
 		type: "number",
@@ -419,7 +423,7 @@ const attributes = {
 	},
 	frontBackgroundRepeat: {
 		type: "string",
-		default: "initial"
+		default: "initial",
 	},
 	backBackgroundImageID: {
 		type: "number",
@@ -429,7 +433,7 @@ const attributes = {
 	},
 	backBackgroundPosition: {
 		type: "string",
-		default: "initial"
+		default: "initial",
 	},
 	backBackgroundPosX: {
 		type: "number",
@@ -456,7 +460,7 @@ const attributes = {
 	},
 	backBackgroundRepeat: {
 		type: "string",
-		default: "initial"
+		default: "initial",
 	},
 	backBackgroundSize: {
 		type: "string",
@@ -662,6 +666,10 @@ const attributes = {
 		type: "string",
 		default: "px",
 	},
+	...generateBackgroundAttributes(flipboxFrontWrapper, {
+		isBgDefaultFill: true,
+		defaultFillColor: "#7967ff",
+	}),
 };
 
 export default attributes;

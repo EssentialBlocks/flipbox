@@ -1,9 +1,6 @@
 /**
  * Internal dependencies
  */
-import { FlipboxButton } from "./flipbox-button";
-import FlipboxContent from "./flipbox-content";
-import FlipboxWrapper from "./flipbox-wrapper";
 import { useBlockProps } from "@wordpress/block-editor";
 
 const Save = ({ attributes }) => {
@@ -41,15 +38,18 @@ const Save = ({ attributes }) => {
 				<div className={`eb-flipper ${flipType}`}>
 					<div className="eb-flipbox-front">
 						<div className="eb-flipbox-items-container">
-							{frontIconOrImage !== 'none' && (
+							{frontIconOrImage !== "none" && (
 								<div className="eb-flipbox-icon-wrapper">
-									{(frontIconOrImage === 'image' && frontImageUrl) && (
+									{frontIconOrImage === "image" && frontImageUrl && (
 										<div className="eb-flipbox-front-image-container">
 											<img src={frontImageUrl} />
 										</div>
 									)}
-									{(frontIconOrImage === 'icon' && frontIcon) && (
-										<div className="eb-flipbox-icon-front" data-icon={frontIcon}>
+									{frontIconOrImage === "icon" && frontIcon && (
+										<div
+											className="eb-flipbox-icon-front"
+											data-icon={frontIcon}
+										>
 											<span className={frontIcon} />
 										</div>
 									)}
@@ -57,27 +57,18 @@ const Save = ({ attributes }) => {
 							)}
 							{showFrontTitle && (
 								<div className="eb-flipbox-front-title-wrapper">
-									{
-										linkType === "title" && link ?
-											<a
-												href={link ? link : "#"}
-												className="title-link"
-											>
-												<h3 className="eb-flipbox-front-title">
-													{frontTitle}
-												</h3>
-											</a> :
-											<h3 className="eb-flipbox-front-title">
-												{frontTitle}
-											</h3>
-									}
+									{linkType === "title" && link ? (
+										<a href={link ? link : "#"} className="title-link">
+											<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+										</a>
+									) : (
+										<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+									)}
 								</div>
 							)}
 							{showFrontContent && (
 								<div className="eb-flipbox-front-content-wrapper">
-									<p className="eb-flipbox-front-content">
-										{frontContent}
-									</p>
+									<p className="eb-flipbox-front-content">{frontContent}</p>
 								</div>
 							)}
 						</div>
@@ -92,14 +83,14 @@ const Save = ({ attributes }) => {
 						}
 					>
 						<div className="eb-flipbox-items-container">
-							{backIconOrImage !== 'none' && (
+							{backIconOrImage !== "none" && (
 								<div className="eb-flipbox-icon-wrapper">
-									{(backIconOrImage === 'image' && backImageUrl) && (
+									{backIconOrImage === "image" && backImageUrl && (
 										<div className="eb-flipbox-back-image-container">
 											<img src={backImageUrl} />
 										</div>
 									)}
-									{(backIconOrImage === 'icon' && backIcon) && (
+									{backIconOrImage === "icon" && backIcon && (
 										<div className="eb-flipbox-icon-back" data-icon={backIcon}>
 											<span className={backIcon} />
 										</div>
@@ -108,38 +99,32 @@ const Save = ({ attributes }) => {
 							)}
 							{showBackTitle && (
 								<div className="eb-flipbox-back-title-wrapper">
-									{
-										linkType === "title" && link ?
-											<a
-												href={link ? link : "#"}
-												className="title-link"
-											>
-												<h3 className="eb-flipbox-back-title">
-													{backTitle}
-												</h3>
-											</a> :
-											<h3 className="eb-flipbox-back-title">
-												{backTitle}
-											</h3>
-									}
+									{linkType === "title" && link ? (
+										<a href={link ? link : "#"} className="title-link">
+											<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+										</a>
+									) : (
+										<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+									)}
 								</div>
 							)}
 							{showBackContent && (
 								<div className="eb-flipbox-back-content-wrapper">
-									<p className="eb-flipbox-back-content">
-										{backContent}
-									</p>
+									<p className="eb-flipbox-back-content">{backContent}</p>
 								</div>
 							)}
-							{linkType === 'button' && (
+							{linkType === "button" && (
 								<div className="eb-flipbox-button-container">
-									<a className={`eb-flipbox-button-link ${buttonClasses}`} href={link ? link : "#"}>
-										<div
-											className="eb-flipbox-button-content"
-										>
+									<a
+										className={`eb-flipbox-button-link ${buttonClasses}`}
+										href={link ? link : "#"}
+									>
+										<div className="eb-flipbox-button-content">
 											<span>{buttonText}</span>
 											<span
-												className={`${buttonIcon ? "fa fa-" + buttonIcon + " " : ''}eb-flipbox-button-icon`}
+												className={`${
+													buttonIcon ? "fa fa-" + buttonIcon + " " : ""
+												}eb-flipbox-button-icon`}
 											/>
 										</div>
 									</a>
