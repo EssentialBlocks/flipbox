@@ -17,18 +17,15 @@ import {
 } from "@wordpress/components";
 import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
 
+import objAttributes from "./attributes";
+
 /*
  * Internal dependencies
  */
 import faIcons from "../util/faIcons";
-import GradientColorControl from "../util/gradient-color-controller";
 import ImageAvater from "../util/image-avatar/ImageAvater";
 import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 import {
-	BACKGROUND_SIZE,
-	BACKGROUND_TYPE,
-	BACKGROUND_REPEAT,
-	BACKGROUND_POSITION,
 	BORDER_STYLES,
 	BUTTON_STYLES,
 	FLIPBOX_SIDES,
@@ -36,7 +33,6 @@ import {
 	ICON_POSITIONS,
 	ICON_TYPE,
 	LINK_TYPE,
-	DEFAULT_ICON_SIZE,
 } from "./constants";
 import { getButtonClasses } from "../util/helpers";
 import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
@@ -55,18 +51,25 @@ import {
 	dimensionsMargin,
 	dimensionsPadding,
 	buttonPadding,
+	frontIconMargin,
+	frontIconPadding,
+	backIconMargin,
+	backIconPadding,
 } from "./constants/dimensionsNames";
 import {
 	typoPrefix_title,
 	typoPrefix_content,
 } from "./constants/typographyPrefixConstants";
-import { boxHeightAttr } from "./constants/rangeNames";
+import {
+	boxHeightAttr,
+	boxWidthAttr,
+	boxFrontIconSizeAttr,
+	boxBackIconSizeAttr,
+} from "./constants/rangeNames";
 
 const Inspector = ({ attributes, setAttributes }) => {
 	const {
 		resOption,
-		boxHeight,
-		boxWidth,
 		flipType,
 		selectedSide,
 		frontIconOrImage,
@@ -87,8 +90,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 		backContent,
 		frontImageSize,
 		backImageSize,
-		frontBackground,
-		backBackground,
 		borderStyle,
 		borderColor,
 		borderWidth,
@@ -99,15 +100,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 		buttonIconPos,
 		link,
 		frontTitleColor,
-		frontOpacityColor,
 		backTitleColor,
-		backOpacityColor,
 		frontContentColor,
 		backContentColor,
 		frontImageRadius,
 		backImageRadius,
-		frontIconSize,
-		backIconSize,
 		frontIconColor,
 		backIconColor,
 		boxShadowColor,
@@ -129,51 +126,19 @@ const Inspector = ({ attributes, setAttributes }) => {
 		btnShadowBlur,
 		btnShadowSpread,
 		frontIconBackground,
-		frontIconPadding,
 		frontIconBorderRadius,
-		frontIconTopMargin,
 		frontIconBorderSize,
 		frontIconBorderType,
 		frontIconBorderColor,
 		backIconBackground,
-		backIconPadding,
 		backIconBorderRadius,
-		backIconTopMargin,
 		backIconBorderSize,
 		backIconBorderType,
 		backIconBorderColor,
-		frontBackgroundType,
-		frontBackgroundGradient,
-		backBackgroundType,
-		backBackgroundGradient,
 		transitionSpeed,
-		frontBackgroundImageID,
-		frontBackgroundImageURL,
-		frontBackgroundPosition,
-		frontBackgroundPosX,
-		frontBackgroundPosXUnit,
-		frontBackgroundPosY,
-		frontBackgroundPosYUnit,
-		frontBackgroundSize,
-		frontBackgroundWidth,
-		frontBackgroundWidthUnit,
-		frontBackgroundRepeat,
-		backBackgroundImageID,
-		backBackgroundImageURL,
-		backBackgroundPosition,
-		backBackgroundPosX,
-		backBackgroundPosXUnit,
-		backBackgroundPosY,
-		backBackgroundPosYUnit,
-		backBackgroundSize,
-		backBackgroundWidth,
-		backBackgroundWidthUnit,
-		backBackgroundRepeat,
 		displayButtonIcon,
 		radiusUnit,
 		buttonSizeUnit,
-		heightUnit,
-		widthUnit,
 	} = attributes;
 
 	// Genereate different button styles
@@ -242,6 +207,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 		setAttributes,
 		resOption,
 		attributes,
+		objAttributes,
 	};
 
 	return (
@@ -256,53 +222,23 @@ const Inspector = ({ attributes, setAttributes }) => {
 					</BaseControl>
 				</PanelBody>
 				<PanelBody title={__("Flipbox Settings")} initialOpen={false}>
-					<UnitControl
-						selectedUnit={heightUnit}
-						unitTypes={[
-							{ label: "px", value: "px" },
-							{ label: "em", value: "em" },
-						]}
-						onClick={(heightUnit) => setAttributes({ heightUnit })}
+					<ResponsiveRangeController
+						baseLabel={__("Box Height", "flipbox")}
+						controlName={boxHeightAttr}
+						resRequiredProps={resRequiredProps}
+						min={310}
+						max={600}
+						step={1}
 					/>
-
-					<ResetControl onReset={() => setAttributes({ boxHeight: undefined })}>
-						<RangeControl
-							label={__("Box Height")}
-							value={boxHeight}
-							onChange={(newSize) => setAttributes({ boxHeight: newSize })}
-							min={heightUnit === "px" ? 310 : 20}
-							max={heightUnit === "px" ? 600 : 100}
-						/>
-					</ResetControl>
 
 					<ResponsiveRangeController
-						baseLabel={__("New Box Height", "flipbox")}
-						controlName={boxHeightAttr}
-						requiredProps={resRequiredProps}
+						baseLabel={__("Box Width", "flipbox")}
+						controlName={boxWidthAttr}
+						resRequiredProps={resRequiredProps}
 						min={0}
-						max={500}
-						step={2}
+						max={600}
+						step={1}
 					/>
-
-					<UnitControl
-						selectedUnit={widthUnit}
-						unitTypes={[
-							{ label: "px", value: "px" },
-							{ label: "em", value: "em" },
-							{ label: "%", value: "%" },
-						]}
-						onClick={(widthUnit) => setAttributes({ widthUnit })}
-					/>
-
-					<ResetControl onReset={() => setAttributes({ boxWidth: undefined })}>
-						<RangeControl
-							label={__("Box Width")}
-							value={boxWidth}
-							onChange={(newSize) => setAttributes({ boxWidth: newSize })}
-							min={0}
-							max={600}
-						/>
-					</ResetControl>
 
 					<SelectControl
 						label={__("Flipbox Type")}
@@ -400,57 +336,28 @@ const Inspector = ({ attributes, setAttributes }) => {
 										}
 									/>
 
-									<ResetControl
-										onReset={() => setAttributes({ frontIconSize: undefined })}
-									>
-										<RangeControl
-											label={__("Icon Size")}
-											value={frontIconSize || DEFAULT_ICON_SIZE}
-											onChange={(newSize) =>
-												setAttributes({
-													frontIconSize: newSize,
-												})
-											}
-											min={8}
-											max={100}
-										/>
-									</ResetControl>
+									<ResponsiveRangeController
+										baseLabel={__("Icon Size", "flipbox")}
+										controlName={boxFrontIconSizeAttr}
+										resRequiredProps={resRequiredProps}
+										min={8}
+										max={100}
+									/>
 
-									<ResetControl
-										onReset={() =>
-											setAttributes({ frontIconPadding: undefined })
-										}
-									>
-										<RangeControl
-											label={__("Icon Padding")}
-											value={frontIconPadding}
-											onChange={(newValue) =>
-												setAttributes({
-													frontIconPadding: newValue,
-												})
-											}
-											min={0}
-											max={100}
+									<PanelBody title={__("Margin & Padding")} initialOpen={false}>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											className="frontIconMargin"
+											controlName={frontIconMargin}
+											baseLabel="Margin"
 										/>
-									</ResetControl>
-
-									<ResetControl
-										onReset={() =>
-											setAttributes({ frontIconTopMargin: undefined })
-										}
-									>
-										<RangeControl
-											label={__("Top Margin")}
-											value={frontIconTopMargin}
-											onChange={(newValue) =>
-												setAttributes({
-													frontIconTopMargin: newValue,
-												})
-											}
-											min={0}
-											max={100}
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											className="frontIconPadding"
+											controlName={frontIconPadding}
+											baseLabel="Padding"
 										/>
-									</ResetControl>
+									</PanelBody>
 
 									<PanelBody title={__("Border Settings")} initialOpen={false}>
 										<ResetControl
@@ -615,57 +522,28 @@ const Inspector = ({ attributes, setAttributes }) => {
 										}
 									/>
 
-									<ResetControl
-										onReset={() => setAttributes({ backIconSize: undefined })}
-									>
-										<RangeControl
-											label={__("Icon Size")}
-											value={backIconSize || DEFAULT_ICON_SIZE}
-											onChange={(newSize) =>
-												setAttributes({
-													backIconSize: newSize,
-												})
-											}
-											min={8}
-											max={64}
-										/>
-									</ResetControl>
+									<ResponsiveRangeController
+										baseLabel={__("Icon Size", "flipbox")}
+										controlName={boxBackIconSizeAttr}
+										resRequiredProps={resRequiredProps}
+										min={8}
+										max={100}
+									/>
 
-									<ResetControl
-										onReset={() =>
-											setAttributes({ backIconPadding: undefined })
-										}
-									>
-										<RangeControl
-											label={__("Padding")}
-											value={backIconPadding}
-											onChange={(newValue) =>
-												setAttributes({
-													backIconPadding: newValue,
-												})
-											}
-											min={0}
-											max={100}
+									<PanelBody title={__("Margin & Padding")} initialOpen={false}>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											className="backIconMargin"
+											controlName={backIconMargin}
+											baseLabel="Margin"
 										/>
-									</ResetControl>
-
-									<ResetControl
-										onReset={() =>
-											setAttributes({ backIconTopMargin: undefined })
-										}
-									>
-										<RangeControl
-											label={__("Top Margin")}
-											value={backIconTopMargin}
-											onChange={(newValue) =>
-												setAttributes({
-													backIconTopMargin: newValue,
-												})
-											}
-											min={0}
-											max={100}
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											className="backIconPadding"
+											controlName={backIconPadding}
+											baseLabel="Padding"
 										/>
-									</ResetControl>
+									</PanelBody>
 
 									<PanelBody
 										title={__("Back Icon Border Settings")}
@@ -868,191 +746,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 						/>
 					)}
 
-					<>
-						{/* {selectedSide === "front" && (
-						<BaseControl
-							label={__("Front Background Type")}
-							id="eb-flipbox-front-background-type"
-						>
-							<ButtonGroup id="eb-flipbox-front-background-type">
-								{BACKGROUND_TYPE.map((item) => (
-									<Button
-										isLarge
-										isPrimary={frontBackgroundType === item.value}
-										isSecondary={frontBackgroundType !== item.value}
-										onClick={() =>
-											setAttributes({
-												frontBackgroundType: item.value,
-											})
-										}
-									>
-										{item.label}
-									</Button>
-								))}
-							</ButtonGroup>
-						</BaseControl>
-					)}
-					 {selectedSide === "front" && frontBackgroundType === "fill" && (
-						<ColorControl
-							label={__("Front Background")}
-							color={frontBackground}
-							onChange={(frontBackground) => setAttributes({ frontBackground })}
-						/>
-					)}
-
-					{selectedSide === "front" && frontBackgroundType === "gradient" && (
-						<PanelBody title={__("Background Gradient Colors")}>
-							<GradientColorControl
-								gradientColor={frontBackgroundGradient}
-								onChange={(frontBackgroundGradient) =>
-									setAttributes({ frontBackgroundGradient })
-								}
-							/>
-						</PanelBody>
-					)}
-
-					{selectedSide === "front" && frontBackgroundType === "image" && (
-						<MediaUpload
-							onSelect={(media) => {
-								setAttributes({
-									frontBackgroundImageID: media.id,
-									frontBackgroundImageURL: media.url,
-								});
-							}}
-							type="image"
-							value={frontBackgroundImageID}
-							render={({ open }) =>
-								!frontBackgroundImageID && (
-									<Button
-										isSecondary
-										onClick={open}
-										className="eb-flipbox-upload-button"
-										label={__("Upload Image")}
-										icon="format-image"
-									></Button>
-								)
-							}
-						/>
-					)}
-
-					{selectedSide === "front" &&
-						frontBackgroundType === "image" &&
-						frontBackgroundImageID && (
-							<PanelBody title={__("Background Image")}>
-								<ImageAvater
-									imageUrl={frontBackgroundImageURL}
-									onDeleteImage={() =>
-										setAttributes({
-											frontBackgroundImageID: null,
-											frontBackgroundImageURL: null,
-										})
-									}
-								/>
-
-								<SelectControl
-									label={__("Background Position")}
-									value={frontBackgroundPosition}
-									options={BACKGROUND_POSITION}
-									onChange={(frontBackgroundPosition) =>
-										setAttributes({ frontBackgroundPosition })
-									}
-								/>
-
-								{frontBackgroundPosition === "custom" && (
-									<>
-										<UnitControl
-											selectedUnit={frontBackgroundPosXUnit}
-											unitTypes={[
-												{ label: "px", value: "px" },
-												{ label: "em", value: "em" },
-												{ label: "%", value: "%" },
-											]}
-											onClick={(frontBackgroundPosXUnit) =>
-												setAttributes({ frontBackgroundPosXUnit })
-											}
-										/>
-
-										<RangeControl
-											label={__("X Position")}
-											value={frontBackgroundPosX}
-											onChange={(frontBackgroundPosX) =>
-												setAttributes({ frontBackgroundPosX })
-											}
-										/>
-
-										<UnitControl
-											selectedUnit={frontBackgroundPosYUnit}
-											unitTypes={[
-												{ label: "px", value: "px" },
-												{ label: "em", value: "em" },
-												{ label: "%", value: "%" },
-											]}
-											onClick={(frontBackgroundPosYUnit) =>
-												setAttributes({ frontBackgroundPosYUnit })
-											}
-										/>
-										<RangeControl
-											label={__("Y Position")}
-											value={frontBackgroundPosY}
-											onChange={(frontBackgroundPosY) =>
-												setAttributes({ frontBackgroundPosY })
-											}
-										/>
-									</>
-								)}
-
-								<SelectControl
-									label={__("Background Size")}
-									value={frontBackgroundSize}
-									options={BACKGROUND_SIZE}
-									onChange={(frontBackgroundSize) =>
-										setAttributes({ frontBackgroundSize })
-									}
-								/>
-
-								{frontBackgroundSize === "custom" && (
-									<>
-										<UnitControl
-											selectedUnit={frontBackgroundWidthUnit}
-											unitTypes={[
-												{ label: "px", value: "px" },
-												{ label: "em", value: "em" },
-												{ label: "%", value: "%" },
-											]}
-											onClick={(frontBackgroundWidthUnit) =>
-												setAttributes({ frontBackgroundWidthUnit })
-											}
-										/>
-
-										<RangeControl
-											label={__("Width")}
-											value={frontBackgroundWidth}
-											onChange={(frontBackgroundWidth) =>
-												setAttributes({ frontBackgroundWidth })
-											}
-										/>
-									</>
-								)}
-
-								<SelectControl
-									label={__("Background Repeat")}
-									value={frontBackgroundRepeat}
-									options={BACKGROUND_REPEAT}
-									onChange={(frontBackgroundRepeat) =>
-										setAttributes({ frontBackgroundRepeat })
-									}
-								/>
-
-								<ColorControl
-									label={__("Background Color & Opacity")}
-									color={frontOpacityColor}
-									onChange={(frontOpacityColor) =>
-										setAttributes({ frontOpacityColor })
-									}
-								/>
-							</PanelBody>
-						)} */}
-					</>
 					{selectedSide === "front" && (
 						<>
 							<ColorControl
@@ -1079,194 +772,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 							resRequiredProps={resRequiredProps}
 						/>
 					)}
-
-					<>
-						{/* {selectedSide === "back" && (
-							<BaseControl
-								label={__("Back Background Type")}
-								id="eb-flipbox-back-background-type"
-							>
-								<ButtonGroup id="eb-flipbox-back-background-type">
-									{BACKGROUND_TYPE.map((item) => (
-										<Button
-											isLarge
-											isPrimary={backBackgroundType === item.value}
-											isSecondary={backBackgroundType !== item.value}
-											onClick={() =>
-												setAttributes({
-													backBackgroundType: item.value,
-												})
-											}
-										>
-											{item.label}
-										</Button>
-									))}
-								</ButtonGroup>
-							</BaseControl>
-						)}
-
-						{selectedSide === "back" && backBackgroundType === "fill" && (
-							<ColorControl
-								label={__("Back Background")}
-								color={backBackground}
-								onChange={(backBackground) => setAttributes({ backBackground })}
-							/>
-						)}
-
-						{backBackgroundType === "gradient" && (
-							<PanelBody title={__("Background Gradient Colors")}>
-								<GradientColorControl
-									gradientColor={backBackgroundGradient}
-									onChange={(backBackgroundGradient) =>
-										setAttributes({
-											backBackgroundGradient,
-										})
-									}
-								/>
-							</PanelBody>
-						)}
-
-						{backBackgroundType === "image" && (
-							<MediaUpload
-								onSelect={(media) => {
-									setAttributes({
-										backBackgroundImageID: media.id,
-										backBackgroundImageURL: media.url,
-									});
-								}}
-								allowedTypes={["image"]}
-								value={backBackgroundImageID}
-								render={({ open }) =>
-									!backBackgroundImageID && (
-										<Button
-											className="eb-flipbox-upload-button"
-											label={__("Upload Image")}
-											icon="format-image"
-											onClick={open}
-										></Button>
-									)
-								}
-							/>
-						)}
-
-						{selectedSide === "back" &&
-							backBackgroundType === "image" &&
-							backBackgroundImageID && (
-								<PanelBody title={__("Background Image")}>
-									<ImageAvater
-										imageUrl={backBackgroundImageURL}
-										onDeleteImage={() =>
-											setAttributes({
-												backBackgroundImageID: null,
-												backBackgroundImageURL: null,
-											})
-										}
-									/>
-
-									<SelectControl
-										label={__("Background Position")}
-										value={backBackgroundPosition}
-										options={BACKGROUND_POSITION}
-										onChange={(backBackgroundPosition) =>
-											setAttributes({ backBackgroundPosition })
-										}
-									/>
-
-									{backBackgroundPosition === "custom" && (
-										<>
-											<UnitControl
-												selectedUnit={backBackgroundPosXUnit}
-												unitTypes={[
-													{ label: "px", value: "px" },
-													{ label: "em", value: "em" },
-													{ label: "%", value: "%" },
-												]}
-												onClick={(backBackgroundPosXUnit) =>
-													setAttributes({ backBackgroundPosXUnit })
-												}
-											/>
-
-											<RangeControl
-												label={__("X Position")}
-												value={backBackgroundPosX}
-												onChange={(backBackgroundPosX) =>
-													setAttributes({ backBackgroundPosX })
-												}
-											/>
-
-											<UnitControl
-												selectedUnit={backBackgroundPosYUnit}
-												unitTypes={[
-													{ label: "px", value: "px" },
-													{ label: "em", value: "em" },
-													{ label: "%", value: "%" },
-												]}
-												onClick={(backBackgroundPosYUnit) =>
-													setAttributes({ backBackgroundPosYUnit })
-												}
-											/>
-											<RangeControl
-												label={__("Y Position")}
-												value={backBackgroundPosY}
-												onChange={(backBackgroundPosY) =>
-													setAttributes({ backBackgroundPosY })
-												}
-											/>
-										</>
-									)}
-
-									<SelectControl
-										label={__("Background Size")}
-										value={backBackgroundSize}
-										options={BACKGROUND_SIZE}
-										onChange={(backBackgroundSize) =>
-											setAttributes({ backBackgroundSize })
-										}
-									/>
-
-									{backBackgroundSize === "custom" && (
-										<>
-											<UnitControl
-												selectedUnit={backBackgroundWidthUnit}
-												unitTypes={[
-													{ label: "px", value: "px" },
-													{ label: "em", value: "em" },
-													{ label: "%", value: "%" },
-												]}
-												onClick={(backBackgroundWidthUnit) =>
-													setAttributes({ backBackgroundWidthUnit })
-												}
-											/>
-
-											<RangeControl
-												label={__("Width")}
-												value={backBackgroundWidth}
-												onChange={(backBackgroundWidth) =>
-													setAttributes({ backBackgroundWidth })
-												}
-											/>
-										</>
-									)}
-
-									<SelectControl
-										label={__("Background Repeat")}
-										value={backBackgroundRepeat}
-										options={BACKGROUND_REPEAT}
-										onChange={(backBackgroundRepeat) =>
-											setAttributes({ backBackgroundRepeat })
-										}
-									/>
-
-									<ColorControl
-										label={__("Background Color & Opacity")}
-										color={backOpacityColor}
-										onChange={(backOpacityColor) =>
-											setAttributes({ backOpacityColor })
-										}
-									/>
-								</PanelBody>
-							)} */}
-					</>
 
 					{selectedSide === "back" && (
 						<>

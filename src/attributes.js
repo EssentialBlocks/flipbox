@@ -3,9 +3,17 @@ import {
 	dimensionsMargin,
 	dimensionsPadding,
 	buttonPadding,
-	boxHeight,
+	frontIconMargin,
+	frontIconPadding,
+	backIconMargin,
+	backIconPadding,
 } from "./constants/dimensionsNames";
-import { boxHeightAttr } from "./constants/rangeNames";
+import {
+	boxHeightAttr,
+	boxFrontIconSizeAttr,
+	boxBackIconSizeAttr,
+	boxWidthAttr,
+} from "./constants/rangeNames";
 import {
 	generateTypographyAttributes,
 	generateDimensionsAttributes,
@@ -43,17 +51,18 @@ const attributes = {
 	...generateDimensionsAttributes(dimensionsMargin),
 	...generateDimensionsAttributes(dimensionsPadding),
 	...generateDimensionsAttributes(buttonPadding),
+	...generateDimensionsAttributes(frontIconMargin),
+	...generateDimensionsAttributes(frontIconPadding),
+	...generateDimensionsAttributes(backIconMargin),
+	...generateDimensionsAttributes(backIconPadding),
 	// range controller
-	...generateResponsiveRangeAttributes(boxHeightAttr, "auto"),
+	...generateResponsiveRangeAttributes(boxHeightAttr, "310"),
+	...generateResponsiveRangeAttributes(boxWidthAttr, "600"),
+	...generateResponsiveRangeAttributes(boxFrontIconSizeAttr, "50"),
+	...generateResponsiveRangeAttributes(boxBackIconSizeAttr, "50"),
 	flipboxStyle: {
 		type: "string",
 		default: "default",
-	},
-	boxHeight: {
-		type: "number",
-	},
-	boxWidth: {
-		type: "number",
 	},
 	isHover: {
 		type: "boolean",

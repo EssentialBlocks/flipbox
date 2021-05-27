@@ -18,13 +18,16 @@ import "./editor.scss";
 /*
  * Internal dependencies
  */
-import { getBackgroundImage, getFlipTransform } from "../util/helpers";
-import { DEFAULT_ICON_SIZE } from "./constants";
+import { getFlipTransform } from "../util/helpers";
 import Inspector from "./inspector";
 import {
 	dimensionsMargin,
 	dimensionsPadding,
 	buttonPadding,
+	frontIconMargin,
+	frontIconPadding,
+	backIconMargin,
+	backIconPadding,
 } from "./constants/dimensionsNames";
 import {
 	typoPrefix_title,
@@ -36,7 +39,12 @@ import {
 	flipboxFrontWrapper,
 } from "./constants/backgroundsConstants";
 
-import { boxHeightAttr } from "./constants/rangeNames";
+import {
+	boxHeightAttr,
+	boxFrontIconSizeAttr,
+	boxBackIconSizeAttr,
+	boxWidthAttr,
+} from "./constants/rangeNames";
 import {
 	softMinifyCssStrings,
 	isCssExists,
@@ -64,8 +72,6 @@ function Edit(props) {
 		blockMeta,
 		// responsive control attribute ⬇
 		resOption,
-		boxHeight,
-		boxWidth,
 		isHover,
 		flipType,
 		selectedSide,
@@ -85,8 +91,6 @@ function Edit(props) {
 		backContent,
 		frontImageSize,
 		backImageSize,
-		frontBackground,
-		backBackground,
 		borderStyle,
 		borderColor,
 		borderWidth,
@@ -97,15 +101,11 @@ function Edit(props) {
 		buttonIconPos,
 		link,
 		frontTitleColor,
-		frontOpacityColor,
 		backTitleColor,
-		backOpacityColor,
 		frontContentColor,
 		backContentColor,
 		frontImageRadius,
 		backImageRadius,
-		frontIconSize,
-		backIconSize,
 		frontIconColor,
 		backIconColor,
 		boxShadowColor,
@@ -128,50 +128,20 @@ function Edit(props) {
 		btnShadowBlur,
 		btnShadowSpread,
 		frontIconBackground,
-		frontIconPadding,
 		frontIconBorderRadius,
-		frontIconTopMargin,
 		frontIconBorderSize,
 		frontIconBorderType,
 		frontIconBorderColor,
 		backIconBackground,
-		backIconPadding,
 		backIconBorderRadius,
-		backIconTopMargin,
 		backIconBorderSize,
 		backIconBorderType,
 		backIconBorderColor,
-		frontBackgroundType,
-		frontBackgroundGradient,
-		backBackgroundType,
-		backBackgroundGradient,
 		transitionSpeed,
-		frontBackgroundImageURL,
-		frontBackgroundPosition,
-		frontBackgroundPosX,
-		frontBackgroundPosXUnit,
-		frontBackgroundPosY,
-		frontBackgroundPosYUnit,
-		frontBackgroundSize,
-		frontBackgroundWidth,
-		frontBackgroundWidthUnit,
-		frontBackgroundRepeat,
-		backBackgroundImageURL,
-		backBackgroundPosition,
-		backBackgroundPosX,
-		backBackgroundPosXUnit,
-		backBackgroundPosY,
-		backBackgroundPosYUnit,
-		backBackgroundSize,
-		backBackgroundWidth,
-		backBackgroundWidthUnit,
-		backBackgroundRepeat,
 		displayButtonIcon,
 		align,
 		radiusUnit,
 		buttonSizeUnit,
-		heightUnit,
-		widthUnit,
 	} = attributes;
 
 	// Default colors
@@ -209,6 +179,7 @@ function Edit(props) {
 		attributes,
 	});
 
+	// responsive range controller
 	const {
 		rangeStylesDesktop: wrapperHeightStylesDesktop,
 		rangeStylesTab: wrapperHeightStylesTab,
@@ -216,6 +187,46 @@ function Edit(props) {
 	} = generateResponsiveRangeStyles({
 		controlName: boxHeightAttr,
 		property: "height",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: wrapperMinHeightStylesDesktop,
+		rangeStylesTab: wrapperMinHeightStylesTab,
+		rangeStylesMobile: wrapperMinHeightStylesMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxHeightAttr,
+		property: "min-height",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: wrapperWidthStylesDesktop,
+		rangeStylesTab: wrapperWidthStylesTab,
+		rangeStylesMobile: wrapperWidthStylesMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxWidthAttr,
+		property: "max-width",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: frontFontSizeDesktop,
+		rangeStylesTab: frontFontSizeTab,
+		rangeStylesMobile: frontFontSizeMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxFrontIconSizeAttr,
+		property: "font-size",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: backFontSizeDesktop,
+		rangeStylesTab: backFontSizeTab,
+		rangeStylesMobile: backFontSizeMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxBackIconSizeAttr,
+		property: "font-size",
 		attributes,
 	});
 
@@ -232,6 +243,27 @@ function Edit(props) {
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxFrontWrapper,
+	});
+
+	// front Icon Margin & Padding
+	const {
+		dimensionStylesDesktop: frontIconMarginStylesDesktop,
+		dimensionStylesTab: frontIconMarginStylesTab,
+		dimensionStylesMobile: frontIconMarginStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontIconMargin,
+		styleFor: "margin",
+		attributes,
+	});
+
+	const {
+		dimensionStylesDesktop: frontIconPaddingStylesDesktop,
+		dimensionStylesTab: frontIconPaddingStylesTab,
+		dimensionStylesMobile: frontIconPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontIconPadding,
+		styleFor: "padding",
+		attributes,
 	});
 
 	// back background controller
@@ -267,14 +299,33 @@ function Edit(props) {
 		prefixConstant: typoPrefix_content,
 	});
 
-	console.log("responsive: ", wrapperHeightStylesDesktop);
+	// back Icon Margin & Padding
+	const {
+		dimensionStylesDesktop: backIconMarginStylesDesktop,
+		dimensionStylesTab: backIconMarginStylesTab,
+		dimensionStylesMobile: backIconMarginStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backIconMargin,
+		styleFor: "margin",
+		attributes,
+	});
+
+	const {
+		dimensionStylesDesktop: backIconPaddingStylesDesktop,
+		dimensionStylesTab: backIconPaddingStylesTab,
+		dimensionStylesMobile: backIconPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backIconPadding,
+		styleFor: "padding",
+		attributes,
+	});
 
 	const flipContainerStyleDesktop = `
 	 .${blockId}{
 		 ${wrapperMarginStylesDesktop}
 		 ${wrapperPaddingStylesDesktop}
 		 ${wrapperHeightStylesDesktop}
-		 max-width: ${boxWidth || 600}${widthUnit};
+		 ${wrapperWidthStylesDesktop}
 		 width: 100%;
 	 }
 	 `;
@@ -284,6 +335,7 @@ function Edit(props) {
 		 ${wrapperMarginStylesTab}
 		 ${wrapperPaddingStylesTab}
 		 ${wrapperHeightStylesTab}
+		 ${wrapperWidthStylesTab}
 	 }
 	 `;
 
@@ -292,6 +344,7 @@ function Edit(props) {
 		 ${wrapperMarginStylesMobile}
 		 ${wrapperPaddingStylesMobile}
 		 ${wrapperHeightStylesMobile}
+		 ${wrapperWidthStylesMobile}
 	 }
 	 `;
 
@@ -365,16 +418,6 @@ function Edit(props) {
 	 }
 	 `;
 
-	const {
-		rangeStylesDesktop: wrapperMinHeightStylesDesktop,
-		rangeStylesTab: wrapperMinHeightStylesTab,
-		rangeStylesMobile: wrapperMinHeightStylesMobile,
-	} = generateResponsiveRangeStyles({
-		controlName: boxHeightAttr,
-		property: "min-height",
-		attributes,
-	});
-
 	const frontStyleDesktop = `
 	${
 		frontBgType === "image" && frontIsBgOverly
@@ -396,54 +439,19 @@ function Edit(props) {
 					: " "
 			}
 		} 
-
 		`
 			: " "
 	}
 	 .${blockId} .eb-flipper .eb-flipbox-front {
+		${frontBackgroundStylesDesktop}
+		${wrapperMinHeightStylesDesktop}
+		${wrapperWidthStylesDesktop}
 		 display: flex;
 		 justify-content: center;
 		 align-items: center;
-		 ${wrapperMinHeightStylesDesktop}
-		 max-width: ${boxWidth || 600}${widthUnit};
 		 height: auto;
 		 width: 100%;
 		 z-index: 1;
-
-		 /* 
-		
-		 background-image: ${getBackgroundImage(
-				frontBackgroundType,
-				frontBackgroundGradient,
-				frontBackgroundImageURL
-			)};
-		 background-size: ${
-				frontBackgroundSize === "custom"
-					? frontBackgroundWidth + frontBackgroundWidthUnit
-					: frontBackgroundSize
-			};
-		 background-position: ${
-				frontBackgroundPosition === "custom"
-					? frontBackgroundPosX +
-					  frontBackgroundPosXUnit +
-					  " " +
-					  frontBackgroundPosY +
-					  frontBackgroundPosYUnit
-					: frontBackgroundPosition
-			};
-		 background-repeat: ${frontBackgroundRepeat};
-		 ${
-				frontBackgroundType === "fill"
-					? "background-color:" + frontBackground + ";"
-					: ""
-			}
-			
-			*/	
-			
-			${frontBackgroundStylesDesktop}
-
-			
-			
 		 border-style: ${borderStyle};
 		 border-color: ${borderColor || defaultBorderColor};
 		 border-width: ${borderWidth || 0}px;
@@ -452,25 +460,12 @@ function Edit(props) {
 		shadowBlur || 0
 	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
 	 }
-	 .${blockId} .eb-flipper .eb-flipbox-front::before {
-		 content: "";
-		 position: absolute;
-		 top: 0px;
-		 right: 0px;
-		 bottom: 0px;
-		 left: 0px;
-		 ${
-				frontBackgroundType === "image"
-					? "background-color:" + frontOpacityColor + ";"
-					: ""
-			}
-		 z-index: -99999;
-	 }
 	 `;
 
 	const frontStyleTab = `
 		 .${blockId} .eb-flipper .eb-flipbox-front {
-			 ${wrapperMinHeightStylesTab}
+			${wrapperMinHeightStylesTab}
+			${wrapperWidthStylesTab}
 			${frontBackgroundStylesTab}
 		 }
 	 `;
@@ -478,6 +473,7 @@ function Edit(props) {
 	const frontStyleMobile = `
 		 .${blockId} .eb-flipper .eb-flipbox-front {
 			 ${wrapperMinHeightStylesMobile}
+			 ${wrapperWidthStylesMobile}
 			${frontBackgroundStylesMobile}
 		 }
 	 `;
@@ -523,11 +519,11 @@ function Edit(props) {
 	 .${blockId} .eb-flipper .eb-flipbox-back {
 		${backBackgroundStylesDesktop}
 		${wrapperMinHeightStylesDesktop}
+		${wrapperWidthStylesDesktop}
 		 display: flex;
 		 flex-direction: column;
 		 justify-content: center;
 		 align-items: center;
-		 max-width: ${boxWidth || 600}${widthUnit};
 		 height: auto;
 		 width: 100%;
 		 border-style: ${borderStyle};
@@ -555,6 +551,7 @@ function Edit(props) {
 	const backStyleTab = `
 		 .${blockId} .eb-flipper .eb-flipbox-back {
 			 ${wrapperMinHeightStylesTab}
+			 ${wrapperWidthStylesTab}
 			 ${backBackgroundStylesTab}
 		 }
 	 `;
@@ -562,18 +559,19 @@ function Edit(props) {
 	const backStyleMobile = `
 		 .${blockId} .eb-flipper .eb-flipbox-back {
 			 ${wrapperMinHeightStylesMobile}
+			 ${wrapperWidthStylesMobile}
 			 ${backBackgroundStylesMobile}
 		 }
 	 `;
 
 	const frontIconStyleDesktop = `
 		 .${blockId} .eb-flipbox-icon-front {
-			 font-size: ${frontIconSize || DEFAULT_ICON_SIZE}px;
+			 ${frontFontSizeDesktop}
+			 ${frontIconMarginStylesDesktop}
+			 ${frontIconPaddingStylesDesktop}
 			 color: ${frontIconColor || "#ffffff"};
 			 border-radius: ${frontIconBorderRadius || 0}px;
 			 background: ${frontIconBackground || defaultFrontIconBackground};
-			 padding: ${frontIconPadding || 0}px;
-			 margin-top: ${frontIconTopMargin || 0}px;
 			 border-style: ${frontIconBorderType};
 			 border-color: ${frontIconBorderColor || defaultFrontIconBorderColor};
 			 border-width: ${frontIconBorderSize || 0}px;
@@ -581,6 +579,22 @@ function Edit(props) {
 			 text-align:${align};
 			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
 		 }
+	 `;
+
+	const frontIconStyleTab = `
+	 .${blockId} .eb-flipbox-icon-front {
+		${frontFontSizeTab}
+		${frontIconMarginStylesTab}
+		${frontIconPaddingStylesTab}
+	 }
+	 `;
+
+	const frontIconStyleMobile = `
+	 .${blockId} .eb-flipbox-icon-front {
+		${frontFontSizeMobile}
+		${frontIconMarginStylesMobile}
+		${frontIconPaddingStylesMobile}
+	 }
 	 `;
 
 	const backImageStyleDesktop = `
@@ -598,12 +612,12 @@ function Edit(props) {
 
 	const backIconStyleDesktop = `
 	 .${blockId} .eb-flipbox-icon-back {
-		 font-size: ${backIconSize || DEFAULT_ICON_SIZE}px;
+		 ${backFontSizeDesktop}
+		 ${backIconMarginStylesDesktop}
+		 ${backIconPaddingStylesDesktop}
 		 color: ${backIconColor || "#ffffff"};
 		 border-radius:${backIconBorderRadius || 0}%;
 		 background: ${backIconBackground || defaultBackIconBackground};
-		 padding: ${backIconPadding || 0}px;
-		 margin-top: ${backIconTopMargin || 0}px;
 		 border-style: ${backIconBorderType};
 		 border-color: ${backIconBorderColor || defaultBackIconBorderColor};
 		 border-width: ${backIconBorderSize || 0}px;
@@ -612,6 +626,22 @@ function Edit(props) {
 		 display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
 	 }
 	 `;
+
+	const backIconStyleTab = `
+	.${blockId} .eb-flipbox-icon-back {
+		${backFontSizeTab}
+		${backIconMarginStylesTab}
+		${backIconPaddingStylesTab}
+	}
+	`;
+
+	const backIconStyleMobile = `
+	.${blockId} .eb-flipbox-icon-back {
+		${backFontSizeMobile}
+		${backIconMarginStylesMobile}
+		${backIconPaddingStylesMobile}
+	}
+	`;
 
 	let backButtonStyleDesktop,
 		backButtonStyleTab,
@@ -676,9 +706,9 @@ function Edit(props) {
 		 ${isCssExists(frontStyleDesktop) ? frontStyleDesktop : " "}
 		 ${isCssExists(frontImageStyleDesktop) ? frontImageStyleDesktop : " "}
 		 ${isCssExists(frontIconStyleDesktop) ? frontIconStyleDesktop : " "}
+		 ${isCssExists(backIconStyleDesktop) ? backIconStyleDesktop : " "}
 		 ${isCssExists(backStyleDesktop) ? backStyleDesktop : " "}
 		 ${isCssExists(backImageStyleDesktop) ? backImageStyleDesktop : " "}
-		 ${isCssExists(backIconStyleDesktop) ? backIconStyleDesktop : " "}
 		 ${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
 	 `);
 
@@ -692,6 +722,8 @@ function Edit(props) {
 		 ${isCssExists(backButtonStyleTab) ? backButtonStyleTab : " "}
 		 ${isCssExists(frontStyleTab) ? frontStyleTab : " "}
 		 ${isCssExists(backStyleTab) ? backStyleTab : " "}
+		 ${isCssExists(frontIconStyleTab) ? frontIconStyleTab : " "}
+		 ${isCssExists(backIconStyleTab) ? backIconStyleTab : " "}
 	 `);
 
 	// all css styles for Mobile in strings ⬇
@@ -702,6 +734,8 @@ function Edit(props) {
 		 ${isCssExists(backButtonStyleMobile) ? backButtonStyleMobile : " "}
 		 ${isCssExists(frontStyleMobile) ? frontStyleMobile : " "}
 		 ${isCssExists(backStyleMobile) ? backStyleMobile : " "}
+		 ${isCssExists(frontIconStyleMobile) ? frontIconStyleMobile : " "}
+		 ${isCssExists(backIconStyleMobile) ? backIconStyleMobile : " "}
 	 `);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {
