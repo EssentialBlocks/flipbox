@@ -436,7 +436,7 @@ function Edit(props) {
 		}
 
 		.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
-			opacity: ${isHover && flipType === "fade" && 0};
+			opacity: ${(isHover || selectedSide === "front") && flipType === "fade" && 0};
 		}
 	 `;
 
@@ -511,7 +511,7 @@ function Edit(props) {
 	 }
 
 	 .${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
-		opacity: ${flipType === "fade" && (isHover ? 1 : 0)};
+		opacity: ${(isHover || selectedSide === "back") && flipType === "fade" && 1};
 	 }
 	 `;
 
@@ -777,6 +777,7 @@ function Edit(props) {
 	const blockProps = useBlockProps({
 		className: `eb-guten-block-main-parent-wrapper`,
 	});
+	console.log("from edit", { selectedSide });
 
 	return [
 		isSelected && (

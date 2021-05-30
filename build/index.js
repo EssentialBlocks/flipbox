@@ -4921,11 +4921,11 @@ function Edit(props) {
   var contentStylesMobile = "\n\t .".concat(blockId, " .eb-flipbox-front-content, .").concat(blockId, " .eb-flipbox-back-content {\n\t\t ").concat(contentTypoStylesMobile, "\n\t }\n\t "); // flipper style
 
   var flipperStyle = "\n\t .".concat(blockId, " .eb-flipper {\n\t\t transition: ").concat(transitionSpeed ? transitionSpeed / 10 : 0.6, "s\n\t }\n\t .").concat(blockId, " .eb-flipper.back-is-selected {\n\t\t transform:\n\t\t\t  ").concat(isHover || selectedSide === "back" ? Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["getFlipTransform"])(flipType) : "none", ";\n\t }\n\t ");
-  var frontStyleDesktop = "\n\t\t.".concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\t").concat(frontOverlayStyles, "\n\t\t}\n\n\t\t.").concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(frontBackgroundStylesDesktop, "\n\t\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\theight: auto;\n\t\t\twidth: 100%;\n\t\t\tz-index: 1;\n\t\t\tborder-style: ").concat(borderStyle, ";\n\t\t\tborder-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t\tborder-width: ").concat(borderWidth || 0, "px;\n\t\t\tborder-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t\tbox-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t}\n\n\t\t.").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-front {\n\t\t\topacity: ").concat(isHover && flipType === "fade" && 0, ";\n\t\t}\n\t ");
+  var frontStyleDesktop = "\n\t\t.".concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\t").concat(frontOverlayStyles, "\n\t\t}\n\n\t\t.").concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(frontBackgroundStylesDesktop, "\n\t\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\theight: auto;\n\t\t\twidth: 100%;\n\t\t\tz-index: 1;\n\t\t\tborder-style: ").concat(borderStyle, ";\n\t\t\tborder-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t\tborder-width: ").concat(borderWidth || 0, "px;\n\t\t\tborder-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t\tbox-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t}\n\n\t\t.").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-front {\n\t\t\topacity: ").concat((isHover || selectedSide === "front") && flipType === "fade" && 0, ";\n\t\t}\n\t ");
   var frontStyleTab = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(wrapperMinHeightStylesTab, "\n\t\t\t").concat(wrapperWidthStylesTab, "\n\t\t\t").concat(frontBackgroundStylesTab, "\n\t\t }\n\t ");
   var frontStyleMobile = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t ").concat(wrapperWidthStylesMobile, "\n\t\t\t").concat(frontBackgroundStylesMobile, "\n\t\t }\n\t ");
   var frontImageStyleDesktop = "\n\t .".concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container, .").concat(blockId, " .eb-flipbox-back .eb-flipbox-front-image-container {\n\t\t align-self: ").concat(getImageAlign(align), ";\n\t\t display: ").concat(frontIconOrImage === "image" && frontImageUrl ? "block" : "none", ";\n\t }\n \n\t .").concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container img {\n\t\t height: ").concat(frontImageSize || 100, "px;\n\t\t width: ").concat(frontImageSize || 100, "px;\n\t\t border-radius: ").concat(frontImageRadius || 0, "%;\n\t }\n\t ");
-  var backStyleDesktop = "\n\n\t.".concat(blockId, " .eb-flipper .eb-flipbox-back:before{\n\t\t").concat(backOverlayStyles, "\n\t}\n\n\t .").concat(blockId, " .eb-flipper .eb-flipbox-back {\t\n\t\t").concat(backBackgroundStylesDesktop, "\n\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t display: flex;\n\t\t flex-direction: column;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t height: auto;\n\t\t width: 100%;\n\t\t border-style: ").concat(borderStyle, ";\n\t\t border-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t border-width: ").concat(borderWidth || 0, "px;\n\t\t border-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t box-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t\t transform:  ").concat(flipType === "flip-up" && "rotateX(-180deg)" || flipType === "flip-bottom" && "rotateX(180deg)" || (flipType === "zoom-in" || flipType === "zoom-out" || flipType === "fade") && "none", ";\n\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t cursor: ").concat(linkType === "box" && link ? "pointer" : "default", ";\n\t\t position: relative;\n\t\t ").concat(isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? "z-index: 5;" : "", "\n\t }\n\n\t .").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-back {\n\t\topacity: ").concat(flipType === "fade" && (isHover ? 1 : 0), ";\n\t }\n\t ");
+  var backStyleDesktop = "\n\n\t.".concat(blockId, " .eb-flipper .eb-flipbox-back:before{\n\t\t").concat(backOverlayStyles, "\n\t}\n\n\t .").concat(blockId, " .eb-flipper .eb-flipbox-back {\t\n\t\t").concat(backBackgroundStylesDesktop, "\n\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t display: flex;\n\t\t flex-direction: column;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t height: auto;\n\t\t width: 100%;\n\t\t border-style: ").concat(borderStyle, ";\n\t\t border-color: ").concat(borderColor || defaultBorderColor, ";\n\t\t border-width: ").concat(borderWidth || 0, "px;\n\t\t border-radius: ").concat(borderRadius || 0).concat(radiusUnit, ";\n\t\t box-shadow: ").concat(shadowVOffset || 0, "px ").concat(shadowHOffset || 0, "px ").concat(shadowBlur || 0, "px ").concat(shadowSpread || 0, "px ").concat(boxShadowColor || defaultBoxShadowColor, ";\n\t\t transform:  ").concat(flipType === "flip-up" && "rotateX(-180deg)" || flipType === "flip-bottom" && "rotateX(180deg)" || (flipType === "zoom-in" || flipType === "zoom-out" || flipType === "fade") && "none", ";\n\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t cursor: ").concat(linkType === "box" && link ? "pointer" : "default", ";\n\t\t position: relative;\n\t\t ").concat(isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? "z-index: 5;" : "", "\n\t }\n\n\t .").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-back {\n\t\topacity: ").concat((isHover || selectedSide === "back") && flipType === "fade" && 1, ";\n\t }\n\t ");
   var backStyleTab = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesTab, "\n\t\t\t ").concat(wrapperWidthStylesTab, "\n\t\t\t ").concat(backBackgroundStylesTab, "\n\t\t }\n\t ");
   var backStyleMobile = "\n\t\t .".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t ").concat(wrapperWidthStylesMobile, "\n\t\t\t ").concat(backBackgroundStylesMobile, "\n\t\t }\n\t ");
   var frontIconStyleDesktop = "\n\t\t .".concat(blockId, " .eb-flipbox-icon-front {\n\t\t\t ").concat(frontFontSizeDesktop, "\n\t\t\t ").concat(frontIconMarginStylesDesktop, "\n\t\t\t ").concat(frontIconPaddingStylesDesktop, "\n\t\t\t color: ").concat(frontIconColor || "#ffffff", ";\n\t\t\t border-radius: ").concat(frontIconBorderRadius || 0, "px;\n\t\t\t background: ").concat(frontIconBackground || defaultFrontIconBackground, ";\n\t\t\t border-style: ").concat(frontIconBorderType, ";\n\t\t\t border-color: ").concat(frontIconBorderColor || defaultFrontIconBorderColor, ";\n\t\t\t border-width: ").concat(frontIconBorderSize || 0, "px;\n\t\t\t width: 100%;\n\t\t\t text-align:").concat(align, ";\n\t\t\t display: ").concat(frontIconOrImage === "icon" && frontIcon ? "block" : "none", ";\n\t\t }\n\t ");
@@ -5049,6 +5049,9 @@ function Edit(props) {
   }, []);
   var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])({
     className: "eb-guten-block-main-parent-wrapper"
+  });
+  console.log("from edit", {
+    selectedSide: selectedSide
   });
   return [isSelected && /*#__PURE__*/React.createElement(_inspector__WEBPACK_IMPORTED_MODULE_6__["default"], {
     attributes: attributes,
@@ -5490,14 +5493,20 @@ var Inspector = function Inspector(_ref) {
     className: "eb-panel-control"
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
     label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Selected Side")
-  }, /*#__PURE__*/React.createElement(_util_toggle_button__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    options: _constants__WEBPACK_IMPORTED_MODULE_8__["FLIPBOX_SIDES"],
-    onChange: function onChange(value) {
-      return setAttributes({
-        selectedSide: value
-      });
-    }
-  }))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
+  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
+    id: "eb-flipbox-sides"
+  }, _constants__WEBPACK_IMPORTED_MODULE_8__["FLIPBOX_SIDES"].map(function (item) {
+    return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      isLarge: true,
+      isPrimary: selectedSide === item.value,
+      isSecondary: selectedSide !== item.value,
+      onClick: function onClick() {
+        return setAttributes({
+          selectedSide: item.value
+        });
+      }
+    }, item.label);
+  })))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Settings"),
     initialOpen: false
   }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -5600,7 +5609,8 @@ var Inspector = function Inspector(_ref) {
   }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
     baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Size", "flipbox"),
     controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_21__["boxFrontIconSizeAttr"],
-    resRequiredProps: resRequiredProps,
+    resRequiredProps: resRequiredProps // units={UNIT_TYPES}
+    ,
     min: 8,
     max: 100
   }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
@@ -8967,6 +8977,7 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
   var baseLabel = _ref.baseLabel,
       controlName = _ref.controlName,
       resRequiredProps = _ref.resRequiredProps,
+      units = _ref.units,
       min = _ref.min,
       max = _ref.max,
       step = _ref.step;
@@ -8983,15 +8994,15 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
     label: "px",
     value: "px"
   }, {
-    label: "%",
-    value: "%"
-  }, {
     label: "em",
     value: "em"
+  }, {
+    label: "%",
+    value: "%"
   }];
   return /*#__PURE__*/React.createElement(React.Fragment, null, resOption == "desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
     selectedUnit: desktopSizeUnit,
-    unitTypes: UNITS,
+    unitTypes: units || UNITS,
     onClick: function onClick(desktopSizeUnit) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "Unit"), desktopSizeUnit));
     }
@@ -9009,7 +9020,7 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
     max: desktopSizeUnit === "em" ? 10 : max
   }))), resOption == "tab" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
     selectedUnit: TABsizeUnit,
-    unitTypes: UNITS,
+    unitTypes: units || UNITS,
     onClick: function onClick(TABsizeUnit) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "Unit"), TABsizeUnit));
     }
@@ -9027,7 +9038,7 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
     max: TABsizeUnit === "em" ? 10 : max
   }))), resOption == "mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
     selectedUnit: MOBsizeUnit,
-    unitTypes: UNITS,
+    unitTypes: units || UNITS,
     onClick: function onClick(MOBsizeUnit) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "Unit"), MOBsizeUnit));
     }
@@ -9194,7 +9205,8 @@ var ToggleButton = function ToggleButton(_ref) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(defaultSelected || options[0]),
       _useState2 = _slicedToArray(_useState, 2),
       selected = _useState2[0],
-      setSelected = _useState2[1];
+      setSelected = _useState2[1]; // console.log("selected value", selected);
+
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     onChange(selected.value);
@@ -9214,7 +9226,8 @@ var ToggleButton = function ToggleButton(_ref) {
       placeholder: "name",
       onChange: function onChange() {
         return setSelected(option);
-      }
+      },
+      checked: selected.value === option.value ? "checked" : ""
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       style: {
         color: selected.value === option.value ? "white" : "black"

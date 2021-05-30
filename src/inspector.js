@@ -33,6 +33,7 @@ import {
 	ICON_POSITIONS,
 	ICON_TYPE,
 	LINK_TYPE,
+	UNIT_TYPES,
 } from "./constants";
 import { getButtonClasses } from "../util/helpers";
 import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
@@ -215,10 +216,22 @@ const Inspector = ({ attributes, setAttributes }) => {
 			<span className="eb-panel-control">
 				<PanelBody>
 					<BaseControl label={__("Selected Side")}>
-						<ToggleButton
-							options={FLIPBOX_SIDES}
-							onChange={(value) => setAttributes({ selectedSide: value })}
-						/>
+						<ButtonGroup id="eb-flipbox-sides">
+							{FLIPBOX_SIDES.map((item) => (
+								<Button
+									isLarge
+									isPrimary={selectedSide === item.value}
+									isSecondary={selectedSide !== item.value}
+									onClick={() =>
+										setAttributes({
+											selectedSide: item.value,
+										})
+									}
+								>
+									{item.label}
+								</Button>
+							))}
+						</ButtonGroup>
 					</BaseControl>
 				</PanelBody>
 				<PanelBody title={__("Flipbox Settings")} initialOpen={false}>
@@ -340,6 +353,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										baseLabel={__("Icon Size", "flipbox")}
 										controlName={boxFrontIconSizeAttr}
 										resRequiredProps={resRequiredProps}
+										// units={UNIT_TYPES}
 										min={8}
 										max={100}
 									/>
