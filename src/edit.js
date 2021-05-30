@@ -411,28 +411,33 @@ function Edit(props) {
 	 `;
 
 	const frontStyleDesktop = `
-	.${blockId} .eb-flipper .eb-flipbox-front:before{
-		${frontOverlayStyles}
-	}
+		.${blockId} .eb-flipper .eb-flipbox-front:before{
+			${frontOverlayStyles}
+		}
 
-	 .${blockId} .eb-flipper .eb-flipbox-front {
-		${frontBackgroundStylesDesktop}
-		${wrapperMinHeightStylesDesktop}
-		${wrapperWidthStylesDesktop}
-		 display: flex;
-		 justify-content: center;
-		 align-items: center;
-		 height: auto;
-		 width: 100%;
-		 z-index: 1;
-		 border-style: ${borderStyle};
-		 border-color: ${borderColor || defaultBorderColor};
-		 border-width: ${borderWidth || 0}px;
-		 border-radius: ${borderRadius || 0}${radiusUnit};
-		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
+		.${blockId} .eb-flipper .eb-flipbox-front {
+			${frontBackgroundStylesDesktop}
+			${wrapperMinHeightStylesDesktop}
+			${wrapperWidthStylesDesktop}
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: auto;
+			width: 100%;
+			z-index: 1;
+			border-style: ${borderStyle};
+			border-color: ${borderColor || defaultBorderColor};
+			border-width: ${borderWidth || 0}px;
+			border-radius: ${borderRadius || 0}${radiusUnit};
+			box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
 		shadowBlur || 0
 	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
-	 }
+			transition: ${flipType === "fade" && "opacity 0.6s"};
+		}
+
+		.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
+			opacity: ${isHover && flipType === "fade" && 0};
+		}
 	 `;
 
 	const frontStyleTab = `
@@ -490,8 +495,12 @@ function Edit(props) {
 		 transform:  ${
 				(flipType === "flip-up" && "rotateX(-180deg)") ||
 				(flipType === "flip-bottom" && "rotateX(180deg)") ||
-				((flipType === "zoom-in" || flipType === "zoom-out") && "none")
+				((flipType === "zoom-in" ||
+					flipType === "zoom-out" ||
+					flipType === "fade") &&
+					"none")
 			};
+		transition: ${flipType === "fade" && "opacity 0.6s"};
 		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
 		 position: relative;
 		 ${
@@ -499,6 +508,10 @@ function Edit(props) {
 					? "z-index: 5;"
 					: ""
 			}
+	 }
+
+	 .${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
+		opacity: ${flipType === "fade" && (isHover ? 1 : 0)};
 	 }
 	 `;
 

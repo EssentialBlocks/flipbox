@@ -71,7 +71,7 @@ const attributes = {
 	flipType: {
 		type: "string",
 		source: "attribute",
-		selector: ".eb-flip-container",
+		selector: ".eb-flipbox-container",
 		attribute: "data-flip-type",
 		default: "flip-left",
 	},

@@ -108,15 +108,6 @@
 
 /* flipbox icon style */
 
-// .eb-flipbox-icon-wrapper {
-// 	height: 1em;
-// 	width: 1em;
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	text-align: center;
-// }
-
 .eb-flipbox-icon-front,
 .eb-flipbox-icon-back {
 	line-height: 1.8;
@@ -392,4 +383,19 @@
 		rgba(124, 185, 149, 1) 100%
 	);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82c8a0', endColorstr='#82c79e', GradientType=0 );
+}
+
+.fade .eb-flipbox-front,
+.fade .eb-flipbox-back {
+	transition: opacity 0.6s;
+}
+.fade .eb-flipbox-back {
+	transform: none;
+}
+.fade:hover .eb-flipbox-front,
+.fade .eb-flipbox-back {
+	opacity: 0;
+}
+.fade:hover .eb-flipbox-back {
+	opacity: 1;
 }

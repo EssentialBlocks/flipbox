@@ -215,6 +215,24 @@
   background: linear-gradient(to bottom, #82c8a0 0%, #7cb995 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#82c8a0", endColorstr="#82c79e", GradientType=0 );
 }
+
+.fade .eb-flipbox-front,
+.fade .eb-flipbox-back {
+  transition: opacity 0.6s;
+}
+
+.fade .eb-flipbox-back {
+  transform: none;
+}
+
+.fade:hover .eb-flipbox-front,
+.fade .eb-flipbox-back {
+  opacity: 0;
+}
+
+.fade:hover .eb-flipbox-back {
+  opacity: 1;
+}
 .image-avatar {
   height: 100px;
   width: 100%;
