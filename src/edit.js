@@ -235,11 +235,7 @@ function Edit(props) {
 		backgroundStylesDesktop: frontBackgroundStylesDesktop,
 		backgroundStylesTab: frontBackgroundStylesTab,
 		backgroundStylesMobile: frontBackgroundStylesMobile,
-		isBgOverly: frontIsBgOverly,
-		overlyType: frontOverlyType,
-		overlyColor: frontOverlyColor,
-		overlyGradient: frontOverlyGradient,
-		backgroundType: frontBgType,
+		overlyStyles: frontOverlayStyles,
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxFrontWrapper,
@@ -271,11 +267,7 @@ function Edit(props) {
 		backgroundStylesDesktop: backBackgroundStylesDesktop,
 		backgroundStylesTab: backBackgroundStylesTab,
 		backgroundStylesMobile: backBackgroundStylesMobile,
-		isBgOverly: backIsBgOverly,
-		overlyType: backOverlyType,
-		overlyColor: backOverlyColor,
-		overlyGradient: backOverlyGradient,
-		backgroundType: backBgType,
+		overlyStyles: backOverlayStyles,
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxBackWrapper,
@@ -419,29 +411,10 @@ function Edit(props) {
 	 `;
 
 	const frontStyleDesktop = `
-	${
-		frontBgType === "image" && frontIsBgOverly
-			? `
-		.${blockId} .eb-flipper .eb-flipbox-front:before{
-			content: "";
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			right: 0;
-			left: 0;
-			z-index: -1;
-
-			${
-				frontOverlyType === "fill"
-					? `background-color: ${frontOverlyColor};`
-					: frontOverlyType === "gradient"
-					? `background-image: ${frontOverlyGradient};`
-					: " "
-			}
-		} 
-		`
-			: " "
+	.${blockId} .eb-flipper .eb-flipbox-front:before{
+		${frontOverlayStyles}
 	}
+
 	 .${blockId} .eb-flipper .eb-flipbox-front {
 		${frontBackgroundStylesDesktop}
 		${wrapperMinHeightStylesDesktop}
@@ -492,31 +465,12 @@ function Edit(props) {
 	 `;
 
 	const backStyleDesktop = `
-	${
-		backBgType === "image" && backIsBgOverly
-			? `
-	.${blockId} .eb-flipper .eb-flipbox-back:before{
-		content: "";
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		left: 0;
-		z-index: -1;
 
-		${
-			backOverlyType === "fill"
-				? `background-color: ${backOverlyColor};`
-				: backOverlyType === "gradient"
-				? `background-image: ${backOverlyGradient};`
-				: " "
-		}
-	} 
-	`
-			: " "
+	.${blockId} .eb-flipper .eb-flipbox-back:before{
+		${backOverlayStyles}
 	}
 
-	 .${blockId} .eb-flipper .eb-flipbox-back {
+	 .${blockId} .eb-flipper .eb-flipbox-back {	
 		${backBackgroundStylesDesktop}
 		${wrapperMinHeightStylesDesktop}
 		${wrapperWidthStylesDesktop}
