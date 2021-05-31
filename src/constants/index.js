@@ -136,3 +136,8 @@ export const UNIT_TYPES = [
 	{ label: "%", value: "%" },
 	{ label: "em", value: "em" },
 ];
+
+export const BOX_HEIGHT_UNIT = [
+	{ label: "px", value: "px" },
+	{ label: "em", value: "em" },
+];

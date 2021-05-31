@@ -33,7 +33,7 @@ import {
 	ICON_POSITIONS,
 	ICON_TYPE,
 	LINK_TYPE,
-	UNIT_TYPES,
+	BOX_HEIGHT_UNIT,
 } from "./constants";
 import { getButtonClasses } from "../util/helpers";
 import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
@@ -239,6 +239,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 						baseLabel={__("Box Height", "flipbox")}
 						controlName={boxHeightAttr}
 						resRequiredProps={resRequiredProps}
+						units={BOX_HEIGHT_UNIT}
 						min={310}
 						max={600}
 						step={1}

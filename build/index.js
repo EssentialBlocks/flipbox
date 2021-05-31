@@ -4279,7 +4279,7 @@ var backIconPadding = "back_icon_padding";
 /*!********************************!*\
   !*** ./src/constants/index.js ***!
   \********************************/
-/*! exports provided: DEFAULT_ICON_SIZE, DEFAULT_FRONT_BACKGROUND, DEFAULT_BACK_BACKGROUND, FLIPBOX_SIDES, FLIPBOX_TYPE, BORDER_STYLES, ICON_TYPE, LINK_TYPE, ICON_POSITIONS, BUTTON_STYLES, BACKGROUND_TYPE, BACKGROUND_SIZE, BACKGROUND_REPEAT, BACKGROUND_POSITION, BACKGROUND_ATTACHMENT, FLIPBOX_STYLES, FONT_SIZES, TEXT_TRANSFORM, FONT_WEIGHTS, TEXT_DECORATION, UNIT_TYPES */
+/*! exports provided: DEFAULT_ICON_SIZE, DEFAULT_FRONT_BACKGROUND, DEFAULT_BACK_BACKGROUND, FLIPBOX_SIDES, FLIPBOX_TYPE, BORDER_STYLES, ICON_TYPE, LINK_TYPE, ICON_POSITIONS, BUTTON_STYLES, BACKGROUND_TYPE, BACKGROUND_SIZE, BACKGROUND_REPEAT, BACKGROUND_POSITION, BACKGROUND_ATTACHMENT, FLIPBOX_STYLES, FONT_SIZES, TEXT_TRANSFORM, FONT_WEIGHTS, TEXT_DECORATION, UNIT_TYPES, BOX_HEIGHT_UNIT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4305,6 +4305,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FONT_WEIGHTS", function() { return FONT_WEIGHTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TEXT_DECORATION", function() { return TEXT_DECORATION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNIT_TYPES", function() { return UNIT_TYPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BOX_HEIGHT_UNIT", function() { return BOX_HEIGHT_UNIT; });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -4566,6 +4567,13 @@ var UNIT_TYPES = [{
 }, {
   label: "%",
   value: "%"
+}, {
+  label: "em",
+  value: "em"
+}];
+var BOX_HEIGHT_UNIT = [{
+  label: "px",
+  value: "px"
 }, {
   label: "em",
   value: "em"
@@ -5513,6 +5521,7 @@ var Inspector = function Inspector(_ref) {
     baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Box Height", "flipbox"),
     controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_21__["boxHeightAttr"],
     resRequiredProps: resRequiredProps,
+    units: _constants__WEBPACK_IMPORTED_MODULE_8__["BOX_HEIGHT_UNIT"],
     min: 310,
     max: 600,
     step: 1
@@ -9205,8 +9214,7 @@ var ToggleButton = function ToggleButton(_ref) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(defaultSelected || options[0]),
       _useState2 = _slicedToArray(_useState, 2),
       selected = _useState2[0],
-      setSelected = _useState2[1]; // console.log("selected value", selected);
-
+      setSelected = _useState2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     onChange(selected.value);
@@ -9226,8 +9234,7 @@ var ToggleButton = function ToggleButton(_ref) {
       placeholder: "name",
       onChange: function onChange() {
         return setSelected(option);
-      },
-      checked: selected.value === option.value ? "checked" : ""
+      }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       style: {
         color: selected.value === option.value ? "white" : "black"
