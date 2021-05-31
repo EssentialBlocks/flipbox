@@ -24,6 +24,7 @@ import objAttributes from "./attributes";
  */
 import faIcons from "../util/faIcons";
 import ImageAvater from "../util/image-avatar/ImageAvater";
+import BorderShadowControl from "../util/border-shadow-control";
 import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 import {
 	BORDER_STYLES,
@@ -57,6 +58,10 @@ import {
 	backIconMargin,
 	backIconPadding,
 } from "./constants/dimensionsNames";
+import {
+	borderShadow,
+	borderShadowBtn,
+} from "./constants/borderShadowConstants";
 import {
 	typoPrefix_title,
 	typoPrefix_content,
@@ -820,89 +825,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 							baseLabel="Padding"
 						/>
 					</PanelBody>
-
-					<PanelBody title={__("Border Settings")} initialOpen={false}>
-						<SelectControl
-							label={__("Border Style")}
-							value={borderStyle}
-							options={BORDER_STYLES}
-							onChange={(newStyle) => setAttributes({ borderStyle: newStyle })}
-						/>
-
-						<ColorControl
-							label={__("Border Color")}
-							color={borderColor}
-							onChange={(borderColor) => setAttributes({ borderColor })}
-						/>
-
-						<RangeControl
-							label={__("Border Width")}
-							value={borderWidth}
-							onChange={(newSize) => setAttributes({ borderWidth: newSize })}
-							min={0}
-							max={100}
-						/>
-
-						<UnitControl
-							selectedUnit={radiusUnit}
-							unitTypes={[
-								{ label: "px", value: "px" },
-								{ label: "em", value: "em" },
-								{ label: "%", value: "%" },
-							]}
-							onClick={(radiusUnit) => setAttributes({ radiusUnit })}
-						/>
-
-						<RangeControl
-							label={__("Border Radius")}
-							value={borderRadius}
-							onChange={(newSize) => setAttributes({ borderRadius: newSize })}
-							min={0}
-							max={100}
-						/>
-					</PanelBody>
-
-					<PanelBody title={__("Shadow Settings")} initialOpen={false}>
-						<ColorControl
-							label={__("Shadow Color")}
-							color={boxShadowColor}
-							onChange={(boxShadowColor) => setAttributes({ boxShadowColor })}
-						/>
-
-						<RangeControl
-							label={__("Vertical Offset")}
-							value={shadowVOffset}
-							onChange={(newValue) =>
-								setAttributes({ shadowVOffset: newValue })
-							}
-							min={0}
-							max={100}
-						/>
-
-						<RangeControl
-							label={__("Horizontal Offset")}
-							value={shadowHOffset}
-							onChange={(newValue) =>
-								setAttributes({ shadowHOffset: newValue })
-							}
-							min={0}
-							max={100}
-						/>
-
-						<RangeControl
-							label={__("Blur")}
-							value={shadowBlur}
-							onChange={(newValue) => setAttributes({ shadowBlur: newValue })}
-							min={0}
-							max={100}
-						/>
-
-						<RangeControl
-							label={__("Spread")}
-							value={shadowSpread}
-							onChange={(newValue) => setAttributes({ shadowSpread: newValue })}
-							min={0}
-							max={100}
+					<PanelBody title={__("Border & Shadow")} initialOpen={false}>
+						<BorderShadowControl
+							controlName={borderShadow}
+							resRequiredProps={resRequiredProps}
 						/>
 					</PanelBody>
 				</PanelBody>
@@ -1018,8 +944,8 @@ const Inspector = ({ attributes, setAttributes }) => {
 											baseLabel="Padding"
 										/>
 									</PanelBody>
-
-									<PanelBody title={__("Button Border")} initialOpen={false}>
+									<>
+										{/* <PanelBody title={__("Button Border")} initialOpen={false}>
 										<ColorControl
 											label={__("Border Color")}
 											color={buttonBorderColor}
@@ -1144,8 +1070,17 @@ const Inspector = ({ attributes, setAttributes }) => {
 												max={30}
 											/>
 										</ResetControl>
+									</PanelBody> */}
+									</>
+									<PanelBody
+										title={__("Button Border & Shadow")}
+										initialOpen={false}
+									>
+										<BorderShadowControl
+											controlName={borderShadowBtn}
+											resRequiredProps={resRequiredProps}
+										/>
 									</PanelBody>
-
 									<PanelBody title={__("Button Icon")} initialOpen={false}>
 										<ToggleControl
 											label={__("Display Button Icon")}

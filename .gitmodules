@@ -31,3 +31,6 @@
 [submodule "util/background-control"]
 	path = util/background-control
 	url = https://github.com/EssentialBlocks/background-control.git
+[submodule "util/border-shadow-control"]
+	path = util/border-shadow-control
+	url = git@github.com:EssentialBlocks/border-shadow-control.git

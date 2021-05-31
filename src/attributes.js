@@ -15,10 +15,15 @@ import {
 	boxWidthAttr,
 } from "./constants/rangeNames";
 import {
+	borderShadow,
+	borderShadowBtn,
+} from "./constants/borderShadowConstants";
+import {
 	generateTypographyAttributes,
 	generateDimensionsAttributes,
 	generateResponsiveRangeAttributes,
 	generateBackgroundAttributes,
+	generateBorderShadowAttributes,
 } from "../util/helpers";
 
 import {
@@ -45,21 +50,6 @@ const attributes = {
 	blockMeta: {
 		type: "object",
 	},
-	// typography attributes ⬇
-	...generateTypographyAttributes(Object.values(prefixObjs)),
-	// margin padding attributes ⬇
-	...generateDimensionsAttributes(dimensionsMargin),
-	...generateDimensionsAttributes(dimensionsPadding),
-	...generateDimensionsAttributes(buttonPadding),
-	...generateDimensionsAttributes(frontIconMargin),
-	...generateDimensionsAttributes(frontIconPadding),
-	...generateDimensionsAttributes(backIconMargin),
-	...generateDimensionsAttributes(backIconPadding),
-	// range controller
-	...generateResponsiveRangeAttributes(boxHeightAttr, "310"),
-	...generateResponsiveRangeAttributes(boxWidthAttr, "600"),
-	...generateResponsiveRangeAttributes(boxFrontIconSizeAttr, "50"),
-	...generateResponsiveRangeAttributes(boxBackIconSizeAttr, "50"),
 	flipboxStyle: {
 		type: "string",
 		default: "default",
@@ -675,6 +665,25 @@ const attributes = {
 		type: "string",
 		default: "px",
 	},
+	// typography attributes ⬇
+	...generateTypographyAttributes(Object.values(prefixObjs)),
+	// margin padding attributes ⬇
+	...generateDimensionsAttributes(dimensionsMargin),
+	...generateDimensionsAttributes(dimensionsPadding),
+	...generateDimensionsAttributes(buttonPadding),
+	...generateDimensionsAttributes(frontIconMargin),
+	...generateDimensionsAttributes(frontIconPadding),
+	...generateDimensionsAttributes(backIconMargin),
+	...generateDimensionsAttributes(backIconPadding),
+	// range controller
+	...generateResponsiveRangeAttributes(boxHeightAttr, "310"),
+	...generateResponsiveRangeAttributes(boxWidthAttr, "600"),
+	...generateResponsiveRangeAttributes(boxFrontIconSizeAttr, "50"),
+	...generateResponsiveRangeAttributes(boxBackIconSizeAttr, "50"),
+	// border shadow controller
+	...generateBorderShadowAttributes(borderShadow),
+	...generateBorderShadowAttributes(borderShadowBtn),
+	// background Attributes
 	...generateBackgroundAttributes(flipboxFrontWrapper, {
 		isBgDefaultFill: true,
 		defaultFillColor: "#7967ff",

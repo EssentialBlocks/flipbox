@@ -46,12 +46,17 @@ import {
 	boxWidthAttr,
 } from "./constants/rangeNames";
 import {
+	borderShadow,
+	borderShadowBtn,
+} from "./constants/borderShadowConstants";
+import {
 	softMinifyCssStrings,
 	isCssExists,
 	generateTypographyStyles,
 	generateDimensionsControlStyles,
 	generateResponsiveRangeStyles,
 	generateBackgroundControlStyles,
+	generateBorderShadowStyles,
 } from "../util/helpers";
 
 function Edit(props) {
@@ -91,10 +96,6 @@ function Edit(props) {
 		backContent,
 		frontImageSize,
 		backImageSize,
-		borderStyle,
-		borderColor,
-		borderWidth,
-		borderRadius,
 		linkType,
 		buttonText,
 		buttonIcon,
@@ -108,25 +109,11 @@ function Edit(props) {
 		backImageRadius,
 		frontIconColor,
 		backIconColor,
-		boxShadowColor,
-		shadowVOffset,
-		shadowHOffset,
-		shadowSpread,
-		shadowBlur,
 		buttonStyle,
 		buttonClasses,
 		buttonBackground,
 		buttonColor,
 		buttonSize,
-		buttonBorderSize,
-		buttonBorderColor,
-		buttonBorderType,
-		buttonBorderRadius,
-		btnShadowColor,
-		btnShadowVOffset,
-		btnShadowHOffset,
-		btnShadowBlur,
-		btnShadowSpread,
 		frontIconBackground,
 		frontIconBorderRadius,
 		frontIconBorderSize,
@@ -140,7 +127,6 @@ function Edit(props) {
 		transitionSpeed,
 		displayButtonIcon,
 		align,
-		radiusUnit,
 		buttonSizeUnit,
 	} = attributes;
 
@@ -149,10 +135,6 @@ function Edit(props) {
 	const defaultFrontContentColor = "#ffffff";
 	const defautlBackContentColor = "#ffffff";
 	const defaultBackTitleColor = "#ffffff";
-	const defaultBorderColor = "#000000";
-	const defaultBoxShadowColor = "#abb8c3";
-	const defaultButtonBorderColor = "#eeeeee";
-	const deafultBtnShadowColor = "#abb8c3";
 	const defaultFrontIconBackground = "transparent";
 	const defaultFrontIconBorderColor = "#000000";
 	const defaultBackIconBackground = "transparent";
@@ -176,6 +158,18 @@ function Edit(props) {
 	} = generateDimensionsControlStyles({
 		controlName: dimensionsPadding,
 		styleFor: "padding",
+		attributes,
+	});
+	// wrapper border & shadow settings
+	const {
+		styesDesktop: bdShadowStyesDesktop,
+		styesTab: bdShadowStyesTab,
+		styesMobile: bdShadowStyesMobile,
+		stylesHoverDesktop: bdShadowStylesHoverDesktop,
+		stylesHoverTab: bdShadowStylesHoverTab,
+		stylesHoverMobile: bdShadowStylesHoverMobile,
+	} = generateBorderShadowStyles({
+		controlName: borderShadow,
 		attributes,
 	});
 
@@ -414,25 +408,24 @@ function Edit(props) {
 		.${blockId} .eb-flipper .eb-flipbox-front:before{
 			${frontOverlayStyles}
 		}
+		
 
 		.${blockId} .eb-flipper .eb-flipbox-front {
 			${frontBackgroundStylesDesktop}
 			${wrapperMinHeightStylesDesktop}
 			${wrapperWidthStylesDesktop}
+			${bdShadowStyesDesktop}
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: auto;
 			width: 100%;
 			z-index: 1;
-			border-style: ${borderStyle};
-			border-color: ${borderColor || defaultBorderColor};
-			border-width: ${borderWidth || 0}px;
-			border-radius: ${borderRadius || 0}${radiusUnit};
-			box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-		shadowBlur || 0
-	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
 			transition: ${flipType === "fade" && "opacity 0.6s"};
+		}
+		
+		.${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${bdShadowStylesHoverDesktop}
 		}
 
 		.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
@@ -445,6 +438,11 @@ function Edit(props) {
 			${wrapperMinHeightStylesTab}
 			${wrapperWidthStylesTab}
 			${frontBackgroundStylesTab}
+			${bdShadowStyesTab}
+		 }
+
+		 .${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${bdShadowStylesHoverTab}
 		 }
 	 `;
 
@@ -453,6 +451,11 @@ function Edit(props) {
 			 ${wrapperMinHeightStylesMobile}
 			 ${wrapperWidthStylesMobile}
 			${frontBackgroundStylesMobile}
+			${bdShadowStyesMobile}
+		 }
+
+		 .${blockId} .eb-flipper .eb-flipbox-front {
+			${bdShadowStylesHoverMobile}
 		 }
 	 `;
 
@@ -479,19 +482,13 @@ function Edit(props) {
 		${backBackgroundStylesDesktop}
 		${wrapperMinHeightStylesDesktop}
 		${wrapperWidthStylesDesktop}
+		${bdShadowStyesDesktop}
 		 display: flex;
 		 flex-direction: column;
 		 justify-content: center;
 		 align-items: center;
 		 height: auto;
 		 width: 100%;
-		 border-style: ${borderStyle};
-		 border-color: ${borderColor || defaultBorderColor};
-		 border-width: ${borderWidth || 0}px;
-		 border-radius: ${borderRadius || 0}${radiusUnit};
-		 box-shadow: ${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-		shadowBlur || 0
-	}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor};
 		 transform:  ${
 				(flipType === "flip-up" && "rotateX(-180deg)") ||
 				(flipType === "flip-bottom" && "rotateX(180deg)") ||
@@ -510,6 +507,10 @@ function Edit(props) {
 			}
 	 }
 
+	 .${blockId} .eb-flipper .eb-flipbox-back:hover {
+		${bdShadowStylesHoverDesktop}
+	 }
+
 	 .${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
 		opacity: ${(isHover || selectedSide === "back") && flipType === "fade" && 1};
 	 }
@@ -520,6 +521,11 @@ function Edit(props) {
 			 ${wrapperMinHeightStylesTab}
 			 ${wrapperWidthStylesTab}
 			 ${backBackgroundStylesTab}
+			 ${bdShadowStyesTab}
+		 }
+
+		 .${blockId} .eb-flipper .eb-flipbox-back:hover {
+			${bdShadowStylesHoverTab}
 		 }
 	 `;
 
@@ -528,6 +534,12 @@ function Edit(props) {
 			 ${wrapperMinHeightStylesMobile}
 			 ${wrapperWidthStylesMobile}
 			 ${backBackgroundStylesMobile}
+			 ${bdShadowStyesMobile}
+			 ${bdShadowStylesHoverMobile}
+		 }
+
+		 .${blockId} .eb-flipper .eb-flipbox-back:hover {
+			${bdShadowStylesHoverMobile}
 		 }
 	 `;
 
@@ -624,20 +636,29 @@ function Edit(props) {
 			attributes,
 		});
 
+		// border & shadow controller
+		const {
+			styesDesktop: btnBdShadowStyesDesktop,
+			styesTab: btnBdShadowStyesTab,
+			styesMobile: btnBdShadowStyesMobile,
+			stylesHoverDesktop: btnBdShadowStylesHoverDesktop,
+			stylesHoverTab: btnBdShadowStylesHoverTab,
+			stylesHoverMobile: btnBdShadowStylesHoverMobile,
+		} = generateBorderShadowStyles({
+			controlName: borderShadowBtn,
+			attributes,
+		});
 		backButtonStyleDesktop = `
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
 			 ${buttonPaddingStylesDesktop}
+			 ${btnBdShadowStyesDesktop}
 			 background: ${buttonBackground};
 			 color: ${buttonColor};
 			 width: ${buttonSize || 18}${buttonSizeUnit};
-			 border: ${buttonBorderSize || 0}px ${buttonBorderType} ${
-			buttonBorderColor || defaultButtonBorderColor
-		};
-			 border-radius: ${buttonBorderRadius || 0}px;
-			 box-shadow: ${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${
-			btnShadowBlur || 0
-		}px ${btnShadowSpread || 0}px ${btnShadowColor || deafultBtnShadowColor};
-			 text-decoration: none;
+		 }
+
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
+			 ${btnBdShadowStylesHoverDesktop}
 		 }
  
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-content {
@@ -654,12 +675,23 @@ function Edit(props) {
 		backButtonStyleTab = `
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
 			 ${buttonPaddingStylesTab}
+			 ${btnBdShadowStyesTab}
 		 }
+
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
+			${buttonPaddingStylesTab}
+			${btnBdShadowStylesHoverTab}
+		}
 		 `;
 
 		backButtonStyleMobile = `
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
 			 ${buttonPaddingStylesMobile}
+			 ${btnBdShadowStyesDesktop}
+		 }
+
+		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
+			 ${btnBdShadowStylesHoverMobile}
 		 }
 		 `;
 	}
@@ -777,7 +809,6 @@ function Edit(props) {
 	const blockProps = useBlockProps({
 		className: `eb-guten-block-main-parent-wrapper`,
 	});
-	console.log("from edit", { selectedSide });
 
 	return [
 		isSelected && (
