@@ -27,7 +27,6 @@ import ImageAvater from "../util/image-avatar/ImageAvater";
 import BorderShadowControl from "../util/border-shadow-control";
 import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 import {
-	BORDER_STYLES,
 	BUTTON_STYLES,
 	FLIPBOX_SIDES,
 	FLIPBOX_TYPE,
@@ -35,6 +34,7 @@ import {
 	ICON_TYPE,
 	LINK_TYPE,
 	BOX_HEIGHT_UNIT,
+	FRONT_IMAGE_UNITS,
 } from "./constants";
 import { getButtonClasses } from "../util/helpers";
 import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
@@ -61,6 +61,8 @@ import {
 import {
 	borderShadow,
 	borderShadowBtn,
+	borderShadowFrontIcon,
+	borderShadowBackIcon,
 } from "./constants/borderShadowConstants";
 import {
 	typoPrefix_title,
@@ -71,6 +73,11 @@ import {
 	boxWidthAttr,
 	boxFrontIconSizeAttr,
 	boxBackIconSizeAttr,
+	buttonIconSizeAttr,
+	frontImgSizeAttr,
+	backImgSizeAttr,
+	frontImgRadiusAttr,
+	backImgRadiusAttr,
 } from "./constants/rangeNames";
 
 const Inspector = ({ attributes, setAttributes }) => {
@@ -359,7 +366,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 										baseLabel={__("Icon Size", "flipbox")}
 										controlName={boxFrontIconSizeAttr}
 										resRequiredProps={resRequiredProps}
-										// units={UNIT_TYPES}
 										min={8}
 										max={100}
 									/>
@@ -378,61 +384,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 											baseLabel="Padding"
 										/>
 									</PanelBody>
-
 									<PanelBody title={__("Border Settings")} initialOpen={false}>
-										<ResetControl
-											onReset={() =>
-												setAttributes({ frontIconBorderSize: undefined })
-											}
-										>
-											<RangeControl
-												label={__("Border Size")}
-												value={frontIconBorderSize}
-												onChange={(newValue) =>
-													setAttributes({
-														frontIconBorderSize: newValue,
-													})
-												}
-												min={0}
-												max={30}
-											/>
-										</ResetControl>
-
-										<ResetControl
-											onReset={() =>
-												setAttributes({ frontIconBorderRadius: undefined })
-											}
-										>
-											<RangeControl
-												label={__("Border Radius")}
-												value={frontIconBorderRadius}
-												onChange={(newValue) =>
-													setAttributes({
-														frontIconBorderRadius: newValue,
-													})
-												}
-												min={0}
-												max={50}
-											/>
-										</ResetControl>
-
-										<SelectControl
-											label={__("Border Type")}
-											value={frontIconBorderType}
-											options={BORDER_STYLES}
-											onChange={(newValue) =>
-												setAttributes({
-													frontIconBorderType: newValue,
-												})
-											}
-										/>
-
-										<ColorControl
-											label={__("Border Color")}
-											color={frontIconBorderColor}
-											onChange={(frontIconBorderColor) =>
-												setAttributes({ frontIconBorderColor })
-											}
+										<BorderShadowControl
+											controlName={borderShadowFrontIcon}
+											resRequiredProps={resRequiredProps}
+											noShadow
 										/>
 									</PanelBody>
 								</>
@@ -458,26 +414,20 @@ const Inspector = ({ attributes, setAttributes }) => {
 										}
 									/>
 
-									<RangeControl
-										label={__("Image Size")}
-										value={frontImageSize}
-										onChange={(newSize) =>
-											setAttributes({
-												frontImageSize: newSize,
-											})
-										}
+									<ResponsiveRangeController
+										baseLabel={__("Image Size", "flipbox")}
+										controlName={frontImgSizeAttr}
+										resRequiredProps={resRequiredProps}
+										units={FRONT_IMAGE_UNITS}
 										min={0}
 										max={300}
 									/>
 
-									<RangeControl
-										label={__("Border Radius")}
-										value={frontImageRadius}
-										onChange={(newValue) =>
-											setAttributes({
-												frontImageRadius: newValue,
-											})
-										}
+									<ResponsiveRangeController
+										baseLabel={__("Image Radius", "flipbox")}
+										controlName={frontImgRadiusAttr}
+										resRequiredProps={resRequiredProps}
+										units={FRONT_IMAGE_UNITS}
 										min={0}
 										max={50}
 									/>
@@ -564,58 +514,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 											baseLabel="Padding"
 										/>
 									</PanelBody>
-
-									<PanelBody
-										title={__("Back Icon Border Settings")}
-										initialOpen={false}
-									>
-										<ResetControl
-											onReset={() =>
-												setAttributes({ backIconBorderSize: undefined })
-											}
-										>
-											<RangeControl
-												label={__("Border Size")}
-												value={backIconBorderSize}
-												onChange={(newValue) =>
-													setAttributes({
-														backIconBorderSize: newValue,
-													})
-												}
-												min={0}
-												max={30}
-											/>
-										</ResetControl>
-
-										<RangeControl
-											label={__("Border Radius")}
-											value={backIconBorderRadius}
-											onChange={(newValue) =>
-												setAttributes({
-													backIconBorderRadius: newValue,
-												})
-											}
-											min={0}
-											max={50}
-										/>
-
-										<SelectControl
-											label={__("Border Type")}
-											value={backIconBorderType}
-											options={BORDER_STYLES}
-											onChange={(newValue) =>
-												setAttributes({
-													backIconBorderType: newValue,
-												})
-											}
-										/>
-
-										<ColorControl
-											label={__("Border Color")}
-											color={backIconBorderColor}
-											onChange={(backIconBorderColor) =>
-												setAttributes({ backIconBorderColor })
-											}
+									<PanelBody title={__("Border Settings")} initialOpen={false}>
+										<BorderShadowControl
+											controlName={borderShadowBackIcon}
+											resRequiredProps={resRequiredProps}
+											noShadow
 										/>
 									</PanelBody>
 								</>
@@ -637,26 +540,20 @@ const Inspector = ({ attributes, setAttributes }) => {
 											})
 										}
 									/>
-									<RangeControl
-										label={__("Image Size")}
-										value={backImageSize}
-										onChange={(newSize) =>
-											setAttributes({
-												backImageSize: newSize,
-											})
-										}
+									<ResponsiveRangeController
+										baseLabel={__("Image Size", "flipbox")}
+										controlName={backImgSizeAttr}
+										resRequiredProps={resRequiredProps}
+										units={FRONT_IMAGE_UNITS}
 										min={0}
 										max={300}
 									/>
 
-									<RangeControl
-										label={__("Border Radius")}
-										value={backImageRadius}
-										onChange={(newValue) =>
-											setAttributes({
-												backImageRadius: newValue,
-											})
-										}
+									<ResponsiveRangeController
+										baseLabel={__("Border Radius", "flipbox")}
+										controlName={backImgRadiusAttr}
+										resRequiredProps={resRequiredProps}
+										units={FRONT_IMAGE_UNITS}
 										min={0}
 										max={50}
 									/>
@@ -907,33 +804,13 @@ const Inspector = ({ attributes, setAttributes }) => {
 									/>
 
 									<PanelBody title={__("Button Size")} initialOpen={false}>
-										<UnitControl
-											selectedUnit={buttonSizeUnit}
-											unitTypes={[
-												{ label: "px", value: "px" },
-												{ label: "em", value: "em" },
-												{ label: "%", value: "%" },
-											]}
-											onClick={(buttonSizeUnit) =>
-												setAttributes({ buttonSizeUnit })
-											}
+										<ResponsiveRangeController
+											baseLabel={__("Button Size", "flipbox")}
+											controlName={buttonIconSizeAttr}
+											resRequiredProps={resRequiredProps}
+											min={20}
+											max={600}
 										/>
-
-										<ResetControl
-											onReset={() => setAttributes({ buttonSize: undefined })}
-										>
-											<RangeControl
-												label={__("Button Size")}
-												value={buttonSize}
-												onChange={(newSize) =>
-													setAttributes({
-														buttonSize: newSize,
-													})
-												}
-												min={20}
-												max={600}
-											/>
-										</ResetControl>
 									</PanelBody>
 
 									<PanelBody title={__("Button Padding")} initialOpen={false}>
@@ -944,134 +821,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 											baseLabel="Padding"
 										/>
 									</PanelBody>
-									<>
-										{/* <PanelBody title={__("Button Border")} initialOpen={false}>
-										<ColorControl
-											label={__("Border Color")}
-											color={buttonBorderColor}
-											onChange={(buttonBorderColor) =>
-												setAttributes({ buttonBorderColor })
-											}
-										/>
-
-										<RangeControl
-											label={__("Border Size")}
-											value={buttonBorderSize}
-											onChange={(newSize) =>
-												setAttributes({
-													buttonBorderSize: newSize,
-												})
-											}
-											min={0}
-											max={10}
-										/>
-
-										<RangeControl
-											label={__("Border Radius")}
-											value={buttonBorderRadius}
-											onChange={(newSize) =>
-												setAttributes({
-													buttonBorderRadius: newSize,
-												})
-											}
-											min={0}
-											max={50}
-										/>
-
-										<SelectControl
-											label={__("Border Type")}
-											value={buttonBorderType}
-											options={BORDER_STYLES}
-											onChange={(newType) =>
-												setAttributes({
-													buttonBorderType: newType,
-												})
-											}
-										/>
-									</PanelBody>
-
-									<PanelBody title={__("Button Shadow")} initialOpen={false}>
-										<ColorControl
-											label={__("Shadow Color")}
-											color={btnShadowColor}
-											onChange={(btnShadowColor) =>
-												setAttributes({ btnShadowColor })
-											}
-										/>
-
-										<ResetControl
-											onReset={() =>
-												setAttributes({ btnShadowVOffset: undefined })
-											}
-										>
-											<RangeControl
-												label={__("Vertical Offset")}
-												value={btnShadowVOffset}
-												onChange={(newValue) =>
-													setAttributes({
-														btnShadowVOffset: newValue,
-													})
-												}
-												min={0}
-												max={30}
-											/>
-										</ResetControl>
-
-										<ResetControl
-											onReset={() =>
-												setAttributes({ btnShadowHOffset: undefined })
-											}
-										>
-											<RangeControl
-												label={__("Horizontal Offset")}
-												value={btnShadowHOffset}
-												onChange={(newValue) =>
-													setAttributes({
-														btnShadowHOffset: newValue,
-													})
-												}
-												min={0}
-												max={30}
-											/>
-										</ResetControl>
-
-										<ResetControl
-											onReset={() =>
-												setAttributes({ btnShadowBlur: undefined })
-											}
-										>
-											<RangeControl
-												label={__("Blur")}
-												value={btnShadowBlur}
-												onChange={(newValue) =>
-													setAttributes({
-														btnShadowBlur: newValue,
-													})
-												}
-												min={0}
-												max={30}
-											/>
-										</ResetControl>
-
-										<ResetControl
-											onReset={() =>
-												setAttributes({ btnShadowSpread: undefined })
-											}
-										>
-											<RangeControl
-												label={__("Spread")}
-												value={btnShadowSpread}
-												onChange={(newValue) =>
-													setAttributes({
-														btnShadowSpread: newValue,
-													})
-												}
-												min={0}
-												max={30}
-											/>
-										</ResetControl>
-									</PanelBody> */}
-									</>
 									<PanelBody
 										title={__("Button Border & Shadow")}
 										initialOpen={false}

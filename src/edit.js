@@ -44,10 +44,17 @@ import {
 	boxFrontIconSizeAttr,
 	boxBackIconSizeAttr,
 	boxWidthAttr,
+	buttonIconSizeAttr,
+	frontImgSizeAttr,
+	backImgSizeAttr,
+	frontImgRadiusAttr,
+	backImgRadiusAttr,
 } from "./constants/rangeNames";
 import {
 	borderShadow,
 	borderShadowBtn,
+	borderShadowFrontIcon,
+	borderShadowBackIcon,
 } from "./constants/borderShadowConstants";
 import {
 	softMinifyCssStrings,
@@ -113,21 +120,11 @@ function Edit(props) {
 		buttonClasses,
 		buttonBackground,
 		buttonColor,
-		buttonSize,
 		frontIconBackground,
-		frontIconBorderRadius,
-		frontIconBorderSize,
-		frontIconBorderType,
-		frontIconBorderColor,
 		backIconBackground,
-		backIconBorderRadius,
-		backIconBorderSize,
-		backIconBorderType,
-		backIconBorderColor,
 		transitionSpeed,
 		displayButtonIcon,
 		align,
-		buttonSizeUnit,
 	} = attributes;
 
 	// Default colors
@@ -136,9 +133,7 @@ function Edit(props) {
 	const defautlBackContentColor = "#ffffff";
 	const defaultBackTitleColor = "#ffffff";
 	const defaultFrontIconBackground = "transparent";
-	const defaultFrontIconBorderColor = "#000000";
 	const defaultBackIconBackground = "transparent";
-	const defaultBackIconBorderColor = "#000000";
 
 	// wrapper styles css in strings ⬇
 	const {
@@ -256,6 +251,51 @@ function Edit(props) {
 		attributes,
 	});
 
+	// front icon border
+	const {
+		styesDesktop: frontIconBorderDesktop,
+		styesTab: frontIconBorderTab,
+		styesMobile: frontIconBorderMobile,
+		stylesHoverDesktop: frontIconBorderHoverDesktop,
+		stylesHoverTab: frontIconBorderHoverTab,
+		stylesHoverMobile: frontIconBorderHoverMobile,
+	} = generateBorderShadowStyles({
+		controlName: borderShadowFrontIcon,
+		attributes,
+		noShadow: true,
+	});
+
+	// front image
+	const {
+		rangeStylesDesktop: frontImgHeightDesktop,
+		rangeStylesTab: frontImgHeightTab,
+		rangeStylesMobile: frontImgHeightMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: frontImgSizeAttr,
+		property: "height",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: frontImgWidthDesktop,
+		rangeStylesTab: frontImgWidthTab,
+		rangeStylesMobile: frontImgWidthMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: frontImgSizeAttr,
+		property: "width",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: frontImgRadiusDesktop,
+		rangeStylesTab: frontImgRadiusTab,
+		rangeStylesMobile: frontImgRadiusMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: frontImgRadiusAttr,
+		property: "border-radius",
+		attributes,
+	});
+
 	// back background controller
 	const {
 		backgroundStylesDesktop: backBackgroundStylesDesktop,
@@ -303,6 +343,51 @@ function Edit(props) {
 	} = generateDimensionsControlStyles({
 		controlName: backIconPadding,
 		styleFor: "padding",
+		attributes,
+	});
+
+	// back icon border
+	const {
+		styesDesktop: backIconBorderDesktop,
+		styesTab: backIconBorderTab,
+		styesMobile: backIconBorderMobile,
+		stylesHoverDesktop: backIconBorderHoverDesktop,
+		stylesHoverTab: backIconBorderHoverTab,
+		stylesHoverMobile: backIconBorderHoverMobile,
+	} = generateBorderShadowStyles({
+		controlName: borderShadowBackIcon,
+		attributes,
+		noShadow: true,
+	});
+
+	// back image
+	const {
+		rangeStylesDesktop: backImgHeightDesktop,
+		rangeStylesTab: backImgHeightTab,
+		rangeStylesMobile: backImgHeightMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: backImgSizeAttr,
+		property: "height",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: backImgWidthDesktop,
+		rangeStylesTab: backImgWidthTab,
+		rangeStylesMobile: backImgWidthMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: backImgSizeAttr,
+		property: "width",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: backImgRadiusDesktop,
+		rangeStylesTab: backImgRadiusTab,
+		rangeStylesMobile: backImgRadiusMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: backImgRadiusAttr,
+		property: "border-radius",
 		attributes,
 	});
 
@@ -409,7 +494,6 @@ function Edit(props) {
 			${frontOverlayStyles}
 		}
 		
-
 		.${blockId} .eb-flipper .eb-flipbox-front {
 			${frontBackgroundStylesDesktop}
 			${wrapperMinHeightStylesDesktop}
@@ -466,10 +550,70 @@ function Edit(props) {
 	 }
  
 	 .${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
-		 height: ${frontImageSize || 100}px;
-		 width: ${frontImageSize || 100}px;
-		 border-radius: ${frontImageRadius || 0}%;
+		 ${frontImgHeightDesktop}
+		 ${frontImgWidthDesktop}
+		 ${frontImgRadiusDesktop}
 	 }
+	 `;
+
+	const frontImageStyleTab = `
+	.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
+		${frontImgHeightTab}
+		 ${frontImgWidthTab}
+		 ${frontImgRadiusTab}
+	}
+	`;
+
+	const frontImageStyleMobile = `
+	.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
+		${frontImgHeightMobile}
+		 ${frontImgWidthMobile}
+		 ${frontImgRadiusMobile}
+	}
+	`;
+
+	const frontIconStyleDesktop = `
+		 .${blockId} .eb-flipbox-icon-front {
+			 ${frontFontSizeDesktop}
+			 ${frontIconMarginStylesDesktop}
+			 ${frontIconPaddingStylesDesktop}
+			 ${frontIconBorderDesktop}
+			 color: ${frontIconColor || "#ffffff"};
+			 background: ${frontIconBackground || defaultFrontIconBackground};
+			 width: 100%;
+			 text-align:${align};
+			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
+		 }
+
+		 .${blockId} .eb-flipbox-icon-front:hover {
+			 ${frontIconBorderHoverDesktop}
+		 }
+	 `;
+
+	const frontIconStyleTab = `
+	 .${blockId} .eb-flipbox-icon-front {
+		${frontFontSizeTab}
+		${frontIconMarginStylesTab}
+		${frontIconPaddingStylesTab}
+		${frontIconBorderTab}
+	 }
+
+	 .${blockId} .eb-flipbox-icon-front:hover {
+		${frontIconBorderHoverTab}
+	}
+	 `;
+
+	const frontIconStyleMobile = `
+	 .${blockId} .eb-flipbox-icon-front {
+		${frontFontSizeMobile}
+		${frontIconMarginStylesMobile}
+		${frontIconPaddingStylesMobile}
+		${frontIconBorderMobile}
+	 }
+
+	 .${blockId} .eb-flipbox-icon-front:hover {
+		${frontIconBorderHoverMobile}
+	}
 	 `;
 
 	const backStyleDesktop = `
@@ -543,39 +687,6 @@ function Edit(props) {
 		 }
 	 `;
 
-	const frontIconStyleDesktop = `
-		 .${blockId} .eb-flipbox-icon-front {
-			 ${frontFontSizeDesktop}
-			 ${frontIconMarginStylesDesktop}
-			 ${frontIconPaddingStylesDesktop}
-			 color: ${frontIconColor || "#ffffff"};
-			 border-radius: ${frontIconBorderRadius || 0}px;
-			 background: ${frontIconBackground || defaultFrontIconBackground};
-			 border-style: ${frontIconBorderType};
-			 border-color: ${frontIconBorderColor || defaultFrontIconBorderColor};
-			 border-width: ${frontIconBorderSize || 0}px;
-			 width: 100%;
-			 text-align:${align};
-			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
-		 }
-	 `;
-
-	const frontIconStyleTab = `
-	 .${blockId} .eb-flipbox-icon-front {
-		${frontFontSizeTab}
-		${frontIconMarginStylesTab}
-		${frontIconPaddingStylesTab}
-	 }
-	 `;
-
-	const frontIconStyleMobile = `
-	 .${blockId} .eb-flipbox-icon-front {
-		${frontFontSizeMobile}
-		${frontIconMarginStylesMobile}
-		${frontIconPaddingStylesMobile}
-	 }
-	 `;
-
 	const backImageStyleDesktop = `
 	 .${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
 		 align-self: ${getImageAlign(align)};
@@ -583,9 +694,27 @@ function Edit(props) {
 	 }
  
 	 .${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
-		 height: ${backImageSize || 100}px;
-		 width: ${backImageSize || 100}px;
-		 border-radius: ${backImageRadius || 0}%;
+		 ${backImgHeightDesktop}
+		 ${backImgWidthDesktop}
+		 ${backImgRadiusDesktop}
+	 }
+	 `;
+
+	const backImageStyleTab = `
+ 
+	 .${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
+		 ${backImgHeightTab}
+		 ${backImgWidthTab}
+		 ${backImgRadiusTab}
+	 }
+	 `;
+
+	const backImageStyleMobile = `
+ 
+	 .${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
+		 ${backImgHeightMobile}
+		 ${backImgWidthMobile}
+		 ${backImgRadiusMobile}
 	 }
 	 `;
 
@@ -594,15 +723,16 @@ function Edit(props) {
 		 ${backFontSizeDesktop}
 		 ${backIconMarginStylesDesktop}
 		 ${backIconPaddingStylesDesktop}
+		 ${backIconBorderDesktop}
 		 color: ${backIconColor || "#ffffff"};
-		 border-radius:${backIconBorderRadius || 0}%;
 		 background: ${backIconBackground || defaultBackIconBackground};
-		 border-style: ${backIconBorderType};
-		 border-color: ${backIconBorderColor || defaultBackIconBorderColor};
-		 border-width: ${backIconBorderSize || 0}px;
 		 width: 100%;
 		 text-align: ${align};
 		 display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
+	 }
+
+	 .${blockId} .eb-flipbox-icon-back:hover {
+		 ${backIconBorderHoverDesktop}
 	 }
 	 `;
 
@@ -611,6 +741,11 @@ function Edit(props) {
 		${backFontSizeTab}
 		${backIconMarginStylesTab}
 		${backIconPaddingStylesTab}
+		${backIconBorderTab}
+	}
+
+	.${blockId} .eb-flipbox-icon-back:hover {
+		${backIconBorderHoverTab}
 	}
 	`;
 
@@ -619,6 +754,11 @@ function Edit(props) {
 		${backFontSizeMobile}
 		${backIconMarginStylesMobile}
 		${backIconPaddingStylesMobile}
+		${backIconBorderMobile}
+	}
+
+	.${blockId} .eb-flipbox-icon-back:hover {
+		${backIconBorderHoverMobile}
 	}
 	`;
 
@@ -635,7 +775,6 @@ function Edit(props) {
 			styleFor: "padding",
 			attributes,
 		});
-
 		// border & shadow controller
 		const {
 			styesDesktop: btnBdShadowStyesDesktop,
@@ -648,13 +787,23 @@ function Edit(props) {
 			controlName: borderShadowBtn,
 			attributes,
 		});
+		// button size
+		const {
+			rangeStylesDesktop: buttonSizeDesktop,
+			rangeStylesTab: buttonSizeTab,
+			rangeStylesMobile: buttonSizeMobile,
+		} = generateResponsiveRangeStyles({
+			controlName: buttonIconSizeAttr,
+			property: "width",
+			attributes,
+		});
 		backButtonStyleDesktop = `
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
 			 ${buttonPaddingStylesDesktop}
 			 ${btnBdShadowStyesDesktop}
+			 ${buttonSizeDesktop}
 			 background: ${buttonBackground};
 			 color: ${buttonColor};
-			 width: ${buttonSize || 18}${buttonSizeUnit};
 		 }
 
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
@@ -676,6 +825,7 @@ function Edit(props) {
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
 			 ${buttonPaddingStylesTab}
 			 ${btnBdShadowStyesTab}
+			 ${buttonSizeTab}
 		 }
 
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
@@ -687,7 +837,8 @@ function Edit(props) {
 		backButtonStyleMobile = `
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
 			 ${buttonPaddingStylesMobile}
-			 ${btnBdShadowStyesDesktop}
+			 ${btnBdShadowStyesMobile}
+			 ${buttonSizeMobile}
 		 }
 
 		 .${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
@@ -711,8 +862,6 @@ function Edit(props) {
 		 ${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
 	 `);
 
-	//  ${isCssExists(backButtonStyleDisplay) ? backButtonStyleDisplay : " "}
-
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
 		 ${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
@@ -723,6 +872,8 @@ function Edit(props) {
 		 ${isCssExists(backStyleTab) ? backStyleTab : " "}
 		 ${isCssExists(frontIconStyleTab) ? frontIconStyleTab : " "}
 		 ${isCssExists(backIconStyleTab) ? backIconStyleTab : " "}
+		 ${isCssExists(frontImageStyleTab) ? frontImageStyleTab : " "}
+		 ${isCssExists(backImageStyleTab) ? backImageStyleTab : " "}
 	 `);
 
 	// all css styles for Mobile in strings ⬇
@@ -735,6 +886,8 @@ function Edit(props) {
 		 ${isCssExists(backStyleMobile) ? backStyleMobile : " "}
 		 ${isCssExists(frontIconStyleMobile) ? frontIconStyleMobile : " "}
 		 ${isCssExists(backIconStyleMobile) ? backIconStyleMobile : " "}
+		 ${isCssExists(frontImageStyleMobile) ? frontImageStyleMobile : " "}
+		 ${isCssExists(backImageStyleMobile) ? backImageStyleMobile : " "}
 	 `);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {

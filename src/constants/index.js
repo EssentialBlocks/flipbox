@@ -141,3 +141,5 @@ export const BOX_HEIGHT_UNIT = [
 	{ label: "px", value: "px" },
 	{ label: "em", value: "em" },
 ];
+
+export const FRONT_IMAGE_UNITS = [{ label: "%", value: "%" }];
