@@ -611,4 +611,12 @@ body.eb-res-option-mobile .editor-styles-wrapper {
   margin-right: 5px;
 }
 
+.eb-panel-control .eb-unit-control-btn-group {
+  display: block !important;
+}
+
+.eb-panel-control .eb-unit-control-btn-group .eb-unit-control-btn {
+  display: inline-flex !important;
+}
+
 /*# sourceMappingURL=index.css.map*/

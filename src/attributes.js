@@ -16,6 +16,8 @@ import {
 	buttonIconSizeAttr,
 	frontImgSizeAttr,
 	backImgSizeAttr,
+	frontImgRadiusAttr,
+	backImgRadiusAttr,
 } from "./constants/rangeNames";
 import {
 	borderShadow,
@@ -247,6 +249,8 @@ const attributes = {
 	...generateResponsiveRangeAttributes(buttonIconSizeAttr, 100),
 	...generateResponsiveRangeAttributes(frontImgSizeAttr, 100),
 	...generateResponsiveRangeAttributes(backImgSizeAttr, 100),
+	...generateResponsiveRangeAttributes(frontImgRadiusAttr),
+	...generateResponsiveRangeAttributes(backImgRadiusAttr),
 	// border shadow controller
 	...generateBorderShadowAttributes(borderShadow),
 	...generateBorderShadowAttributes(borderShadowBtn),

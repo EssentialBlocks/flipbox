@@ -674,3 +674,10 @@ body.eb-res-option-mobile .editor-styles-wrapper {
 	display: inline-block;
 	margin-right: 5px;
 }
+// responsive range controller
+.eb-panel-control .eb-unit-control-btn-group {
+	display: block !important;
+}
+.eb-panel-control .eb-unit-control-btn-group .eb-unit-control-btn {
+	display: inline-flex !important;
+}
