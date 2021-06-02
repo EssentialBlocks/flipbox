@@ -23,7 +23,7 @@ import objAttributes from "./attributes";
  * Internal dependencies
  */
 import faIcons from "../util/faIcons";
-import ImageAvater from "../util/image-avatar/ImageAvater";
+import ImageAvatar from "../util/image-avatar";
 import BorderShadowControl from "../util/border-shadow-control";
 import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 import {
@@ -405,7 +405,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 						>
 							{frontImageUrl ? (
 								<>
-									<ImageAvater
+									<ImageAvatar
 										imageUrl={frontImageUrl}
 										onDeleteImage={() =>
 											setAttributes({
@@ -532,7 +532,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 						<BaseControl label={__("Flipbox Image")}>
 							{backImageUrl ? (
 								<>
-									<ImageAvater
+									<ImageAvatar
 										imageUrl={backImageUrl}
 										onDeleteImage={() =>
 											setAttributes({
