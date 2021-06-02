@@ -681,3 +681,8 @@ body.eb-res-option-mobile .editor-styles-wrapper {
 .eb-panel-control .eb-unit-control-btn-group .eb-unit-control-btn {
 	display: inline-flex !important;
 }
+// for fixing the button group component overlap
+.eb-panel-control .components-button-group {
+	position: relative;
+	z-index: 0;
+}
