@@ -259,11 +259,11 @@ const attributes = {
 	// background Attributes
 	...generateBackgroundAttributes(flipboxFrontWrapper, {
 		defaultFillColor: "#7967ff",
-		// defaultBgGradient: "linear-gradient(45deg,#339,#f43)",
+		defaultBgGradient: "linear-gradient(45deg,#3347CA,#8593F2)",
 	}),
 	...generateBackgroundAttributes(flipboxBackWrapper, {
 		defaultFillColor: "#3074ff",
-		// defaultBgGradient: "linear-gradient(45deg,#339,#f43)",
+		defaultBgGradient: "linear-gradient(45deg,#8593F2,#3347CA)",
 	}),
 };
 
