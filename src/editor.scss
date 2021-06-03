@@ -686,3 +686,29 @@ body.eb-res-option-mobile .editor-styles-wrapper {
 	position: relative;
 	z-index: 0;
 }
+.eb-background-control-inspector-panel-img-btn {
+	height: 100px;
+	width: 100%;
+	background-color: #e3e3e3;
+}
+
+// image avater util styles start
+
+.image-avatar {
+	height: 100px;
+	width: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	margin-bottom: 8px;
+	padding: 2px;
+}
+
+.image-avatar-delete {
+	background-color: blue;
+
+	&:hover {
+		background-color: red;
+	}
+}
+
+// image avater util styles end

@@ -258,11 +258,9 @@ const attributes = {
 	...generateBorderShadowAttributes(borderShadowBackIcon, { noShadow: true }),
 	// background Attributes
 	...generateBackgroundAttributes(flipboxFrontWrapper, {
-		isBgDefaultFill: true,
 		defaultFillColor: "#7967ff",
 	}),
 	...generateBackgroundAttributes(flipboxBackWrapper, {
-		isBgDefaultFill: true,
 		defaultFillColor: "#3074ff",
 	}),
 };

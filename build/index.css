@@ -624,4 +624,26 @@ body.eb-res-option-mobile .editor-styles-wrapper {
   z-index: 0;
 }
 
+.eb-background-control-inspector-panel-img-btn {
+  height: 100px;
+  width: 100%;
+  background-color: #e3e3e3;
+}
+
+.image-avatar {
+  height: 100px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 8px;
+  padding: 2px;
+}
+
+.image-avatar-delete {
+  background-color: blue;
+}
+.image-avatar-delete:hover {
+  background-color: red;
+}
+
 /*# sourceMappingURL=index.css.map*/

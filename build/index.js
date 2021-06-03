@@ -3773,10 +3773,8 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
 })), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadowBackIcon"], {
   noShadow: true
 })), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBackgroundAttributes"])(_constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_5__["flipboxFrontWrapper"], {
-  isBgDefaultFill: true,
   defaultFillColor: "#7967ff"
 })), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBackgroundAttributes"])(_constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_5__["flipboxBackWrapper"], {
-  isBgDefaultFill: true,
   defaultFillColor: "#3074ff"
 }));
 
@@ -6119,7 +6117,7 @@ function BackgroundControl(_ref6) {
     render: function render(_ref9) {
       var open = _ref9.open;
       return !bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        className: "eb-infobox-inspector-panel-img-btn components-button",
+        className: "eb-background-control-inspector-panel-img-btn components-button",
         label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Upload Image"),
         icon: "format-image",
         onClick: open
@@ -6137,7 +6135,7 @@ function BackgroundControl(_ref6) {
     }
   }), resOption === "desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(WithResBtns, {
     resRequiredProps: resRequiredProps,
-    label: "position"
+    label: "Position"
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
     value: bgImgPos,
     options: [{
@@ -6325,7 +6323,7 @@ function BackgroundControl(_ref6) {
     }
   })))), resOption === "tab" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(WithResBtns, {
     resRequiredProps: resRequiredProps,
-    label: "position"
+    label: "Position"
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
     value: TABbgImgPos,
     options: [{
@@ -6513,7 +6511,7 @@ function BackgroundControl(_ref6) {
     }
   })))), resOption === "mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(WithResBtns, {
     resRequiredProps: resRequiredProps,
-    label: "position"
+    label: "Position"
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
     value: MOBbgImgPos,
     options: [{
@@ -6708,7 +6706,7 @@ function BackgroundControl(_ref6) {
   }), isBgOverly && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
     label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Overly Type")
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
-    id: "eb-infobox-infobox-background"
+    id: "eb-background-control-new"
   }, [{
     label: "Fill",
     value: "fill"
@@ -7881,10 +7879,10 @@ var generateBackgroundAttributes = function generateBackgroundAttributes(control
   var _objectSpread3;
 
   var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var isBgDefaultFill = defaults.isBgDefaultFill,
+  var isBgDefaultGradient = defaults.isBgDefaultGradient,
       defaultFillColor = defaults.defaultFillColor,
       _defaults$defaultBgGr = defaults.defaultBgGradient,
-      defaultBgGradient = _defaults$defaultBgGr === void 0 ? "linear-gradient(45deg,#7967ff,#c277f2)" : _defaults$defaultBgGr;
+      defaultBgGradient = _defaults$defaultBgGr === void 0 ? "linear-gradient(45deg,#00000000,#00000000)" : _defaults$defaultBgGr;
   var bgColorAttr = defaultFillColor ? _defineProperty({}, "".concat(controlName, "backgroundColor"), {
     type: "string",
     "default": defaultFillColor
@@ -7893,7 +7891,7 @@ var generateBackgroundAttributes = function generateBackgroundAttributes(control
   });
   return _objectSpread(_objectSpread(_defineProperty({}, "".concat(controlName, "backgroundType"), {
     type: "string",
-    "default": isBgDefaultFill === true ? "fill" : "gradient"
+    "default": isBgDefaultGradient === true ? "gradient" : "fill"
   }), bgColorAttr), {}, (_objectSpread3 = {}, _defineProperty(_objectSpread3, "".concat(controlName, "gradientColor"), {
     type: "string",
     "default": defaultBgGradient
@@ -8119,7 +8117,12 @@ var generateBorderShadowAttributes = function generateBorderShadowAttributes(con
 
   var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var _defaults$bdrDefaults = defaults.bdrDefaults,
-      bdrDefaults = _defaults$bdrDefaults === void 0 ? {} : _defaults$bdrDefaults,
+      bdrDefaults = _defaults$bdrDefaults === void 0 ? {
+    top: 1,
+    right: 1,
+    bottom: 1,
+    left: 1
+  } : _defaults$bdrDefaults,
       _defaults$rdsDefaults = defaults.rdsDefaults,
       rdsDefaults = _defaults$rdsDefaults === void 0 ? {} : _defaults$rdsDefaults,
       _defaults$noBorder = defaults.noBorder,
@@ -8487,30 +8490,31 @@ var generateBorderShadowStyles = function generateBorderShadowStyles(_ref13) {
 
 
   var borderStyle = attributes["".concat(controlName, "borderStyle")],
-      borderColor = attributes["".concat(controlName, "borderColor")],
+      _attributes$2 = attributes["".concat(controlName, "borderColor")],
+      borderColor = _attributes$2 === void 0 ? "#333333" : _attributes$2,
       HborderStyle = attributes["".concat(controlName, "HborderStyle")],
-      _attributes$2 = attributes["".concat(controlName, "HborderColor")],
-      HborderColor = _attributes$2 === void 0 ? borderColor : _attributes$2,
+      _attributes$3 = attributes["".concat(controlName, "HborderColor")],
+      HborderColor = _attributes$3 === void 0 ? borderColor : _attributes$3,
       shadowColor = attributes["".concat(controlName, "shadowColor")],
-      _attributes$3 = attributes["".concat(controlName, "hOffset")],
-      hOffset = _attributes$3 === void 0 ? 0 : _attributes$3,
-      _attributes$4 = attributes["".concat(controlName, "vOffset")],
-      vOffset = _attributes$4 === void 0 ? 0 : _attributes$4,
-      _attributes$5 = attributes["".concat(controlName, "blur")],
-      blur = _attributes$5 === void 0 ? 0 : _attributes$5,
-      _attributes$6 = attributes["".concat(controlName, "spread")],
-      spread = _attributes$6 === void 0 ? 0 : _attributes$6,
+      _attributes$4 = attributes["".concat(controlName, "hOffset")],
+      hOffset = _attributes$4 === void 0 ? 0 : _attributes$4,
+      _attributes$5 = attributes["".concat(controlName, "vOffset")],
+      vOffset = _attributes$5 === void 0 ? 0 : _attributes$5,
+      _attributes$6 = attributes["".concat(controlName, "blur")],
+      blur = _attributes$6 === void 0 ? 0 : _attributes$6,
+      _attributes$7 = attributes["".concat(controlName, "spread")],
+      spread = _attributes$7 === void 0 ? 0 : _attributes$7,
       inset = attributes["".concat(controlName, "inset")],
-      _attributes$7 = attributes["".concat(controlName, "hoverShadowColor")],
-      hoverShadowColor = _attributes$7 === void 0 ? shadowColor : _attributes$7,
-      _attributes$8 = attributes["".concat(controlName, "hoverHOffset")],
-      hoverHOffset = _attributes$8 === void 0 ? hOffset : _attributes$8,
-      _attributes$9 = attributes["".concat(controlName, "hoverVOffset")],
-      hoverVOffset = _attributes$9 === void 0 ? vOffset : _attributes$9,
-      _attributes$10 = attributes["".concat(controlName, "hoverBlur")],
-      hoverBlur = _attributes$10 === void 0 ? blur : _attributes$10,
-      _attributes$11 = attributes["".concat(controlName, "hoverSpread")],
-      hoverSpread = _attributes$11 === void 0 ? spread : _attributes$11,
+      _attributes$8 = attributes["".concat(controlName, "hoverShadowColor")],
+      hoverShadowColor = _attributes$8 === void 0 ? shadowColor : _attributes$8,
+      _attributes$9 = attributes["".concat(controlName, "hoverHOffset")],
+      hoverHOffset = _attributes$9 === void 0 ? hOffset : _attributes$9,
+      _attributes$10 = attributes["".concat(controlName, "hoverVOffset")],
+      hoverVOffset = _attributes$10 === void 0 ? vOffset : _attributes$10,
+      _attributes$11 = attributes["".concat(controlName, "hoverBlur")],
+      hoverBlur = _attributes$11 === void 0 ? blur : _attributes$11,
+      _attributes$12 = attributes["".concat(controlName, "hoverSpread")],
+      hoverSpread = _attributes$12 === void 0 ? spread : _attributes$12,
       transitionTime = attributes["".concat(controlName, "transitionTime")];
   var styesDesktop = "  \n    ".concat(noBorder !== true ? "\n        ".concat(radiusStylesDesktop, "\n        ").concat(borderStyle !== "none" && borderColor ? "\n            ".concat(borderStylesDesktop, "\n            border-color: ").concat(borderColor, ";\n            border-style: ").concat(borderStyle, ";\n            ") : " ", "\n        ") : " ", "\n  \n    ").concat(noShadow !== true ? shadowColor ? "box-shadow: ".concat(shadowColor, " ").concat(hOffset, "px ").concat(vOffset, "px ").concat(blur, "px ").concat(spread, "px ").concat(inset ? "inset" : "", ";") : " " : " ", "\n\n    transition: ").concat(transitionTime ? "".concat(transitionTime / 1000, "s") : ".5s", ";\n\n  ");
   var styesTab = "  \n  ".concat(noBorder !== true ? "\n      ".concat(borderColor ? borderStylesTab : " ", "\n      ").concat(radiusStylesTab, "\n      ") : " ", "\n    \n  ");
@@ -8545,8 +8549,8 @@ var generateBackgroundControlStyles = function generateBackgroundControlStyles(_
       bgImgcustomPosYUnit = attributes["".concat(controlName, "bgImgcustomPosYUnit")],
       bgImgAttachment = attributes["".concat(controlName, "bgImgAttachment")],
       bgImgRepeat = attributes["".concat(controlName, "bgImgRepeat")],
-      _attributes$12 = attributes["".concat(controlName, "overlyColor")],
-      overlyColor = _attributes$12 === void 0 ? "#00000080" : _attributes$12,
+      _attributes$13 = attributes["".concat(controlName, "overlyColor")],
+      overlyColor = _attributes$13 === void 0 ? "#00000080" : _attributes$13,
       overlyType = attributes["".concat(controlName, "overlyType")],
       isBgOverly = attributes["".concat(controlName, "isBgOverly")],
       overlyGradient = attributes["".concat(controlName, "overlyGradient")],
@@ -8568,7 +8572,7 @@ var generateBackgroundControlStyles = function generateBackgroundControlStyles(_
       MOBbgImgcustomPosY = attributes["MOB".concat(controlName, "bgImgcustomPosY")],
       MOBbgImgcustomPosYUnit = attributes["MOB".concat(controlName, "bgImgcustomPosYUnit")],
       MOBbgImgRepeat = attributes["MOB".concat(controlName, "bgImgRepeat")];
-  var backgroundStylesDesktop = "\n    background-image: ".concat(backgroundType === "image" && bgImageURL ? "url(\"".concat(bgImageURL, "\")") : backgroundType === "gradient" ? gradientColor : "none", ";\n\n    ").concat(backgroundType === "image" && bgImageURL ? "\n        ".concat(backgroundSize && backgroundSize !== "custom" ? "background-size: ".concat(backgroundSize, ";") : backgroundSize === "custom" ? "background-size: ".concat(bgImgCustomSize).concat(bgImgCustomSizeUnit, " auto;") : " ", "\n\n        ").concat(bgImgPos && bgImgPos !== "custom" ? "background-position: ".concat(bgImgPos, ";") : bgImgPos === "custom" ? "background-position: ".concat(bgImgcustomPosX).concat(bgImgcustomPosXUnit, " ").concat(bgImgcustomPosY).concat(bgImgcustomPosYUnit, ";") : " ", "\n\n        ").concat(bgImgAttachment ? "background-attachment: ".concat(bgImgAttachment, ";") : " ", "\n\n        ").concat(bgImgRepeat ? "background-repeat: ".concat(bgImgRepeat, ";") : " ", "\n\n        ") : " ", "\n  \n\t\t").concat(backgroundColor ? "background-color: ".concat(backgroundColor, ";") : " ", "\n    ").concat(isBgOverly ? "\n          z-index: 2;\n          position: relative;\n        " : " ", "\t\n\n  ");
+  var backgroundStylesDesktop = "\n    background-image: ".concat(backgroundType === "image" && bgImageURL ? "url(\"".concat(bgImageURL, "\")") : backgroundType === "gradient" ? gradientColor : "none", ";\n\n    ").concat(backgroundType === "image" && bgImageURL ? "\n        ".concat(backgroundSize && backgroundSize !== "custom" ? "background-size: ".concat(backgroundSize, ";") : backgroundSize === "custom" ? "background-size: ".concat(bgImgCustomSize).concat(bgImgCustomSizeUnit, " auto;") : " ", "\n\n        ").concat(bgImgPos && bgImgPos !== "custom" ? "background-position: ".concat(bgImgPos, ";") : bgImgPos === "custom" ? "background-position: ".concat(bgImgcustomPosX).concat(bgImgcustomPosXUnit, " ").concat(bgImgcustomPosY).concat(bgImgcustomPosYUnit, ";") : " ", "\n\n        ").concat(bgImgAttachment ? "background-attachment: ".concat(bgImgAttachment, ";") : " ", "\n\n        ").concat(bgImgRepeat ? "background-repeat: ".concat(bgImgRepeat, ";") : " ", "\n        \n        ").concat(isBgOverly ? "\n              z-index: 2;\n              position: relative;\n            " : " ", "\t\n        ") : " ", "\n  \n\t\t").concat(backgroundColor ? "background-color: ".concat(backgroundColor, ";") : " ", "\n\n  ");
   var backgroundStylesTab = "\n    ".concat(backgroundType === "image" && bgImageURL ? "\n        ".concat(TABbackgroundSize && TABbackgroundSize !== "custom" ? "background-size: ".concat(TABbackgroundSize, ";") : TABbackgroundSize === "custom" ? "background-size: ".concat(TABbgImgCustomSize).concat(TABbgImgCustomSizeUnit, " auto;") : " ", "\n\n        ").concat(TABbgImgPos && TABbgImgPos !== "custom" ? "background-position: ".concat(TABbgImgPos, ";") : TABbgImgPos === "custom" ? "background-position: ".concat(TABbgImgcustomPosX).concat(TABbgImgcustomPosXUnit, " ").concat(TABbgImgcustomPosY).concat(TABbgImgcustomPosYUnit, ";") : " ", "\n\n        ").concat(TABbgImgRepeat ? "background-repeat: ".concat(TABbgImgRepeat, ";") : " ", "\n\n        ") : " ", "\n\n    ").concat(backgroundType === "image" ? "background-attachment: scroll;" : " ", "\n\n  ");
   var backgroundStylesMobile = "\n    ".concat(backgroundType === "image" && bgImageURL ? "\n        ".concat(MOBbackgroundSize && MOBbackgroundSize !== "custom" ? "background-size: ".concat(MOBbackgroundSize, ";") : MOBbackgroundSize === "custom" ? "background-size: ".concat(MOBbgImgCustomSize).concat(MOBbgImgCustomSizeUnit, " auto;") : " ", "\n\n        ").concat(MOBbgImgPos && MOBbgImgPos !== "custom" ? "background-position: ".concat(MOBbgImgPos, ";") : MOBbgImgPos === "custom" ? "background-position: ".concat(MOBbgImgcustomPosX).concat(MOBbgImgcustomPosXUnit, " ").concat(MOBbgImgcustomPosY).concat(MOBbgImgcustomPosYUnit, ";") : " ", "\n\n        ").concat(MOBbgImgRepeat ? "background-repeat: ".concat(MOBbgImgRepeat, ";") : " ", "\n\n        ") : " ", "\n\n  ");
   var overlyStyles = "\n  \n    ".concat(backgroundType === "image" && isBgOverly ? "\n          content: \"\";\n          position: absolute;\n          top: 0;\n          bottom: 0;\n          right: 0;\n          left: 0;\n          z-index: -1;\n\n          ".concat(overlyType === "fill" ? "background-color: ".concat(overlyColor, ";") : overlyType === "gradient" ? "background-image: ".concat(overlyGradient, ";") : " ", "\n      ") : " ", "\n  \n  \n  ");
