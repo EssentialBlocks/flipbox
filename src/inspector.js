@@ -261,6 +261,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 						baseLabel={__("Box Width", "flipbox")}
 						controlName={boxWidthAttr}
 						resRequiredProps={resRequiredProps}
+						units={BOX_HEIGHT_UNIT}
 						min={0}
 						max={600}
 						step={1}
@@ -274,14 +275,15 @@ const Inspector = ({ attributes, setAttributes }) => {
 					/>
 
 					<RangeControl
-						label={__("Transition Speed")}
+						label={__("Transition Speed(millisecond)")}
 						value={transitionSpeed}
 						onChange={(newValue) => {
 							let transitionSpeed = newValue;
 							setAttributes({ transitionSpeed });
 						}}
 						min={0}
-						max={20}
+						max={10000}
+						step={500}
 					/>
 
 					{selectedSide === "front" && (

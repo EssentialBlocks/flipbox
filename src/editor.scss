@@ -649,6 +649,8 @@ body.eb-res-option-mobile .editor-styles-wrapper {
 	font-size: 14px;
 	line-height: 23px;
 	width: 16px;
+	position: relative;
+	z-index: 999;
 }
 
 .typoResButton.active {
@@ -682,7 +684,7 @@ body.eb-res-option-mobile .editor-styles-wrapper {
 	display: inline-flex !important;
 }
 // for fixing the button group component overlap
-.eb-panel-control .components-button-group {
+.eb-panel-control .components-button-group:not(.eb-unit-control-btn-group) {
 	position: relative;
 	z-index: 0;
 }
@@ -693,7 +695,6 @@ body.eb-res-option-mobile .editor-styles-wrapper {
 }
 
 // image avater util styles start
-
 .image-avatar {
 	height: 100px;
 	width: 100%;

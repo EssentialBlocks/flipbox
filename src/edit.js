@@ -481,7 +481,7 @@ function Edit(props) {
 	// flipper style
 	const flipperStyle = `
 	 .eb-flipbox-container.${blockId} .eb-flipper {
-		 transition: ${transitionSpeed ? transitionSpeed / 10 : 0.6}s
+		 transition: ${transitionSpeed ? transitionSpeed / 1000 : 0.6}s
 	 }
 	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected {
 		 transform:
