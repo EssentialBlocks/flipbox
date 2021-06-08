@@ -431,7 +431,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										resRequiredProps={resRequiredProps}
 										units={FRONT_IMAGE_UNITS}
 										min={0}
-										max={50}
+										max={100}
 									/>
 								</>
 							) : (
@@ -552,12 +552,12 @@ const Inspector = ({ attributes, setAttributes }) => {
 									/>
 
 									<ResponsiveRangeController
-										baseLabel={__("Border Radius", "flipbox")}
+										baseLabel={__("Image Radius", "flipbox")}
 										controlName={backImgRadiusAttr}
 										resRequiredProps={resRequiredProps}
 										units={FRONT_IMAGE_UNITS}
 										min={0}
-										max={50}
+										max={100}
 									/>
 								</>
 							) : (

@@ -67,7 +67,7 @@ import {
 } from "../util/helpers";
 
 function Edit(props) {
-	const getImageAlign = (align) => {
+	const getFlexAlign = (align) => {
 		switch (align) {
 			case "left":
 				return "flex-start";
@@ -419,6 +419,12 @@ function Edit(props) {
 	 }
 	 `;
 
+	const itemsContainerStyle = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-items-container {
+		align-items: ${getFlexAlign(align)};
+	 }
+	`;
+
 	// prefix title styles css in strings ⬇
 	const titleStylesDesktop = `
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title, .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
@@ -544,9 +550,9 @@ function Edit(props) {
 	 `;
 
 	const frontImageStyleDesktop = `
-	 .eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container, .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-front-image-container {
-		 align-self: ${getImageAlign(align)};
-		 display: ${frontIconOrImage === "image" && frontImageUrl ? "block" : "none"};
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container {
+		 display: ${frontIconOrImage === "image" && frontImageUrl ? "flex" : "none"};
+		 justify-content: center;
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
@@ -695,8 +701,8 @@ function Edit(props) {
 
 	const backImageStyleDesktop = `
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
-		 align-self: ${getImageAlign(align)};
-		 display: ${backIconOrImage === "image" && backImageUrl ? "block" : "none"};
+		 display: ${backIconOrImage === "image" && backImageUrl ? "flex" : "none"};
+		 justify-content: center;
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
@@ -855,6 +861,7 @@ function Edit(props) {
 
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
+		 ${isCssExists(itemsContainerStyle) ? itemsContainerStyle : " "}
 		 ${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
 		 ${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
 		 ${isCssExists(contentStylesDesktop) ? contentStylesDesktop : " "}
