@@ -1,3 +1,16 @@
+/**
+ * The following styles get applied inside the editor only.
+ */
+/* 
+//
+//
+//
+// copied from common.css of EB
+// starts
+//
+//
+//
+// */
 /* Common styles for all blocks */
 .eb-panel-control .components-button-group.eb-unit-control-btn-group .components-button .eb-category-icon {
   margin-left: 8px;
@@ -150,6 +163,10 @@
 
 .eb-panel-control .components-base-control .drag-helper .eb-accordion-sortable-item .drag-handle {
   border-right: none;
+}
+
+.block-editor-block-inspector .eb-panel-control .components-base-control {
+  margin-bottom: 15px;
 }
 
 .eb-panel-control .components-base-control .components-form-toggle .components-form-toggle__track {
@@ -441,73 +458,16 @@
   margin: 0 !important;
 }
 
-/*
-* dimensionControl's css (margin-padding panel) starts
-*/
-.input-wrapper {
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-}
-
-.linked-btn {
-  width: 40px;
-  height: 30px;
-  border-radius: 5px;
-  margin-left: 8px;
-  padding-left: 12px;
-}
-
-.dimention-container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
-}
-
-.dimention-label {
-  margin-bottom: 4px;
-  margin-right: 100px;
-}
-
-.dimentions-input-label {
-  font-size: 0.75em;
-  text-align: center;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.input-container .input-wrapper:first-child input {
-  border-width: 1px;
-  border-radius: 4px 0px 0px 4px;
-}
-.input-container .input-wrapper input {
-  min-height: 24px;
-  height: 24px;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  border-width: 1px 1px 1px 0px;
-  border-color: #8d96a0;
-  border-style: solid;
-  border-radius: 0;
-  width: 100%;
-}
-.input-container .input-wrapper:nth-child(5) input {
-  border-radius: 0px 4px 4px 0px;
-}
-.input-container .input-wrapper button {
-  margin-left: 0px;
-  border-radius: 0px 4px 4px 0px;
-  border: 1px solid #8d96a0;
-  border-left: none;
-}
-
 /* 
- * imensionControl's css (margin-padding panel) ends
- */
+//
+//
+//
+// copied from common.css of EB
+// ends
+//
+//
+//
+// */
 .eb-resButtons {
   display: flex;
   justify-content: space-between;
@@ -579,17 +539,19 @@ body.eb-res-option-mobile .editor-styles-wrapper {
   font-size: 14px;
   line-height: 23px;
   width: 16px;
-  position: relative;
-  z-index: 999;
 }
 
 .typoResButton.active {
   color: #6c40f7;
 }
 
+.wrap_res {
+  position: relative;
+}
+
 .resIcons {
   position: absolute;
-  padding-left: 8px;
+  left: 80px;
 }
 
 .eb-typography-component-panel .wrap_res.forFontSize .resIcons {
@@ -604,22 +566,38 @@ body.eb-res-option-mobile .editor-styles-wrapper {
   left: 83px;
 }
 
-.withResWrapperInDimension .dimention-label {
-  display: inline-block;
-  margin-right: 5px;
-}
-
-.eb-panel-control .eb-unit-control-btn-group {
-  display: block !important;
-}
-
-.eb-panel-control .eb-unit-control-btn-group .eb-unit-control-btn {
-  display: inline-flex !important;
-}
-
-.eb-panel-control .components-button-group:not(.eb-unit-control-btn-group) {
+/* 
+   fix of this issue (https://prnt.sc/111gq2g) start
+  */
+.eb-panel-control .components-button:not(.eb-unit-control-btn-group) {
   position: relative;
   z-index: 0;
+}
+
+/* 
+fix of this issue (https://prnt.sc/111gq2g) end
+*/
+.eb-typography-base div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.components-button.has-icon .dashicon.dashicons-format-image {
+  margin: 0;
+}
+
+.eb-panel-control .wrap_res.for-icon-size .resIcons {
+  left: 60px;
+}
+
+.eb-panel-control .wrap_res.for-head-img-height .resIcons,
+.eb-panel-control .wrap_res.for-head-img-width .resIcons,
+.eb-panel-control .wrap_res.for-number-size .resIcons {
+  left: 85px;
+}
+
+.eb-panel-control .eb-color-undo .dashicon {
+  margin: 0;
 }
 
 .eb-background-control-inspector-panel-img-btn {
@@ -628,8 +606,158 @@ body.eb-res-option-mobile .editor-styles-wrapper {
   background-color: #e3e3e3;
 }
 
+.eb-panel-control .components-button {
+  text-transform: capitalize;
+}
+
+.eb-panel-control .newWithResWrapper .eb-range-controller-container .eb-range-reset-button {
+  margin-top: 0;
+}
+
+.resLabel {
+  padding-right: 5px;
+}
+
+.resBtns {
+  padding-bottom: 5px;
+}
+
+/* 
+unit (px,em,%) anchors not grabbing on hover fix start
+*/
+.eb-panel-control .components-button-group.eb-unit-control-btn-group .components-button {
+  position: relative;
+  z-index: 1111;
+}
+
+/* 
+unit (px,em,%) anchors not grabbing on hover fix end
+*/
+/* 
+fixing typography control showing smaller width  start
+*/
+.eb-panel-control {
+  min-width: 220px;
+}
+
+/* 
+fixing typography control showing smaller width  end
+*/
+/* 
+color-control submodules css start
+*/
+.eb-color-base > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eb-color-base .components-base-control__label {
+  flex: 10;
+  margin-right: 0px !important;
+  /* There was no other way */
+}
+
+.eb-color-base .components-dropdown {
+  flex: 1;
+}
+
+.eb-color-ball {
+  background-image: linear-gradient(45deg, #ddd 25%, transparent 0), linear-gradient(-45deg, #ddd 25%, transparent 0), linear-gradient(45deg, transparent 75%, #ddd 0), linear-gradient(-45deg, transparent 75%, #ddd 0);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+  border-radius: 50%;
+}
+
+.eb-color-undo {
+  flex: 1;
+  color: gray;
+}
+
+.eb-color-undo :focus,
+.eb-color-undo :hover {
+  box-shadow: none;
+}
+
+/* 
+color-control submodules css end
+*/
+/* 
+dimensions-control submodules css start
+*/
+.input-wrapper {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.linked-btn {
+  width: 40px;
+  height: 30px;
+  border-radius: 5px;
+  margin-left: 8px;
+  padding-left: 12px;
+}
+
+.dimention-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.dimention-label {
+  margin-bottom: 4px;
+  margin-right: 100px;
+}
+
+.dimentions-input-label {
+  font-size: 0.75em;
+  text-align: center;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-container .input-wrapper:first-child input {
+  border-width: 1px;
+  border-radius: 4px 0px 0px 4px;
+}
+
+.input-container .input-wrapper input {
+  min-height: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border-width: 1px 1px 1px 0px;
+  border-color: #8d96a0;
+  border-style: solid;
+  border-radius: 0;
+  width: 100%;
+}
+
+.input-container .input-wrapper:nth-child(5) input {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.input-container .input-wrapper button {
+  margin-left: 0px;
+  border-radius: 0px 4px 4px 0px;
+  border: 1px solid #8d96a0;
+  border-left: none;
+}
+
+/* 
+dimensions-control submodules css end
+*/
+/* 
+image-avatar submodule's css start
+*/
 .image-avatar {
-  height: 100px;
+  height: 200px;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -640,8 +768,216 @@ body.eb-res-option-mobile .editor-styles-wrapper {
 .image-avatar-delete {
   background-color: blue;
 }
+
 .image-avatar-delete:hover {
   background-color: red;
 }
+
+/* 
+image-avatar submodule's css end
+*/
+/* 
+social-profiles css start
+*/
+.profile-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid;
+  line-height: 2.5em;
+}
+
+.profile-icon-container {
+  font-size: 14px;
+  padding-right: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+  width: 90%;
+  flex: 10;
+}
+
+.selected-profile-icon {
+  margin-left: 5px;
+}
+
+.link-form-wrapper {
+  margin-top: 10px;
+}
+
+.social-link-input {
+  margin-bottom: 10px;
+}
+
+.profile-icon-wrapper {
+  height: 1em;
+  width: 1em;
+  padding: 1em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.drag-helper {
+  z-index: 100;
+  list-style: none;
+}
+
+.profile-wrapper .drag-handle {
+  flex: 2 1 0% !important;
+  background: darkgrey;
+  border-right: 1px solid;
+  cursor: move;
+  color: #ffffff;
+  align-items: center;
+  display: flex !important;
+  justify-content: center;
+}
+
+.eb-social-delete-icon:hover {
+  cursor: pointer;
+}
+
+/* 
+social-profiles css end
+*/
+/* 
+toggle-button submodule's css start
+*/
+.eb-switch-control {
+  display: flex;
+  border: 1px solid #ededed;
+  padding: 2px;
+  border-radius: 30px;
+  position: relative;
+  font-family: sans-serif;
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.eb-switch-control input {
+  visibility: hidden;
+  position: absolute;
+  padding: 10px;
+}
+
+.eb-switch-control input:checked + label {
+  color: #fff;
+}
+
+.eb-switch-control .individual:checked ~ span,
+.eb-switch-control .business:checked ~ span {
+  color: white;
+}
+
+.eb-switch-control .individual:checked ~ .slideBg {
+  transform: translateX(100%);
+}
+
+.eb-switch-control .business:checked ~ .slideBg {
+  transform: translateX(0);
+}
+
+.eb-switch-control label {
+  display: block;
+  padding: 4px;
+  width: 50%;
+  z-index: 1;
+}
+
+.slideBg {
+  position: absolute;
+  background-color: #551ef7;
+  color: white;
+  border-radius: 30px;
+  height: 100%;
+  width: 50%;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease;
+}
+
+/* 
+toggle-button submodule's css end
+*/
+/* 
+typography-control submodule's css start
+*/
+.eb-typography-wrapper {
+  padding: 15px;
+}
+
+.components-eb-typography-dropdown {
+  padding: 0 !important;
+}
+
+/* 
+typography-control submodule's css end
+*/
+/* 
+unit-control submodule's css start
+*/
+.eb-unit-control-btn-group {
+  margin: 0px 0px -20px 0px;
+  text-align: right;
+  display: block;
+}
+
+.eb-unit-control-btn {
+  color: black;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  text-shadow: none !important;
+}
+
+.eb-unit-active {
+  color: #6c40f7 !important;
+  font-weight: bold;
+}
+
+/* 
+unit-control submodule's css end
+*/
+/* responsive-range-control submodule's css start */
+.eb-component-wrapper {
+  display: flex;
+}
+
+.eb-component-wrapper .components-base-control.components-range-control {
+  flex-grow: 1;
+}
+
+.eb-component-wrapper .eb-range-reset-button {
+  height: 26px;
+  width: 20px;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.eb-component-wrapper .eb-range-reset-button .dashicon {
+  font-size: 14px;
+  color: #62626f;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scaleX(-1) rotate(90deg);
+}
+
+.responsive-btn-label {
+  margin-right: 8px;
+}
+
+/* responsive-range-control submodule's css end */
 
 /*# sourceMappingURL=index.css.map*/
