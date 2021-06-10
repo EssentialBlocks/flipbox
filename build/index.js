@@ -4994,7 +4994,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _attributes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./attributes */ "./src/attributes.js");
 /* harmony import */ var _util_faIcons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/faIcons */ "./util/faIcons.js");
-/* harmony import */ var _util_image_avatar__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../util/image-avatar */ "./util/image-avatar/index.js");
+/* harmony import */ var _util_image_avatar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/image-avatar */ "./util/image-avatar/index.js");
 /* harmony import */ var _util_border_shadow_control__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../util/border-shadow-control */ "./util/border-shadow-control/index.js");
 /* harmony import */ var _fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fonticonpicker/react-fonticonpicker */ "./node_modules/@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.react.js");
 /* harmony import */ var _fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8__);
@@ -5328,7 +5328,7 @@ var Inspector = function Inspector(_ref) {
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
     label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Image"),
     id: "eb-flipbox-front-image"
-  }, frontImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_24__["default"], {
+  }, frontImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_6__["default"], {
     imageUrl: frontImageUrl,
     onDeleteImage: function onDeleteImage() {
       return setAttributes({
@@ -5430,7 +5430,7 @@ var Inspector = function Inspector(_ref) {
     initialOpen: false
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
     label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Image")
-  }, backImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_24__["default"], {
+  }, backImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_6__["default"], {
     imageUrl: backImageUrl,
     onDeleteImage: function onDeleteImage() {
       return setAttributes({
