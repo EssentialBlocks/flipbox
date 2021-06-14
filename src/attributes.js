@@ -41,7 +41,7 @@ const attributes = {
 	// responsive control attributes ⬇
 	resOption: {
 		type: "string",
-		default: "desktop",
+		default: "Desktop",
 	},
 	// uniqueIdNumber attribute for making unique className
 	uniqueIdNumber: {
