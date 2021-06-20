@@ -44,38 +44,42 @@
 	--------------------------
   */
 
-.flip-up:hover {
-	transform: rotateX(180deg) !important;
-}
+.eb-flipbox-container {
+	&:hover {
+		.flip-up {
+			transform: rotateX(180deg) !important;
+		}
 
-.flip-bottom:hover {
-	transform: rotateX(-180deg) !important;
-}
+		.flip-bottom {
+			transform: rotateX(-180deg) !important;
+		}
 
-.flip-left:hover {
-	transform: rotateY(-180deg) !important;
-}
+		.flip-left {
+			transform: rotateY(-180deg) !important;
+		}
 
-.flip-right:hover {
-	transform: rotateY(180deg) !important;
-}
+		.flip-right {
+			transform: rotateY(180deg) !important;
+		}
 
-.zoom-in:hover {
-	transform: scale(1.1) !important;
-}
+		.zoom-in {
+			transform: scale(1.1) !important;
+		}
 
-.zoom-in:hover .eb-flipbox-back {
-	z-index: 5;
-	transform: none;
-}
+		.zoom-in .eb-flipbox-back {
+			z-index: 5;
+			transform: none;
+		}
 
-.zoom-out:hover {
-	transform: scale(0.8) !important;
-}
+		.zoom-out {
+			transform: scale(0.8) !important;
+		}
 
-.zoom-out:hover .eb-flipbox-back {
-	z-index: 5;
-	transform: none;
+		.zoom-out .eb-flipbox-back {
+			z-index: 5;
+			transform: none;
+		}
+	}
 }
 
 .eb-flipbox-upload-button {

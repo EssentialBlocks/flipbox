@@ -44,36 +44,29 @@
 	Flip hover animation types
 	--------------------------
   */
-.flip-up:hover {
+.eb-flipbox-container:hover .flip-up {
   transform: rotateX(180deg) !important;
 }
-
-.flip-bottom:hover {
+.eb-flipbox-container:hover .flip-bottom {
   transform: rotateX(-180deg) !important;
 }
-
-.flip-left:hover {
+.eb-flipbox-container:hover .flip-left {
   transform: rotateY(-180deg) !important;
 }
-
-.flip-right:hover {
+.eb-flipbox-container:hover .flip-right {
   transform: rotateY(180deg) !important;
 }
-
-.zoom-in:hover {
+.eb-flipbox-container:hover .zoom-in {
   transform: scale(1.1) !important;
 }
-
-.zoom-in:hover .eb-flipbox-back {
+.eb-flipbox-container:hover .zoom-in .eb-flipbox-back {
   z-index: 5;
   transform: none;
 }
-
-.zoom-out:hover {
+.eb-flipbox-container:hover .zoom-out {
   transform: scale(0.8) !important;
 }
-
-.zoom-out:hover .eb-flipbox-back {
+.eb-flipbox-container:hover .zoom-out .eb-flipbox-back {
   z-index: 5;
   transform: none;
 }
