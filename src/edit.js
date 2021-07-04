@@ -1,15 +1,10 @@
 /**
  * WordPress dependencits
  */
-import { __ } from "@wordpress/i18n";
-import { Toolbar, ToolbarButton } from "@wordpress/components";
-import {
-	BlockControls,
-	AlignmentToolbar,
-	useBlockProps,
-} from "@wordpress/block-editor";
-import { useEffect } from "@wordpress/element";
-
+const { __ } = wp.i18n;
+const { Toolbar, ToolbarButton } = wp.components;
+const { BlockControls, AlignmentToolbar, useBlockProps } = wp.blockEditor;
+const { useEffect } = wp.element;
 const { select } = wp.data;
 
 /**
@@ -20,11 +15,6 @@ import "./editor.scss";
 /*
  * Internal dependencies
  */
-import {
-	getFlipTransform,
-	mimmikCssForPreviewBtnClick,
-	duplicateBlockIdFix,
-} from "../util/helpers";
 import Inspector from "./inspector";
 import {
 	dimensionsMargin,
@@ -63,6 +53,9 @@ import {
 	borderShadowBackIcon,
 } from "./constants/borderShadowConstants";
 import {
+	getFlipTransform,
+	mimmikCssForPreviewBtnClick,
+	duplicateBlockIdFix,
 	softMinifyCssStrings,
 	isCssExists,
 	generateTypographyStyles,
@@ -107,8 +100,6 @@ function Edit(props) {
 		backTitle,
 		showBackContent,
 		backContent,
-		frontImageSize,
-		backImageSize,
 		linkType,
 		buttonText,
 		buttonIcon,
@@ -118,8 +109,6 @@ function Edit(props) {
 		backTitleColor,
 		frontContentColor,
 		backContentColor,
-		frontImageRadius,
-		backImageRadius,
 		frontIconColor,
 		backIconColor,
 		buttonStyle,
@@ -183,6 +172,7 @@ function Edit(props) {
 		controlName: boxHeightAttr,
 		property: "height",
 		attributes,
+		customUnit: "px",
 	});
 
 	const {
@@ -193,6 +183,7 @@ function Edit(props) {
 		controlName: boxHeightAttr,
 		property: "min-height",
 		attributes,
+		customUnit: "px",
 	});
 
 	const {
@@ -228,9 +219,17 @@ function Edit(props) {
 	// front background controller
 	const {
 		backgroundStylesDesktop: frontBackgroundStylesDesktop,
+		hoverBackgroundStylesDesktop: frontHoverBackgroundStylesDesktop,
 		backgroundStylesTab: frontBackgroundStylesTab,
+		hoverBackgroundStylesTab: frontHoverBackgroundStylesTab,
 		backgroundStylesMobile: frontBackgroundStylesMobile,
-		overlyStyles: frontOverlayStyles,
+		hoverBackgroundStylesMobile: frontHoverBackgroundStylesMobile,
+		overlayStylesDesktop: frontOverlayStylesDesktop,
+		hoverOverlayStylesDesktop: frontHoverOverlayStylesDesktop,
+		overlayStylesTab: frontOverlayStylesTab,
+		hoverOverlayStylesTab: frontHoverOverlayStylesTab,
+		overlayStylesMobile: frontOverlayStylesMobile,
+		hoverOverlayStylesMobile: frontHoverOverlayStylesMobile,
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxFrontWrapper,
@@ -305,9 +304,17 @@ function Edit(props) {
 	// back background controller
 	const {
 		backgroundStylesDesktop: backBackgroundStylesDesktop,
+		hoverBackgroundStylesDesktop: backHoverBackgroundStylesDesktop,
 		backgroundStylesTab: backBackgroundStylesTab,
+		hoverBackgroundStylesTab: backHoverBackgroundStylesTab,
 		backgroundStylesMobile: backBackgroundStylesMobile,
-		overlyStyles: backOverlayStyles,
+		hoverBackgroundStylesMobile: backHoverBackgroundStylesMobile,
+		overlayStylesDesktop: backOverlayStylesDesktop,
+		hoverOverlayStylesDesktop: backHoverOverlayStylesDesktop,
+		overlayStylesTab: backOverlayStylesTab,
+		hoverOverlayStylesTab: backHoverOverlayStylesTab,
+		overlayStylesMobile: backOverlayStylesMobile,
+		hoverOverlayStylesMobile: backHoverOverlayStylesMobile,
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxBackWrapper,
@@ -502,10 +509,6 @@ function Edit(props) {
 	 `;
 
 	const frontStyleDesktop = `
-		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
-			${frontOverlayStyles}
-		}
-		
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front {
 			${frontBackgroundStylesDesktop}
 			${wrapperMinHeightStylesDesktop}
@@ -521,7 +524,17 @@ function Edit(props) {
 		}
 		
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${frontHoverBackgroundStylesDesktop}
 			${bdShadowStylesHoverDesktop}
+		}
+
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
+			${frontOverlayStylesDesktop}
+		}
+
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
+			${frontHoverOverlayStylesDesktop}
 		}
 
 		.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
@@ -537,9 +550,19 @@ function Edit(props) {
 			${bdShadowStyesTab}
 		 }
 
-		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${frontHoverBackgroundStylesTab}
 			${bdShadowStylesHoverTab}
-		 }
+		}
+
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
+			${frontOverlayStylesTab}
+		}
+				
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
+			${frontHoverOverlayStylesTab}
+		}
+
 	 `;
 
 	const frontStyleMobile = `
@@ -549,10 +572,20 @@ function Edit(props) {
 			${frontBackgroundStylesMobile}
 			${bdShadowStyesMobile}
 		 }
-
-		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front {
+		 
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${frontHoverBackgroundStylesMobile}
 			${bdShadowStylesHoverMobile}
-		 }
+		}
+
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
+			${frontOverlayStylesMobile}
+		}
+
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
+			${frontHoverOverlayStylesMobile}
+		}
 	 `;
 
 	const frontImageStyleDesktop = `
@@ -630,10 +663,6 @@ function Edit(props) {
 
 	const backStyleDesktop = `
 
-	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
-		${backOverlayStyles}
-	}
-
 	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back {	
 		${backBackgroundStylesDesktop}
 		${wrapperMinHeightStylesDesktop}
@@ -663,8 +692,19 @@ function Edit(props) {
 	 }
 
 	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
+		${backHoverBackgroundStylesDesktop}
 		${bdShadowStylesHoverDesktop}
 	 }
+
+	 
+	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
+		${backOverlayStylesDesktop}
+	}
+	
+	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
+		${backHoverOverlayStylesDesktop}
+	}
+
 
 	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
 		opacity: ${(isHover || selectedSide === "back") && flipType === "fade" && 1};
@@ -687,8 +727,18 @@ function Edit(props) {
 		 }
 
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
+			${backHoverBackgroundStylesTab}
 			${bdShadowStylesHoverTab}
-		 }
+		 }	
+		 
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
+			${backOverlayStylesTab}
+		}
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
+			${backHoverOverlayStylesTab}
+		}
+	
 	 `;
 
 	const backStyleMobile = `
@@ -701,8 +751,17 @@ function Edit(props) {
 		 }
 
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
+			${backHoverBackgroundStylesMobile}
 			${bdShadowStylesHoverMobile}
 		 }
+		 
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
+			${backOverlayStylesMobile}
+		}
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
+			${backHoverOverlayStylesMobile}
+		}
 	 `;
 
 	const backImageStyleDesktop = `
@@ -926,6 +985,7 @@ function Edit(props) {
 			resOption: select("core/edit-post").__experimentalGetPreviewDeviceType(),
 		});
 	}, []);
+
 	// this useEffect is for creating an unique id for each block's unique className by a random unique number
 	useEffect(() => {
 		const BLOCK_PREFIX = "eb-flipbox";

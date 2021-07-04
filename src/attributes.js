@@ -150,14 +150,6 @@ const attributes = {
 		selector: "eb-flipbox-back-content",
 		default: "Back Content Here",
 	},
-	frontImageSize: {
-		type: "number",
-		default: 100,
-	},
-	backImageSize: {
-		type: "number",
-		default: 100,
-	},
 	linkType: {
 		type: "string",
 		default: "box",
@@ -187,12 +179,6 @@ const attributes = {
 	},
 	backContentColor: {
 		type: "string",
-	},
-	frontImageRadius: {
-		type: "number",
-	},
-	backImageRadius: {
-		type: "number",
 	},
 	frontIconColor: {
 		type: "string",
@@ -242,13 +228,27 @@ const attributes = {
 	...generateDimensionsAttributes(backIconMargin),
 	...generateDimensionsAttributes(backIconPadding),
 	// range controller
-	...generateResponsiveRangeAttributes(boxHeightAttr, 310),
-	...generateResponsiveRangeAttributes(boxWidthAttr, 600),
-	...generateResponsiveRangeAttributes(boxFrontIconSizeAttr, 50),
-	...generateResponsiveRangeAttributes(boxBackIconSizeAttr, 50),
-	...generateResponsiveRangeAttributes(buttonIconSizeAttr, 100),
-	...generateResponsiveRangeAttributes(frontImgSizeAttr, 100),
-	...generateResponsiveRangeAttributes(backImgSizeAttr, 100),
+	...generateResponsiveRangeAttributes(boxHeightAttr, {
+		defaultRange: 310,
+	}),
+	...generateResponsiveRangeAttributes(boxWidthAttr, {
+		defaultRange: 600,
+	}),
+	...generateResponsiveRangeAttributes(boxFrontIconSizeAttr, {
+		defaultRange: 50,
+	}),
+	...generateResponsiveRangeAttributes(boxBackIconSizeAttr, {
+		defaultRange: 50,
+	}),
+	...generateResponsiveRangeAttributes(buttonIconSizeAttr, {
+		defaultRange: 100,
+	}),
+	...generateResponsiveRangeAttributes(frontImgSizeAttr, {
+		defaultRange: 100,
+	}),
+	...generateResponsiveRangeAttributes(backImgSizeAttr, {
+		defaultRange: 100,
+	}),
 	...generateResponsiveRangeAttributes(frontImgRadiusAttr),
 	...generateResponsiveRangeAttributes(backImgRadiusAttr),
 	// border shadow controller

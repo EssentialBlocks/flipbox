@@ -1,9 +1,9 @@
 /**
  * WordPress dependencies
  */
-import { __ } from "@wordpress/i18n";
-import { useEffect } from "@wordpress/element";
-import {
+const { __ } = wp.i18n;
+const { useEffect } = wp.element;
+const {
 	PanelBody,
 	PanelRow,
 	SelectControl,
@@ -14,11 +14,12 @@ import {
 	ToggleControl,
 	ButtonGroup,
 	BaseControl,
-} from "@wordpress/components";
-import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
+} = wp.components;
+const { InspectorControls, MediaUpload } = wp.blockEditor;
+const { select } = wp.data;
 
 import objAttributes from "./attributes";
-const { select } = wp.data;
+
 /*
  * Internal dependencies
  */
@@ -46,6 +47,7 @@ import ResponsiveRangeController from "../util/responsive-range-control";
 import TypographyDropdown from "../util/typography-control-v2";
 import ColorControl from "../util/color-control";
 import BackgroundControl from "../util/background-control";
+
 import {
 	flipboxFrontWrapper,
 	flipboxBackWrapper,
@@ -102,12 +104,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 		backTitle,
 		showBackContent,
 		backContent,
-		frontImageSize,
-		backImageSize,
-		borderStyle,
-		borderColor,
-		borderWidth,
-		borderRadius,
 		linkType,
 		buttonText,
 		buttonIcon,
@@ -117,42 +113,15 @@ const Inspector = ({ attributes, setAttributes }) => {
 		backTitleColor,
 		frontContentColor,
 		backContentColor,
-		frontImageRadius,
-		backImageRadius,
 		frontIconColor,
 		backIconColor,
-		boxShadowColor,
-		shadowVOffset,
-		shadowHOffset,
-		shadowSpread,
-		shadowBlur,
 		buttonStyle,
 		buttonBackground,
 		buttonColor,
-		buttonSize,
-		buttonBorderSize,
-		buttonBorderColor,
-		buttonBorderType,
-		buttonBorderRadius,
-		btnShadowColor,
-		btnShadowVOffset,
-		btnShadowHOffset,
-		btnShadowBlur,
-		btnShadowSpread,
 		frontIconBackground,
-		frontIconBorderRadius,
-		frontIconBorderSize,
-		frontIconBorderType,
-		frontIconBorderColor,
 		backIconBackground,
-		backIconBorderRadius,
-		backIconBorderSize,
-		backIconBorderType,
-		backIconBorderColor,
 		transitionSpeed,
 		displayButtonIcon,
-		radiusUnit,
-		buttonSizeUnit,
 	} = attributes;
 
 	// Genereate different button styles
@@ -199,7 +168,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 	return (
 		<InspectorControls keys="controls">
-			<span className="eb-panel-control">
+			<div className="eb-panel-control">
 				<PanelBody>
 					<BaseControl label={__("Selected Side")}>
 						<ButtonGroup id="eb-flipbox-sides">
@@ -225,20 +194,20 @@ const Inspector = ({ attributes, setAttributes }) => {
 						baseLabel={__("Box Height", "flipbox")}
 						controlName={boxHeightAttr}
 						resRequiredProps={resRequiredProps}
-						units={BOX_HEIGHT_UNIT}
 						min={310}
 						max={600}
 						step={1}
+						noUnits
 					/>
 
 					<ResponsiveRangeController
 						baseLabel={__("Box Width", "flipbox")}
 						controlName={boxWidthAttr}
 						resRequiredProps={resRequiredProps}
-						units={BOX_HEIGHT_UNIT}
 						min={0}
 						max={600}
 						step={1}
+						noUnits
 					/>
 
 					<SelectControl
@@ -256,7 +225,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 							setAttributes({ transitionSpeed });
 						}}
 						min={0}
-						max={10000}
+						max={5000}
 						step={500}
 					/>
 
@@ -360,7 +329,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 											baseLabel="Padding"
 										/>
 									</PanelBody>
-									<PanelBody title={__("Border Settings")} initialOpen={false}>
+									<PanelBody title={__("Border & Shadow")} initialOpen={false}>
 										<BorderShadowControl
 											controlName={borderShadowFrontIcon}
 											resRequiredProps={resRequiredProps}
@@ -397,6 +366,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										units={FRONT_IMAGE_UNITS}
 										min={0}
 										max={300}
+										step={1}
 									/>
 
 									<ResponsiveRangeController
@@ -490,7 +460,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 											baseLabel="Padding"
 										/>
 									</PanelBody>
-									<PanelBody title={__("Border Settings")} initialOpen={false}>
+									<PanelBody title={__("Border & Shadow")} initialOpen={false}>
 										<BorderShadowControl
 											controlName={borderShadowBackIcon}
 											resRequiredProps={resRequiredProps}
@@ -633,13 +603,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 				<PanelBody title={__("Flipbox Style")} initialOpen={false}>
 					{selectedSide === "front" && (
-						<BackgroundControl
-							controlName={flipboxFrontWrapper}
-							resRequiredProps={resRequiredProps}
-						/>
-					)}
-
-					{selectedSide === "front" && (
 						<>
 							<ColorControl
 								label={__("Front Title")}
@@ -658,12 +621,13 @@ const Inspector = ({ attributes, setAttributes }) => {
 							/>
 						</>
 					)}
-
-					{selectedSide === "back" && (
-						<BackgroundControl
-							controlName={flipboxBackWrapper}
-							resRequiredProps={resRequiredProps}
-						/>
+					{selectedSide === "front" && (
+						<PanelBody title={__("Background")} initialOpen={false}>
+							<BackgroundControl
+								controlName={flipboxFrontWrapper}
+								resRequiredProps={resRequiredProps}
+							/>
+						</PanelBody>
 					)}
 
 					{selectedSide === "back" && (
@@ -682,6 +646,15 @@ const Inspector = ({ attributes, setAttributes }) => {
 								}
 							/>
 						</>
+					)}
+
+					{selectedSide === "back" && (
+						<PanelBody title={__("Background")} initialOpen={false}>
+							<BackgroundControl
+								controlName={flipboxBackWrapper}
+								resRequiredProps={resRequiredProps}
+							/>
+						</PanelBody>
 					)}
 
 					<PanelBody title={__("Margin & Padding")} initialOpen={false}>
@@ -871,7 +844,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 						</PanelBody>
 					)}
 				</PanelBody>
-			</span>
+			</div>
 		</InspectorControls>
 	);
 };

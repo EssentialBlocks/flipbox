@@ -1,4 +1,4 @@
-(window["webpackJsonp_flipbox_block"] = window["webpackJsonp_flipbox_block"] || []).push([["style-index"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["style-index"],{
 
 /***/ "./src/style.scss":
 /*!************************!*\
@@ -154,7 +154,7 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
-/******/ 	var jsonpArray = window["webpackJsonp_flipbox_block"] = window["webpackJsonp_flipbox_block"] || [];
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
 /******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
 /******/ 	jsonpArray.push = webpackJsonpCallback;
 /******/ 	jsonpArray = jsonpArray.slice();
@@ -302,7 +302,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2018 Jed Watson.
+  Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
@@ -313,7 +313,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 	var hasOwn = {}.hasOwnProperty;
 
-	function classNames() {
+	function classNames () {
 		var classes = [];
 
 		for (var i = 0; i < arguments.length; i++) {
@@ -324,22 +324,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			if (argType === 'string' || argType === 'number') {
 				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				if (arg.length) {
-					var inner = classNames.apply(null, arg);
-					if (inner) {
-						classes.push(inner);
-					}
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
 				}
 			} else if (argType === 'object') {
-				if (arg.toString === Object.prototype.toString) {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
 					}
-				} else {
-					classes.push(arg.toString());
 				}
 			}
 		}
@@ -374,13 +368,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addClass; });
 /* harmony import */ var _hasClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasClass */ "./node_modules/dom-helpers/esm/hasClass.js");
 
-/**
- * Adds a CSS class to a given element.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-
 function addClass(element, className) {
   if (element.classList) element.classList.add(className);else if (!Object(_hasClass__WEBPACK_IMPORTED_MODULE_0__["default"])(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
 }
@@ -397,12 +384,6 @@ function addClass(element, className) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return hasClass; });
-/**
- * Checks if a given element has a CSS class.
- * 
- * @param element the element
- * @param className the CSS class name
- */
 function hasClass(element, className) {
   if (element.classList) return !!className && element.classList.contains(className);
   return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
@@ -423,18 +404,12 @@ __webpack_require__.r(__webpack_exports__);
 function replaceClassName(origClass, classToRemove) {
   return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
 }
-/**
- * Removes a CSS class from a given element.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-
 
 function removeClass(element, className) {
   if (element.classList) {
     element.classList.remove(className);
   } else if (typeof element.className === 'string') {
+    ;
     element.className = replaceClassName(element.className, className);
   } else {
     element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
@@ -3517,7 +3492,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants/borderShadowConstants */ "./src/constants/borderShadowConstants.js");
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/helpers */ "./util/helpers/index.js");
 /* harmony import */ var _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./constants/backgroundsConstants */ "./src/constants/backgroundsConstants.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -3643,14 +3618,6 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
     selector: "eb-flipbox-back-content",
     "default": "Back Content Here"
   },
-  frontImageSize: {
-    type: "number",
-    "default": 100
-  },
-  backImageSize: {
-    type: "number",
-    "default": 100
-  },
   linkType: {
     type: "string",
     "default": "box"
@@ -3680,12 +3647,6 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
   },
   backContentColor: {
     type: "string"
-  },
-  frontImageRadius: {
-    type: "number"
-  },
-  backImageRadius: {
-    type: "number"
   },
   frontIconColor: {
     type: "string"
@@ -3724,7 +3685,21 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
     type: "string",
     "default": "center"
   }
-}, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateTypographyAttributes"])(Object.values(_constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_0__))), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["dimensionsMargin"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["dimensionsPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["buttonPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["frontIconMargin"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["frontIconPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["backIconMargin"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["backIconPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxHeightAttr"], 310)), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxWidthAttr"], 600)), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxFrontIconSizeAttr"], 50)), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxBackIconSizeAttr"], 50)), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["buttonIconSizeAttr"], 100)), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["frontImgSizeAttr"], 100)), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["backImgSizeAttr"], 100)), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["frontImgRadiusAttr"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["backImgRadiusAttr"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadow"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadowBtn"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadowFrontIcon"], {
+}, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateTypographyAttributes"])(Object.values(_constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_0__))), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["dimensionsMargin"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["dimensionsPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["buttonPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["frontIconMargin"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["frontIconPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["backIconMargin"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateDimensionsAttributes"])(_constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_1__["backIconPadding"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxHeightAttr"], {
+  defaultRange: 310
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxWidthAttr"], {
+  defaultRange: 600
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxFrontIconSizeAttr"], {
+  defaultRange: 50
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["boxBackIconSizeAttr"], {
+  defaultRange: 50
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["buttonIconSizeAttr"], {
+  defaultRange: 100
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["frontImgSizeAttr"], {
+  defaultRange: 100
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["backImgSizeAttr"], {
+  defaultRange: 100
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["frontImgRadiusAttr"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"])(_constants_rangeNames__WEBPACK_IMPORTED_MODULE_2__["backImgRadiusAttr"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadow"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadowBtn"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadowFrontIcon"], {
   noShadow: true
 })), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_4__["generateBorderShadowAttributes"])(_constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_3__["borderShadowBackIcon"], {
   noShadow: true
@@ -4174,30 +4149,27 @@ var typoPrefix_content = "content";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/helpers */ "./util/helpers/index.js");
-/* harmony import */ var _inspector__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./inspector */ "./src/inspector.js");
-/* harmony import */ var _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants/dimensionsNames */ "./src/constants/dimensionsNames.js");
-/* harmony import */ var _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./constants/typographyPrefixConstants */ "./src/constants/typographyPrefixConstants.js");
-/* harmony import */ var _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./constants/backgroundsConstants */ "./src/constants/backgroundsConstants.js");
-/* harmony import */ var _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./constants/rangeNames */ "./src/constants/rangeNames.js");
-/* harmony import */ var _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./constants/borderShadowConstants */ "./src/constants/borderShadowConstants.js");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _inspector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inspector */ "./src/inspector.js");
+/* harmony import */ var _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants/dimensionsNames */ "./src/constants/dimensionsNames.js");
+/* harmony import */ var _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants/typographyPrefixConstants */ "./src/constants/typographyPrefixConstants.js");
+/* harmony import */ var _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants/backgroundsConstants */ "./src/constants/backgroundsConstants.js");
+/* harmony import */ var _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./constants/rangeNames */ "./src/constants/rangeNames.js");
+/* harmony import */ var _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./constants/borderShadowConstants */ "./src/constants/borderShadowConstants.js");
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../util/helpers */ "./util/helpers/index.js");
 /**
  * WordPress dependencits
  */
-
-
-
-
+var __ = wp.i18n.__;
+var _wp$components = wp.components,
+    Toolbar = _wp$components.Toolbar,
+    ToolbarButton = _wp$components.ToolbarButton;
+var _wp$blockEditor = wp.blockEditor,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar,
+    useBlockProps = _wp$blockEditor.useBlockProps;
+var useEffect = wp.element.useEffect;
 var select = wp.data.select;
 /**
  * Editor CSS
@@ -4207,7 +4179,6 @@ var select = wp.data.select;
 /*
  * Internal dependencies
  */
-
 
 
 
@@ -4255,8 +4226,6 @@ function Edit(props) {
       backTitle = attributes.backTitle,
       showBackContent = attributes.showBackContent,
       backContent = attributes.backContent,
-      frontImageSize = attributes.frontImageSize,
-      backImageSize = attributes.backImageSize,
       linkType = attributes.linkType,
       buttonText = attributes.buttonText,
       buttonIcon = attributes.buttonIcon,
@@ -4266,8 +4235,6 @@ function Edit(props) {
       backTitleColor = attributes.backTitleColor,
       frontContentColor = attributes.frontContentColor,
       backContentColor = attributes.backContentColor,
-      frontImageRadius = attributes.frontImageRadius,
-      backImageRadius = attributes.backImageRadius,
       frontIconColor = attributes.frontIconColor,
       backIconColor = attributes.backIconColor,
       buttonStyle = attributes.buttonStyle,
@@ -4287,8 +4254,8 @@ function Edit(props) {
   var defaultFrontIconBackground = "transparent";
   var defaultBackIconBackground = "transparent"; // wrapper styles css in strings ⬇
 
-  var _generateDimensionsCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateDimensionsControlStyles"])({
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__["dimensionsMargin"],
+  var _generateDimensionsCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateDimensionsControlStyles"])({
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__["dimensionsMargin"],
     styleFor: "margin",
     attributes: attributes
   }),
@@ -4296,8 +4263,8 @@ function Edit(props) {
       wrapperMarginStylesTab = _generateDimensionsCo.dimensionStylesTab,
       wrapperMarginStylesMobile = _generateDimensionsCo.dimensionStylesMobile;
 
-  var _generateDimensionsCo2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateDimensionsControlStyles"])({
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__["dimensionsPadding"],
+  var _generateDimensionsCo2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateDimensionsControlStyles"])({
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__["dimensionsPadding"],
     styleFor: "padding",
     attributes: attributes
   }),
@@ -4306,8 +4273,8 @@ function Edit(props) {
       wrapperPaddingStylesMobile = _generateDimensionsCo2.dimensionStylesMobile; // wrapper border & shadow settings
 
 
-  var _generateBorderShadow = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBorderShadowStyles"])({
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_11__["borderShadow"],
+  var _generateBorderShadow = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateBorderShadowStyles"])({
+    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_6__["borderShadow"],
     attributes: attributes
   }),
       bdShadowStyesDesktop = _generateBorderShadow.styesDesktop,
@@ -4318,26 +4285,28 @@ function Edit(props) {
       bdShadowStylesHoverMobile = _generateBorderShadow.stylesHoverMobile; // responsive range controller
 
 
-  var _generateResponsiveRa = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["boxHeightAttr"],
+  var _generateResponsiveRa = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["boxHeightAttr"],
     property: "height",
-    attributes: attributes
+    attributes: attributes,
+    customUnit: "px"
   }),
       wrapperHeightStylesDesktop = _generateResponsiveRa.rangeStylesDesktop,
       wrapperHeightStylesTab = _generateResponsiveRa.rangeStylesTab,
       wrapperHeightStylesMobile = _generateResponsiveRa.rangeStylesMobile;
 
-  var _generateResponsiveRa2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["boxHeightAttr"],
+  var _generateResponsiveRa2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["boxHeightAttr"],
     property: "min-height",
-    attributes: attributes
+    attributes: attributes,
+    customUnit: "px"
   }),
       wrapperMinHeightStylesDesktop = _generateResponsiveRa2.rangeStylesDesktop,
       wrapperMinHeightStylesTab = _generateResponsiveRa2.rangeStylesTab,
       wrapperMinHeightStylesMobile = _generateResponsiveRa2.rangeStylesMobile;
 
-  var _generateResponsiveRa3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["boxWidthAttr"],
+  var _generateResponsiveRa3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["boxWidthAttr"],
     property: "max-width",
     attributes: attributes
   }),
@@ -4345,8 +4314,8 @@ function Edit(props) {
       wrapperWidthStylesTab = _generateResponsiveRa3.rangeStylesTab,
       wrapperWidthStylesMobile = _generateResponsiveRa3.rangeStylesMobile;
 
-  var _generateResponsiveRa4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["boxFrontIconSizeAttr"],
+  var _generateResponsiveRa4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["boxFrontIconSizeAttr"],
     property: "font-size",
     attributes: attributes
   }),
@@ -4354,8 +4323,8 @@ function Edit(props) {
       frontFontSizeTab = _generateResponsiveRa4.rangeStylesTab,
       frontFontSizeMobile = _generateResponsiveRa4.rangeStylesMobile;
 
-  var _generateResponsiveRa5 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["boxBackIconSizeAttr"],
+  var _generateResponsiveRa5 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["boxBackIconSizeAttr"],
     property: "font-size",
     attributes: attributes
   }),
@@ -4364,18 +4333,26 @@ function Edit(props) {
       backFontSizeMobile = _generateResponsiveRa5.rangeStylesMobile; // front background controller
 
 
-  var _generateBackgroundCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBackgroundControlStyles"])({
+  var _generateBackgroundCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateBackgroundControlStyles"])({
     attributes: attributes,
-    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_9__["flipboxFrontWrapper"]
+    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_4__["flipboxFrontWrapper"]
   }),
       frontBackgroundStylesDesktop = _generateBackgroundCo.backgroundStylesDesktop,
+      frontHoverBackgroundStylesDesktop = _generateBackgroundCo.hoverBackgroundStylesDesktop,
       frontBackgroundStylesTab = _generateBackgroundCo.backgroundStylesTab,
+      frontHoverBackgroundStylesTab = _generateBackgroundCo.hoverBackgroundStylesTab,
       frontBackgroundStylesMobile = _generateBackgroundCo.backgroundStylesMobile,
-      frontOverlayStyles = _generateBackgroundCo.overlyStyles; // front Icon Margin & Padding
+      frontHoverBackgroundStylesMobile = _generateBackgroundCo.hoverBackgroundStylesMobile,
+      frontOverlayStylesDesktop = _generateBackgroundCo.overlayStylesDesktop,
+      frontHoverOverlayStylesDesktop = _generateBackgroundCo.hoverOverlayStylesDesktop,
+      frontOverlayStylesTab = _generateBackgroundCo.overlayStylesTab,
+      frontHoverOverlayStylesTab = _generateBackgroundCo.hoverOverlayStylesTab,
+      frontOverlayStylesMobile = _generateBackgroundCo.overlayStylesMobile,
+      frontHoverOverlayStylesMobile = _generateBackgroundCo.hoverOverlayStylesMobile; // front Icon Margin & Padding
 
 
-  var _generateDimensionsCo3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateDimensionsControlStyles"])({
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__["frontIconMargin"],
+  var _generateDimensionsCo3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateDimensionsControlStyles"])({
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__["frontIconMargin"],
     styleFor: "margin",
     attributes: attributes
   }),
@@ -4383,8 +4360,8 @@ function Edit(props) {
       frontIconMarginStylesTab = _generateDimensionsCo3.dimensionStylesTab,
       frontIconMarginStylesMobile = _generateDimensionsCo3.dimensionStylesMobile;
 
-  var _generateDimensionsCo4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateDimensionsControlStyles"])({
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__["frontIconPadding"],
+  var _generateDimensionsCo4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateDimensionsControlStyles"])({
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__["frontIconPadding"],
     styleFor: "padding",
     attributes: attributes
   }),
@@ -4393,8 +4370,8 @@ function Edit(props) {
       frontIconPaddingStylesMobile = _generateDimensionsCo4.dimensionStylesMobile; // front icon border
 
 
-  var _generateBorderShadow2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBorderShadowStyles"])({
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_11__["borderShadowFrontIcon"],
+  var _generateBorderShadow2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateBorderShadowStyles"])({
+    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_6__["borderShadowFrontIcon"],
     attributes: attributes,
     noShadow: true
   }),
@@ -4406,8 +4383,8 @@ function Edit(props) {
       frontIconBorderHoverMobile = _generateBorderShadow2.stylesHoverMobile; // front image
 
 
-  var _generateResponsiveRa6 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["frontImgSizeAttr"],
+  var _generateResponsiveRa6 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["frontImgSizeAttr"],
     property: "height",
     attributes: attributes
   }),
@@ -4415,8 +4392,8 @@ function Edit(props) {
       frontImgHeightTab = _generateResponsiveRa6.rangeStylesTab,
       frontImgHeightMobile = _generateResponsiveRa6.rangeStylesMobile;
 
-  var _generateResponsiveRa7 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["frontImgSizeAttr"],
+  var _generateResponsiveRa7 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["frontImgSizeAttr"],
     property: "width",
     attributes: attributes
   }),
@@ -4424,8 +4401,8 @@ function Edit(props) {
       frontImgWidthTab = _generateResponsiveRa7.rangeStylesTab,
       frontImgWidthMobile = _generateResponsiveRa7.rangeStylesMobile;
 
-  var _generateResponsiveRa8 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["frontImgRadiusAttr"],
+  var _generateResponsiveRa8 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["frontImgRadiusAttr"],
     property: "border-radius",
     attributes: attributes
   }),
@@ -4434,34 +4411,42 @@ function Edit(props) {
       frontImgRadiusMobile = _generateResponsiveRa8.rangeStylesMobile; // back background controller
 
 
-  var _generateBackgroundCo2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBackgroundControlStyles"])({
+  var _generateBackgroundCo2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateBackgroundControlStyles"])({
     attributes: attributes,
-    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_9__["flipboxBackWrapper"]
+    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_4__["flipboxBackWrapper"]
   }),
       backBackgroundStylesDesktop = _generateBackgroundCo2.backgroundStylesDesktop,
+      backHoverBackgroundStylesDesktop = _generateBackgroundCo2.hoverBackgroundStylesDesktop,
       backBackgroundStylesTab = _generateBackgroundCo2.backgroundStylesTab,
+      backHoverBackgroundStylesTab = _generateBackgroundCo2.hoverBackgroundStylesTab,
       backBackgroundStylesMobile = _generateBackgroundCo2.backgroundStylesMobile,
-      backOverlayStyles = _generateBackgroundCo2.overlyStyles;
+      backHoverBackgroundStylesMobile = _generateBackgroundCo2.hoverBackgroundStylesMobile,
+      backOverlayStylesDesktop = _generateBackgroundCo2.overlayStylesDesktop,
+      backHoverOverlayStylesDesktop = _generateBackgroundCo2.hoverOverlayStylesDesktop,
+      backOverlayStylesTab = _generateBackgroundCo2.overlayStylesTab,
+      backHoverOverlayStylesTab = _generateBackgroundCo2.hoverOverlayStylesTab,
+      backOverlayStylesMobile = _generateBackgroundCo2.overlayStylesMobile,
+      backHoverOverlayStylesMobile = _generateBackgroundCo2.hoverOverlayStylesMobile;
 
-  var _generateTypographySt = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateTypographyStyles"])({
+  var _generateTypographySt = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateTypographyStyles"])({
     attributes: attributes,
-    prefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_8__["typoPrefix_title"]
+    prefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_3__["typoPrefix_title"]
   }),
       titleTypoStylesDesktop = _generateTypographySt.typoStylesDesktop,
       titleTypoStylesTab = _generateTypographySt.typoStylesTab,
       titleTypoStylesMobile = _generateTypographySt.typoStylesMobile;
 
-  var _generateTypographySt2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateTypographyStyles"])({
+  var _generateTypographySt2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateTypographyStyles"])({
     attributes: attributes,
-    prefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_8__["typoPrefix_content"]
+    prefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_3__["typoPrefix_content"]
   }),
       contentTypoStylesDesktop = _generateTypographySt2.typoStylesDesktop,
       contentTypoStylesTab = _generateTypographySt2.typoStylesTab,
       contentTypoStylesMobile = _generateTypographySt2.typoStylesMobile; // back Icon Margin & Padding
 
 
-  var _generateDimensionsCo5 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateDimensionsControlStyles"])({
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__["backIconMargin"],
+  var _generateDimensionsCo5 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateDimensionsControlStyles"])({
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__["backIconMargin"],
     styleFor: "margin",
     attributes: attributes
   }),
@@ -4469,8 +4454,8 @@ function Edit(props) {
       backIconMarginStylesTab = _generateDimensionsCo5.dimensionStylesTab,
       backIconMarginStylesMobile = _generateDimensionsCo5.dimensionStylesMobile;
 
-  var _generateDimensionsCo6 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateDimensionsControlStyles"])({
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__["backIconPadding"],
+  var _generateDimensionsCo6 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateDimensionsControlStyles"])({
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__["backIconPadding"],
     styleFor: "padding",
     attributes: attributes
   }),
@@ -4479,8 +4464,8 @@ function Edit(props) {
       backIconPaddingStylesMobile = _generateDimensionsCo6.dimensionStylesMobile; // back icon border
 
 
-  var _generateBorderShadow3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBorderShadowStyles"])({
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_11__["borderShadowBackIcon"],
+  var _generateBorderShadow3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateBorderShadowStyles"])({
+    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_6__["borderShadowBackIcon"],
     attributes: attributes,
     noShadow: true
   }),
@@ -4492,8 +4477,8 @@ function Edit(props) {
       backIconBorderHoverMobile = _generateBorderShadow3.stylesHoverMobile; // back image
 
 
-  var _generateResponsiveRa9 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["backImgSizeAttr"],
+  var _generateResponsiveRa9 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["backImgSizeAttr"],
     property: "height",
     attributes: attributes
   }),
@@ -4501,8 +4486,8 @@ function Edit(props) {
       backImgHeightTab = _generateResponsiveRa9.rangeStylesTab,
       backImgHeightMobile = _generateResponsiveRa9.rangeStylesMobile;
 
-  var _generateResponsiveRa10 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["backImgSizeAttr"],
+  var _generateResponsiveRa10 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["backImgSizeAttr"],
     property: "width",
     attributes: attributes
   }),
@@ -4510,8 +4495,8 @@ function Edit(props) {
       backImgWidthTab = _generateResponsiveRa10.rangeStylesTab,
       backImgWidthMobile = _generateResponsiveRa10.rangeStylesMobile;
 
-  var _generateResponsiveRa11 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["backImgRadiusAttr"],
+  var _generateResponsiveRa11 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["backImgRadiusAttr"],
     property: "border-radius",
     attributes: attributes
   }),
@@ -4532,19 +4517,19 @@ function Edit(props) {
   var contentStylesTab = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-front-content, .eb-flipbox-container.").concat(blockId, " .eb-flipbox-back-content {\n\t\t ").concat(contentTypoStylesTab, "\n\t }\n\t ");
   var contentStylesMobile = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-front-content, .eb-flipbox-container.").concat(blockId, " .eb-flipbox-back-content {\n\t\t ").concat(contentTypoStylesMobile, "\n\t }\n\t "); // flipper style
 
-  var flipperStyle = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipper {\n\t\t transition: ").concat(transitionSpeed ? transitionSpeed / 1000 : 0.6, "s\n\t }\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper.back-is-selected {\n\t\t transform:\n\t\t\t  ").concat(isHover || selectedSide === "back" ? Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["getFlipTransform"])(flipType) : "none", ";\n\t }\n\t ");
-  var frontStyleDesktop = "\n\t\t.eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\t").concat(frontOverlayStyles, "\n\t\t}\n\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(frontBackgroundStylesDesktop, "\n\t\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t\t").concat(bdShadowStyesDesktop, "\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\theight: auto;\n\t\t\twidth: 100%;\n\t\t\tz-index: 1;\n\t\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t}\n\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover {\n\t\t\t").concat(bdShadowStylesHoverDesktop, "\n\t\t}\n\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-front {\n\t\t\topacity: ").concat((isHover || selectedSide === "front") && flipType === "fade" && 0, ";\n\t\t}\n\t ");
-  var frontStyleTab = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(wrapperMinHeightStylesTab, "\n\t\t\t").concat(wrapperWidthStylesTab, "\n\t\t\t").concat(frontBackgroundStylesTab, "\n\t\t\t").concat(bdShadowStyesTab, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover {\n\t\t\t").concat(bdShadowStylesHoverTab, "\n\t\t }\n\t ");
-  var frontStyleMobile = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t ").concat(wrapperWidthStylesMobile, "\n\t\t\t").concat(frontBackgroundStylesMobile, "\n\t\t\t").concat(bdShadowStyesMobile, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(bdShadowStylesHoverMobile, "\n\t\t }\n\t ");
+  var flipperStyle = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipper {\n\t\t transition: ").concat(transitionSpeed ? transitionSpeed / 1000 : 0.6, "s\n\t }\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper.back-is-selected {\n\t\t transform:\n\t\t\t  ").concat(isHover || selectedSide === "back" ? Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["getFlipTransform"])(flipType) : "none", ";\n\t }\n\t ");
+  var frontStyleDesktop = "\n\t\t.eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(frontBackgroundStylesDesktop, "\n\t\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t\t").concat(bdShadowStyesDesktop, "\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\theight: auto;\n\t\t\twidth: 100%;\n\t\t\tz-index: 1;\n\t\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t}\n\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover {\n\t\t\t").concat(frontHoverBackgroundStylesDesktop, "\n\t\t\t").concat(bdShadowStylesHoverDesktop, "\n\t\t}\n\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\t").concat(frontOverlayStylesDesktop, "\n\t\t}\n\n\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover:before{\n\t\t\t").concat(frontHoverOverlayStylesDesktop, "\n\t\t}\n\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-front {\n\t\t\topacity: ").concat((isHover || selectedSide === "front") && flipType === "fade" && 0, ";\n\t\t}\n\t ");
+  var frontStyleTab = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t").concat(wrapperMinHeightStylesTab, "\n\t\t\t").concat(wrapperWidthStylesTab, "\n\t\t\t").concat(frontBackgroundStylesTab, "\n\t\t\t").concat(bdShadowStyesTab, "\n\t\t }\n\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover {\n\t\t\t").concat(frontHoverBackgroundStylesTab, "\n\t\t\t").concat(bdShadowStylesHoverTab, "\n\t\t}\n\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\t").concat(frontOverlayStylesTab, "\n\t\t}\n\t\t\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover:before{\n\t\t\t").concat(frontHoverOverlayStylesTab, "\n\t\t}\n\n\t ");
+  var frontStyleMobile = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-front {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t ").concat(wrapperWidthStylesMobile, "\n\t\t\t").concat(frontBackgroundStylesMobile, "\n\t\t\t").concat(bdShadowStyesMobile, "\n\t\t }\n\t\t \n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover {\n\t\t\t").concat(frontHoverBackgroundStylesMobile, "\n\t\t\t").concat(bdShadowStylesHoverMobile, "\n\t\t}\n\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:before{\n\t\t\t").concat(frontOverlayStylesMobile, "\n\t\t}\n\n\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front:hover:before{\n\t\t\t").concat(frontHoverOverlayStylesMobile, "\n\t\t}\n\t ");
   var frontImageStyleDesktop = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container {\n\t\t display: ").concat(frontIconOrImage === "image" && frontImageUrl ? "flex" : "none", ";\n\t\t justify-content: center;\n\t }\n \n\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container img {\n\t\t ").concat(frontImgHeightDesktop, "\n\t\t ").concat(frontImgWidthDesktop, "\n\t\t ").concat(frontImgRadiusDesktop, "\n\t }\n\t ");
   var frontImageStyleTab = "\n\t.eb-flipbox-container.".concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container img {\n\t\t").concat(frontImgHeightTab, "\n\t\t ").concat(frontImgWidthTab, "\n\t\t ").concat(frontImgRadiusTab, "\n\t}\n\t");
   var frontImageStyleMobile = "\n\t.eb-flipbox-container.".concat(blockId, " .eb-flipbox-front .eb-flipbox-front-image-container img {\n\t\t").concat(frontImgHeightMobile, "\n\t\t ").concat(frontImgWidthMobile, "\n\t\t ").concat(frontImgRadiusMobile, "\n\t}\n\t");
   var frontIconStyleDesktop = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-icon-front {\n\t\t\t ").concat(frontFontSizeDesktop, "\n\t\t\t ").concat(frontIconMarginStylesDesktop, "\n\t\t\t ").concat(frontIconPaddingStylesDesktop, "\n\t\t\t ").concat(frontIconBorderDesktop, "\n\t\t\t color: ").concat(frontIconColor || "#ffffff", ";\n\t\t\t background: ").concat(frontIconBackground || defaultFrontIconBackground, ";\n\t\t\t width: 100%;\n\t\t\t text-align:").concat(align, ";\n\t\t\t display: ").concat(frontIconOrImage === "icon" && frontIcon ? "block" : "none", ";\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-icon-front:hover {\n\t\t\t ").concat(frontIconBorderHoverDesktop, "\n\t\t }\n\t ");
   var frontIconStyleTab = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-icon-front {\n\t\t").concat(frontFontSizeTab, "\n\t\t").concat(frontIconMarginStylesTab, "\n\t\t").concat(frontIconPaddingStylesTab, "\n\t\t").concat(frontIconBorderTab, "\n\t }\n\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-icon-front:hover {\n\t\t").concat(frontIconBorderHoverTab, "\n\t}\n\t ");
   var frontIconStyleMobile = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-icon-front {\n\t\t").concat(frontFontSizeMobile, "\n\t\t").concat(frontIconMarginStylesMobile, "\n\t\t").concat(frontIconPaddingStylesMobile, "\n\t\t").concat(frontIconBorderMobile, "\n\t }\n\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-icon-front:hover {\n\t\t").concat(frontIconBorderHoverMobile, "\n\t}\n\t ");
-  var backStyleDesktop = "\n\n\t.eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-back:before{\n\t\t").concat(backOverlayStyles, "\n\t}\n\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back {\t\n\t\t").concat(backBackgroundStylesDesktop, "\n\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t").concat(bdShadowStyesDesktop, "\n\t\t display: flex;\n\t\t flex-direction: column;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t height: auto;\n\t\t width: 100%;\n\t\t transform:  ").concat(flipType === "flip-up" && "rotateX(-180deg)" || flipType === "flip-bottom" && "rotateX(180deg)" || (flipType === "zoom-in" || flipType === "zoom-out" || flipType === "fade") && "none", ";\n\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t cursor: ").concat(linkType === "box" && link ? "pointer" : "default", ";\n\t\t ").concat(isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? "z-index: 5;" : "", "\n\t }\n\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover {\n\t\t").concat(bdShadowStylesHoverDesktop, "\n\t }\n\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-back {\n\t\topacity: ").concat((isHover || selectedSide === "back") && flipType === "fade" && 1, ";\n\t }\n\t \n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front,\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back{\n\t\tposition: absolute;\n\t }\n\n\n\t ");
-  var backStyleTab = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesTab, "\n\t\t\t ").concat(wrapperWidthStylesTab, "\n\t\t\t ").concat(backBackgroundStylesTab, "\n\t\t\t ").concat(bdShadowStyesTab, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover {\n\t\t\t").concat(bdShadowStylesHoverTab, "\n\t\t }\n\t ");
-  var backStyleMobile = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t ").concat(wrapperWidthStylesMobile, "\n\t\t\t ").concat(backBackgroundStylesMobile, "\n\t\t\t ").concat(bdShadowStyesMobile, "\n\t\t\t ").concat(bdShadowStylesHoverMobile, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover {\n\t\t\t").concat(bdShadowStylesHoverMobile, "\n\t\t }\n\t ");
+  var backStyleDesktop = "\n\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-back {\t\n\t\t").concat(backBackgroundStylesDesktop, "\n\t\t").concat(wrapperMinHeightStylesDesktop, "\n\t\t").concat(wrapperWidthStylesDesktop, "\n\t\t").concat(bdShadowStyesDesktop, "\n\t\t display: flex;\n\t\t flex-direction: column;\n\t\t justify-content: center;\n\t\t align-items: center;\n\t\t height: auto;\n\t\t width: 100%;\n\t\t transform:  ").concat(flipType === "flip-up" && "rotateX(-180deg)" || flipType === "flip-bottom" && "rotateX(180deg)" || (flipType === "zoom-in" || flipType === "zoom-out" || flipType === "fade") && "none", ";\n\t\ttransition: ").concat(flipType === "fade" && "opacity 0.6s", ";\n\t\t cursor: ").concat(linkType === "box" && link ? "pointer" : "default", ";\n\t\t ").concat(isHover && (flipType === "zoom-in" || flipType === "zoom-out") ? "z-index: 5;" : "", "\n\t }\n\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover {\n\t\t").concat(backHoverBackgroundStylesDesktop, "\n\t\t").concat(bdShadowStylesHoverDesktop, "\n\t }\n\n\t \n\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:before{\n\t\t").concat(backOverlayStylesDesktop, "\n\t}\n\t\n\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover:before{\n\t\t").concat(backHoverOverlayStylesDesktop, "\n\t}\n\n\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper.back-is-selected .eb-flipbox-back {\n\t\topacity: ").concat((isHover || selectedSide === "back") && flipType === "fade" && 1, ";\n\t }\n\t \n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-front,\n\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back{\n\t\tposition: absolute;\n\t }\n\n\n\t ");
+  var backStyleTab = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesTab, "\n\t\t\t ").concat(wrapperWidthStylesTab, "\n\t\t\t ").concat(backBackgroundStylesTab, "\n\t\t\t ").concat(bdShadowStyesTab, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover {\n\t\t\t").concat(backHoverBackgroundStylesTab, "\n\t\t\t").concat(bdShadowStylesHoverTab, "\n\t\t }\t\n\t\t \n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:before{\n\t\t\t").concat(backOverlayStylesTab, "\n\t\t}\n\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover:before{\n\t\t\t").concat(backHoverOverlayStylesTab, "\n\t\t}\n\t\n\t ");
+  var backStyleMobile = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipper .eb-flipbox-back {\n\t\t\t ").concat(wrapperMinHeightStylesMobile, "\n\t\t\t ").concat(wrapperWidthStylesMobile, "\n\t\t\t ").concat(backBackgroundStylesMobile, "\n\t\t\t ").concat(bdShadowStyesMobile, "\n\t\t\t ").concat(bdShadowStylesHoverMobile, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover {\n\t\t\t").concat(backHoverBackgroundStylesMobile, "\n\t\t\t").concat(bdShadowStylesHoverMobile, "\n\t\t }\n\t\t \n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:before{\n\t\t\t").concat(backOverlayStylesMobile, "\n\t\t}\n\t\t\n\t\t.eb-flipbox-container.").concat(blockId, " .eb-flipper .eb-flipbox-back:hover:before{\n\t\t\t").concat(backHoverOverlayStylesMobile, "\n\t\t}\n\t ");
   var backImageStyleDesktop = "\n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-back .eb-flipbox-back-image-container {\n\t\t display: ").concat(backIconOrImage === "image" && backImageUrl ? "flex" : "none", ";\n\t\t justify-content: center;\n\t }\n \n\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-back .eb-flipbox-back-image-container img {\n\t\t ").concat(backImgHeightDesktop, "\n\t\t ").concat(backImgWidthDesktop, "\n\t\t ").concat(backImgRadiusDesktop, "\n\t }\n\t ");
   var backImageStyleTab = "\n \n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-back .eb-flipbox-back-image-container img {\n\t\t ").concat(backImgHeightTab, "\n\t\t ").concat(backImgWidthTab, "\n\t\t ").concat(backImgRadiusTab, "\n\t }\n\t ");
   var backImageStyleMobile = "\n \n\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-back .eb-flipbox-back-image-container img {\n\t\t ").concat(backImgHeightMobile, "\n\t\t ").concat(backImgWidthMobile, "\n\t\t ").concat(backImgRadiusMobile, "\n\t }\n\t ");
@@ -4556,8 +4541,8 @@ function Edit(props) {
       backButtonStyleMobile = "";
 
   if (buttonStyle === "custom") {
-    var _generateDimensionsCo7 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateDimensionsControlStyles"])({
-      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_7__["buttonPadding"],
+    var _generateDimensionsCo7 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateDimensionsControlStyles"])({
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_2__["buttonPadding"],
       styleFor: "padding",
       attributes: attributes
     }),
@@ -4566,8 +4551,8 @@ function Edit(props) {
         buttonPaddingStylesMobile = _generateDimensionsCo7.dimensionStylesMobile; // border & shadow controller
 
 
-    var _generateBorderShadow4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateBorderShadowStyles"])({
-      controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_11__["borderShadowBtn"],
+    var _generateBorderShadow4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateBorderShadowStyles"])({
+      controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_6__["borderShadowBtn"],
       attributes: attributes
     }),
         btnBdShadowStyesDesktop = _generateBorderShadow4.styesDesktop,
@@ -4578,8 +4563,8 @@ function Edit(props) {
         btnBdShadowStylesHoverMobile = _generateBorderShadow4.stylesHoverMobile; // button size
 
 
-    var _generateResponsiveRa12 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["generateResponsiveRangeStyles"])({
-      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_10__["buttonIconSizeAttr"],
+    var _generateResponsiveRa12 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["generateResponsiveRangeStyles"])({
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_5__["buttonIconSizeAttr"],
       property: "width",
       attributes: attributes
     }),
@@ -4593,13 +4578,13 @@ function Edit(props) {
   } // all css styles for large screen width (desktop/laptop) in strings ⬇
 
 
-  var desktopAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["softMinifyCssStrings"])("\n\t\t ".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(itemsContainerStyle) ? itemsContainerStyle : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(titleStylesDesktop) ? titleStylesDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(contentStylesDesktop) ? contentStylesDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(flipperStyle) ? flipperStyle : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontStyleDesktop) ? frontStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontImageStyleDesktop) ? frontImageStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontIconStyleDesktop) ? frontIconStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backIconStyleDesktop) ? backIconStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backStyleDesktop) ? backStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backImageStyleDesktop) ? backImageStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backButtonStyleDesktop) ? backButtonStyleDesktop : " ", "\n\t ")); // all css styles for Tab in strings ⬇
+  var desktopAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["softMinifyCssStrings"])("\n\t\t ".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(itemsContainerStyle) ? itemsContainerStyle : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(titleStylesDesktop) ? titleStylesDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(contentStylesDesktop) ? contentStylesDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(flipperStyle) ? flipperStyle : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontStyleDesktop) ? frontStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontImageStyleDesktop) ? frontImageStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontIconStyleDesktop) ? frontIconStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backIconStyleDesktop) ? backIconStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backStyleDesktop) ? backStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backImageStyleDesktop) ? backImageStyleDesktop : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backButtonStyleDesktop) ? backButtonStyleDesktop : " ", "\n\t ")); // all css styles for Tab in strings ⬇
 
-  var tabAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["softMinifyCssStrings"])("\n\t\t ".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(flipContainerStyleTab) ? flipContainerStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(titleStylesTab) ? titleStylesTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(contentStylesTab) ? contentStylesTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backButtonStyleTab) ? backButtonStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontStyleTab) ? frontStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backStyleTab) ? backStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontIconStyleTab) ? frontIconStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backIconStyleTab) ? backIconStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontImageStyleTab) ? frontImageStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backImageStyleTab) ? backImageStyleTab : " ", "\n\t ")); // all css styles for Mobile in strings ⬇
+  var tabAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["softMinifyCssStrings"])("\n\t\t ".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(flipContainerStyleTab) ? flipContainerStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(titleStylesTab) ? titleStylesTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(contentStylesTab) ? contentStylesTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backButtonStyleTab) ? backButtonStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontStyleTab) ? frontStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backStyleTab) ? backStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontIconStyleTab) ? frontIconStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backIconStyleTab) ? backIconStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontImageStyleTab) ? frontImageStyleTab : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backImageStyleTab) ? backImageStyleTab : " ", "\n\t ")); // all css styles for Mobile in strings ⬇
 
-  var mobileAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["softMinifyCssStrings"])("\n\t\t ".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(flipContainerStyleMobile) ? flipContainerStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(titleStylesMobile) ? titleStylesMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(contentStylesMobile) ? contentStylesMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backButtonStyleMobile) ? backButtonStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontStyleMobile) ? frontStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backStyleMobile) ? backStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontIconStyleMobile) ? frontIconStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backIconStyleMobile) ? backIconStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(frontImageStyleMobile) ? frontImageStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["isCssExists"])(backImageStyleMobile) ? backImageStyleMobile : " ", "\n\t ")); // Set All Style in "blockMeta" Attribute
+  var mobileAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["softMinifyCssStrings"])("\n\t\t ".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(flipContainerStyleMobile) ? flipContainerStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(titleStylesMobile) ? titleStylesMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(contentStylesMobile) ? contentStylesMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backButtonStyleMobile) ? backButtonStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontStyleMobile) ? frontStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backStyleMobile) ? backStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontIconStyleMobile) ? frontIconStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backIconStyleMobile) ? backIconStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(frontImageStyleMobile) ? frontImageStyleMobile : " ", "\n\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["isCssExists"])(backImageStyleMobile) ? backImageStyleMobile : " ", "\n\t ")); // Set All Style in "blockMeta" Attribute
 
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+  useEffect(function () {
     var styleObject = {
       desktop: desktopAllStyles,
       tab: tabAllStyles,
@@ -4613,15 +4598,15 @@ function Edit(props) {
     }
   }, [attributes]); // this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
 
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+  useEffect(function () {
     setAttributes({
       resOption: select("core/edit-post").__experimentalGetPreviewDeviceType()
     });
   }, []); // this useEffect is for creating an unique id for each block's unique className by a random unique number
 
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+  useEffect(function () {
     var BLOCK_PREFIX = "eb-flipbox";
-    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["duplicateBlockIdFix"])({
+    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["duplicateBlockIdFix"])({
       BLOCK_PREFIX: BLOCK_PREFIX,
       blockId: blockId,
       setAttributes: setAttributes,
@@ -4630,19 +4615,19 @@ function Edit(props) {
     });
   }, []); // this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
 
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["mimmikCssForPreviewBtnClick"])({
+  useEffect(function () {
+    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["mimmikCssForPreviewBtnClick"])({
       domObj: document,
       select: select
     });
   }, []);
-  var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])({
+  var blockProps = useBlockProps({
     className: "eb-guten-block-main-parent-wrapper"
   });
-  return [isSelected && /*#__PURE__*/React.createElement(_inspector__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  return [isSelected && /*#__PURE__*/React.createElement(_inspector__WEBPACK_IMPORTED_MODULE_1__["default"], {
     attributes: attributes,
     setAttributes: setAttributes
-  }), /*#__PURE__*/React.createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["BlockControls"], null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Toolbar"], null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["ToolbarButton"], {
+  }), /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(ToolbarButton, {
     title: "Front",
     icon: "arrow-right-alt2",
     isActive: selectedSide === "front",
@@ -4651,7 +4636,7 @@ function Edit(props) {
         selectedSide: "front"
       });
     }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["ToolbarButton"], {
+  }), /*#__PURE__*/React.createElement(ToolbarButton, {
     title: "Back",
     icon: "arrow-left-alt2",
     isActive: selectedSide === "back",
@@ -4660,7 +4645,7 @@ function Edit(props) {
         selectedSide: "back"
       });
     }
-  })), /*#__PURE__*/React.createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["AlignmentToolbar"], {
+  })), /*#__PURE__*/React.createElement(AlignmentToolbar, {
     value: align,
     onChange: function onChange(align) {
       return setAttributes({
@@ -4670,7 +4655,7 @@ function Edit(props) {
   })),
   /*#__PURE__*/
   // Edit view here
-  React.createElement("div", blockProps, /*#__PURE__*/React.createElement("style", null, "\n\t\t\t\t ".concat(desktopAllStyles, "\n \n\t\t\t\t /* mimmikcssStart */\n \n\t\t\t\t ").concat(resOption === "Tablet" ? tabAllStyles : " ", "\n\t\t\t\t ").concat(resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " ", "\n \n\t\t\t\t /* mimmikcssEnd */\n \n\t\t\t\t @media all and (max-width: 1024px) {\t\n \n\t\t\t\t\t /* tabcssStart */\t\t\t\n\t\t\t\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["softMinifyCssStrings"])(tabAllStyles), "\n\t\t\t\t\t /* tabcssEnd */\t\t\t\n\t\t\t\t \n\t\t\t\t }\n\t\t\t\t \n\t\t\t\t @media all and (max-width: 767px) {\n\t\t\t\t\t \n\t\t\t\t\t /* mobcssStart */\t\t\t\n\t\t\t\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_5__["softMinifyCssStrings"])(mobileAllStyles), "\n\t\t\t\t\t /* mobcssEnd */\t\t\t\n\t\t\t\t \n\t\t\t\t }\n\t\t\t\t ")), /*#__PURE__*/React.createElement("div", {
+  React.createElement("div", blockProps, /*#__PURE__*/React.createElement("style", null, "\n\t\t\t\t ".concat(desktopAllStyles, "\n \n\t\t\t\t /* mimmikcssStart */\n \n\t\t\t\t ").concat(resOption === "Tablet" ? tabAllStyles : " ", "\n\t\t\t\t ").concat(resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " ", "\n \n\t\t\t\t /* mimmikcssEnd */\n \n\t\t\t\t @media all and (max-width: 1024px) {\t\n \n\t\t\t\t\t /* tabcssStart */\t\t\t\n\t\t\t\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["softMinifyCssStrings"])(tabAllStyles), "\n\t\t\t\t\t /* tabcssEnd */\t\t\t\n\t\t\t\t \n\t\t\t\t }\n\t\t\t\t \n\t\t\t\t @media all and (max-width: 767px) {\n\t\t\t\t\t \n\t\t\t\t\t /* mobcssStart */\t\t\t\n\t\t\t\t\t ").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["softMinifyCssStrings"])(mobileAllStyles), "\n\t\t\t\t\t /* mobcssEnd */\t\t\t\n\t\t\t\t \n\t\t\t\t }\n\t\t\t\t ")), /*#__PURE__*/React.createElement("div", {
     className: "eb-flipbox-container ".concat(blockId),
     "data-id": blockId,
     onMouseEnter: function onMouseEnter() {
@@ -4887,41 +4872,45 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])("fli
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _attributes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./attributes */ "./src/attributes.js");
-/* harmony import */ var _util_faIcons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/faIcons */ "./util/faIcons.js");
-/* harmony import */ var _util_image_avatar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/image-avatar */ "./util/image-avatar/index.js");
-/* harmony import */ var _util_border_shadow_control__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../util/border-shadow-control */ "./util/border-shadow-control/index.js");
-/* harmony import */ var _fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fonticonpicker/react-fonticonpicker */ "./node_modules/@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.react.js");
-/* harmony import */ var _fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./constants */ "./src/constants/index.js");
-/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../util/helpers */ "./util/helpers/index.js");
-/* harmony import */ var _util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../util/dimensions-control-v2 */ "./util/dimensions-control-v2/index.js");
-/* harmony import */ var _util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../util/responsive-range-control */ "./util/responsive-range-control/index.js");
-/* harmony import */ var _util_typography_control_v2__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../util/typography-control-v2 */ "./util/typography-control-v2/index.js");
-/* harmony import */ var _util_color_control__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../util/color-control */ "./util/color-control/index.js");
-/* harmony import */ var _util_background_control__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../util/background-control */ "./util/background-control/index.js");
-/* harmony import */ var _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./constants/backgroundsConstants */ "./src/constants/backgroundsConstants.js");
-/* harmony import */ var _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./constants/dimensionsNames */ "./src/constants/dimensionsNames.js");
-/* harmony import */ var _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./constants/borderShadowConstants */ "./src/constants/borderShadowConstants.js");
-/* harmony import */ var _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./constants/typographyPrefixConstants */ "./src/constants/typographyPrefixConstants.js");
-/* harmony import */ var _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./constants/rangeNames */ "./src/constants/rangeNames.js");
+/* harmony import */ var _attributes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./attributes */ "./src/attributes.js");
+/* harmony import */ var _util_faIcons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/faIcons */ "./util/faIcons.js");
+/* harmony import */ var _util_image_avatar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/image-avatar */ "./util/image-avatar/index.js");
+/* harmony import */ var _util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/border-shadow-control */ "./util/border-shadow-control/index.js");
+/* harmony import */ var _fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fonticonpicker/react-fonticonpicker */ "./node_modules/@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.react.js");
+/* harmony import */ var _fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./constants */ "./src/constants/index.js");
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/helpers */ "./util/helpers/index.js");
+/* harmony import */ var _util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../util/dimensions-control-v2 */ "./util/dimensions-control-v2/index.js");
+/* harmony import */ var _util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../util/responsive-range-control */ "./util/responsive-range-control/index.js");
+/* harmony import */ var _util_typography_control_v2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../util/typography-control-v2 */ "./util/typography-control-v2/index.js");
+/* harmony import */ var _util_color_control__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../util/color-control */ "./util/color-control/index.js");
+/* harmony import */ var _util_background_control__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../util/background-control */ "./util/background-control/index.js");
+/* harmony import */ var _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./constants/backgroundsConstants */ "./src/constants/backgroundsConstants.js");
+/* harmony import */ var _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./constants/dimensionsNames */ "./src/constants/dimensionsNames.js");
+/* harmony import */ var _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./constants/borderShadowConstants */ "./src/constants/borderShadowConstants.js");
+/* harmony import */ var _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./constants/typographyPrefixConstants */ "./src/constants/typographyPrefixConstants.js");
+/* harmony import */ var _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./constants/rangeNames */ "./src/constants/rangeNames.js");
 /**
  * WordPress dependencies
  */
-
-
-
-
-
+var __ = wp.i18n.__;
+var useEffect = wp.element.useEffect;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    PanelRow = _wp$components.PanelRow,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    TextControl = _wp$components.TextControl,
+    TextareaControl = _wp$components.TextareaControl,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    ButtonGroup = _wp$components.ButtonGroup,
+    BaseControl = _wp$components.BaseControl;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    MediaUpload = _wp$blockEditor.MediaUpload;
 var select = wp.data.select;
+
 /*
  * Internal dependencies
  */
@@ -4965,12 +4954,6 @@ var Inspector = function Inspector(_ref) {
       backTitle = attributes.backTitle,
       showBackContent = attributes.showBackContent,
       backContent = attributes.backContent,
-      frontImageSize = attributes.frontImageSize,
-      backImageSize = attributes.backImageSize,
-      borderStyle = attributes.borderStyle,
-      borderColor = attributes.borderColor,
-      borderWidth = attributes.borderWidth,
-      borderRadius = attributes.borderRadius,
       linkType = attributes.linkType,
       buttonText = attributes.buttonText,
       buttonIcon = attributes.buttonIcon,
@@ -4980,46 +4963,19 @@ var Inspector = function Inspector(_ref) {
       backTitleColor = attributes.backTitleColor,
       frontContentColor = attributes.frontContentColor,
       backContentColor = attributes.backContentColor,
-      frontImageRadius = attributes.frontImageRadius,
-      backImageRadius = attributes.backImageRadius,
       frontIconColor = attributes.frontIconColor,
       backIconColor = attributes.backIconColor,
-      boxShadowColor = attributes.boxShadowColor,
-      shadowVOffset = attributes.shadowVOffset,
-      shadowHOffset = attributes.shadowHOffset,
-      shadowSpread = attributes.shadowSpread,
-      shadowBlur = attributes.shadowBlur,
       buttonStyle = attributes.buttonStyle,
       buttonBackground = attributes.buttonBackground,
       buttonColor = attributes.buttonColor,
-      buttonSize = attributes.buttonSize,
-      buttonBorderSize = attributes.buttonBorderSize,
-      buttonBorderColor = attributes.buttonBorderColor,
-      buttonBorderType = attributes.buttonBorderType,
-      buttonBorderRadius = attributes.buttonBorderRadius,
-      btnShadowColor = attributes.btnShadowColor,
-      btnShadowVOffset = attributes.btnShadowVOffset,
-      btnShadowHOffset = attributes.btnShadowHOffset,
-      btnShadowBlur = attributes.btnShadowBlur,
-      btnShadowSpread = attributes.btnShadowSpread,
       frontIconBackground = attributes.frontIconBackground,
-      frontIconBorderRadius = attributes.frontIconBorderRadius,
-      frontIconBorderSize = attributes.frontIconBorderSize,
-      frontIconBorderType = attributes.frontIconBorderType,
-      frontIconBorderColor = attributes.frontIconBorderColor,
       backIconBackground = attributes.backIconBackground,
-      backIconBorderRadius = attributes.backIconBorderRadius,
-      backIconBorderSize = attributes.backIconBorderSize,
-      backIconBorderType = attributes.backIconBorderType,
-      backIconBorderColor = attributes.backIconBorderColor,
       transitionSpeed = attributes.transitionSpeed,
-      displayButtonIcon = attributes.displayButtonIcon,
-      radiusUnit = attributes.radiusUnit,
-      buttonSizeUnit = attributes.buttonSizeUnit; // Genereate different button styles
+      displayButtonIcon = attributes.displayButtonIcon; // Genereate different button styles
 
   var handleButtonStyle = function handleButtonStyle(newStyle) {
     var buttonStyle = newStyle;
-    var buttonClasses = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_10__["getButtonClasses"])(newStyle);
+    var buttonClasses = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["getButtonClasses"])(newStyle);
     setAttributes({
       buttonStyle: buttonStyle,
       buttonClasses: buttonClasses
@@ -5027,21 +4983,21 @@ var Inspector = function Inspector(_ref) {
   }; // this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class only the first time once
 
 
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+  useEffect(function () {
     setAttributes({
       resOption: select("core/edit-post").__experimentalGetPreviewDeviceType()
     });
   }, []); // this useEffect is for mimmiking css for all the eb blocks on resOption changing
 
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_10__["mimmikCssForResBtns"])({
+  useEffect(function () {
+    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["mimmikCssForResBtns"])({
       domObj: document,
       resOption: resOption
     });
   }, [resOption]); // this useEffect is to mimmik css for responsive preview in the editor page when clicking the buttons in the 'Preview button of wordpress' located beside the 'update' button while any block is selected and it's inspector panel is mounted in the DOM
 
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    var cleanUp = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_10__["mimmikCssOnPreviewBtnClickWhileBlockSelected"])({
+  useEffect(function () {
+    var cleanUp = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["mimmikCssOnPreviewBtnClickWhileBlockSelected"])({
       domObj: document,
       select: select,
       setAttributes: setAttributes
@@ -5054,18 +5010,18 @@ var Inspector = function Inspector(_ref) {
     setAttributes: setAttributes,
     resOption: resOption,
     attributes: attributes,
-    objAttributes: _attributes__WEBPACK_IMPORTED_MODULE_4__["default"]
+    objAttributes: _attributes__WEBPACK_IMPORTED_MODULE_0__["default"]
   };
-  return /*#__PURE__*/React.createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], {
+  return /*#__PURE__*/React.createElement(InspectorControls, {
     keys: "controls"
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "eb-panel-control"
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Selected Side")
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
+  }, /*#__PURE__*/React.createElement(PanelBody, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Selected Side")
+  }, /*#__PURE__*/React.createElement(ButtonGroup, {
     id: "eb-flipbox-sides"
-  }, _constants__WEBPACK_IMPORTED_MODULE_9__["FLIPBOX_SIDES"].map(function (item) {
-    return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, _constants__WEBPACK_IMPORTED_MODULE_5__["FLIPBOX_SIDES"].map(function (item) {
+    return /*#__PURE__*/React.createElement(Button, {
       isLarge: true,
       isPrimary: selectedSide === item.value,
       isSecondary: selectedSide !== item.value,
@@ -5075,36 +5031,36 @@ var Inspector = function Inspector(_ref) {
         });
       }
     }, item.label);
-  })))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Settings"),
+  })))), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Flipbox Settings"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Box Height", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["boxHeightAttr"],
+  }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Box Height", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxHeightAttr"],
     resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_9__["BOX_HEIGHT_UNIT"],
     min: 310,
     max: 600,
-    step: 1
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Box Width", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["boxWidthAttr"],
+    step: 1,
+    noUnits: true
+  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Box Width", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxWidthAttr"],
     resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_9__["BOX_HEIGHT_UNIT"],
     min: 0,
     max: 600,
-    step: 1
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Type"),
+    step: 1,
+    noUnits: true
+  }), /*#__PURE__*/React.createElement(SelectControl, {
+    label: __("Flipbox Type"),
     value: flipType,
-    options: _constants__WEBPACK_IMPORTED_MODULE_9__["FLIPBOX_TYPE"],
+    options: _constants__WEBPACK_IMPORTED_MODULE_5__["FLIPBOX_TYPE"],
     onChange: function onChange(newStyle) {
       return setAttributes({
         flipType: newStyle
       });
     }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["RangeControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Transition Speed(millisecond)"),
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Transition Speed(millisecond)"),
     value: transitionSpeed,
     onChange: function onChange(newValue) {
       var transitionSpeed = newValue;
@@ -5113,15 +5069,15 @@ var Inspector = function Inspector(_ref) {
       });
     },
     min: 0,
-    max: 10000,
+    max: 5000,
     step: 500
-  }), selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Type"),
+  }), selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Icon Type"),
     id: "eb-flipbox-icon-type"
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
+  }, /*#__PURE__*/React.createElement(ButtonGroup, {
     id: "eb-flipbox-icon-type"
-  }, _constants__WEBPACK_IMPORTED_MODULE_9__["ICON_TYPE"].map(function (item) {
-    return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_TYPE"].map(function (item) {
+    return /*#__PURE__*/React.createElement(Button, {
       isLarge: true,
       isPrimary: frontIconOrImage === item.value,
       isSecondary: frontIconOrImage !== item.value,
@@ -5131,13 +5087,13 @@ var Inspector = function Inspector(_ref) {
         });
       }
     }, item.label);
-  })))), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Type"),
+  })))), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Icon Type"),
     id: "eb-flipbox-icon-type"
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
+  }, /*#__PURE__*/React.createElement(ButtonGroup, {
     id: "eb-flipbox-icon-type"
-  }, _constants__WEBPACK_IMPORTED_MODULE_9__["ICON_TYPE"].map(function (item) {
-    return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_TYPE"].map(function (item) {
+    return /*#__PURE__*/React.createElement(Button, {
       isLarge: true,
       isPrimary: backIconOrImage === item.value,
       isSecondary: backIconOrImage !== item.value,
@@ -5147,13 +5103,13 @@ var Inspector = function Inspector(_ref) {
         });
       }
     }, item.label);
-  }))))), selectedSide === "front" && frontIconOrImage === "icon" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Front Icon Settings"),
+  }))))), selectedSide === "front" && frontIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Front Icon Settings"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Select Front Icon")
-  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8___default.a, {
-    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_5__["default"],
+  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Select Front Icon")
+  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
     value: frontIcon,
     onChange: function onChange(frontIcon) {
       return setAttributes({
@@ -5162,76 +5118,77 @@ var Inspector = function Inspector(_ref) {
     },
     appendTo: "body",
     closeOnSelect: true
-  })), frontIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Color"),
+  })), frontIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Icon Color"),
     color: frontIconColor,
     onChange: function onChange(frontIconColor) {
       return setAttributes({
         frontIconColor: frontIconColor
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Background"),
+  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Icon Background"),
     color: frontIconBackground,
     onChange: function onChange(frontIconBackground) {
       return setAttributes({
         frontIconBackground: frontIconBackground
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["boxFrontIconSizeAttr"],
+  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Icon Size", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxFrontIconSizeAttr"],
     resRequiredProps: resRequiredProps,
     min: 8,
     max: 100
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Margin & Padding"),
+  }), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Margin & Padding"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
     resRequiredProps: resRequiredProps,
     className: "frontIconMargin",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__["frontIconMargin"],
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["frontIconMargin"],
     baseLabel: "Margin"
-  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
     resRequiredProps: resRequiredProps,
     className: "frontIconPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__["frontIconPadding"],
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["frontIconPadding"],
     baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Border Settings"),
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Border & Shadow"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_18__["borderShadowFrontIcon"],
+  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowFrontIcon"],
     resRequiredProps: resRequiredProps,
     noShadow: true
-  }))))), selectedSide === "front" && frontIconOrImage === "image" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Front Image Settings"),
+  }))))), selectedSide === "front" && frontIconOrImage === "image" && /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Front Image Settings"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Image"),
+  }, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Flipbox Image"),
     id: "eb-flipbox-front-image"
-  }, frontImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, frontImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
     imageUrl: frontImageUrl,
     onDeleteImage: function onDeleteImage() {
       return setAttributes({
         frontImageUrl: null
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Image Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["frontImgSizeAttr"],
+  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Image Size", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["frontImgSizeAttr"],
     resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_9__["FRONT_IMAGE_UNITS"],
+    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
     min: 0,
-    max: 300
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Image Radius", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["frontImgRadiusAttr"],
+    max: 300,
+    step: 1
+  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Image Radius", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["frontImgRadiusAttr"],
     resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_9__["FRONT_IMAGE_UNITS"],
+    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
     min: 0,
     max: 100
-  })) : /*#__PURE__*/React.createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["MediaUpload"], {
+  })) : /*#__PURE__*/React.createElement(MediaUpload, {
     onSelect: function onSelect(media) {
       return setAttributes({
         frontImageId: media.id,
@@ -5242,21 +5199,21 @@ var Inspector = function Inspector(_ref) {
     value: frontImageId,
     render: function render(_ref2) {
       var open = _ref2.open;
-      return !frontImageUrl && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      return !frontImageUrl && /*#__PURE__*/React.createElement(Button, {
         className: "eb-flipbox-upload-button",
-        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Upload Image"),
+        label: __("Upload Image"),
         icon: "format-image",
         onClick: open
       });
     }
-  }))), selectedSide === "back" && backIconOrImage === "icon" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Icon Settings"),
+  }))), selectedSide === "back" && backIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Back Icon Settings"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Select Back Icon"),
+  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Select Back Icon"),
     id: "eb-flipbox-back-icon"
-  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8___default.a, {
-    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_5__["default"],
+  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
     value: backIcon,
     onChange: function onChange(backIcon) {
       return setAttributes({
@@ -5265,75 +5222,75 @@ var Inspector = function Inspector(_ref) {
     },
     appendTo: "body",
     closeOnSelect: true
-  })), backIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Color"),
+  })), backIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Icon Color"),
     color: backIconColor,
     onChange: function onChange(backIconColor) {
       return setAttributes({
         backIconColor: backIconColor
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Background"),
+  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Icon Background"),
     color: backIconBackground,
     onChange: function onChange(backIconBackground) {
       return setAttributes({
         backIconBackground: backIconBackground
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["boxBackIconSizeAttr"],
+  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Icon Size", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxBackIconSizeAttr"],
     resRequiredProps: resRequiredProps,
     min: 8,
     max: 100
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Margin & Padding"),
+  }), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Margin & Padding"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
     resRequiredProps: resRequiredProps,
     className: "backIconMargin",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__["backIconMargin"],
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["backIconMargin"],
     baseLabel: "Margin"
-  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
     resRequiredProps: resRequiredProps,
     className: "backIconPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__["backIconPadding"],
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["backIconPadding"],
     baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Border Settings"),
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Border & Shadow"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_18__["borderShadowBackIcon"],
+  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowBackIcon"],
     resRequiredProps: resRequiredProps,
     noShadow: true
-  }))))), selectedSide === "back" && backIconOrImage === "image" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Image Settings"),
+  }))))), selectedSide === "back" && backIconOrImage === "image" && /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Back Image Settings"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Image")
-  }, backImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Flipbox Image")
+  }, backImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
     imageUrl: backImageUrl,
     onDeleteImage: function onDeleteImage() {
       return setAttributes({
         backImageUrl: null
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Image Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["backImgSizeAttr"],
+  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Image Size", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["backImgSizeAttr"],
     resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_9__["FRONT_IMAGE_UNITS"],
+    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
     min: 0,
     max: 300
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Image Radius", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["backImgRadiusAttr"],
+  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Image Radius", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["backImgRadiusAttr"],
     resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_9__["FRONT_IMAGE_UNITS"],
+    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
     min: 0,
     max: 100
-  })) : /*#__PURE__*/React.createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["MediaUpload"], {
+  })) : /*#__PURE__*/React.createElement(MediaUpload, {
     onSelect: function onSelect(media) {
       return setAttributes({
         backImageId: media.id,
@@ -5344,161 +5301,167 @@ var Inspector = function Inspector(_ref) {
     value: backImageId,
     render: function render(_ref3) {
       var open = _ref3.open;
-      return !backImageUrl && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      return !backImageUrl && /*#__PURE__*/React.createElement(Button, {
         className: "eb-flipbox-upload-button",
-        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Upload Image"),
+        label: __("Upload Image"),
         icon: "format-image",
         onClick: open
       });
     }
-  }))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Content"),
+  }))), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Flipbox Content"),
     initialOpen: false
-  }, selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ToggleControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Show Title?"),
+  }, selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("Show Title?"),
     checked: showFrontTitle,
     onChange: function onChange() {
       setAttributes({
         showFrontTitle: !showFrontTitle
       });
     }
-  }), showFrontTitle && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Front Title"),
+  }), showFrontTitle && /*#__PURE__*/React.createElement(TextControl, {
+    label: __("Front Title"),
     value: frontTitle,
     onChange: function onChange(newText) {
       return setAttributes({
         frontTitle: newText
       });
     }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ToggleControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Show Content?"),
+  }), /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("Show Content?"),
     checked: showFrontContent,
     onChange: function onChange() {
       setAttributes({
         showFrontContent: !showFrontContent
       });
     }
-  }), showFrontContent && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextareaControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Front Content"),
+  }), showFrontContent && /*#__PURE__*/React.createElement(TextareaControl, {
+    label: __("Front Content"),
     value: frontContent,
     onChange: function onChange(newText) {
       return setAttributes({
         frontContent: newText
       });
     }
-  })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ToggleControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Show Title?"),
+  })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("Show Title?"),
     checked: showBackTitle,
     onChange: function onChange() {
       setAttributes({
         showBackTitle: !showBackTitle
       });
     }
-  }), showBackTitle && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Title"),
+  }), showBackTitle && /*#__PURE__*/React.createElement(TextControl, {
+    label: __("Back Title"),
     value: backTitle,
     onChange: function onChange(newText) {
       return setAttributes({
         backTitle: newText
       });
     }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ToggleControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Show Content?"),
+  }), /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("Show Content?"),
     checked: showBackContent,
     onChange: function onChange() {
       setAttributes({
         showBackContent: !showBackContent
       });
     }
-  }), showBackContent && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextareaControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Content"),
+  }), showBackContent && /*#__PURE__*/React.createElement(TextareaControl, {
+    label: __("Back Content"),
     value: backContent,
     onChange: function onChange(newText) {
       return setAttributes({
         backContent: newText
       });
     }
-  }))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Flipbox Style"),
+  }))), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Flipbox Style"),
     initialOpen: false
-  }, selectedSide === "front" && /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_16__["flipboxFrontWrapper"],
-    resRequiredProps: resRequiredProps
-  }), selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Front Title"),
+  }, selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Front Title"),
     color: frontTitleColor,
     onChange: function onChange(frontTitleColor) {
       return setAttributes({
         frontTitleColor: frontTitleColor
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Front Content"),
+  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Front Content"),
     color: frontContentColor,
     onChange: function onChange(frontContentColor) {
       return setAttributes({
         frontContentColor: frontContentColor
       });
     }
-  })), selectedSide === "back" && /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_16__["flipboxBackWrapper"],
+  })), selectedSide === "front" && /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Background"),
+    initialOpen: false
+  }, /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_12__["flipboxFrontWrapper"],
     resRequiredProps: resRequiredProps
-  }), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Title Color"),
+  })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Back Title Color"),
     color: backTitleColor,
     onChange: function onChange(backTitleColor) {
       return setAttributes({
         backTitleColor: backTitleColor
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Back Content Color"),
+  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Back Content Color"),
     color: backContentColor,
     onChange: function onChange(backContentColor) {
       return setAttributes({
         backContentColor: backContentColor
       });
     }
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Margin & Padding"),
+  })), selectedSide === "back" && /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Background"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_12__["flipboxBackWrapper"],
+    resRequiredProps: resRequiredProps
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Margin & Padding"),
+    initialOpen: false
+  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
     resRequiredProps: resRequiredProps,
     className: "forWrapperMargin",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__["dimensionsMargin"],
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["dimensionsMargin"],
     baseLabel: "Margin"
-  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
     resRequiredProps: resRequiredProps,
     className: "forWrapperPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__["dimensionsPadding"],
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["dimensionsPadding"],
     baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Border & Shadow"),
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Border & Shadow"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_18__["borderShadow"],
+  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadow"],
     resRequiredProps: resRequiredProps
-  }))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Typography"),
+  }))), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Typography"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Title", "flipbox"),
-    typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_19__["typoPrefix_title"],
+  }, /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    baseLabel: __("Title", "flipbox"),
+    typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_15__["typoPrefix_title"],
     resRequiredProps: resRequiredProps
-  }), /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Content", "flipbox"),
-    typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_19__["typoPrefix_content"],
+  }), /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    baseLabel: __("Content", "flipbox"),
+    typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_15__["typoPrefix_content"],
     resRequiredProps: resRequiredProps
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Link Settings"),
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Link Settings"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelRow"], null, /*#__PURE__*/React.createElement("em", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Note: Link settings will only work on back side."))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Link Type"),
+  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement("em", null, __("Note: Link settings will only work on back side."))), /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Link Type"),
     id: "eb-flipbox-link-type"
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
+  }, /*#__PURE__*/React.createElement(ButtonGroup, {
     id: "eb-flipbox-link-type"
-  }, _constants__WEBPACK_IMPORTED_MODULE_9__["LINK_TYPE"].map(function (item) {
-    return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, _constants__WEBPACK_IMPORTED_MODULE_5__["LINK_TYPE"].map(function (item) {
+    return /*#__PURE__*/React.createElement(Button, {
       isLarge: true,
       isPrimary: linkType === item.value,
       isSecondary: linkType !== item.value,
@@ -5508,8 +5471,8 @@ var Inspector = function Inspector(_ref) {
         });
       }
     }, item.label);
-  }))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Link"),
+  }))), /*#__PURE__*/React.createElement(TextControl, {
+    label: __("Link"),
     value: link,
     placeholder: "https://your-link.com",
     onChange: function onChange(newLink) {
@@ -5517,79 +5480,79 @@ var Inspector = function Inspector(_ref) {
         link: newLink
       });
     }
-  }), linkType === "button" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Text"),
+  }), linkType === "button" && /*#__PURE__*/React.createElement(TextControl, {
+    label: __("Button Text"),
     value: buttonText,
     onChange: function onChange(newText) {
       return setAttributes({
         buttonText: newText
       });
     }
-  }), linkType === "button" && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Settings")
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["SelectControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Style"),
+  }), linkType === "button" && /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Button Settings")
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    label: __("Button Style"),
     value: buttonStyle,
-    options: _constants__WEBPACK_IMPORTED_MODULE_9__["BUTTON_STYLES"],
+    options: _constants__WEBPACK_IMPORTED_MODULE_5__["BUTTON_STYLES"],
     onChange: function onChange(newStyle) {
       return handleButtonStyle(newStyle);
     }
-  }), buttonStyle === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Background "),
+  }), buttonStyle === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Background "),
     color: buttonBackground,
     onChange: function onChange(buttonBackground) {
       return setAttributes({
         buttonBackground: buttonBackground
       });
     }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Color"),
+  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: __("Color"),
     color: buttonColor,
     onChange: function onChange(buttonColor) {
       return setAttributes({
         buttonColor: buttonColor
       });
     }
-  }), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Size"),
+  }), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Button Size"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    baseLabel: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_20__["buttonIconSizeAttr"],
+  }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    baseLabel: __("Button Size", "flipbox"),
+    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["buttonIconSizeAttr"],
     resRequiredProps: resRequiredProps,
     min: 20,
     max: 600
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Padding"),
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Button Padding"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
     resRequiredProps: resRequiredProps,
     className: "forWrapperPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_17__["buttonPadding"],
+    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["buttonPadding"],
     baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Border & Shadow"),
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Button Border & Shadow"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_18__["borderShadowBtn"],
+  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowBtn"],
     resRequiredProps: resRequiredProps
-  })), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Button Icon"),
+  })), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __("Button Icon"),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ToggleControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Display Button Icon"),
+  }, /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("Display Button Icon"),
     checked: displayButtonIcon,
     onChange: function onChange() {
       return setAttributes({
         displayButtonIcon: !displayButtonIcon
       });
     }
-  }), displayButtonIcon && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Select Icon"),
+  }), displayButtonIcon && /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Select Icon"),
     id: "eb-flipbox-link-icon",
     help: "Add icon with button (optional)"
-  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_8___default.a, {
-    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_5__["default"],
+  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
     value: buttonIcon,
     onChange: function onChange(buttonIcon) {
       return setAttributes({
@@ -5598,13 +5561,13 @@ var Inspector = function Inspector(_ref) {
     },
     appendTo: "body",
     closeOnSelect: true
-  })), displayButtonIcon && buttonIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["BaseControl"], {
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])("Icon Position"),
+  })), displayButtonIcon && buttonIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Icon Position"),
     id: "eb-flipbox-icon-pos"
-  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], {
+  }, /*#__PURE__*/React.createElement(ButtonGroup, {
     id: "eb-flipbox-icon-pos"
-  }, _constants__WEBPACK_IMPORTED_MODULE_9__["ICON_POSITIONS"].map(function (item) {
-    return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_POSITIONS"].map(function (item) {
+    return /*#__PURE__*/React.createElement(Button, {
       style: {
         zIndex: 0
       } // ? Add this style to fix icon list and primary button issue
@@ -5634,12 +5597,10 @@ var Inspector = function Inspector(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * Internal dependencies
  */
-
+var useBlockProps = wp.blockEditor.useBlockProps;
 
 var Save = function Save(_ref) {
   var attributes = _ref.attributes;
@@ -5664,7 +5625,7 @@ var Save = function Save(_ref) {
       buttonText = attributes.buttonText,
       buttonIcon = attributes.buttonIcon,
       buttonClasses = attributes.buttonClasses;
-  return /*#__PURE__*/React.createElement("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__["useBlockProps"].save(), /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", useBlockProps.save(), /*#__PURE__*/React.createElement("div", {
     className: "eb-flipbox-container ".concat(blockId),
     "data-id": blockId,
     "data-flip-type": flipType
@@ -5743,49 +5704,31 @@ var Save = function Save(_ref) {
 
 /***/ }),
 
-/***/ "./util/background-control/index.js":
-/*!******************************************!*\
-  !*** ./util/background-control/index.js ***!
-  \******************************************/
+/***/ "./util/background-control/bgControl.js":
+/*!**********************************************!*\
+  !*** ./util/background-control/bgControl.js ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BackgroundControl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return bgControl; });
 /* harmony import */ var _gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../gradient-color-controller */ "./util/gradient-color-controller/index.js");
 /* harmony import */ var _unit_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../unit-control */ "./util/unit-control/index.js");
 /* harmony import */ var _color_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../color-control */ "./util/color-control/index.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers */ "./util/helpers/index.js");
+/* harmony import */ var _image_avatar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../image-avatar */ "./util/image-avatar/index.js");
+/* harmony import */ var _withResButtons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../withResButtons */ "./util/withResButtons/index.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-/**
- * WordPress dependencies
- */
 var __ = wp.i18n.__;
 var MediaUpload = wp.blockEditor.MediaUpload;
 var _wp$components = wp.components,
-    PanelBody = _wp$components.PanelBody,
     SelectControl = _wp$components.SelectControl,
     Button = _wp$components.Button,
     RangeControl = _wp$components.RangeControl,
     BaseControl = _wp$components.BaseControl,
-    ButtonGroup = _wp$components.ButtonGroup,
-    ToggleControl = _wp$components.ToggleControl;
-var useState = wp.element.useState;
-var dispatch = wp.data.dispatch;
+    ButtonGroup = _wp$components.ButtonGroup;
 /**
  * Internal dependencies
  */
@@ -5795,110 +5738,21 @@ var dispatch = wp.data.dispatch;
 
 
 
-function WithResBtns(_ref) {
-  var children = _ref.children,
-      resRequiredProps = _ref.resRequiredProps,
-      label = _ref.label;
-  var setAttributes = resRequiredProps.setAttributes,
-      resOption = resRequiredProps.resOption;
-  return /*#__PURE__*/React.createElement("div", {
-    className: "newWithResWrapper"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "resBtns"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "resLabel"
-  }, label), /*#__PURE__*/React.createElement("span", {
-    onClick: function onClick() {
-      return Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["handleDesktopBtnClick"])({
-        setPreviewDeviceType: dispatch("core/edit-post").__experimentalSetPreviewDeviceType,
-        setAttributes: setAttributes
-      });
-    },
-    "class": "typoResButton dashicons dashicons-desktop ".concat(resOption === "Desktop" ? "active" : " ")
-  }), /*#__PURE__*/React.createElement("span", {
-    onClick: function onClick() {
-      return Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["handleTabBtnClick"])({
-        setPreviewDeviceType: dispatch("core/edit-post").__experimentalSetPreviewDeviceType,
-        setAttributes: setAttributes
-      });
-    },
-    "class": "typoResButton dashicons dashicons-tablet ".concat(resOption === "Tablet" ? "active" : " ")
-  }), /*#__PURE__*/React.createElement("span", {
-    onClick: function onClick() {
-      return Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["handleMobileBtnClick"])({
-        setPreviewDeviceType: dispatch("core/edit-post").__experimentalSetPreviewDeviceType,
-        setAttributes: setAttributes
-      });
-    },
-    "class": "typoResButton dashicons dashicons-smartphone ".concat(resOption === "Mobile" ? "active" : " ")
-  })), children);
-}
-
-var ImageAvatar = function ImageAvatar(_ref2) {
-  var imageUrl = _ref2.imageUrl,
-      onDeleteImage = _ref2.onDeleteImage;
-
-  var _useState = useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      hover = _useState2[0],
-      setHover = _useState2[1];
-
-  var _useState3 = useState(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      deleteHover = _useState4[0],
-      setDeleteHover = _useState4[1];
-
-  var deleteButtonStyle = {
-    visibility: hover ? "visible" : "hidden",
-    backgroundColor: deleteHover ? "white" : "#64666a",
-    color: "#b4b5b7",
-    position: "absolute",
-    right: 34,
-    fontSize: 16,
-    alignSelf: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 3,
-    cursor: "pointer"
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "image-avatar",
-    style: {
-      backgroundImage: "url(".concat(imageUrl, ")")
-    },
-    onMouseEnter: function onMouseEnter() {
-      return setHover(true);
-    },
-    onMouseLeave: function onMouseLeave() {
-      return setHover(false);
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "image-avatar-delete dashicons dashicons-trash",
-    onMouseEnter: function onMouseEnter() {
-      return setDeleteHover(true);
-    },
-    onMouseLeave: function onMouseLeave() {
-      return setDeleteHover(false);
-    },
-    style: deleteButtonStyle,
-    onClick: function onClick() {
-      return onDeleteImage();
-    }
-  }));
-};
-
-function BackgroundControl(_ref3) {
-  var resRequiredProps = _ref3.resRequiredProps,
-      controlName = _ref3.controlName;
+function bgControl(_ref) {
+  var resRequiredProps = _ref.resRequiredProps,
+      controlName = _ref.controlName,
+      noMainBgi = _ref.noMainBgi;
   var setAttributes = resRequiredProps.setAttributes,
       attributes = resRequiredProps.attributes,
       resOption = resRequiredProps.resOption;
-  var backgroundType = attributes["".concat(controlName, "backgroundType")],
+  var bg_hoverType = attributes["".concat(controlName, "bg_hoverType")],
+      bg_transition = attributes["".concat(controlName, "bg_transition")],
+      backgroundType = attributes["".concat(controlName, "backgroundType")],
       backgroundColor = attributes["".concat(controlName, "backgroundColor")],
       gradientColor = attributes["".concat(controlName, "gradientColor")],
       bgImageURL = attributes["".concat(controlName, "bgImageURL")],
       bgImageID = attributes["".concat(controlName, "bgImageID")],
+      bgImgAttachment = attributes["".concat(controlName, "bgImgAttachment")],
       backgroundSize = attributes["".concat(controlName, "backgroundSize")],
       bgImgCustomSize = attributes["".concat(controlName, "bgImgCustomSize")],
       bgImgCustomSizeUnit = attributes["".concat(controlName, "bgImgCustomSizeUnit")],
@@ -5907,13 +5761,7 @@ function BackgroundControl(_ref3) {
       bgImgcustomPosXUnit = attributes["".concat(controlName, "bgImgcustomPosXUnit")],
       bgImgcustomPosY = attributes["".concat(controlName, "bgImgcustomPosY")],
       bgImgcustomPosYUnit = attributes["".concat(controlName, "bgImgcustomPosYUnit")],
-      bgImgAttachment = attributes["".concat(controlName, "bgImgAttachment")],
       bgImgRepeat = attributes["".concat(controlName, "bgImgRepeat")],
-      isBgOverly = attributes["".concat(controlName, "isBgOverly")],
-      overlyType = attributes["".concat(controlName, "overlyType")],
-      _attributes$ = attributes["".concat(controlName, "overlyColor")],
-      overlyColor = _attributes$ === void 0 ? "#00000080" : _attributes$,
-      overlyGradient = attributes["".concat(controlName, "overlyGradient")],
       TABbackgroundSize = attributes["TAB".concat(controlName, "backgroundSize")],
       TABbgImgCustomSize = attributes["TAB".concat(controlName, "bgImgCustomSize")],
       TABbgImgCustomSizeUnit = attributes["TAB".concat(controlName, "bgImgCustomSizeUnit")],
@@ -5931,56 +5779,98 @@ function BackgroundControl(_ref3) {
       MOBbgImgcustomPosXUnit = attributes["MOB".concat(controlName, "bgImgcustomPosXUnit")],
       MOBbgImgcustomPosY = attributes["MOB".concat(controlName, "bgImgcustomPosY")],
       MOBbgImgcustomPosYUnit = attributes["MOB".concat(controlName, "bgImgcustomPosYUnit")],
-      MOBbgImgRepeat = attributes["MOB".concat(controlName, "bgImgRepeat")];
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+      MOBbgImgRepeat = attributes["MOB".concat(controlName, "bgImgRepeat")],
+      hov_backgroundType = attributes["hov_".concat(controlName, "backgroundType")],
+      hov_backgroundColor = attributes["hov_".concat(controlName, "backgroundColor")],
+      hov_gradientColor = attributes["hov_".concat(controlName, "gradientColor")],
+      hov_bgImageURL = attributes["hov_".concat(controlName, "bgImageURL")],
+      hov_bgImageID = attributes["hov_".concat(controlName, "bgImageID")],
+      hov_bgImgAttachment = attributes["hov_".concat(controlName, "bgImgAttachment")],
+      hov_backgroundSize = attributes["hov_".concat(controlName, "backgroundSize")],
+      hov_bgImgCustomSize = attributes["hov_".concat(controlName, "bgImgCustomSize")],
+      hov_bgImgCustomSizeUnit = attributes["hov_".concat(controlName, "bgImgCustomSizeUnit")],
+      hov_bgImgPos = attributes["hov_".concat(controlName, "bgImgPos")],
+      hov_bgImgcustomPosX = attributes["hov_".concat(controlName, "bgImgcustomPosX")],
+      hov_bgImgcustomPosXUnit = attributes["hov_".concat(controlName, "bgImgcustomPosXUnit")],
+      hov_bgImgcustomPosY = attributes["hov_".concat(controlName, "bgImgcustomPosY")],
+      hov_bgImgcustomPosYUnit = attributes["hov_".concat(controlName, "bgImgcustomPosYUnit")],
+      hov_bgImgRepeat = attributes["hov_".concat(controlName, "bgImgRepeat")],
+      hov_TABbackgroundSize = attributes["hov_TAB".concat(controlName, "backgroundSize")],
+      hov_TABbgImgCustomSize = attributes["hov_TAB".concat(controlName, "bgImgCustomSize")],
+      hov_TABbgImgCustomSizeUnit = attributes["hov_TAB".concat(controlName, "bgImgCustomSizeUnit")],
+      hov_TABbgImgPos = attributes["hov_TAB".concat(controlName, "bgImgPos")],
+      hov_TABbgImgcustomPosX = attributes["hov_TAB".concat(controlName, "bgImgcustomPosX")],
+      hov_TABbgImgcustomPosXUnit = attributes["hov_TAB".concat(controlName, "bgImgcustomPosXUnit")],
+      hov_TABbgImgcustomPosY = attributes["hov_TAB".concat(controlName, "bgImgcustomPosY")],
+      hov_TABbgImgcustomPosYUnit = attributes["hov_TAB".concat(controlName, "bgImgcustomPosYUnit")],
+      hov_TABbgImgRepeat = attributes["hov_TAB".concat(controlName, "bgImgRepeat")],
+      hov_MOBbackgroundSize = attributes["hov_MOB".concat(controlName, "backgroundSize")],
+      hov_MOBbgImgCustomSize = attributes["hov_MOB".concat(controlName, "bgImgCustomSize")],
+      hov_MOBbgImgCustomSizeUnit = attributes["hov_MOB".concat(controlName, "bgImgCustomSizeUnit")],
+      hov_MOBbgImgPos = attributes["hov_MOB".concat(controlName, "bgImgPos")],
+      hov_MOBbgImgcustomPosX = attributes["hov_MOB".concat(controlName, "bgImgcustomPosX")],
+      hov_MOBbgImgcustomPosXUnit = attributes["hov_MOB".concat(controlName, "bgImgcustomPosXUnit")],
+      hov_MOBbgImgcustomPosY = attributes["hov_MOB".concat(controlName, "bgImgcustomPosY")],
+      hov_MOBbgImgcustomPosYUnit = attributes["hov_MOB".concat(controlName, "bgImgcustomPosYUnit")],
+      hov_MOBbgImgRepeat = attributes["hov_MOB".concat(controlName, "bgImgRepeat")];
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement(ButtonGroup, null, [{
+    label: __("Normal"),
+    value: "normal"
+  }, {
+    label: __("Hover"),
+    value: "hover"
+  }].map(function (_ref2) {
+    var value = _ref2.value,
+        label = _ref2.label;
+    return /*#__PURE__*/React.createElement(Button // isSmall
+    // isLarge
+    , {
+      isPrimary: bg_hoverType === value,
+      isSecondary: bg_hoverType !== value,
+      onClick: function onClick() {
+        return setAttributes(_defineProperty({}, "".concat(controlName, "bg_hoverType"), value));
+      }
+    }, label);
+  }))), bg_hoverType === "normal" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
     label: __("Background Type")
   }, /*#__PURE__*/React.createElement(ButtonGroup, null, [{
-    label: __("Fill"),
-    value: "fill"
+    label: __("Classic"),
+    value: "classic"
   }, {
     label: __("Gradient"),
     value: "gradient"
-  }, {
-    label: __("Image"),
-    value: "image"
-  }].map(function (_ref4) {
-    var value = _ref4.value,
-        label = _ref4.label;
-    return /*#__PURE__*/React.createElement(Button, {
+  }].map(function (_ref3) {
+    var value = _ref3.value,
+        label = _ref3.label;
+    return /*#__PURE__*/React.createElement(Button // isSmall
+    // isLarge
+    , {
       isPrimary: backgroundType === value,
       isSecondary: backgroundType !== value,
       onClick: function onClick() {
         return setAttributes(_defineProperty({}, "".concat(controlName, "backgroundType"), value));
       }
     }, label);
-  }))), backgroundType === "fill" && /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }))), backgroundType === "classic" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
     label: __("Background Color"),
     color: backgroundColor,
     onChange: function onChange(backgroundColor) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "backgroundColor"), backgroundColor));
     }
-  }), backgroundType === "gradient" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Gradient"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__["default"], {
-    gradientColor: gradientColor,
-    onChange: function onChange(gradientColor) {
-      return setAttributes(_defineProperty({}, "".concat(controlName, "gradientColor"), gradientColor));
-    }
-  })), backgroundType === "image" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Background Image")
-  }, /*#__PURE__*/React.createElement(MediaUpload, {
-    onSelect: function onSelect(_ref5) {
+  }), noMainBgi === false && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Background Image")
+  }), /*#__PURE__*/React.createElement(MediaUpload, {
+    onSelect: function onSelect(_ref4) {
       var _setAttributes4;
 
-      var url = _ref5.url,
-          id = _ref5.id;
+      var url = _ref4.url,
+          id = _ref4.id;
       return setAttributes((_setAttributes4 = {}, _defineProperty(_setAttributes4, "".concat(controlName, "bgImageURL"), url), _defineProperty(_setAttributes4, "".concat(controlName, "bgImageID"), id), _setAttributes4));
     },
     type: "image",
     value: bgImageID,
-    render: function render(_ref6) {
-      var open = _ref6.open;
+    render: function render(_ref5) {
+      var open = _ref5.open;
       return !bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
         className: "eb-background-control-inspector-panel-img-btn components-button",
         label: __("Upload Image"),
@@ -5993,12 +5883,12 @@ function BackgroundControl(_ref3) {
         }
       }));
     }
-  }), bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ImageAvatar, {
+  }), bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_image_avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
     imageUrl: bgImageURL,
     onDeleteImage: function onDeleteImage() {
       return setAttributes(_defineProperty({}, "".concat(controlName, "bgImageURL"), null));
     }
-  }), resOption === "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(WithResBtns, {
+  }), resOption === "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Position"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6055,7 +5945,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(bgImgcustomPosXUnit) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "bgImgcustomPosXUnit"), bgImgcustomPosXUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "X Position"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6080,7 +5970,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(bgImgcustomPosYUnit) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "bgImgcustomPosYUnit"), bgImgcustomPosYUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Y Position"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6112,7 +6002,7 @@ function BackgroundControl(_ref3) {
       marginTop: "-10px",
       paddingBottom: "10px"
     }
-  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(WithResBtns, {
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Repeat"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6136,7 +6026,7 @@ function BackgroundControl(_ref3) {
     onChange: function onChange(bgImgRepeat) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "bgImgRepeat"), bgImgRepeat));
     }
-  })), /*#__PURE__*/React.createElement(WithResBtns, {
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Size"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6175,7 +6065,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(bgImgCustomSizeUnit) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "bgImgCustomSizeUnit"), bgImgCustomSizeUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Width"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6186,7 +6076,7 @@ function BackgroundControl(_ref3) {
     onChange: function onChange(bgImgCustomSize) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "bgImgCustomSize"), bgImgCustomSize));
     }
-  })))), resOption === "Tablet" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(WithResBtns, {
+  })))), resOption === "Tablet" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Position"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6243,7 +6133,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(TABbgImgcustomPosXUnit) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "bgImgcustomPosXUnit"), TABbgImgcustomPosXUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "X Position"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6268,7 +6158,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(TABbgImgcustomPosYUnit) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "bgImgcustomPosYUnit"), TABbgImgcustomPosYUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Y Position"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6300,7 +6190,7 @@ function BackgroundControl(_ref3) {
       marginTop: "-10px",
       paddingBottom: "10px"
     }
-  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(WithResBtns, {
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Repeat"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6324,7 +6214,7 @@ function BackgroundControl(_ref3) {
     onChange: function onChange(TABbgImgRepeat) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "bgImgRepeat"), TABbgImgRepeat));
     }
-  })), /*#__PURE__*/React.createElement(WithResBtns, {
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Size"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6363,7 +6253,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(TABbgImgCustomSizeUnit) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "bgImgCustomSizeUnit"), TABbgImgCustomSizeUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Width"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6374,7 +6264,7 @@ function BackgroundControl(_ref3) {
     onChange: function onChange(TABbgImgCustomSize) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "bgImgCustomSize"), TABbgImgCustomSize));
     }
-  })))), resOption === "Mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(WithResBtns, {
+  })))), resOption === "Mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Position"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6431,7 +6321,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(MOBbgImgcustomPosXUnit) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "bgImgcustomPosXUnit"), MOBbgImgcustomPosXUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "X Position"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6456,7 +6346,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(MOBbgImgcustomPosYUnit) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "bgImgcustomPosYUnit"), MOBbgImgcustomPosYUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Y Position"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6488,7 +6378,7 @@ function BackgroundControl(_ref3) {
       marginTop: "-10px",
       paddingBottom: "10px"
     }
-  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(WithResBtns, {
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Repeat"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6512,7 +6402,7 @@ function BackgroundControl(_ref3) {
     onChange: function onChange(MOBbgImgRepeat) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "bgImgRepeat"), MOBbgImgRepeat));
     }
-  })), /*#__PURE__*/React.createElement(WithResBtns, {
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Size"
   }, /*#__PURE__*/React.createElement(SelectControl, {
@@ -6551,7 +6441,7 @@ function BackgroundControl(_ref3) {
     onClick: function onClick(MOBbgImgCustomSizeUnit) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "bgImgCustomSizeUnit"), MOBbgImgCustomSizeUnit));
     }
-  }), /*#__PURE__*/React.createElement(WithResBtns, {
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     resRequiredProps: resRequiredProps,
     label: "Width"
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -6562,47 +6452,2337 @@ function BackgroundControl(_ref3) {
     onChange: function onChange(MOBbgImgCustomSize) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "bgImgCustomSize"), MOBbgImgCustomSize));
     }
-  }))))), /*#__PURE__*/React.createElement(ToggleControl, {
-    label: __("Enable Overly"),
-    checked: isBgOverly,
-    onChange: function onChange() {
-      return setAttributes(_defineProperty({}, "".concat(controlName, "isBgOverly"), !isBgOverly));
+  }))))))), backgroundType === "gradient" && /*#__PURE__*/React.createElement(_gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    gradientColor: gradientColor,
+    onChange: function onChange(gradientColor) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "gradientColor"), gradientColor));
     }
-  }), isBgOverly && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Overly Type")
+  })), bg_hoverType === "hover" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Background Type")
+  }, /*#__PURE__*/React.createElement(ButtonGroup, null, [{
+    label: __("Classic"),
+    value: "classic"
+  }, {
+    label: __("Gradient"),
+    value: "gradient"
+  }].map(function (_ref6) {
+    var value = _ref6.value,
+        label = _ref6.label;
+    return /*#__PURE__*/React.createElement(Button // isSmall
+    // isLarge
+    , {
+      isPrimary: hov_backgroundType === value,
+      isSecondary: hov_backgroundType !== value,
+      onClick: function onClick() {
+        return setAttributes(_defineProperty({}, "hov_".concat(controlName, "backgroundType"), value));
+      }
+    }, label);
+  }))), hov_backgroundType === "classic" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    label: __("Background Color"),
+    color: hov_backgroundColor,
+    onChange: function onChange(hov_backgroundColor) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "backgroundColor"), hov_backgroundColor));
+    }
+  }), noMainBgi === false && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Background Image")
+  }), /*#__PURE__*/React.createElement(MediaUpload, {
+    onSelect: function onSelect(_ref7) {
+      var _setAttributes39;
+
+      var url = _ref7.url,
+          id = _ref7.id;
+      return setAttributes((_setAttributes39 = {}, _defineProperty(_setAttributes39, "hov_".concat(controlName, "bgImageURL"), url), _defineProperty(_setAttributes39, "hov_".concat(controlName, "bgImageID"), id), _setAttributes39));
+    },
+    type: "image",
+    value: hov_bgImageID,
+    render: function render(_ref8) {
+      var open = _ref8.open;
+      return !hov_bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+        className: "eb-background-control-inspector-panel-img-btn components-button",
+        label: __("Upload Image"),
+        icon: "format-image",
+        onClick: open
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          padding: "10px 0",
+          display: "block"
+        }
+      }));
+    }
+  }), hov_bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_image_avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    imageUrl: hov_bgImageURL,
+    onDeleteImage: function onDeleteImage() {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImageURL"), null));
+    }
+  }), resOption === "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_bgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_bgImgPos) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgPos"), hov_bgImgPos));
+    }
+  })), hov_bgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_bgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_bgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgcustomPosXUnit"), hov_bgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_bgImgcustomPosX,
+    min: 0,
+    max: hov_bgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(hov_bgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgcustomPosX"), hov_bgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_bgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_bgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgcustomPosYUnit"), hov_bgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_bgImgcustomPosY,
+    min: 0,
+    max: hov_bgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: hov_bgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_bgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgcustomPosY"), hov_bgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: hov_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(hov_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgAttachment"), hov_bgImgAttachment));
+    }
+  }), hov_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_bgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(hov_bgImgRepeat) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgRepeat"), hov_bgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_backgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_backgroundSize) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "backgroundSize"), hov_backgroundSize));
+    }
+  })), hov_backgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_bgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_bgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgCustomSizeUnit"), hov_bgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_bgImgCustomSize,
+    min: 0,
+    max: hov_bgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: hov_bgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_bgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgCustomSize"), hov_bgImgCustomSize));
+    }
+  })))), resOption === "Tablet" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_TABbgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_TABbgImgPos) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgPos"), hov_TABbgImgPos));
+    }
+  })), hov_TABbgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_TABbgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_TABbgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgcustomPosXUnit"), hov_TABbgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_TABbgImgcustomPosX,
+    min: 0,
+    max: hov_TABbgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(hov_TABbgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgcustomPosX"), hov_TABbgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_TABbgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_TABbgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgcustomPosYUnit"), hov_TABbgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_TABbgImgcustomPosY,
+    min: 0,
+    max: hov_TABbgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: hov_TABbgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_TABbgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgcustomPosY"), hov_TABbgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: hov_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(hov_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgAttachment"), hov_bgImgAttachment));
+    }
+  }), hov_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_TABbgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(hov_TABbgImgRepeat) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgRepeat"), hov_TABbgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_TABbackgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_TABbackgroundSize) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "backgroundSize"), hov_TABbackgroundSize));
+    }
+  })), hov_TABbackgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_TABbgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_TABbgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgCustomSizeUnit"), hov_TABbgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_TABbgImgCustomSize,
+    min: 0,
+    max: hov_TABbgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: hov_TABbgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_TABbgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "bgImgCustomSize"), hov_TABbgImgCustomSize));
+    }
+  })))), resOption === "Mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_MOBbgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_MOBbgImgPos) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgPos"), hov_MOBbgImgPos));
+    }
+  })), hov_MOBbgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_MOBbgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_MOBbgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgcustomPosXUnit"), hov_MOBbgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_MOBbgImgcustomPosX,
+    min: 0,
+    max: hov_MOBbgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(hov_MOBbgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgcustomPosX"), hov_MOBbgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_MOBbgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_MOBbgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgcustomPosYUnit"), hov_MOBbgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_MOBbgImgcustomPosY,
+    min: 0,
+    max: hov_MOBbgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: hov_MOBbgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_MOBbgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgcustomPosY"), hov_MOBbgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: hov_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(hov_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "bgImgAttachment"), hov_bgImgAttachment));
+    }
+  }), hov_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_MOBbgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(hov_MOBbgImgRepeat) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgRepeat"), hov_MOBbgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_MOBbackgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_MOBbackgroundSize) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "backgroundSize"), hov_MOBbackgroundSize));
+    }
+  })), hov_MOBbackgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_MOBbgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_MOBbgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgCustomSizeUnit"), hov_MOBbgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_MOBbgImgCustomSize,
+    min: 0,
+    max: hov_MOBbgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: hov_MOBbgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_MOBbgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "bgImgCustomSize"), hov_MOBbgImgCustomSize));
+    }
+  }))))))), hov_backgroundType === "gradient" && /*#__PURE__*/React.createElement(_gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    gradientColor: hov_gradientColor,
+    onChange: function onChange(hov_gradientColor) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "gradientColor"), hov_gradientColor));
+    }
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Background Transition"),
+    value: bg_transition,
+    min: 0,
+    max: 5,
+    step: 0.1,
+    onChange: function onChange(bg_transition) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "bg_transition"), bg_transition));
+    }
+  })));
+}
+
+/***/ }),
+
+/***/ "./util/background-control/index.js":
+/*!******************************************!*\
+  !*** ./util/background-control/index.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BackgroundControl; });
+/* harmony import */ var _overlayControl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./overlayControl */ "./util/background-control/overlayControl.js");
+/* harmony import */ var _bgControl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bgControl */ "./util/background-control/bgControl.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * WordPress dependencies
+ */
+var __ = wp.i18n.__;
+var ToggleControl = wp.components.ToggleControl;
+/**
+ * Internal dependencies
+ */
+
+
+
+function BackgroundControl(_ref) {
+  var resRequiredProps = _ref.resRequiredProps,
+      controlName = _ref.controlName,
+      _ref$noOverlay = _ref.noOverlay,
+      noOverlay = _ref$noOverlay === void 0 ? false : _ref$noOverlay,
+      _ref$noMainBgi = _ref.noMainBgi,
+      noMainBgi = _ref$noMainBgi === void 0 ? false : _ref$noMainBgi,
+      _ref$noOverlayBgi = _ref.noOverlayBgi,
+      noOverlayBgi = _ref$noOverlayBgi === void 0 ? false : _ref$noOverlayBgi;
+  var setAttributes = resRequiredProps.setAttributes,
+      attributes = resRequiredProps.attributes;
+  var isBgOverlay = attributes["".concat(controlName, "isBgOverlay")];
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_bgControl__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    resRequiredProps: resRequiredProps,
+    controlName: controlName,
+    noMainBgi: noMainBgi
+  }), noOverlay === false && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("Enable Overlay"),
+    checked: isBgOverlay,
+    onChange: function onChange() {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "isBgOverlay"), !isBgOverlay));
+    }
+  }), isBgOverlay && /*#__PURE__*/React.createElement(_overlayControl__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    resRequiredProps: resRequiredProps,
+    controlName: controlName,
+    noOverlayBgi: noOverlayBgi
+  })));
+}
+
+/***/ }),
+
+/***/ "./util/background-control/overlayControl.js":
+/*!***************************************************!*\
+  !*** ./util/background-control/overlayControl.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return overlayControl; });
+/* harmony import */ var _gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../gradient-color-controller */ "./util/gradient-color-controller/index.js");
+/* harmony import */ var _unit_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../unit-control */ "./util/unit-control/index.js");
+/* harmony import */ var _color_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../color-control */ "./util/color-control/index.js");
+/* harmony import */ var _image_avatar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../image-avatar */ "./util/image-avatar/index.js");
+/* harmony import */ var _withResButtons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../withResButtons */ "./util/withResButtons/index.js");
+/* harmony import */ var _reset_control__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reset-control */ "./util/reset-control/index.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var __ = wp.i18n.__;
+var MediaUpload = wp.blockEditor.MediaUpload;
+var _wp$components = wp.components,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    RangeControl = _wp$components.RangeControl,
+    BaseControl = _wp$components.BaseControl,
+    ButtonGroup = _wp$components.ButtonGroup,
+    ToggleControl = _wp$components.ToggleControl;
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+function overlayControl(_ref) {
+  var resRequiredProps = _ref.resRequiredProps,
+      controlName = _ref.controlName,
+      noOverlayBgi = _ref.noOverlayBgi;
+  var setAttributes = resRequiredProps.setAttributes,
+      attributes = resRequiredProps.attributes,
+      resOption = resRequiredProps.resOption;
+  var ovl_hoverType = attributes["".concat(controlName, "ovl_hoverType")],
+      ovl_bg_transition = attributes["".concat(controlName, "ovl_bg_transition")],
+      ovl_filtersTransition = attributes["".concat(controlName, "ovl_filtersTransition")],
+      ovl_opacityTransition = attributes["".concat(controlName, "ovl_opacityTransition")],
+      overlayType = attributes["".concat(controlName, "overlayType")],
+      overlayColor = attributes["".concat(controlName, "overlayColor")],
+      overlayGradient = attributes["".concat(controlName, "overlayGradient")],
+      ovl_bgImageURL = attributes["".concat(controlName, "ovl_bgImageURL")],
+      ovl_bgImageID = attributes["".concat(controlName, "ovl_bgImageID")],
+      ovl_bgImgAttachment = attributes["".concat(controlName, "ovl_bgImgAttachment")],
+      ovl_opacity = attributes["".concat(controlName, "ovl_opacity")],
+      ovl_blendMode = attributes["".concat(controlName, "ovl_blendMode")],
+      ovl_allowFilters = attributes["".concat(controlName, "ovl_allowFilters")],
+      ovl_fltrBrightness = attributes["".concat(controlName, "ovl_fltrBrightness")],
+      ovl_fltrContrast = attributes["".concat(controlName, "ovl_fltrContrast")],
+      ovl_fltrSaturation = attributes["".concat(controlName, "ovl_fltrSaturation")],
+      ovl_fltrBlur = attributes["".concat(controlName, "ovl_fltrBlur")],
+      ovl_fltrHue = attributes["".concat(controlName, "ovl_fltrHue")],
+      ovl_backgroundSize = attributes["".concat(controlName, "ovl_backgroundSize")],
+      ovl_bgImgCustomSize = attributes["".concat(controlName, "ovl_bgImgCustomSize")],
+      ovl_bgImgCustomSizeUnit = attributes["".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      ovl_bgImgPos = attributes["".concat(controlName, "ovl_bgImgPos")],
+      ovl_bgImgcustomPosX = attributes["".concat(controlName, "ovl_bgImgcustomPosX")],
+      ovl_bgImgcustomPosXUnit = attributes["".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      ovl_bgImgcustomPosY = attributes["".concat(controlName, "ovl_bgImgcustomPosY")],
+      ovl_bgImgcustomPosYUnit = attributes["".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      ovl_bgImgRepeat = attributes["".concat(controlName, "ovl_bgImgRepeat")],
+      TABovl_backgroundSize = attributes["TAB".concat(controlName, "ovl_backgroundSize")],
+      TABovl_bgImgCustomSize = attributes["TAB".concat(controlName, "ovl_bgImgCustomSize")],
+      TABovl_bgImgCustomSizeUnit = attributes["TAB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      TABovl_bgImgPos = attributes["TAB".concat(controlName, "ovl_bgImgPos")],
+      TABovl_bgImgcustomPosX = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosX")],
+      TABovl_bgImgcustomPosXUnit = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      TABovl_bgImgcustomPosY = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosY")],
+      TABovl_bgImgcustomPosYUnit = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      TABovl_bgImgRepeat = attributes["TAB".concat(controlName, "ovl_bgImgRepeat")],
+      MOBovl_backgroundSize = attributes["MOB".concat(controlName, "ovl_backgroundSize")],
+      MOBovl_bgImgCustomSize = attributes["MOB".concat(controlName, "ovl_bgImgCustomSize")],
+      MOBovl_bgImgCustomSizeUnit = attributes["MOB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      MOBovl_bgImgPos = attributes["MOB".concat(controlName, "ovl_bgImgPos")],
+      MOBovl_bgImgcustomPosX = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosX")],
+      MOBovl_bgImgcustomPosXUnit = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      MOBovl_bgImgcustomPosY = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosY")],
+      MOBovl_bgImgcustomPosYUnit = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      MOBovl_bgImgRepeat = attributes["MOB".concat(controlName, "ovl_bgImgRepeat")],
+      hov_overlayType = attributes["hov_".concat(controlName, "overlayType")],
+      hov_overlayColor = attributes["hov_".concat(controlName, "overlayColor")],
+      hov_overlayGradient = attributes["hov_".concat(controlName, "overlayGradient")],
+      hov_ovl_bgImageURL = attributes["hov_".concat(controlName, "ovl_bgImageURL")],
+      hov_ovl_bgImageID = attributes["hov_".concat(controlName, "ovl_bgImageID")],
+      hov_ovl_bgImgAttachment = attributes["hov_".concat(controlName, "ovl_bgImgAttachment")],
+      hov_ovl_opacity = attributes["hov_".concat(controlName, "ovl_opacity")],
+      hov_ovl_blendMode = attributes["hov_".concat(controlName, "ovl_blendMode")],
+      hov_ovl_allowFilters = attributes["hov_".concat(controlName, "ovl_allowFilters")],
+      hov_ovl_fltrBrightness = attributes["hov_".concat(controlName, "ovl_fltrBrightness")],
+      hov_ovl_fltrContrast = attributes["hov_".concat(controlName, "ovl_fltrContrast")],
+      hov_ovl_fltrSaturation = attributes["hov_".concat(controlName, "ovl_fltrSaturation")],
+      hov_ovl_fltrBlur = attributes["hov_".concat(controlName, "ovl_fltrBlur")],
+      hov_ovl_fltrHue = attributes["hov_".concat(controlName, "ovl_fltrHue")],
+      hov_ovl_backgroundSize = attributes["hov_".concat(controlName, "ovl_backgroundSize")],
+      hov_ovl_bgImgCustomSize = attributes["hov_".concat(controlName, "ovl_bgImgCustomSize")],
+      hov_ovl_bgImgCustomSizeUnit = attributes["hov_".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      hov_ovl_bgImgPos = attributes["hov_".concat(controlName, "ovl_bgImgPos")],
+      hov_ovl_bgImgcustomPosX = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosX")],
+      hov_ovl_bgImgcustomPosXUnit = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      hov_ovl_bgImgcustomPosY = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosY")],
+      hov_ovl_bgImgcustomPosYUnit = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      hov_ovl_bgImgRepeat = attributes["hov_".concat(controlName, "ovl_bgImgRepeat")],
+      hov_TABovl_backgroundSize = attributes["hov_TAB".concat(controlName, "ovl_backgroundSize")],
+      hov_TABovl_bgImgCustomSize = attributes["hov_TAB".concat(controlName, "ovl_bgImgCustomSize")],
+      hov_TABovl_bgImgCustomSizeUnit = attributes["hov_TAB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      hov_TABovl_bgImgPos = attributes["hov_TAB".concat(controlName, "ovl_bgImgPos")],
+      hov_TABovl_bgImgcustomPosX = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosX")],
+      hov_TABovl_bgImgcustomPosXUnit = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      hov_TABovl_bgImgcustomPosY = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosY")],
+      hov_TABovl_bgImgcustomPosYUnit = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      hov_TABovl_bgImgRepeat = attributes["hov_TAB".concat(controlName, "ovl_bgImgRepeat")],
+      hov_MOBovl_backgroundSize = attributes["hov_MOB".concat(controlName, "ovl_backgroundSize")],
+      hov_MOBovl_bgImgCustomSize = attributes["hov_MOB".concat(controlName, "ovl_bgImgCustomSize")],
+      hov_MOBovl_bgImgCustomSizeUnit = attributes["hov_MOB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      hov_MOBovl_bgImgPos = attributes["hov_MOB".concat(controlName, "ovl_bgImgPos")],
+      hov_MOBovl_bgImgcustomPosX = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosX")],
+      hov_MOBovl_bgImgcustomPosXUnit = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      hov_MOBovl_bgImgcustomPosY = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosY")],
+      hov_MOBovl_bgImgcustomPosYUnit = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      hov_MOBovl_bgImgRepeat = attributes["hov_MOB".concat(controlName, "ovl_bgImgRepeat")];
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Background Overlay")
+  }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement(ButtonGroup, null, [{
+    label: __("Normal"),
+    value: "normal"
+  }, {
+    label: __("Hover"),
+    value: "hover"
+  }].map(function (_ref2) {
+    var value = _ref2.value,
+        label = _ref2.label;
+    return /*#__PURE__*/React.createElement(Button // isSmall
+    // isLarge
+    , {
+      isPrimary: ovl_hoverType === value,
+      isSecondary: ovl_hoverType !== value,
+      onClick: function onClick() {
+        return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_hoverType"), value));
+      }
+    }, label);
+  }))), ovl_hoverType === "normal" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Overlay Type")
   }, /*#__PURE__*/React.createElement(ButtonGroup, {
     id: "eb-background-control-new"
   }, [{
-    label: "Fill",
-    value: "fill"
+    label: "Classic",
+    value: "classic"
   }, {
     label: "Gradient",
     value: "gradient"
-  }].map(function (_ref7) {
-    var value = _ref7.value,
-        label = _ref7.label;
+  }].map(function (_ref3) {
+    var value = _ref3.value,
+        label = _ref3.label;
     return /*#__PURE__*/React.createElement(Button, {
       isLarge: true,
-      isPrimary: overlyType === value,
-      isSecondary: overlyType !== value,
+      isPrimary: overlayType === value,
+      isSecondary: overlayType !== value,
       onClick: function onClick() {
-        return setAttributes(_defineProperty({}, "".concat(controlName, "overlyType"), value));
+        return setAttributes(_defineProperty({}, "".concat(controlName, "overlayType"), value));
       }
     }, label);
-  }))), overlyType === "fill" && /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    label: __("Overly"),
-    color: overlyColor,
-    onChange: function onChange(overlyColor) {
-      return setAttributes(_defineProperty({}, "".concat(controlName, "overlyColor"), overlyColor));
+  }))), overlayType === "classic" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    label: __("Overlay Color"),
+    color: overlayColor,
+    onChange: function onChange(overlayColor) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "overlayColor"), overlayColor));
     }
-  }), overlyType === "gradient" && /*#__PURE__*/React.createElement(_gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__["default"], {
-    gradientColor: overlyGradient,
-    onChange: function onChange(overlyGradient) {
-      return setAttributes(_defineProperty({}, "".concat(controlName, "overlyGradient"), overlyGradient));
+  }), noOverlayBgi === false && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Overlay Image")
+  }), /*#__PURE__*/React.createElement(MediaUpload, {
+    onSelect: function onSelect(_ref4) {
+      var _setAttributes4;
+
+      var url = _ref4.url,
+          id = _ref4.id;
+      return setAttributes((_setAttributes4 = {}, _defineProperty(_setAttributes4, "".concat(controlName, "ovl_bgImageURL"), url), _defineProperty(_setAttributes4, "".concat(controlName, "ovl_bgImageID"), id), _setAttributes4));
+    },
+    type: "image",
+    value: ovl_bgImageID,
+    render: function render(_ref5) {
+      var open = _ref5.open;
+      return !ovl_bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+        className: "eb-background-control-inspector-panel-img-btn components-button",
+        label: __("Upload Image"),
+        icon: "format-image",
+        onClick: open
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          padding: "10px 0",
+          display: "block"
+        }
+      }));
     }
-  }) //   <PanelBody title={__("Gradient")} initialOpen={false}>
-  // </PanelBody>
-  )));
+  }), ovl_bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_image_avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    imageUrl: ovl_bgImageURL,
+    onDeleteImage: function onDeleteImage() {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImageURL"), null));
+    }
+  }), resOption === "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: ovl_bgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(ovl_bgImgPos) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgPos"), ovl_bgImgPos));
+    }
+  })), ovl_bgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: ovl_bgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(ovl_bgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgcustomPosXUnit"), ovl_bgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: ovl_bgImgcustomPosX,
+    min: 0,
+    max: ovl_bgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(ovl_bgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgcustomPosX"), ovl_bgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: ovl_bgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(ovl_bgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgcustomPosYUnit"), ovl_bgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: ovl_bgImgcustomPosY,
+    min: 0,
+    max: ovl_bgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: ovl_bgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(ovl_bgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgcustomPosY"), ovl_bgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: ovl_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(ovl_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgAttachment"), ovl_bgImgAttachment));
+    }
+  }), ovl_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: ovl_bgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(ovl_bgImgRepeat) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgRepeat"), ovl_bgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: ovl_backgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(ovl_backgroundSize) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_backgroundSize"), ovl_backgroundSize));
+    }
+  })), ovl_backgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: ovl_bgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(ovl_bgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgCustomSizeUnit"), ovl_bgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: ovl_bgImgCustomSize,
+    min: 0,
+    max: ovl_bgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: ovl_bgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(ovl_bgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgCustomSize"), ovl_bgImgCustomSize));
+    }
+  })))), resOption === "Tablet" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: TABovl_bgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(TABovl_bgImgPos) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgPos"), TABovl_bgImgPos));
+    }
+  })), TABovl_bgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: TABovl_bgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(TABovl_bgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgcustomPosXUnit"), TABovl_bgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: TABovl_bgImgcustomPosX,
+    min: 0,
+    max: TABovl_bgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(TABovl_bgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgcustomPosX"), TABovl_bgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: TABovl_bgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(TABovl_bgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgcustomPosYUnit"), TABovl_bgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: TABovl_bgImgcustomPosY,
+    min: 0,
+    max: TABovl_bgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: TABovl_bgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(TABovl_bgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgcustomPosY"), TABovl_bgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: ovl_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(ovl_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgAttachment"), ovl_bgImgAttachment));
+    }
+  }), ovl_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: TABovl_bgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(TABovl_bgImgRepeat) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgRepeat"), TABovl_bgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: TABovl_backgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(TABovl_backgroundSize) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_backgroundSize"), TABovl_backgroundSize));
+    }
+  })), TABovl_backgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: TABovl_bgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(TABovl_bgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgCustomSizeUnit"), TABovl_bgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: TABovl_bgImgCustomSize,
+    min: 0,
+    max: TABovl_bgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: TABovl_bgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(TABovl_bgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "ovl_bgImgCustomSize"), TABovl_bgImgCustomSize));
+    }
+  })))), resOption === "Mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: MOBovl_bgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(MOBovl_bgImgPos) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgPos"), MOBovl_bgImgPos));
+    }
+  })), MOBovl_bgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: MOBovl_bgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(MOBovl_bgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgcustomPosXUnit"), MOBovl_bgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: MOBovl_bgImgcustomPosX,
+    min: 0,
+    max: MOBovl_bgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(MOBovl_bgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgcustomPosX"), MOBovl_bgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: MOBovl_bgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(MOBovl_bgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgcustomPosYUnit"), MOBovl_bgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: MOBovl_bgImgcustomPosY,
+    min: 0,
+    max: MOBovl_bgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: MOBovl_bgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(MOBovl_bgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgcustomPosY"), MOBovl_bgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: ovl_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(ovl_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bgImgAttachment"), ovl_bgImgAttachment));
+    }
+  }), ovl_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: MOBovl_bgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(MOBovl_bgImgRepeat) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgRepeat"), MOBovl_bgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: MOBovl_backgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(MOBovl_backgroundSize) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_backgroundSize"), MOBovl_backgroundSize));
+    }
+  })), MOBovl_backgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: MOBovl_bgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(MOBovl_bgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgCustomSizeUnit"), MOBovl_bgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: MOBovl_bgImgCustomSize,
+    min: 0,
+    max: MOBovl_bgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: MOBovl_bgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(MOBovl_bgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "ovl_bgImgCustomSize"), MOBovl_bgImgCustomSize));
+    }
+  }))))))), overlayType === "gradient" && /*#__PURE__*/React.createElement(_gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    gradientColor: overlayGradient,
+    onChange: function onChange(overlayGradient) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "overlayGradient"), overlayGradient));
+    }
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Opacity"),
+    value: ovl_opacity,
+    onChange: function onChange(ovl_opacity) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_opacity"), ovl_opacity));
+    },
+    step: 0.01,
+    min: 0,
+    max: 1
+  }), /*#__PURE__*/React.createElement(SelectControl, {
+    label: __("Blend Mode"),
+    value: ovl_blendMode,
+    options: [{
+      label: __("Normal"),
+      value: ""
+    }, {
+      label: __("Multiply"),
+      value: "multiply"
+    }, {
+      label: __("Screen"),
+      value: "screen"
+    }, {
+      label: __("Overlay"),
+      value: "overlay"
+    }, {
+      label: __("Darken"),
+      value: "darken"
+    }, {
+      label: __("Lighten"),
+      value: "lighten"
+    }, {
+      label: __("Color Dodge"),
+      value: "color-dodge"
+    }, {
+      label: __("Saturation"),
+      value: "saturation"
+    }, {
+      label: __("Color"),
+      value: "color"
+    }, {
+      label: __("Luminosity"),
+      value: "luminosity"
+    }],
+    onChange: function onChange(ovl_blendMode) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_blendMode"), ovl_blendMode));
+    }
+  }), /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("CSS Filters"),
+    checked: ovl_allowFilters,
+    onChange: function onChange() {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_allowFilters"), !ovl_allowFilters));
+    }
+  }), ovl_allowFilters && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Blur"),
+    value: ovl_fltrBlur,
+    onChange: function onChange(ovl_fltrBlur) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_fltrBlur"), ovl_fltrBlur));
+    },
+    step: 0.1,
+    min: 0,
+    max: 10
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Brightness"),
+    value: ovl_fltrBrightness,
+    onChange: function onChange(ovl_fltrBrightness) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_fltrBrightness"), ovl_fltrBrightness));
+    },
+    step: 1,
+    min: 0,
+    max: 200
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Contrast"),
+    value: ovl_fltrContrast,
+    onChange: function onChange(ovl_fltrContrast) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_fltrContrast"), ovl_fltrContrast));
+    },
+    step: 1,
+    min: 0,
+    max: 200
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Saturation"),
+    value: ovl_fltrSaturation,
+    onChange: function onChange(ovl_fltrSaturation) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_fltrSaturation"), ovl_fltrSaturation));
+    },
+    step: 1,
+    min: 0,
+    max: 200
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Hue"),
+    value: ovl_fltrHue,
+    onChange: function onChange(ovl_fltrHue) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_fltrHue"), ovl_fltrHue));
+    },
+    step: 1,
+    min: 0,
+    max: 360
+  }))), ovl_hoverType === "hover" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Overlay Type")
+  }, /*#__PURE__*/React.createElement(ButtonGroup, {
+    id: "eb-background-control-new"
+  }, [{
+    label: "Classic",
+    value: "classic"
+  }, {
+    label: "Gradient",
+    value: "gradient"
+  }].map(function (_ref6) {
+    var value = _ref6.value,
+        label = _ref6.label;
+    return /*#__PURE__*/React.createElement(Button, {
+      isLarge: true,
+      isPrimary: hov_overlayType === value,
+      isSecondary: hov_overlayType !== value,
+      onClick: function onClick() {
+        return setAttributes(_defineProperty({}, "hov_".concat(controlName, "overlayType"), value));
+      }
+    }, label);
+  }))), hov_overlayType === "classic" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    label: __("Overlay Color"),
+    color: hov_overlayColor,
+    onChange: function onChange(hov_overlayColor) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "overlayColor"), hov_overlayColor));
+    }
+  }), noOverlayBgi === false && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+    label: __("Overlay Image")
+  }), /*#__PURE__*/React.createElement(MediaUpload, {
+    onSelect: function onSelect(_ref7) {
+      var _setAttributes47;
+
+      var url = _ref7.url,
+          id = _ref7.id;
+      return setAttributes((_setAttributes47 = {}, _defineProperty(_setAttributes47, "hov_".concat(controlName, "ovl_bgImageURL"), url), _defineProperty(_setAttributes47, "hov_".concat(controlName, "ovl_bgImageID"), id), _setAttributes47));
+    },
+    type: "image",
+    value: hov_ovl_bgImageID,
+    render: function render(_ref8) {
+      var open = _ref8.open;
+      return !hov_ovl_bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+        className: "eb-background-control-inspector-panel-img-btn components-button",
+        label: __("Upload Image"),
+        icon: "format-image",
+        onClick: open
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          padding: "10px 0",
+          display: "block"
+        }
+      }));
+    }
+  }), hov_ovl_bgImageURL && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_image_avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    imageUrl: hov_ovl_bgImageURL,
+    onDeleteImage: function onDeleteImage() {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImageURL"), null));
+    }
+  }), resOption === "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_ovl_bgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_ovl_bgImgPos) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgPos"), hov_ovl_bgImgPos));
+    }
+  })), hov_ovl_bgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_ovl_bgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_ovl_bgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgcustomPosXUnit"), hov_ovl_bgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_ovl_bgImgcustomPosX,
+    min: 0,
+    max: hov_ovl_bgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(hov_ovl_bgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgcustomPosX"), hov_ovl_bgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_ovl_bgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_ovl_bgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgcustomPosYUnit"), hov_ovl_bgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_ovl_bgImgcustomPosY,
+    min: 0,
+    max: hov_ovl_bgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: hov_ovl_bgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_ovl_bgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgcustomPosY"), hov_ovl_bgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: hov_ovl_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(hov_ovl_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgAttachment"), hov_ovl_bgImgAttachment));
+    }
+  }), hov_ovl_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_ovl_bgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(hov_ovl_bgImgRepeat) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgRepeat"), hov_ovl_bgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_ovl_backgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_ovl_backgroundSize) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_backgroundSize"), hov_ovl_backgroundSize));
+    }
+  })), hov_ovl_backgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_ovl_bgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_ovl_bgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgCustomSizeUnit"), hov_ovl_bgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_ovl_bgImgCustomSize,
+    min: 0,
+    max: hov_ovl_bgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: hov_ovl_bgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_ovl_bgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgCustomSize"), hov_ovl_bgImgCustomSize));
+    }
+  })))), resOption === "Tablet" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_TABovl_bgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_TABovl_bgImgPos) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgPos"), hov_TABovl_bgImgPos));
+    }
+  })), hov_TABovl_bgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_TABovl_bgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_TABovl_bgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosXUnit"), hov_TABovl_bgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_TABovl_bgImgcustomPosX,
+    min: 0,
+    max: hov_TABovl_bgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(hov_TABovl_bgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosX"), hov_TABovl_bgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_TABovl_bgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_TABovl_bgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosYUnit"), hov_TABovl_bgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_TABovl_bgImgcustomPosY,
+    min: 0,
+    max: hov_TABovl_bgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: hov_TABovl_bgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_TABovl_bgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosY"), hov_TABovl_bgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: hov_ovl_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(hov_ovl_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgAttachment"), hov_ovl_bgImgAttachment));
+    }
+  }), hov_ovl_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_TABovl_bgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(hov_TABovl_bgImgRepeat) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgRepeat"), hov_TABovl_bgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_TABovl_backgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_TABovl_backgroundSize) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_backgroundSize"), hov_TABovl_backgroundSize));
+    }
+  })), hov_TABovl_backgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_TABovl_bgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_TABovl_bgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgCustomSizeUnit"), hov_TABovl_bgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_TABovl_bgImgCustomSize,
+    min: 0,
+    max: hov_TABovl_bgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: hov_TABovl_bgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_TABovl_bgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "hov_TAB".concat(controlName, "ovl_bgImgCustomSize"), hov_TABovl_bgImgCustomSize));
+    }
+  })))), resOption === "Mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Position"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_MOBovl_bgImgPos,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Center Center"),
+      value: "center center"
+    }, {
+      label: __("Center Left"),
+      value: "center left"
+    }, {
+      label: __("Center Right"),
+      value: "center right"
+    }, {
+      label: __("Top Center"),
+      value: "top center"
+    }, {
+      label: __("Top Left"),
+      value: "top left"
+    }, {
+      label: __("Top Right"),
+      value: "top right"
+    }, {
+      label: __("Bottom Center"),
+      value: "bottom center"
+    }, {
+      label: __("Bottom Left"),
+      value: "bottom left"
+    }, {
+      label: __("Bottom Right"),
+      value: "bottom right"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_MOBovl_bgImgPos) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgPos"), hov_MOBovl_bgImgPos));
+    }
+  })), hov_MOBovl_bgImgPos === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_MOBovl_bgImgcustomPosXUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_MOBovl_bgImgcustomPosXUnit) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosXUnit"), hov_MOBovl_bgImgcustomPosXUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "X Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_MOBovl_bgImgcustomPosX,
+    min: 0,
+    max: hov_MOBovl_bgImgcustomPosXUnit === "px" ? 2000 : 100,
+    onChange: function onChange(hov_MOBovl_bgImgcustomPosX) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosX"), hov_MOBovl_bgImgcustomPosX));
+    }
+  })), /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_MOBovl_bgImgcustomPosYUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_MOBovl_bgImgcustomPosYUnit) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosYUnit"), hov_MOBovl_bgImgcustomPosYUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Y Position"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_MOBovl_bgImgcustomPosY,
+    min: 0,
+    max: hov_MOBovl_bgImgcustomPosYUnit === "px" ? 2000 : 100,
+    step: hov_MOBovl_bgImgcustomPosYUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_MOBovl_bgImgcustomPosY) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosY"), hov_MOBovl_bgImgcustomPosY));
+    }
+  }))), /*#__PURE__*/React.createElement(SelectControl, {
+    label: "Attachment",
+    value: hov_ovl_bgImgAttachment,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Scroll"),
+      value: "scroll"
+    }, {
+      label: __("Fixed"),
+      value: "fixed"
+    }],
+    onChange: function onChange(hov_ovl_bgImgAttachment) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_bgImgAttachment"), hov_ovl_bgImgAttachment));
+    }
+  }), hov_ovl_bgImgAttachment === "fixed" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "-10px",
+      paddingBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("i", null, "Note: Attachment Fixed works only on desktop.")), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Repeat"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_MOBovl_bgImgRepeat,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("No-repeat"),
+      value: "no-repeat"
+    }, {
+      label: __("Repeat"),
+      value: "repeat"
+    }, {
+      label: __("Repeat-x"),
+      value: "repeat-x"
+    }, {
+      label: __("Repeat-y"),
+      value: "repeat-y"
+    }],
+    onChange: function onChange(hov_MOBovl_bgImgRepeat) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgRepeat"), hov_MOBovl_bgImgRepeat));
+    }
+  })), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Size"
+  }, /*#__PURE__*/React.createElement(SelectControl, {
+    value: hov_MOBovl_backgroundSize,
+    options: [{
+      label: __("Default"),
+      value: ""
+    }, {
+      label: __("Auto"),
+      value: "auto"
+    }, {
+      label: __("Cover"),
+      value: "cover"
+    }, {
+      label: __("Contain"),
+      value: "contain"
+    }, {
+      label: __("Custom"),
+      value: "custom"
+    }],
+    onChange: function onChange(hov_MOBovl_backgroundSize) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_backgroundSize"), hov_MOBovl_backgroundSize));
+    }
+  })), hov_MOBovl_backgroundSize === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    selectedUnit: hov_MOBovl_bgImgCustomSizeUnit,
+    unitTypes: [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }],
+    onClick: function onClick(hov_MOBovl_bgImgCustomSizeUnit) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgCustomSizeUnit"), hov_MOBovl_bgImgCustomSizeUnit));
+    }
+  }), /*#__PURE__*/React.createElement(_withResButtons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    resRequiredProps: resRequiredProps,
+    label: "Width"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: hov_MOBovl_bgImgCustomSize,
+    min: 0,
+    max: hov_MOBovl_bgImgCustomSizeUnit === "px" ? 2000 : 100,
+    step: hov_MOBovl_bgImgCustomSizeUnit === "px" ? 1 : 0.1,
+    onChange: function onChange(hov_MOBovl_bgImgCustomSize) {
+      return setAttributes(_defineProperty({}, "hov_MOB".concat(controlName, "ovl_bgImgCustomSize"), hov_MOBovl_bgImgCustomSize));
+    }
+  }))))))), hov_overlayType === "gradient" && /*#__PURE__*/React.createElement(_gradient_color_controller__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    gradientColor: hov_overlayGradient,
+    onChange: function onChange(hov_overlayGradient) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "overlayGradient"), hov_overlayGradient));
+    }
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Overlay Transition"),
+    value: ovl_bg_transition,
+    min: 0,
+    max: 5,
+    step: 0.1,
+    onChange: function onChange(ovl_bg_transition) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_bg_transition"), ovl_bg_transition));
+    }
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(_reset_control__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    onReset: function onReset() {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_opacity"), undefined));
+    }
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Opacity"),
+    value: hov_ovl_opacity,
+    onChange: function onChange(hov_ovl_opacity) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_opacity"), hov_ovl_opacity));
+    },
+    step: 0.01,
+    min: 0,
+    max: 1
+  })), hov_ovl_opacity && /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Opacity Transition"),
+    value: ovl_opacityTransition,
+    onChange: function onChange(ovl_opacityTransition) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_opacityTransition"), ovl_opacityTransition));
+    },
+    step: 0.01,
+    min: 0,
+    max: 5
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(SelectControl, {
+    label: __("Blend Mode"),
+    value: hov_ovl_blendMode,
+    options: [{
+      label: __("Normal"),
+      value: ""
+    }, {
+      label: __("multiply"),
+      value: "multiply"
+    }, {
+      label: __("screen"),
+      value: "screen"
+    }, {
+      label: __("overlay"),
+      value: "overlay"
+    }, {
+      label: __("darken"),
+      value: "darken"
+    }, {
+      label: __("lighten"),
+      value: "lighten"
+    }, {
+      label: __("color-dodge"),
+      value: "Color Dodge"
+    }, {
+      label: __("saturation"),
+      value: "saturation"
+    }, {
+      label: __("color"),
+      value: "color"
+    }, {
+      label: __("luminosity"),
+      value: "luminosity"
+    }],
+    onChange: function onChange(hov_ovl_blendMode) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_blendMode"), hov_ovl_blendMode));
+    }
+  }), /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __("CSS Filters"),
+    checked: hov_ovl_allowFilters,
+    onChange: function onChange() {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_allowFilters"), !hov_ovl_allowFilters));
+    }
+  }), hov_ovl_allowFilters && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Blur"),
+    value: hov_ovl_fltrBlur,
+    onChange: function onChange(hov_ovl_fltrBlur) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_fltrBlur"), hov_ovl_fltrBlur));
+    },
+    step: 0.1,
+    min: 0,
+    max: 10
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Brightness"),
+    value: hov_ovl_fltrBrightness,
+    onChange: function onChange(hov_ovl_fltrBrightness) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_fltrBrightness"), hov_ovl_fltrBrightness));
+    },
+    step: 1,
+    min: 0,
+    max: 200
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Contrast"),
+    value: hov_ovl_fltrContrast,
+    onChange: function onChange(hov_ovl_fltrContrast) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_fltrContrast"), hov_ovl_fltrContrast));
+    },
+    step: 1,
+    min: 0,
+    max: 200
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Saturation"),
+    value: hov_ovl_fltrSaturation,
+    onChange: function onChange(hov_ovl_fltrSaturation) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_fltrSaturation"), hov_ovl_fltrSaturation));
+    },
+    step: 1,
+    min: 0,
+    max: 200
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Hue"),
+    value: hov_ovl_fltrHue,
+    onChange: function onChange(hov_ovl_fltrHue) {
+      return setAttributes(_defineProperty({}, "hov_".concat(controlName, "ovl_fltrHue"), hov_ovl_fltrHue));
+    },
+    step: 1,
+    min: 0,
+    max: 360
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Css Filters Transition"),
+    value: ovl_filtersTransition,
+    onChange: function onChange(ovl_filtersTransition) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "ovl_filtersTransition"), ovl_filtersTransition));
+    },
+    step: 0.01,
+    min: 0,
+    max: 5
+  }))));
 }
 
 /***/ }),
@@ -6665,10 +8845,12 @@ function BorderShadowControl(_ref) {
       hoverBlur = attributes["".concat(controlName, "hoverBlur")],
       hoverSpread = attributes["".concat(controlName, "hoverSpread")],
       inset = attributes["".concat(controlName, "inset")],
-      transitionTime = attributes["".concat(controlName, "transitionTime")],
       BorderType = attributes["".concat(controlName, "BorderType")],
       HborderStyle = attributes["".concat(controlName, "HborderStyle")],
-      HborderColor = attributes["".concat(controlName, "HborderColor")];
+      HborderColor = attributes["".concat(controlName, "HborderColor")],
+      borderTransition = attributes["".concat(controlName, "borderTransition")],
+      radiusTransition = attributes["".concat(controlName, "radiusTransition")],
+      shadowTransition = attributes["".concat(controlName, "shadowTransition")];
   return /*#__PURE__*/React.createElement(React.Fragment, null, noBorder !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
     id: "eb-infobox-border-hover-ptions"
   }, /*#__PURE__*/React.createElement(ButtonGroup, {
@@ -6783,11 +8965,29 @@ function BorderShadowControl(_ref) {
     resRequiredProps: resRequiredProps,
     controlName: "".concat(controlName, "HBdr_"),
     baseLabel: "Border Width"
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Border Transition"),
+    value: borderTransition,
+    onChange: function onChange(borderTransition) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "borderTransition"), borderTransition));
+    },
+    step: 0.01,
+    min: 0,
+    max: 5
   })), /*#__PURE__*/React.createElement(_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_2__["default"], {
     forBorderRadius: true,
     resRequiredProps: resRequiredProps,
     controlName: "".concat(controlName, "HRds_"),
     baseLabel: "Border Radius"
+  }), /*#__PURE__*/React.createElement(RangeControl, {
+    label: __("Border Radius Transition"),
+    value: radiusTransition,
+    onChange: function onChange(radiusTransition) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "radiusTransition"), radiusTransition));
+    },
+    step: 0.01,
+    min: 0,
+    max: 5
   }))), noShadow !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
     label: __("Box Shadow"),
     className: "eb-typography-base"
@@ -6832,7 +9032,13 @@ function BorderShadowControl(_ref) {
             return setAttributes(_defineProperty({}, "".concat(controlName, "shadowType"), value));
           }
         }, label);
-      }))), shadowType === "normal" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      }))), /*#__PURE__*/React.createElement(ToggleControl, {
+        label: __("Inset"),
+        checked: inset,
+        onChange: function onChange() {
+          return setAttributes(_defineProperty({}, "".concat(controlName, "inset"), !inset));
+        }
+      }), shadowType === "normal" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_color_control__WEBPACK_IMPORTED_MODULE_0__["default"], {
         label: __("Shadow Color"),
         color: shadowColor,
         onChange: function onChange(shadowColor) {
@@ -6940,24 +9146,18 @@ function BorderShadowControl(_ref) {
         },
         min: 0,
         max: 20
-      }))), /*#__PURE__*/React.createElement(ToggleControl, {
-        label: __("Inset"),
-        checked: inset,
-        onChange: function onChange() {
-          return setAttributes(_defineProperty({}, "".concat(controlName, "inset"), !inset));
-        }
-      })));
+      })), /*#__PURE__*/React.createElement(RangeControl, {
+        label: __("Shadow Transition"),
+        value: shadowTransition,
+        onChange: function onChange(shadowTransition) {
+          return setAttributes(_defineProperty({}, "".concat(controlName, "shadowTransition"), shadowTransition));
+        },
+        step: 0.01,
+        min: 0,
+        max: 5
+      }))));
     }
-  }))), /*#__PURE__*/React.createElement(BaseControl, {
-    id: "eb-infobox-transition-time"
-  }, /*#__PURE__*/React.createElement(TextControl, {
-    label: __("Transition"),
-    value: transitionTime,
-    type: "number",
-    onChange: function onChange(transitionTime) {
-      return setAttributes(_defineProperty({}, "".concat(controlName, "transitionTime"), transitionTime));
-    }
-  })));
+  }))));
 }
 
 /***/ }),
@@ -6971,7 +9171,7 @@ function BorderShadowControl(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -6985,7 +9185,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -7087,7 +9287,7 @@ var ColorControl = function ColorControl(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DimensionsControl; });
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers */ "./util/helpers/index.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -7101,7 +9301,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -7131,9 +9331,11 @@ function DimensionsControl(_ref) {
   var baseLabel = neededProps.baseLabel,
       resOption = neededProps.resOption,
       forBorderRadius = neededProps.forBorderRadius,
-      setAttributes = neededProps.setAttributes;
+      setAttributes = neededProps.setAttributes,
+      dimensionIsLinked = neededProps.dimensionIsLinked,
+      controlName = neededProps.controlName;
 
-  var _useState3 = useState(false),
+  var _useState3 = useState(dimensionIsLinked),
       _useState4 = _slicedToArray(_useState3, 2),
       isLinked = _useState4[0],
       setIsLinked = _useState4[1];
@@ -7164,6 +9366,9 @@ function DimensionsControl(_ref) {
   useEffect(function () {
     onChange(dimensions);
   }, [dimensions]);
+  useEffect(function () {
+    setAttributes(_defineProperty({}, "".concat(controlName, "isLinked"), isLinked)); // console.log({ isLinked });
+  }, [isLinked]);
   return /*#__PURE__*/React.createElement("div", {
     className: "dimention-container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -7264,7 +9469,8 @@ function ResponsiveDimensionsControl(_ref) {
   var attributes = resRequiredProps.attributes,
       setAttributes = resRequiredProps.setAttributes,
       resOption = resRequiredProps.resOption;
-  var dimensionUnit = attributes["".concat(controlName, "Unit")],
+  var dimensionIsLinked = attributes["".concat(controlName, "isLinked")],
+      dimensionUnit = attributes["".concat(controlName, "Unit")],
       dimensionTop = attributes["".concat(controlName, "Top")],
       dimensionRight = attributes["".concat(controlName, "Right")],
       dimensionBottom = attributes["".concat(controlName, "Bottom")],
@@ -7293,7 +9499,9 @@ function ResponsiveDimensionsControl(_ref) {
     resOption: resOption,
     baseLabel: baseLabel,
     forBorderRadius: forBorderRadius,
-    setAttributes: setAttributes
+    setAttributes: setAttributes,
+    dimensionIsLinked: dimensionIsLinked,
+    controlName: controlName
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, resOption == "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
     selectedUnit: dimensionUnit,
@@ -7423,7 +9631,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -7491,7 +9699,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _toggle_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toggle-button */ "./util/toggle-button/index.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./util/gradient-color-controller/constants.js");
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper */ "./util/gradient-color-controller/helper.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -7505,7 +9713,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -7545,7 +9753,8 @@ var colorStyles = {
 };
 
 var GradientColorControl = function GradientColorControl(_ref) {
-  var gradientColor = _ref.gradientColor,
+  var _ref$gradientColor = _ref.gradientColor,
+      gradientColor = _ref$gradientColor === void 0 ? "linear-gradient(45deg,#000000cc,#00000088)" : _ref$gradientColor,
       onChange = _ref.onChange;
 
   var _useState = useState("linear"),
@@ -7762,298 +9971,660 @@ var GradientColorControl = function GradientColorControl(_ref) {
 
 /***/ }),
 
-/***/ "./util/helpers/index.js":
-/*!*******************************!*\
-  !*** ./util/helpers/index.js ***!
-  \*******************************/
-/*! exports provided: hasVal, generateBackgroundAttributes, generateDimensionsAttributes, generateTypographyAttributes, generateBorderShadowAttributes, textInsideForEdit, generateRandomNumber, hardMinifyCssStrings, softMinifyCssStrings, isCssExists, generateTypographyStyles, generateDimensionsControlStyles, generateBorderShadowStyles, generateBackgroundControlStyles, generateResponsiveRangeAttributes, generateResponsiveRangeStyles, getFlipTransform, getButtonClasses, getBackgroundImage, handleDesktopBtnClick, handleTabBtnClick, handleMobileBtnClick, mimmikCssForResBtns, mimmikCssForPreviewBtnClick, mimmikCssOnPreviewBtnClickWhileBlockSelected, duplicateBlockIdFix */
+/***/ "./util/helpers/backgroundHelpers.js":
+/*!*******************************************!*\
+  !*** ./util/helpers/backgroundHelpers.js ***!
+  \*******************************************/
+/*! exports provided: generateBackgroundAttributes, generateBackgroundControlStyles */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasVal", function() { return hasVal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateBackgroundAttributes", function() { return generateBackgroundAttributes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateDimensionsAttributes", function() { return generateDimensionsAttributes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateTypographyAttributes", function() { return generateTypographyAttributes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateBorderShadowAttributes", function() { return generateBorderShadowAttributes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "textInsideForEdit", function() { return textInsideForEdit; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateRandomNumber", function() { return generateRandomNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hardMinifyCssStrings", function() { return hardMinifyCssStrings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "softMinifyCssStrings", function() { return softMinifyCssStrings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCssExists", function() { return isCssExists; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateTypographyStyles", function() { return generateTypographyStyles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateDimensionsControlStyles", function() { return generateDimensionsControlStyles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateBorderShadowStyles", function() { return generateBorderShadowStyles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateBackgroundControlStyles", function() { return generateBackgroundControlStyles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateResponsiveRangeAttributes", function() { return generateResponsiveRangeAttributes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateResponsiveRangeStyles", function() { return generateResponsiveRangeStyles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFlipTransform", function() { return getFlipTransform; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getButtonClasses", function() { return getButtonClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBackgroundImage", function() { return getBackgroundImage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleDesktopBtnClick", function() { return handleDesktopBtnClick; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTabBtnClick", function() { return handleTabBtnClick; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleMobileBtnClick", function() { return handleMobileBtnClick; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mimmikCssForResBtns", function() { return mimmikCssForResBtns; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mimmikCssForPreviewBtnClick", function() { return mimmikCssForPreviewBtnClick; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mimmikCssOnPreviewBtnClickWhileBlockSelected", function() { return mimmikCssOnPreviewBtnClickWhileBlockSelected; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "duplicateBlockIdFix", function() { return duplicateBlockIdFix; });
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// check if range controller input numbers  has value
-var hasVal = function hasVal(val) {
-  return val || val === 0;
-}; // function to generate Background control's attributes
-
+// function to generate Background control's attributes
 var generateBackgroundAttributes = function generateBackgroundAttributes(controlName) {
-  var _objectSpread3;
+  var _objectSpread2, _objectSpread3, _mainBgiAttrs, _ovlWithoutBgiAttrs, _ovlBgiAttrs;
 
   var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var isBgDefaultGradient = defaults.isBgDefaultGradient,
       defaultFillColor = defaults.defaultFillColor,
       _defaults$defaultBgGr = defaults.defaultBgGradient,
-      defaultBgGradient = _defaults$defaultBgGr === void 0 ? "linear-gradient(45deg,#00000000,#00000000)" : _defaults$defaultBgGr;
+      defaultBgGradient = _defaults$defaultBgGr === void 0 ? "linear-gradient(45deg,#00000000,#00000000)" : _defaults$defaultBgGr,
+      _defaults$noOverlay = defaults.noOverlay,
+      noOverlay = _defaults$noOverlay === void 0 ? false : _defaults$noOverlay,
+      _defaults$noMainBgi = defaults.noMainBgi,
+      noMainBgi = _defaults$noMainBgi === void 0 ? false : _defaults$noMainBgi,
+      _defaults$noOverlayBg = defaults.noOverlayBgi,
+      noOverlayBgi = _defaults$noOverlayBg === void 0 ? false : _defaults$noOverlayBg;
   var bgColorAttr = defaultFillColor ? _defineProperty({}, "".concat(controlName, "backgroundColor"), {
     type: "string",
     "default": defaultFillColor
   }) : _defineProperty({}, "".concat(controlName, "backgroundColor"), {
     type: "string"
   });
-  return _objectSpread(_objectSpread(_defineProperty({}, "".concat(controlName, "backgroundType"), {
+
+  var mainWithoutBgiAttrs = _objectSpread(_objectSpread((_objectSpread2 = {}, _defineProperty(_objectSpread2, "".concat(controlName, "bg_hoverType"), {
     type: "string",
-    "default": isBgDefaultGradient === true ? "gradient" : "fill"
-  }), bgColorAttr), {}, (_objectSpread3 = {}, _defineProperty(_objectSpread3, "".concat(controlName, "gradientColor"), {
+    "default": "normal"
+  }), _defineProperty(_objectSpread2, "".concat(controlName, "bg_transition"), {
+    type: "number",
+    "default": 0.5
+  }), _defineProperty(_objectSpread2, "".concat(controlName, "backgroundType"), {
+    type: "string",
+    "default": isBgDefaultGradient === true ? "gradient" : "classic"
+  }), _objectSpread2), bgColorAttr), {}, (_objectSpread3 = {}, _defineProperty(_objectSpread3, "".concat(controlName, "gradientColor"), {
     type: "string",
     "default": defaultBgGradient
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImageURL"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImageID"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "backgroundSize"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgCustomSize"), {
-    type: "number",
-    "default": 100
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgCustomSizeUnit"), {
+  }), _defineProperty(_objectSpread3, "hov_".concat(controlName, "backgroundType"), {
     type: "string",
-    "default": "%"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgPos"), {
+    "default": "classic"
+  }), _defineProperty(_objectSpread3, "hov_".concat(controlName, "backgroundColor"), {
     type: "string"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgcustomPosX"), {
-    type: "number",
-    "default": 0
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgcustomPosXUnit"), {
-    type: "string",
-    "default": "px"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgcustomPosY"), {
-    type: "number",
-    "default": 0
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgcustomPosYUnit"), {
-    type: "string",
-    "default": "px"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgAttachment"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "bgImgRepeat"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "isBgOverly"), {
-    type: "boolean",
-    "default": false
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "overlyType"), {
-    type: "string",
-    "default": "fill"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "overlyColor"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "".concat(controlName, "overlyGradient"), {
-    type: "string",
-    "default": "linear-gradient(45deg,#000000cc,#00000000)"
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "backgroundSize"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgCustomSize"), {
-    type: "number",
-    "default": 100
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgCustomSizeUnit"), {
-    type: "string",
-    "default": "%"
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgPos"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgcustomPosX"), {
-    type: "number",
-    "default": 0
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgcustomPosXUnit"), {
-    type: "string",
-    "default": "px"
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgcustomPosY"), {
-    type: "number",
-    "default": 0
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgcustomPosYUnit"), {
-    type: "string",
-    "default": "px"
-  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "bgImgRepeat"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "backgroundSize"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgCustomSize"), {
-    type: "number",
-    "default": 100
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgCustomSizeUnit"), {
-    type: "string",
-    "default": "%"
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgPos"), {
-    type: "string"
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgcustomPosX"), {
-    type: "number",
-    "default": 0
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgcustomPosXUnit"), {
-    type: "string",
-    "default": "px"
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgcustomPosY"), {
-    type: "number",
-    "default": 0
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgcustomPosYUnit"), {
-    type: "string",
-    "default": "px"
-  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "bgImgRepeat"), {
+  }), _defineProperty(_objectSpread3, "hov_".concat(controlName, "gradientColor"), {
     type: "string"
   }), _objectSpread3));
-}; // function to generate New Dimensions-Control's attributes for multiple Dimensions control based on the array of values(prefixs)
 
-var generateDimensionsAttributes = function generateDimensionsAttributes(controlName) {
-  var _objectSpread5;
-
-  var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var top = defaults.top,
-      right = defaults.right,
-      bottom = defaults.bottom,
-      left = defaults.left;
-  var desktopTop = hasVal(top) ? _defineProperty({}, "".concat(controlName, "Top"), {
-    type: "string",
-    "default": "".concat(top)
-  }) : _defineProperty({}, "".concat(controlName, "Top"), {
+  var mainBgiAttrs = (_mainBgiAttrs = {}, _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImageURL"), {
     type: "string"
-  });
-  var desktopRight = hasVal(right) ? _defineProperty({}, "".concat(controlName, "Right"), {
-    type: "string",
-    "default": "".concat(right)
-  }) : _defineProperty({}, "".concat(controlName, "Right"), {
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImageID"), {
     type: "string"
-  });
-  var desktopBottom = hasVal(bottom) ? _defineProperty({}, "".concat(controlName, "Bottom"), {
-    type: "string",
-    "default": "".concat(bottom)
-  }) : _defineProperty({}, "".concat(controlName, "Bottom"), {
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgAttachment"), {
     type: "string"
-  });
-  var desktopLeft = hasVal(left) ? _defineProperty({}, "".concat(controlName, "Left"), {
-    type: "string",
-    "default": "".concat(left)
-  }) : _defineProperty({}, "".concat(controlName, "Left"), {
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "backgroundSize"), {
     type: "string"
-  });
-  return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_defineProperty({}, "".concat(controlName, "Unit"), {
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgcustomPosXUnit"), {
     type: "string",
     "default": "px"
-  }), desktopTop), desktopRight), desktopBottom), desktopLeft), {}, (_objectSpread5 = {}, _defineProperty(_objectSpread5, "TAB".concat(controlName, "Unit"), {
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgcustomPosYUnit"), {
     type: "string",
     "default": "px"
-  }), _defineProperty(_objectSpread5, "TAB".concat(controlName, "Top"), {
+  }), _defineProperty(_mainBgiAttrs, "".concat(controlName, "bgImgRepeat"), {
     type: "string"
-  }), _defineProperty(_objectSpread5, "TAB".concat(controlName, "Right"), {
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "backgroundSize"), {
     type: "string"
-  }), _defineProperty(_objectSpread5, "TAB".concat(controlName, "Bottom"), {
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgPos"), {
     type: "string"
-  }), _defineProperty(_objectSpread5, "TAB".concat(controlName, "Left"), {
-    type: "string"
-  }), _defineProperty(_objectSpread5, "MOB".concat(controlName, "Unit"), {
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgcustomPosXUnit"), {
     type: "string",
     "default": "px"
-  }), _defineProperty(_objectSpread5, "MOB".concat(controlName, "Top"), {
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "TAB".concat(controlName, "bgImgRepeat"), {
     type: "string"
-  }), _defineProperty(_objectSpread5, "MOB".concat(controlName, "Right"), {
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "backgroundSize"), {
     type: "string"
-  }), _defineProperty(_objectSpread5, "MOB".concat(controlName, "Bottom"), {
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgPos"), {
     type: "string"
-  }), _defineProperty(_objectSpread5, "MOB".concat(controlName, "Left"), {
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "MOB".concat(controlName, "bgImgRepeat"), {
     type: "string"
-  }), _objectSpread5));
-}; // function to generate typography attributes for multiple typography control based on the array of prefix
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImageURL"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImageID"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgAttachment"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "hov_".concat(controlName, "bgImgRepeat"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgCustomSize"), {
+    type: "number"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgcustomPosX"), {
+    type: "number"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgcustomPosY"), {
+    type: "number"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "hov_TAB".concat(controlName, "bgImgRepeat"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgCustomSize"), {
+    type: "number"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgcustomPosX"), {
+    type: "number"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgcustomPosY"), {
+    type: "number"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_mainBgiAttrs, "hov_MOB".concat(controlName, "bgImgRepeat"), {
+    type: "string"
+  }), _mainBgiAttrs);
+  var ovlWithoutBgiAttrs = (_ovlWithoutBgiAttrs = {}, _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "isBgOverlay"), {
+    type: "boolean",
+    "default": false
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_bg_transition"), {
+    type: "number",
+    "default": 0.5
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_filtersTransition"), {
+    type: "number",
+    "default": 0.5
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_opacityTransition"), {
+    type: "number",
+    "default": 0.5
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_hoverType"), {
+    type: "string",
+    "default": "normal"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "overlayType"), {
+    type: "string",
+    "default": "classic"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "overlayColor"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "overlayGradient"), {
+    type: "string",
+    "default": "linear-gradient(45deg,#000000cc,#00000099)"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_opacity"), {
+    type: "number",
+    "default": 0.5
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_blendMode"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_allowFilters"), {
+    type: "boolean",
+    "default": false
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_fltrBrightness"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_fltrContrast"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_fltrSaturation"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_fltrBlur"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlWithoutBgiAttrs, "".concat(controlName, "ovl_fltrHue"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "overlayType"), {
+    type: "string",
+    "default": "classic"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "overlayColor"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "overlayGradient"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_bgImageURL"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_bgImageID"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_bgImgAttachment"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_opacity"), {
+    type: "number"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_blendMode"), {
+    type: "string"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_allowFilters"), {
+    type: "boolean",
+    "default": false
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_fltrBrightness"), {
+    type: "number"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_fltrContrast"), {
+    type: "number"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_fltrSaturation"), {
+    type: "number"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_fltrBlur"), {
+    type: "number"
+  }), _defineProperty(_ovlWithoutBgiAttrs, "hov_".concat(controlName, "ovl_fltrHue"), {
+    type: "number"
+  }), _ovlWithoutBgiAttrs);
+  var ovlBgiAttrs = (_ovlBgiAttrs = {}, _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImageURL"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImageID"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgAttachment"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "".concat(controlName, "ovl_bgImgRepeat"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "TAB".concat(controlName, "ovl_bgImgRepeat"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "MOB".concat(controlName, "ovl_bgImgRepeat"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgCustomSize"), {
+    type: "number",
+    "default": 100
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgcustomPosX"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgcustomPosY"), {
+    type: "number",
+    "default": 0
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "hov_".concat(controlName, "ovl_bgImgRepeat"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgCustomSize"), {
+    type: "number"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosX"), {
+    type: "number"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosY"), {
+    type: "number"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "hov_TAB".concat(controlName, "ovl_bgImgRepeat"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_backgroundSize"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgCustomSize"), {
+    type: "number"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgCustomSizeUnit"), {
+    type: "string",
+    "default": "%"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgPos"), {
+    type: "string"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosX"), {
+    type: "number"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosXUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosY"), {
+    type: "number"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgcustomPosYUnit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ovlBgiAttrs, "hov_MOB".concat(controlName, "ovl_bgImgRepeat"), {
+    type: "string"
+  }), _ovlBgiAttrs);
+  var result = noOverlay === true ? noMainBgi === true ? _objectSpread({}, mainWithoutBgiAttrs) : _objectSpread(_objectSpread({}, mainWithoutBgiAttrs), mainBgiAttrs) : noOverlayBgi === true && noMainBgi === true ? _objectSpread(_objectSpread({}, mainWithoutBgiAttrs), ovlWithoutBgiAttrs) : noOverlayBgi === true && noMainBgi === false ? _objectSpread(_objectSpread(_objectSpread({}, mainWithoutBgiAttrs), mainBgiAttrs), ovlWithoutBgiAttrs) : noOverlayBgi === false && noMainBgi === true ? _objectSpread(_objectSpread(_objectSpread({}, mainWithoutBgiAttrs), ovlWithoutBgiAttrs), ovlBgiAttrs) : _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, mainWithoutBgiAttrs), mainBgiAttrs), ovlWithoutBgiAttrs), ovlBgiAttrs); // console.log({ result });
 
-var generateTypographyAttributes = function generateTypographyAttributes(prefixArray) {
-  var typoAttrs = prefixArray.reduce(function (total, current) {
-    var _result;
+  return result;
+}; // function to generate Background control styles based on the unique controlName(prefix)
 
-    var result = (_result = {}, _defineProperty(_result, "".concat(current, "FontFamily"), {
-      type: "string"
-    }), _defineProperty(_result, "".concat(current, "SizeUnit"), {
-      type: "string",
-      "default": "px"
-    }), _defineProperty(_result, "".concat(current, "FontSize"), {
-      type: "number"
-    }), _defineProperty(_result, "".concat(current, "FontWeight"), {
-      type: "string"
-    }), _defineProperty(_result, "".concat(current, "TextTransform"), {
-      type: "string"
-    }), _defineProperty(_result, "".concat(current, "TextDecoration"), {
-      type: "string"
-    }), _defineProperty(_result, "".concat(current, "LetterSpacingUnit"), {
-      type: "string",
-      "default": "px"
-    }), _defineProperty(_result, "".concat(current, "LetterSpacing"), {
-      type: "number"
-    }), _defineProperty(_result, "".concat(current, "LineHeightUnit"), {
-      type: "string",
-      "default": "em"
-    }), _defineProperty(_result, "".concat(current, "LineHeight"), {
-      type: "number"
-    }), _defineProperty(_result, "TAB".concat(current, "SizeUnit"), {
-      type: "string",
-      "default": "px"
-    }), _defineProperty(_result, "TAB".concat(current, "FontSize"), {
-      type: "number"
-    }), _defineProperty(_result, "TAB".concat(current, "LetterSpacingUnit"), {
-      type: "string",
-      "default": "px"
-    }), _defineProperty(_result, "TAB".concat(current, "LetterSpacing"), {
-      type: "number"
-    }), _defineProperty(_result, "TAB".concat(current, "LineHeightUnit"), {
-      type: "string",
-      "default": "em"
-    }), _defineProperty(_result, "TAB".concat(current, "LineHeight"), {
-      type: "number"
-    }), _defineProperty(_result, "MOB".concat(current, "SizeUnit"), {
-      type: "string",
-      "default": "px"
-    }), _defineProperty(_result, "MOB".concat(current, "FontSize"), {
-      type: "number"
-    }), _defineProperty(_result, "MOB".concat(current, "LetterSpacingUnit"), {
-      type: "string",
-      "default": "px"
-    }), _defineProperty(_result, "MOB".concat(current, "LetterSpacing"), {
-      type: "number"
-    }), _defineProperty(_result, "MOB".concat(current, "LineHeightUnit"), {
-      type: "string",
-      "default": "em"
-    }), _defineProperty(_result, "MOB".concat(current, "LineHeight"), {
-      type: "number"
-    }), _result);
-    return _objectSpread(_objectSpread({}, total), result);
-  }, {}); //
-  // console.log({ typoAttrs });
+var generateBackgroundControlStyles = function generateBackgroundControlStyles(_ref3) {
+  var controlName = _ref3.controlName,
+      attributes = _ref3.attributes,
+      _ref3$noOverlay = _ref3.noOverlay,
+      noOverlay = _ref3$noOverlay === void 0 ? false : _ref3$noOverlay,
+      _ref3$noMainBgi = _ref3.noMainBgi,
+      noMainBgi = _ref3$noMainBgi === void 0 ? false : _ref3$noMainBgi,
+      _ref3$noOverlayBgi = _ref3.noOverlayBgi,
+      noOverlayBgi = _ref3$noOverlayBgi === void 0 ? false : _ref3$noOverlayBgi;
+  var bg_transition = attributes["".concat(controlName, "bg_transition")],
+      backgroundType = attributes["".concat(controlName, "backgroundType")],
+      backgroundColor = attributes["".concat(controlName, "backgroundColor")],
+      gradientColor = attributes["".concat(controlName, "gradientColor")],
+      bgImageURL = attributes["".concat(controlName, "bgImageURL")],
+      backgroundSize = attributes["".concat(controlName, "backgroundSize")],
+      bgImgCustomSize = attributes["".concat(controlName, "bgImgCustomSize")],
+      bgImgCustomSizeUnit = attributes["".concat(controlName, "bgImgCustomSizeUnit")],
+      bgImgPos = attributes["".concat(controlName, "bgImgPos")],
+      bgImgcustomPosX = attributes["".concat(controlName, "bgImgcustomPosX")],
+      bgImgcustomPosXUnit = attributes["".concat(controlName, "bgImgcustomPosXUnit")],
+      bgImgcustomPosY = attributes["".concat(controlName, "bgImgcustomPosY")],
+      bgImgcustomPosYUnit = attributes["".concat(controlName, "bgImgcustomPosYUnit")],
+      bgImgAttachment = attributes["".concat(controlName, "bgImgAttachment")],
+      bgImgRepeat = attributes["".concat(controlName, "bgImgRepeat")],
+      TABbackgroundSize = attributes["TAB".concat(controlName, "backgroundSize")],
+      TABbgImgCustomSize = attributes["TAB".concat(controlName, "bgImgCustomSize")],
+      TABbgImgCustomSizeUnit = attributes["TAB".concat(controlName, "bgImgCustomSizeUnit")],
+      TABbgImgPos = attributes["TAB".concat(controlName, "bgImgPos")],
+      TABbgImgcustomPosX = attributes["TAB".concat(controlName, "bgImgcustomPosX")],
+      TABbgImgcustomPosXUnit = attributes["TAB".concat(controlName, "bgImgcustomPosXUnit")],
+      TABbgImgcustomPosY = attributes["TAB".concat(controlName, "bgImgcustomPosY")],
+      TABbgImgcustomPosYUnit = attributes["TAB".concat(controlName, "bgImgcustomPosYUnit")],
+      TABbgImgRepeat = attributes["TAB".concat(controlName, "bgImgRepeat")],
+      MOBbackgroundSize = attributes["MOB".concat(controlName, "backgroundSize")],
+      MOBbgImgCustomSize = attributes["MOB".concat(controlName, "bgImgCustomSize")],
+      MOBbgImgCustomSizeUnit = attributes["MOB".concat(controlName, "bgImgCustomSizeUnit")],
+      MOBbgImgPos = attributes["MOB".concat(controlName, "bgImgPos")],
+      MOBbgImgcustomPosX = attributes["MOB".concat(controlName, "bgImgcustomPosX")],
+      MOBbgImgcustomPosXUnit = attributes["MOB".concat(controlName, "bgImgcustomPosXUnit")],
+      MOBbgImgcustomPosY = attributes["MOB".concat(controlName, "bgImgcustomPosY")],
+      MOBbgImgcustomPosYUnit = attributes["MOB".concat(controlName, "bgImgcustomPosYUnit")],
+      MOBbgImgRepeat = attributes["MOB".concat(controlName, "bgImgRepeat")],
+      hov_backgroundType = attributes["hov_".concat(controlName, "backgroundType")],
+      hov_backgroundColor = attributes["hov_".concat(controlName, "backgroundColor")],
+      hov_gradientColor = attributes["hov_".concat(controlName, "gradientColor")],
+      hov_bgImageURL = attributes["hov_".concat(controlName, "bgImageURL")],
+      hov_bgImgAttachment = attributes["hov_".concat(controlName, "bgImgAttachment")],
+      hov_backgroundSize = attributes["hov_".concat(controlName, "backgroundSize")],
+      hov_bgImgCustomSize = attributes["hov_".concat(controlName, "bgImgCustomSize")],
+      hov_bgImgCustomSizeUnit = attributes["hov_".concat(controlName, "bgImgCustomSizeUnit")],
+      hov_bgImgPos = attributes["hov_".concat(controlName, "bgImgPos")],
+      hov_bgImgcustomPosX = attributes["hov_".concat(controlName, "bgImgcustomPosX")],
+      hov_bgImgcustomPosXUnit = attributes["hov_".concat(controlName, "bgImgcustomPosXUnit")],
+      hov_bgImgcustomPosY = attributes["hov_".concat(controlName, "bgImgcustomPosY")],
+      hov_bgImgcustomPosYUnit = attributes["hov_".concat(controlName, "bgImgcustomPosYUnit")],
+      hov_bgImgRepeat = attributes["hov_".concat(controlName, "bgImgRepeat")],
+      hov_TABbackgroundSize = attributes["hov_TAB".concat(controlName, "backgroundSize")],
+      hov_TABbgImgCustomSize = attributes["hov_TAB".concat(controlName, "bgImgCustomSize")],
+      hov_TABbgImgCustomSizeUnit = attributes["hov_TAB".concat(controlName, "bgImgCustomSizeUnit")],
+      hov_TABbgImgPos = attributes["hov_TAB".concat(controlName, "bgImgPos")],
+      hov_TABbgImgcustomPosX = attributes["hov_TAB".concat(controlName, "bgImgcustomPosX")],
+      hov_TABbgImgcustomPosXUnit = attributes["hov_TAB".concat(controlName, "bgImgcustomPosXUnit")],
+      hov_TABbgImgcustomPosY = attributes["hov_TAB".concat(controlName, "bgImgcustomPosY")],
+      hov_TABbgImgcustomPosYUnit = attributes["hov_TAB".concat(controlName, "bgImgcustomPosYUnit")],
+      hov_TABbgImgRepeat = attributes["hov_TAB".concat(controlName, "bgImgRepeat")],
+      hov_MOBbackgroundSize = attributes["hov_MOB".concat(controlName, "backgroundSize")],
+      hov_MOBbgImgCustomSize = attributes["hov_MOB".concat(controlName, "bgImgCustomSize")],
+      hov_MOBbgImgCustomSizeUnit = attributes["hov_MOB".concat(controlName, "bgImgCustomSizeUnit")],
+      hov_MOBbgImgPos = attributes["hov_MOB".concat(controlName, "bgImgPos")],
+      hov_MOBbgImgcustomPosX = attributes["hov_MOB".concat(controlName, "bgImgcustomPosX")],
+      hov_MOBbgImgcustomPosXUnit = attributes["hov_MOB".concat(controlName, "bgImgcustomPosXUnit")],
+      hov_MOBbgImgcustomPosY = attributes["hov_MOB".concat(controlName, "bgImgcustomPosY")],
+      hov_MOBbgImgcustomPosYUnit = attributes["hov_MOB".concat(controlName, "bgImgcustomPosYUnit")],
+      hov_MOBbgImgRepeat = attributes["hov_MOB".concat(controlName, "bgImgRepeat")],
+      isBgOverlay = attributes["".concat(controlName, "isBgOverlay")],
+      ovl_bg_transition = attributes["".concat(controlName, "ovl_bg_transition")],
+      ovl_filtersTransition = attributes["".concat(controlName, "ovl_filtersTransition")],
+      ovl_opacityTransition = attributes["".concat(controlName, "ovl_opacityTransition")],
+      overlayType = attributes["".concat(controlName, "overlayType")],
+      overlayColor = attributes["".concat(controlName, "overlayColor")],
+      overlayGradient = attributes["".concat(controlName, "overlayGradient")],
+      ovl_bgImageURL = attributes["".concat(controlName, "ovl_bgImageURL")],
+      ovl_bgImgAttachment = attributes["".concat(controlName, "ovl_bgImgAttachment")],
+      ovl_opacity = attributes["".concat(controlName, "ovl_opacity")],
+      ovl_blendMode = attributes["".concat(controlName, "ovl_blendMode")],
+      ovl_allowFilters = attributes["".concat(controlName, "ovl_allowFilters")],
+      ovl_fltrBrightness = attributes["".concat(controlName, "ovl_fltrBrightness")],
+      ovl_fltrContrast = attributes["".concat(controlName, "ovl_fltrContrast")],
+      ovl_fltrSaturation = attributes["".concat(controlName, "ovl_fltrSaturation")],
+      ovl_fltrBlur = attributes["".concat(controlName, "ovl_fltrBlur")],
+      ovl_fltrHue = attributes["".concat(controlName, "ovl_fltrHue")],
+      ovl_backgroundSize = attributes["".concat(controlName, "ovl_backgroundSize")],
+      ovl_bgImgCustomSize = attributes["".concat(controlName, "ovl_bgImgCustomSize")],
+      ovl_bgImgCustomSizeUnit = attributes["".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      ovl_bgImgPos = attributes["".concat(controlName, "ovl_bgImgPos")],
+      ovl_bgImgcustomPosX = attributes["".concat(controlName, "ovl_bgImgcustomPosX")],
+      ovl_bgImgcustomPosXUnit = attributes["".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      ovl_bgImgcustomPosY = attributes["".concat(controlName, "ovl_bgImgcustomPosY")],
+      ovl_bgImgcustomPosYUnit = attributes["".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      ovl_bgImgRepeat = attributes["".concat(controlName, "ovl_bgImgRepeat")],
+      TABovl_backgroundSize = attributes["TAB".concat(controlName, "ovl_backgroundSize")],
+      TABovl_bgImgCustomSize = attributes["TAB".concat(controlName, "ovl_bgImgCustomSize")],
+      TABovl_bgImgCustomSizeUnit = attributes["TAB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      TABovl_bgImgPos = attributes["TAB".concat(controlName, "ovl_bgImgPos")],
+      TABovl_bgImgcustomPosX = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosX")],
+      TABovl_bgImgcustomPosXUnit = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      TABovl_bgImgcustomPosY = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosY")],
+      TABovl_bgImgcustomPosYUnit = attributes["TAB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      TABovl_bgImgRepeat = attributes["TAB".concat(controlName, "ovl_bgImgRepeat")],
+      MOBovl_backgroundSize = attributes["MOB".concat(controlName, "ovl_backgroundSize")],
+      MOBovl_bgImgCustomSize = attributes["MOB".concat(controlName, "ovl_bgImgCustomSize")],
+      MOBovl_bgImgCustomSizeUnit = attributes["MOB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      MOBovl_bgImgPos = attributes["MOB".concat(controlName, "ovl_bgImgPos")],
+      MOBovl_bgImgcustomPosX = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosX")],
+      MOBovl_bgImgcustomPosXUnit = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      MOBovl_bgImgcustomPosY = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosY")],
+      MOBovl_bgImgcustomPosYUnit = attributes["MOB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      MOBovl_bgImgRepeat = attributes["MOB".concat(controlName, "ovl_bgImgRepeat")],
+      hov_overlayType = attributes["hov_".concat(controlName, "overlayType")],
+      hov_overlayColor = attributes["hov_".concat(controlName, "overlayColor")],
+      hov_overlayGradient = attributes["hov_".concat(controlName, "overlayGradient")],
+      hov_ovl_bgImageURL = attributes["hov_".concat(controlName, "ovl_bgImageURL")],
+      hov_ovl_bgImgAttachment = attributes["hov_".concat(controlName, "ovl_bgImgAttachment")],
+      hov_ovl_opacity = attributes["hov_".concat(controlName, "ovl_opacity")],
+      hov_ovl_blendMode = attributes["hov_".concat(controlName, "ovl_blendMode")],
+      hov_ovl_allowFilters = attributes["hov_".concat(controlName, "ovl_allowFilters")],
+      hov_ovl_fltrBrightness = attributes["hov_".concat(controlName, "ovl_fltrBrightness")],
+      hov_ovl_fltrContrast = attributes["hov_".concat(controlName, "ovl_fltrContrast")],
+      hov_ovl_fltrSaturation = attributes["hov_".concat(controlName, "ovl_fltrSaturation")],
+      hov_ovl_fltrBlur = attributes["hov_".concat(controlName, "ovl_fltrBlur")],
+      hov_ovl_fltrHue = attributes["hov_".concat(controlName, "ovl_fltrHue")],
+      hov_ovl_backgroundSize = attributes["hov_".concat(controlName, "ovl_backgroundSize")],
+      hov_ovl_bgImgCustomSize = attributes["hov_".concat(controlName, "ovl_bgImgCustomSize")],
+      hov_ovl_bgImgCustomSizeUnit = attributes["hov_".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      hov_ovl_bgImgPos = attributes["hov_".concat(controlName, "ovl_bgImgPos")],
+      hov_ovl_bgImgcustomPosX = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosX")],
+      hov_ovl_bgImgcustomPosXUnit = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      hov_ovl_bgImgcustomPosY = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosY")],
+      hov_ovl_bgImgcustomPosYUnit = attributes["hov_".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      hov_ovl_bgImgRepeat = attributes["hov_".concat(controlName, "ovl_bgImgRepeat")],
+      hov_TABovl_backgroundSize = attributes["hov_TAB".concat(controlName, "ovl_backgroundSize")],
+      hov_TABovl_bgImgCustomSize = attributes["hov_TAB".concat(controlName, "ovl_bgImgCustomSize")],
+      hov_TABovl_bgImgCustomSizeUnit = attributes["hov_TAB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      hov_TABovl_bgImgPos = attributes["hov_TAB".concat(controlName, "ovl_bgImgPos")],
+      hov_TABovl_bgImgcustomPosX = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosX")],
+      hov_TABovl_bgImgcustomPosXUnit = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      hov_TABovl_bgImgcustomPosY = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosY")],
+      hov_TABovl_bgImgcustomPosYUnit = attributes["hov_TAB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      hov_TABovl_bgImgRepeat = attributes["hov_TAB".concat(controlName, "ovl_bgImgRepeat")],
+      hov_MOBovl_backgroundSize = attributes["hov_MOB".concat(controlName, "ovl_backgroundSize")],
+      hov_MOBovl_bgImgCustomSize = attributes["hov_MOB".concat(controlName, "ovl_bgImgCustomSize")],
+      hov_MOBovl_bgImgCustomSizeUnit = attributes["hov_MOB".concat(controlName, "ovl_bgImgCustomSizeUnit")],
+      hov_MOBovl_bgImgPos = attributes["hov_MOB".concat(controlName, "ovl_bgImgPos")],
+      hov_MOBovl_bgImgcustomPosX = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosX")],
+      hov_MOBovl_bgImgcustomPosXUnit = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosXUnit")],
+      hov_MOBovl_bgImgcustomPosY = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosY")],
+      hov_MOBovl_bgImgcustomPosYUnit = attributes["hov_MOB".concat(controlName, "ovl_bgImgcustomPosYUnit")],
+      hov_MOBovl_bgImgRepeat = attributes["hov_MOB".concat(controlName, "ovl_bgImgRepeat")];
+  var backgroundStylesDesktop = "\n      background-image: ".concat(noMainBgi === false && backgroundType === "classic" && bgImageURL ? "url(\"".concat(bgImageURL, "\")") : backgroundType === "gradient" ? gradientColor : "none", ";\n  \n      ").concat(noMainBgi === false && backgroundType === "classic" && bgImageURL ? "\n          ".concat(backgroundSize && backgroundSize !== "custom" ? "background-size: ".concat(backgroundSize, ";") : backgroundSize === "custom" ? "background-size: ".concat(bgImgCustomSize).concat(bgImgCustomSizeUnit, " auto;") : " ", "\n  \n          ").concat(bgImgPos && bgImgPos !== "custom" ? "background-position: ".concat(bgImgPos, ";") : bgImgPos === "custom" ? "background-position: ".concat(bgImgcustomPosX).concat(bgImgcustomPosXUnit, " ").concat(bgImgcustomPosY).concat(bgImgcustomPosYUnit, ";") : " ", "\n  \n          ").concat(bgImgAttachment ? "background-attachment: ".concat(bgImgAttachment, ";") : " ", "\n  \n          ").concat(bgImgRepeat ? "background-repeat: ".concat(bgImgRepeat, ";") : " ", "\n          \n         \n          ") : " ", "\n\n      ").concat(isBgOverlay ? "\n            z-index: 2;\n            position: relative;\n          " : " ", "\t\n    \n      ").concat(backgroundColor ? "background-color: ".concat(backgroundColor, ";") : " ", "\n  \n    ");
+  var hoverBackgroundStylesDesktop = "\n  \n    ".concat(noMainBgi === false && hov_backgroundType === "classic" && hov_bgImageURL || hov_backgroundType === "gradient" && hov_gradientColor ? "\n        background-image: ".concat(noMainBgi === false && hov_backgroundType === "classic" && hov_bgImageURL ? "url(\"".concat(hov_bgImageURL, "\")") : hov_backgroundType === "gradient" && hov_gradientColor ? hov_gradientColor : "none", ";    \n        ") : " ", "\n  \n   \n  \n    ").concat(noMainBgi === false && hov_backgroundType === "classic" && hov_bgImageURL ? "\n        ".concat(hov_backgroundSize && hov_backgroundSize !== "custom" ? "background-size: ".concat(hov_backgroundSize, ";") : hov_backgroundSize === "custom" ? "background-size: ".concat(hov_bgImgCustomSize).concat(hov_bgImgCustomSizeUnit, " auto;") : " ", "\n  \n        ").concat(hov_bgImgPos && hov_bgImgPos !== "custom" ? "background-position: ".concat(hov_bgImgPos, ";") : hov_bgImgPos === "custom" ? "background-position: ".concat(hov_bgImgcustomPosX).concat(hov_bgImgcustomPosXUnit, " ").concat(hov_bgImgcustomPosY).concat(hov_bgImgcustomPosYUnit, ";") : " ", "\n  \n        ").concat(hov_bgImgAttachment ? "background-attachment: ".concat(hov_bgImgAttachment, ";") : " ", "\n  \n        ").concat(hov_bgImgRepeat ? "background-repeat: ".concat(hov_bgImgRepeat, ";") : " ", "\n        \n        ") : " ", "\n  \n        ").concat(hov_backgroundColor ? "background-color: ".concat(hov_backgroundColor, ";") : " ", "\n  \n  ");
+  var backgroundStylesTab = "\n      ".concat(noMainBgi === false && backgroundType === "classic" && bgImageURL ? "\n          ".concat(TABbackgroundSize && TABbackgroundSize !== "custom" ? "background-size: ".concat(TABbackgroundSize, ";") : TABbackgroundSize === "custom" ? "background-size: ".concat(TABbgImgCustomSize).concat(TABbgImgCustomSizeUnit, " auto;") : " ", "\n  \n          ").concat(TABbgImgPos && TABbgImgPos !== "custom" ? "background-position: ".concat(TABbgImgPos, ";") : TABbgImgPos === "custom" ? "background-position: ".concat(TABbgImgcustomPosX).concat(TABbgImgcustomPosXUnit, " ").concat(TABbgImgcustomPosY).concat(TABbgImgcustomPosYUnit, ";") : " ", "\n  \n          ").concat(TABbgImgRepeat ? "background-repeat: ".concat(TABbgImgRepeat, ";") : " ", "\n          background-attachment: scroll;\n          ") : " ", "\n  \n    ");
+  var hoverBackgroundStylesTab = "\n    ".concat(noMainBgi === false && hov_backgroundType === "classic" && hov_bgImageURL ? "\n        ".concat(hov_TABbackgroundSize && hov_TABbackgroundSize !== "custom" ? "background-size: ".concat(hov_TABbackgroundSize, ";") : hov_TABbackgroundSize === "custom" ? "background-size: ".concat(hov_TABbgImgCustomSize).concat(hov_TABbgImgCustomSizeUnit, " auto;") : " ", "\n  \n        ").concat(hov_TABbgImgPos && hov_TABbgImgPos !== "custom" ? "background-position: ".concat(hov_TABbgImgPos, ";") : hov_TABbgImgPos === "custom" ? "background-position: ".concat(hov_TABbgImgcustomPosX).concat(hov_TABbgImgcustomPosXUnit, " ").concat(hov_TABbgImgcustomPosY).concat(hov_TABbgImgcustomPosYUnit, ";") : " ", "\n  \n        ").concat(hov_TABbgImgRepeat ? "background-repeat: ".concat(hov_TABbgImgRepeat, ";") : " ", "\n        background-attachment: scroll;\n        ") : " ", "\n  \n  ");
+  var backgroundStylesMobile = "\n      ".concat(noMainBgi === false && backgroundType === "classic" && bgImageURL ? "\n          ".concat(MOBbackgroundSize && MOBbackgroundSize !== "custom" ? "background-size: ".concat(MOBbackgroundSize, ";") : MOBbackgroundSize === "custom" ? "background-size: ".concat(MOBbgImgCustomSize).concat(MOBbgImgCustomSizeUnit, " auto;") : " ", "\n  \n          ").concat(MOBbgImgPos && MOBbgImgPos !== "custom" ? "background-position: ".concat(MOBbgImgPos, ";") : MOBbgImgPos === "custom" ? "background-position: ".concat(MOBbgImgcustomPosX).concat(MOBbgImgcustomPosXUnit, " ").concat(MOBbgImgcustomPosY).concat(MOBbgImgcustomPosYUnit, ";") : " ", "\n  \n          ").concat(MOBbgImgRepeat ? "background-repeat: ".concat(MOBbgImgRepeat, ";") : " ", "\n  \n          ") : " ", "\n  \n    ");
+  var hoverBackgroundStylesMobile = "\n    ".concat(noMainBgi === false && hov_backgroundType === "classic" && hov_bgImageURL ? "\n        ".concat(hov_MOBbackgroundSize && hov_MOBbackgroundSize !== "custom" ? "background-size: ".concat(hov_MOBbackgroundSize, ";") : hov_MOBbackgroundSize === "custom" ? "background-size: ".concat(hov_MOBbgImgCustomSize).concat(hov_MOBbgImgCustomSizeUnit, " auto;") : " ", "\n    \n        ").concat(hov_MOBbgImgPos && hov_MOBbgImgPos !== "custom" ? "background-position: ".concat(hov_MOBbgImgPos, ";") : hov_MOBbgImgPos === "custom" ? "background-position: ".concat(hov_MOBbgImgcustomPosX).concat(hov_MOBbgImgcustomPosXUnit, " ").concat(hov_MOBbgImgcustomPosY).concat(hov_MOBbgImgcustomPosYUnit, ";") : " ", "\n    \n        ").concat(hov_MOBbgImgRepeat ? "background-repeat: ".concat(hov_MOBbgImgRepeat, ";") : " ", "\n    \n        ") : " ", "\n    \n    "); // console.log({ ovl_blendMode });
 
-  return typoAttrs;
-}; // Important: the following "generateBorderShadowAttributes" function must be declared below the "generateDimensionsAttributes" function declaration
+  var overlayStylesDesktop = "\n    \n      ".concat(noOverlay === false && isBgOverlay ? "\n            content: \"\";\n            position: absolute;\n            top: 0;\n            bottom: 0;\n            right: 0;\n            left: 0;\n            z-index: 0;\n            background-image: ".concat(noOverlayBgi === false && overlayType === "classic" && ovl_bgImageURL ? "url(\"".concat(ovl_bgImageURL, "\")") : overlayType === "gradient" ? overlayGradient : "none", ";\n            ").concat(overlayColor ? "background-color: ".concat(overlayColor, ";") : " ", "\n            ").concat(ovl_opacity || ovl_opacity === 0 ? "opacity: ".concat(ovl_opacity, ";") : " ", "\n            ").concat(ovl_blendMode ? "mix-blend-mode: ".concat(ovl_blendMode, ";") : " ", "\n            ").concat(ovl_allowFilters ? "filter: brightness( ".concat(ovl_fltrBrightness, "% ) contrast( ").concat(ovl_fltrContrast, "% ) saturate( ").concat(ovl_fltrSaturation, "% ) blur( ").concat(ovl_fltrBlur, "px ) hue-rotate( \n              ").concat(ovl_fltrHue, "deg );") : " ", "\n  \n        ").concat(noOverlayBgi === false && overlayType === "classic" && ovl_bgImageURL ? "\n            ".concat(ovl_backgroundSize && ovl_backgroundSize !== "custom" ? "background-size: ".concat(ovl_backgroundSize, ";") : ovl_backgroundSize === "custom" ? "background-size: ".concat(ovl_bgImgCustomSize).concat(ovl_bgImgCustomSizeUnit, " auto;") : " ", "\n  \n            ").concat(ovl_bgImgPos && ovl_bgImgPos !== "custom" ? "background-position: ".concat(ovl_bgImgPos, ";") : ovl_bgImgPos === "custom" ? "background-position: ".concat(ovl_bgImgcustomPosX).concat(ovl_bgImgcustomPosXUnit, " ").concat(ovl_bgImgcustomPosY).concat(ovl_bgImgcustomPosYUnit, ";") : " ", "\n  \n            ").concat(ovl_bgImgAttachment ? "background-attachment: ".concat(ovl_bgImgAttachment, ";") : " ", "\n  \n            ").concat(ovl_bgImgRepeat ? "background-repeat: ".concat(ovl_bgImgRepeat, ";") : " ", "\n            \n            ") : " ", "\n  \n        ") : " ", "\n    \n    \n    ");
+  var hoverOverlayStylesDesktop = "\n    \n    ".concat(noOverlay === false && isBgOverlay ? "\n        ".concat(noOverlayBgi === false && hov_overlayType === "classic" && hov_ovl_bgImageURL || hov_overlayType === "gradient" && hov_overlayGradient ? "\n          background-image: ".concat(noOverlayBgi === false && hov_overlayType === "classic" && hov_ovl_bgImageURL ? "url(\"".concat(hov_ovl_bgImageURL, "\")") : hov_overlayType === "gradient" && hov_overlayGradient ? hov_overlayGradient : "none", ";\n          ") : " ", "\n  \n        ").concat(hov_overlayColor ? "background-color: ".concat(hov_overlayColor, ";") : " ", "\n        ").concat(hov_ovl_opacity || hov_ovl_opacity === 0 ? "opacity: ".concat(hov_ovl_opacity, ";") : " ", "\n        ").concat(hov_ovl_blendMode ? "mix-blend-mode: ".concat(hov_ovl_blendMode, ";") : " ", "\n        ").concat(hov_ovl_allowFilters ? "filter: brightness( ".concat(hov_ovl_fltrBrightness, "% ) contrast( ").concat(hov_ovl_fltrContrast, "% ) saturate( ").concat(hov_ovl_fltrSaturation, "% ) blur( ").concat(hov_ovl_fltrBlur, "px ) hue-rotate( \n          ").concat(hov_ovl_fltrHue, "deg );") : " ", "\n    \n      ").concat(noOverlayBgi === false && hov_overlayType === "classic" && hov_ovl_bgImageURL ? "\n          ".concat(hov_ovl_backgroundSize && hov_ovl_backgroundSize !== "custom" ? "background-size: ".concat(hov_ovl_backgroundSize, ";") : hov_ovl_backgroundSize === "custom" ? "background-size: ".concat(hov_ovl_bgImgCustomSize).concat(hov_ovl_bgImgCustomSizeUnit, " auto;") : " ", "\n    \n          ").concat(hov_ovl_bgImgPos && hov_ovl_bgImgPos !== "custom" ? "background-position: ".concat(hov_ovl_bgImgPos, ";") : hov_ovl_bgImgPos === "custom" ? "background-position: ".concat(hov_ovl_bgImgcustomPosX).concat(hov_ovl_bgImgcustomPosXUnit, " ").concat(hov_ovl_bgImgcustomPosY).concat(hov_ovl_bgImgcustomPosYUnit, ";") : " ", "\n    \n          ").concat(hov_ovl_bgImgAttachment ? "background-attachment: ".concat(hov_ovl_bgImgAttachment, ";") : " ", "\n    \n          ").concat(hov_ovl_bgImgRepeat ? "background-repeat: ".concat(hov_ovl_bgImgRepeat, ";") : " ", "\n          \n          ") : " ", "\n    \n      ") : " ", "\n    \n    \n    ");
+  var overlayStylesTab = "\n    ".concat(noOverlay === false && noOverlayBgi === false && isBgOverlay && overlayType === "classic" && ovl_bgImageURL ? "\n        ".concat(TABovl_backgroundSize && TABovl_backgroundSize !== "custom" ? "background-size: ".concat(TABovl_backgroundSize, ";") : TABovl_backgroundSize === "custom" ? "background-size: ".concat(TABovl_bgImgCustomSize).concat(TABovl_bgImgCustomSizeUnit, " auto;") : " ", "\n  \n          ").concat(TABovl_bgImgPos && TABovl_bgImgPos !== "custom" ? "background-position: ".concat(TABovl_bgImgPos, ";") : TABovl_bgImgPos === "custom" ? "background-position: ".concat(TABovl_bgImgcustomPosX).concat(TABovl_bgImgcustomPosXUnit, " ").concat(TABovl_bgImgcustomPosY).concat(TABovl_bgImgcustomPosYUnit, ";") : " ", "\n  \n          ").concat(TABovl_bgImgRepeat ? "background-repeat: ".concat(TABovl_bgImgRepeat, ";") : " ", "\n          background-attachment: scroll;\n        ") : " ", "\n    \n    ");
+  var hoverOverlayStylesTab = "\n  ".concat(noOverlay === false && noOverlayBgi === false && isBgOverlay && hov_overlayType === "classic" && hov_ovl_bgImageURL ? "\n      ".concat(hov_TABovl_backgroundSize && hov_TABovl_backgroundSize !== "custom" ? "background-size: ".concat(hov_TABovl_backgroundSize, ";") : hov_TABovl_backgroundSize === "custom" ? "background-size: ".concat(hov_TABovl_bgImgCustomSize).concat(hov_TABovl_bgImgCustomSizeUnit, " auto;") : " ", "\n  \n        ").concat(hov_TABovl_bgImgPos && hov_TABovl_bgImgPos !== "custom" ? "background-position: ".concat(hov_TABovl_bgImgPos, ";") : hov_TABovl_bgImgPos === "custom" ? "background-position: ".concat(hov_TABovl_bgImgcustomPosX).concat(hov_TABovl_bgImgcustomPosXUnit, " ").concat(hov_TABovl_bgImgcustomPosY).concat(hov_TABovl_bgImgcustomPosYUnit, ";") : " ", "\n  \n        ").concat(hov_TABovl_bgImgRepeat ? "background-repeat: ".concat(hov_TABovl_bgImgRepeat, ";") : " ", "\n        background-attachment: scroll;\n      ") : " ", "\n  \n  ");
+  var overlayStylesMobile = "\n    ".concat(noOverlay === false && noOverlayBgi === false && isBgOverlay && overlayType === "classic" && ovl_bgImageURL ? "\n        ".concat(MOBovl_backgroundSize && MOBovl_backgroundSize !== "custom" ? "background-size: ".concat(MOBovl_backgroundSize, ";") : MOBovl_backgroundSize === "custom" ? "background-size: ".concat(MOBovl_bgImgCustomSize).concat(MOBovl_bgImgCustomSizeUnit, " auto;") : " ", "\n  \n        ").concat(MOBovl_bgImgPos && MOBovl_bgImgPos !== "custom" ? "background-position: ".concat(MOBovl_bgImgPos, ";") : MOBovl_bgImgPos === "custom" ? "background-position: ".concat(MOBovl_bgImgcustomPosX).concat(MOBovl_bgImgcustomPosXUnit, " ").concat(MOBovl_bgImgcustomPosY).concat(MOBovl_bgImgcustomPosYUnit, ";") : " ", "\n  \n        ").concat(MOBovl_bgImgRepeat ? "background-repeat: ".concat(MOBovl_bgImgRepeat, ";") : " ", "\n        ") : " ", "\n    \n    ");
+  var hoverOverlayStylesMobile = "\n    ".concat(noOverlay === false && noOverlayBgi === false && isBgOverlay && hov_overlayType === "classic" && hov_ovl_bgImageURL ? "\n        ".concat(hov_MOBovl_backgroundSize && hov_MOBovl_backgroundSize !== "custom" ? "background-size: ".concat(hov_MOBovl_backgroundSize, ";") : hov_MOBovl_backgroundSize === "custom" ? "background-size: ".concat(hov_MOBovl_bgImgCustomSize).concat(hov_MOBovl_bgImgCustomSizeUnit, " auto;") : " ", "\n  \n        ").concat(hov_MOBovl_bgImgPos && hov_MOBovl_bgImgPos !== "custom" ? "background-position: ".concat(hov_MOBovl_bgImgPos, ";") : hov_MOBovl_bgImgPos === "custom" ? "background-position: ".concat(hov_MOBovl_bgImgcustomPosX).concat(hov_MOBovl_bgImgcustomPosXUnit, " ").concat(hov_MOBovl_bgImgcustomPosY).concat(hov_MOBovl_bgImgcustomPosYUnit, ";") : " ", "\n  \n        ").concat(hov_MOBovl_bgImgRepeat ? "background-repeat: ".concat(hov_MOBovl_bgImgRepeat, ";") : " ", "\n        ") : " ", "\n    \n    ");
+  var bgTransitionStyle = "background ".concat(bg_transition || 0, "s");
+  var ovlTransitionStyle = "background ".concat(ovl_bg_transition || 0, "s, opacity ").concat(ovl_opacityTransition || 0, "s, filter ").concat(ovl_filtersTransition || 0, "s");
+  return {
+    backgroundStylesDesktop: backgroundStylesDesktop,
+    hoverBackgroundStylesDesktop: hoverBackgroundStylesDesktop,
+    backgroundStylesTab: backgroundStylesTab,
+    hoverBackgroundStylesTab: hoverBackgroundStylesTab,
+    backgroundStylesMobile: backgroundStylesMobile,
+    hoverBackgroundStylesMobile: hoverBackgroundStylesMobile,
+    overlayStylesDesktop: overlayStylesDesktop,
+    hoverOverlayStylesDesktop: hoverOverlayStylesDesktop,
+    overlayStylesTab: overlayStylesTab,
+    hoverOverlayStylesTab: hoverOverlayStylesTab,
+    overlayStylesMobile: overlayStylesMobile,
+    hoverOverlayStylesMobile: hoverOverlayStylesMobile,
+    bgTransitionStyle: bgTransitionStyle,
+    ovlTransitionStyle: ovlTransitionStyle
+  };
+};
+
+/***/ }),
+
+/***/ "./util/helpers/borderShadowHelpers.js":
+/*!*********************************************!*\
+  !*** ./util/helpers/borderShadowHelpers.js ***!
+  \*********************************************/
+/*! exports provided: generateBorderShadowAttributes, generateBorderShadowStyles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateBorderShadowAttributes", function() { return generateBorderShadowAttributes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateBorderShadowStyles", function() { return generateBorderShadowStyles; });
+/* harmony import */ var _dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dimensionHelpers */ "./util/helpers/dimensionHelpers.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+ // Important: the following "generateBorderShadowAttributes" function must be declared below the "generateDimensionsAttributes" function declaration
 // function to generate BorderShadow control's attributes
 
 var generateBorderShadowAttributes = function generateBorderShadowAttributes(controlName) {
-  var _objectSpread6, _shdAttrs;
+  var _objectSpread2, _shdAttrs, _transitionAttrs;
 
   var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var _defaults$bdrDefaults = defaults.bdrDefaults,
@@ -8070,20 +10641,20 @@ var generateBorderShadowAttributes = function generateBorderShadowAttributes(con
       _defaults$noShadow = defaults.noShadow,
       noShadow = _defaults$noShadow === void 0 ? false : _defaults$noShadow;
 
-  var bdrAttrs = _objectSpread(_objectSpread(_objectSpread(_objectSpread((_objectSpread6 = {}, _defineProperty(_objectSpread6, "".concat(controlName, "BorderType"), {
+  var bdrAttrs = _objectSpread(_objectSpread(_objectSpread(_objectSpread((_objectSpread2 = {}, _defineProperty(_objectSpread2, "".concat(controlName, "BorderType"), {
     type: "string",
     "default": "normal"
-  }), _defineProperty(_objectSpread6, "".concat(controlName, "borderColor"), {
+  }), _defineProperty(_objectSpread2, "".concat(controlName, "borderColor"), {
     type: "string"
-  }), _defineProperty(_objectSpread6, "".concat(controlName, "borderStyle"), {
+  }), _defineProperty(_objectSpread2, "".concat(controlName, "borderStyle"), {
     type: "string",
     "default": "none"
-  }), _defineProperty(_objectSpread6, "".concat(controlName, "HborderColor"), {
+  }), _defineProperty(_objectSpread2, "".concat(controlName, "HborderColor"), {
     type: "string"
-  }), _defineProperty(_objectSpread6, "".concat(controlName, "HborderStyle"), {
+  }), _defineProperty(_objectSpread2, "".concat(controlName, "HborderStyle"), {
     type: "string",
     "default": "none"
-  }), _objectSpread6), generateDimensionsAttributes("".concat(controlName, "Bdr_"), bdrDefaults)), generateDimensionsAttributes("".concat(controlName, "Rds_"), rdsDefaults)), generateDimensionsAttributes("".concat(controlName, "HBdr_"))), generateDimensionsAttributes("".concat(controlName, "HRds_")));
+  }), _objectSpread2), Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsAttributes"])("".concat(controlName, "Bdr_"), bdrDefaults)), Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsAttributes"])("".concat(controlName, "Rds_"), rdsDefaults)), Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsAttributes"])("".concat(controlName, "HBdr_"))), Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsAttributes"])("".concat(controlName, "HRds_")));
 
   var shdAttrs = (_shdAttrs = {}, _defineProperty(_shdAttrs, "".concat(controlName, "hOffset"), {
     type: "number"
@@ -8115,22 +10686,23 @@ var generateBorderShadowAttributes = function generateBorderShadowAttributes(con
     type: "boolean",
     "default": false
   }), _shdAttrs);
+  var transitionAttrs = (_transitionAttrs = {}, _defineProperty(_transitionAttrs, "".concat(controlName, "borderTransition"), {
+    type: "number",
+    "default": 0.5
+  }), _defineProperty(_transitionAttrs, "".concat(controlName, "radiusTransition"), {
+    type: "number",
+    "default": 0.5
+  }), _defineProperty(_transitionAttrs, "".concat(controlName, "shadowTransition"), {
+    type: "number",
+    "default": 0.5
+  }), _transitionAttrs);
 
   if (noBorder === true) {
-    return _objectSpread(_objectSpread({}, shdAttrs), {}, _defineProperty({}, "".concat(controlName, "transitionTime"), {
-      type: "string",
-      "default": "500"
-    }));
+    return _objectSpread(_objectSpread({}, shdAttrs), transitionAttrs);
   } else if (noShadow === true) {
-    return _objectSpread(_objectSpread({}, bdrAttrs), {}, _defineProperty({}, "".concat(controlName, "transitionTime"), {
-      type: "string",
-      "default": "500"
-    }));
+    return _objectSpread(_objectSpread({}, bdrAttrs), transitionAttrs);
   } else {
-    return _objectSpread(_objectSpread(_objectSpread({}, bdrAttrs), shdAttrs), {}, _defineProperty({}, "".concat(controlName, "transitionTime"), {
-      type: "string",
-      "default": "500"
-    }));
+    return _objectSpread(_objectSpread(_objectSpread({}, bdrAttrs), shdAttrs), transitionAttrs);
   } // const result = {
   //   // Border Shadow attributes ⬇
   //   // border attributes ⬇
@@ -8195,7 +10767,7 @@ var generateBorderShadowAttributes = function generateBorderShadowAttributes(con
   //     type: "boolean",
   //     default: false,
   //   },
-  //   [`${controlName}transitionTime`]: {
+  //   [`${controlName}borderTransition`]: {
   //     type: "string",
   //     default: "500",
   //   },
@@ -8207,128 +10779,14 @@ var generateBorderShadowAttributes = function generateBorderShadowAttributes(con
   // console.log("---generateBorderShadowAttributes:", { result });
   // return result;
 
-}; // helper Functions: function 'textInsideForEdit' is for setting the innertext depending on whether separator should be shown and which separator should be shown
-
-var textInsideForEdit = function textInsideForEdit(value, isShowSeparator, separator) {
-  return isShowSeparator ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator) : value.toString();
-}; // generateRandomNumber function is for generating a random number
-
-var generateRandomNumber = function generateRandomNumber() {
-  return Math.floor(Math.random() * 1000000000);
-}; // hardMinifyCssStrings is for minifying the css which is in the style tag as a string  for view.js
-
-var hardMinifyCssStrings = function hardMinifyCssStrings(cssString) {
-  // console.log({ cssString });
-  return cssString.replace(/\s+/g, " ").replace(/(?<=\:).+(?=\;)/g, function (match) {
-    // console.log({ match, g1, offset, string });
-    return match.trim().replace(/\s+/g, "__s_p_a_c_e__");
-  }) // .replace(/\s+(?!(?:[\w\d\.\-\#]+\{))/g, "")
-  .replace(/\s+(?![\w\d\.\-\#]+\{)/g, "").replace(/\s+/g, " ").replace(/__s_p_a_c_e__/g, " ");
-}; // softMinifyCssStrings is for minifying the css which is in the style tag as a string  for view.js
-
-var softMinifyCssStrings = function softMinifyCssStrings(cssString) {
-  return cssString.replace(/\s+/g, " ");
-}; // check if css string is empty or not.
-
-var isCssExists = function isCssExists(cssString) {
-  return /.+(?=\:(?!hover)(?!focus))/.test(cssString);
-}; //
-// function to generate typography styles for an element based on it's prefix
-
-var generateTypographyStyles = function generateTypographyStyles(_ref11) {
-  var prefixConstant = _ref11.prefixConstant,
-      defaultFontSize = _ref11.defaultFontSize,
-      attributes = _ref11.attributes;
-  var fontFamily = attributes["".concat(prefixConstant, "FontFamily")],
-      fontWeight = attributes["".concat(prefixConstant, "FontWeight")],
-      textTransform = attributes["".concat(prefixConstant, "TextTransform")],
-      textDecoration = attributes["".concat(prefixConstant, "TextDecoration")],
-      _attributes$ = attributes["".concat(prefixConstant, "FontSize")],
-      fontSize = _attributes$ === void 0 ? defaultFontSize : _attributes$,
-      sizeUnit = attributes["".concat(prefixConstant, "SizeUnit")],
-      letterSpacing = attributes["".concat(prefixConstant, "LetterSpacing")],
-      letterSpacingUnit = attributes["".concat(prefixConstant, "LetterSpacingUnit")],
-      lineHeight = attributes["".concat(prefixConstant, "LineHeight")],
-      lineHeightUnit = attributes["".concat(prefixConstant, "LineHeightUnit")],
-      TABsizeUnit = attributes["TAB".concat(prefixConstant, "SizeUnit")],
-      TABletterSpacingUnit = attributes["TAB".concat(prefixConstant, "LetterSpacingUnit")],
-      TABlineHeightUnit = attributes["TAB".concat(prefixConstant, "LineHeightUnit")],
-      TABfontSize = attributes["TAB".concat(prefixConstant, "FontSize")],
-      TABletterSpacing = attributes["TAB".concat(prefixConstant, "LetterSpacing")],
-      TABlineHeight = attributes["TAB".concat(prefixConstant, "LineHeight")],
-      MOBsizeUnit = attributes["MOB".concat(prefixConstant, "SizeUnit")],
-      MOBletterSpacingUnit = attributes["MOB".concat(prefixConstant, "LetterSpacingUnit")],
-      MOBlineHeightUnit = attributes["MOB".concat(prefixConstant, "LineHeightUnit")],
-      MOBfontSize = attributes["MOB".concat(prefixConstant, "FontSize")],
-      MOBletterSpacing = attributes["MOB".concat(prefixConstant, "LetterSpacing")],
-      MOBlineHeight = attributes["MOB".concat(prefixConstant, "LineHeight")];
-  var typoStylesDesktop = "\n\t\t\t".concat(fontFamily ? "font-family: ".concat(fontFamily, ";") : " ", "\n\t\t\t").concat(hasVal(fontSize) ? "font-size: ".concat(fontSize).concat(sizeUnit, ";") : " ", "\n\t\t\t").concat(hasVal(lineHeight) ? "line-height: ".concat(lineHeight).concat(lineHeightUnit, ";") : " ", "\n\t\t\t").concat(fontWeight ? "font-weight: ".concat(fontWeight, ";") : " ", "\n\t\t\t").concat(textDecoration ? "text-decoration: ".concat(textDecoration, ";") : " ", "\n\t\t\t").concat(textTransform ? "text-transform: ".concat(textTransform, ";") : " ", "\n\t\t\t").concat(hasVal(letterSpacing) ? "letter-spacing: ".concat(letterSpacing).concat(letterSpacingUnit, ";") : " ", "\n\t\t");
-  var typoStylesTab = "\n\t\t\t".concat(hasVal(TABfontSize) ? "font-size: ".concat(TABfontSize).concat(TABsizeUnit, ";") : " ", "\n\t\t\t").concat(hasVal(TABlineHeight) ? "line-height: ".concat(TABlineHeight).concat(TABlineHeightUnit, ";") : " ", "\n\t\t\t").concat(hasVal(TABletterSpacing) ? "letter-spacing: ".concat(TABletterSpacing).concat(TABletterSpacingUnit, ";") : " ", "\n\t\t");
-  var typoStylesMobile = "\n\t\t\t".concat(hasVal(MOBfontSize) ? "font-size: ".concat(MOBfontSize).concat(MOBsizeUnit, ";") : " ", "\n\t\t\t").concat(hasVal(MOBlineHeight) ? "line-height: ".concat(MOBlineHeight).concat(MOBlineHeightUnit, ";") : " ", "\n\t\t\t").concat(hasVal(MOBletterSpacing) ? "letter-spacing: ".concat(MOBletterSpacing).concat(MOBletterSpacingUnit, ";") : " ", "\n\t\t");
-  return {
-    typoStylesDesktop: typoStylesDesktop,
-    typoStylesTab: typoStylesTab,
-    typoStylesMobile: typoStylesMobile
-  };
-}; //
-// function to generate dimensions-controls styles for an element based on it's controlName(prefix)
-
-var generateDimensionsControlStyles = function generateDimensionsControlStyles(_ref12) {
-  var controlName = _ref12.controlName,
-      styleFor = _ref12.styleFor,
-      attributes = _ref12.attributes;
-  var dimensionUnit = attributes["".concat(controlName, "Unit")],
-      dimensionTop = attributes["".concat(controlName, "Top")],
-      dimensionRight = attributes["".concat(controlName, "Right")],
-      dimensionBottom = attributes["".concat(controlName, "Bottom")],
-      dimensionLeft = attributes["".concat(controlName, "Left")],
-      TABdimensionUnit = attributes["TAB".concat(controlName, "Unit")],
-      TABdimensionTop = attributes["TAB".concat(controlName, "Top")],
-      TABdimensionRight = attributes["TAB".concat(controlName, "Right")],
-      TABdimensionBottom = attributes["TAB".concat(controlName, "Bottom")],
-      TABdimensionLeft = attributes["TAB".concat(controlName, "Left")],
-      MOBdimensionUnit = attributes["MOB".concat(controlName, "Unit")],
-      MOBdimensionTop = attributes["MOB".concat(controlName, "Top")],
-      MOBdimensionRight = attributes["MOB".concat(controlName, "Right")],
-      MOBdimensionBottom = attributes["MOB".concat(controlName, "Bottom")],
-      MOBdimensionLeft = attributes["MOB".concat(controlName, "Left")]; // console.log({ controlName, attributes });
-
-  var dimensionStylesDesktop = " ";
-  var dimensionStylesTab = " ";
-  var dimensionStylesMobile = " ";
-
-  if (styleFor === "border") {
-    dimensionStylesDesktop = "\n\t\t".concat(dimensionTop ? "border-top-width: ".concat(parseFloat(dimensionTop)).concat(dimensionUnit, "; z-index:999;") : " ", "\n\t\t").concat(dimensionRight ? "border-right-width: ".concat(parseFloat(dimensionRight)).concat(dimensionUnit, ";") : " ", "\n\t\t").concat(dimensionLeft ? "border-left-width: ".concat(parseFloat(dimensionLeft)).concat(dimensionUnit, ";") : " ", "\n\t\t").concat(dimensionBottom ? "border-bottom-width: ".concat(parseFloat(dimensionBottom)).concat(dimensionUnit, ";") : " ", "\n\t\n\t\t");
-    dimensionStylesTab = "\n\t\t\t".concat(TABdimensionTop ? "border-top-width: ".concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionRight ? "border-right-width: ".concat(parseFloat(TABdimensionRight)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionLeft ? "border-left-width: ".concat(parseFloat(TABdimensionLeft)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionBottom ? "border-bottom-width: ".concat(parseFloat(TABdimensionBottom)).concat(TABdimensionUnit, ";") : " ", "\n\n\t\t");
-    dimensionStylesMobile = "\n\t\t\t".concat(MOBdimensionTop ? "border-top-width: ".concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionRight ? "border-right-width: ".concat(parseFloat(MOBdimensionRight)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionLeft ? "border-left-width: ".concat(parseFloat(MOBdimensionLeft)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionBottom ? "border-bottom-width: ".concat(parseFloat(MOBdimensionBottom)).concat(MOBdimensionUnit, ";") : " ", "\n\n\t\t");
-  } else if (styleFor === "border-radius") {
-    dimensionStylesDesktop = "\n\t\t\t".concat(dimensionTop ? "border-top-left-radius: ".concat(parseFloat(dimensionTop)).concat(dimensionUnit, ";") : " ", "\n\t\t\t").concat(dimensionRight ? "border-top-right-radius: ".concat(parseFloat(dimensionRight)).concat(dimensionUnit, ";") : " ", "\n\t\t\t").concat(dimensionLeft ? "border-bottom-left-radius: ".concat(parseFloat(dimensionLeft)).concat(dimensionUnit, ";") : " ", "\n\t\t\t").concat(dimensionBottom ? "border-bottom-right-radius: ".concat(parseFloat(dimensionBottom)).concat(dimensionUnit, ";") : " ", "\n\t\n\t\t");
-    dimensionStylesTab = "\n\t\t\t".concat(TABdimensionTop ? "border-top-left-radius: ".concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionRight ? "border-top-right-radius: ".concat(parseFloat(TABdimensionRight)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionLeft ? "border-bottom-left-radius: ".concat(parseFloat(TABdimensionLeft)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionBottom ? "border-bottom-right-radius: ".concat(parseFloat(TABdimensionBottom)).concat(TABdimensionUnit, ";") : " ", "\n\n\t\t");
-    dimensionStylesMobile = "\n\t\t\t".concat(MOBdimensionTop ? "border-top-left-radius: ".concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionRight ? "border-top-right-radius: ".concat(parseFloat(MOBdimensionRight)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionLeft ? "border-bottom-left-radius: ".concat(parseFloat(MOBdimensionLeft)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionBottom ? "border-bottom-right-radius: ".concat(parseFloat(MOBdimensionBottom)).concat(MOBdimensionUnit, ";") : " ", "\n\n\t\t");
-  } else {
-    dimensionStylesDesktop = "\n\t\t".concat(dimensionTop ? "".concat(styleFor, "-top: ").concat(parseFloat(dimensionTop)).concat(dimensionUnit, ";") : " ", "\n\t\t").concat(dimensionRight ? "".concat(styleFor, "-right: ").concat(parseFloat(dimensionRight)).concat(dimensionUnit, ";") : " ", "\n\t\t").concat(dimensionLeft ? "".concat(styleFor, "-left: ").concat(parseFloat(dimensionLeft)).concat(dimensionUnit, ";") : " ", "\n\t\t").concat(dimensionBottom ? "".concat(styleFor, "-bottom: ").concat(parseFloat(dimensionBottom)).concat(dimensionUnit, ";") : " ", "\n\t\n\t\t");
-    dimensionStylesTab = "\n\t\t\t".concat(TABdimensionTop ? "".concat(styleFor, "-top: ").concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionRight ? "".concat(styleFor, "-right: ").concat(parseFloat(TABdimensionRight)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionLeft ? "".concat(styleFor, "-left: ").concat(parseFloat(TABdimensionLeft)).concat(TABdimensionUnit, ";") : " ", "\n\t\t\t").concat(TABdimensionBottom ? "".concat(styleFor, "-bottom: ").concat(parseFloat(TABdimensionBottom)).concat(TABdimensionUnit, ";") : " ", "\n\n\t\t");
-    dimensionStylesMobile = "\n\t\t\t".concat(MOBdimensionTop ? "".concat(styleFor, "-top: ").concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionRight ? "".concat(styleFor, "-right: ").concat(parseFloat(MOBdimensionRight)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionLeft ? "".concat(styleFor, "-left: ").concat(parseFloat(MOBdimensionLeft)).concat(MOBdimensionUnit, ";") : " ", "\n\t\t\t").concat(MOBdimensionBottom ? "".concat(styleFor, "-bottom: ").concat(parseFloat(MOBdimensionBottom)).concat(MOBdimensionUnit, ";") : " ", "\n\n\t\t");
-  } // console.log({
-  //   dimensionStylesDesktop,
-  //   // dimensionStylesTab,
-  //   // dimensionStylesMobile,
-  // });
-
-
-  return {
-    dimensionStylesDesktop: dimensionStylesDesktop,
-    dimensionStylesTab: dimensionStylesTab,
-    dimensionStylesMobile: dimensionStylesMobile
-  };
 }; // Important: the following "generateBorderShadowStyles" function must be declared below the "generateDimensionsControlStyles" function declaration
 // function to generate BorderShadow control's Styles for an element based on it's controlName(prefix)
 
-var generateBorderShadowStyles = function generateBorderShadowStyles(_ref13) {
-  var controlName = _ref13.controlName,
-      attributes = _ref13.attributes,
-      noBorder = _ref13.noBorder,
-      noShadow = _ref13.noShadow;
+var generateBorderShadowStyles = function generateBorderShadowStyles(_ref) {
+  var controlName = _ref.controlName,
+      attributes = _ref.attributes,
+      noBorder = _ref.noBorder,
+      noShadow = _ref.noShadow;
   var borderStylesDesktop = "";
   var borderStylesTab = "";
   var borderStylesMobile = "";
@@ -8343,7 +10801,7 @@ var generateBorderShadowStyles = function generateBorderShadowStyles(_ref13) {
   var HradiusStylesMobile = "";
 
   if (noBorder !== true) {
-    var _generateDimensionsCo = generateDimensionsControlStyles({
+    var _generateDimensionsCo = Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsControlStyles"])({
       controlName: "".concat(controlName, "Bdr_"),
       styleFor: "border",
       attributes: attributes
@@ -8352,7 +10810,7 @@ var generateBorderShadowStyles = function generateBorderShadowStyles(_ref13) {
         F_borderStylesTab = _generateDimensionsCo.dimensionStylesTab,
         F_borderStylesMobile = _generateDimensionsCo.dimensionStylesMobile;
 
-    var _generateDimensionsCo2 = generateDimensionsControlStyles({
+    var _generateDimensionsCo2 = Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsControlStyles"])({
       controlName: "".concat(controlName, "Rds_"),
       styleFor: "border-radius",
       attributes: attributes
@@ -8361,7 +10819,7 @@ var generateBorderShadowStyles = function generateBorderShadowStyles(_ref13) {
         F_radiusStylesTab = _generateDimensionsCo2.dimensionStylesTab,
         F_radiusStylesMobile = _generateDimensionsCo2.dimensionStylesMobile;
 
-    var _generateDimensionsCo3 = generateDimensionsControlStyles({
+    var _generateDimensionsCo3 = Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsControlStyles"])({
       controlName: "".concat(controlName, "HBdr_"),
       styleFor: "border",
       attributes: attributes
@@ -8370,7 +10828,7 @@ var generateBorderShadowStyles = function generateBorderShadowStyles(_ref13) {
         F_HborderStylesTab = _generateDimensionsCo3.dimensionStylesTab,
         F_HborderStylesMobile = _generateDimensionsCo3.dimensionStylesMobile;
 
-    var _generateDimensionsCo4 = generateDimensionsControlStyles({
+    var _generateDimensionsCo4 = Object(_dimensionHelpers__WEBPACK_IMPORTED_MODULE_0__["generateDimensionsControlStyles"])({
       controlName: "".concat(controlName, "HRds_"),
       styleFor: "border-radius",
       attributes: attributes
@@ -8430,150 +10888,220 @@ var generateBorderShadowStyles = function generateBorderShadowStyles(_ref13) {
 
 
   var borderStyle = attributes["".concat(controlName, "borderStyle")],
-      _attributes$2 = attributes["".concat(controlName, "borderColor")],
-      borderColor = _attributes$2 === void 0 ? "#333333" : _attributes$2,
+      _attributes$ = attributes["".concat(controlName, "borderColor")],
+      borderColor = _attributes$ === void 0 ? "#333333" : _attributes$,
       HborderStyle = attributes["".concat(controlName, "HborderStyle")],
-      _attributes$3 = attributes["".concat(controlName, "HborderColor")],
-      HborderColor = _attributes$3 === void 0 ? borderColor : _attributes$3,
+      _attributes$2 = attributes["".concat(controlName, "HborderColor")],
+      HborderColor = _attributes$2 === void 0 ? borderColor : _attributes$2,
       shadowColor = attributes["".concat(controlName, "shadowColor")],
-      _attributes$4 = attributes["".concat(controlName, "hOffset")],
-      hOffset = _attributes$4 === void 0 ? 0 : _attributes$4,
-      _attributes$5 = attributes["".concat(controlName, "vOffset")],
-      vOffset = _attributes$5 === void 0 ? 0 : _attributes$5,
-      _attributes$6 = attributes["".concat(controlName, "blur")],
-      blur = _attributes$6 === void 0 ? 0 : _attributes$6,
-      _attributes$7 = attributes["".concat(controlName, "spread")],
-      spread = _attributes$7 === void 0 ? 0 : _attributes$7,
+      _attributes$3 = attributes["".concat(controlName, "hOffset")],
+      hOffset = _attributes$3 === void 0 ? 0 : _attributes$3,
+      _attributes$4 = attributes["".concat(controlName, "vOffset")],
+      vOffset = _attributes$4 === void 0 ? 0 : _attributes$4,
+      _attributes$5 = attributes["".concat(controlName, "blur")],
+      blur = _attributes$5 === void 0 ? 0 : _attributes$5,
+      _attributes$6 = attributes["".concat(controlName, "spread")],
+      spread = _attributes$6 === void 0 ? 0 : _attributes$6,
       inset = attributes["".concat(controlName, "inset")],
-      _attributes$8 = attributes["".concat(controlName, "hoverShadowColor")],
-      hoverShadowColor = _attributes$8 === void 0 ? shadowColor : _attributes$8,
-      _attributes$9 = attributes["".concat(controlName, "hoverHOffset")],
-      hoverHOffset = _attributes$9 === void 0 ? hOffset : _attributes$9,
-      _attributes$10 = attributes["".concat(controlName, "hoverVOffset")],
-      hoverVOffset = _attributes$10 === void 0 ? vOffset : _attributes$10,
-      _attributes$11 = attributes["".concat(controlName, "hoverBlur")],
-      hoverBlur = _attributes$11 === void 0 ? blur : _attributes$11,
-      _attributes$12 = attributes["".concat(controlName, "hoverSpread")],
-      hoverSpread = _attributes$12 === void 0 ? spread : _attributes$12,
-      transitionTime = attributes["".concat(controlName, "transitionTime")];
-  var styesDesktop = "  \n    ".concat(noBorder !== true ? "\n        ".concat(radiusStylesDesktop, "\n        ").concat(borderStyle !== "none" && borderColor ? "\n            ".concat(borderStylesDesktop, "\n            border-color: ").concat(borderColor, ";\n            border-style: ").concat(borderStyle, ";\n            ") : " ", "\n        ") : " ", "\n  \n    ").concat(noShadow !== true ? shadowColor ? "box-shadow: ".concat(shadowColor, " ").concat(hOffset, "px ").concat(vOffset, "px ").concat(blur, "px ").concat(spread, "px ").concat(inset ? "inset" : "", ";") : " " : " ", "\n\n    transition: ").concat(transitionTime ? "".concat(transitionTime / 1000, "s") : ".5s", ";\n\n  ");
-  var styesTab = "  \n  ".concat(noBorder !== true ? "\n      ".concat(borderColor ? borderStylesTab : " ", "\n      ").concat(radiusStylesTab, "\n      ") : " ", "\n    \n  ");
-  var styesMobile = "\n  ".concat(noBorder !== true ? "\n      ".concat(borderColor ? borderStylesMobile : " ", "\n      ").concat(radiusStylesMobile, "\n      ") : " ", "\n  ");
-  var stylesHoverDesktop = "\n  ".concat(noBorder !== true ? "\n      ".concat(HborderStyle !== "none" ? "\n            ".concat(HborderColor !== borderColor ? "border-color: ".concat(HborderColor, ";") : " ", " \n            ").concat(HborderStyle !== borderStyle ? "border-style: ".concat(HborderStyle, ";") : " ", "\n            ").concat(HborderStylesDesktop, "\n          ") : " ", "\n\n      ").concat(HradiusStylesDesktop, "    \n      ") : " ", "   \n   \n  ").concat(noShadow !== true ? hoverShadowColor ? "box-shadow: ".concat(hoverShadowColor, " ").concat(hoverHOffset, "px ").concat(hoverVOffset, "px ").concat(hoverBlur, "px ").concat(hoverSpread, "px ").concat(inset ? "inset" : " ", ";") : " " : " ", "\n\n  ");
-  var stylesHoverTab = "\n  ".concat(noBorder !== true ? "\n      ".concat(HborderStyle !== "none" ? HborderStylesTab : " ", "\n      ").concat(HradiusStylesTab, "  \n      ") : " ", "\n  ");
-  var stylesHoverMobile = "\n  ".concat(noBorder !== true ? "\n      ".concat(HborderStyle !== "none" ? HborderStylesMobile : " ", "\n      ").concat(HradiusStylesMobile, "\n      ") : " ", "\n   \n  ");
+      _attributes$7 = attributes["".concat(controlName, "hoverShadowColor")],
+      hoverShadowColor = _attributes$7 === void 0 ? shadowColor : _attributes$7,
+      _attributes$8 = attributes["".concat(controlName, "hoverHOffset")],
+      hoverHOffset = _attributes$8 === void 0 ? hOffset : _attributes$8,
+      _attributes$9 = attributes["".concat(controlName, "hoverVOffset")],
+      hoverVOffset = _attributes$9 === void 0 ? vOffset : _attributes$9,
+      _attributes$10 = attributes["".concat(controlName, "hoverBlur")],
+      hoverBlur = _attributes$10 === void 0 ? blur : _attributes$10,
+      _attributes$11 = attributes["".concat(controlName, "hoverSpread")],
+      hoverSpread = _attributes$11 === void 0 ? spread : _attributes$11,
+      borderTransition = attributes["".concat(controlName, "borderTransition")],
+      radiusTransition = attributes["".concat(controlName, "radiusTransition")],
+      shadowTransition = attributes["".concat(controlName, "shadowTransition")];
+  var styesDesktop = "  \n      ".concat(noBorder !== true ? "\n          ".concat(radiusStylesDesktop, "\n          ").concat(borderStyle !== "none" && borderColor ? "\n              ".concat(borderStylesDesktop, "\n              border-color: ").concat(borderColor, ";\n              border-style: ").concat(borderStyle, ";\n              ") : " ", "\n          ") : " ", "\n    \n      ").concat(noShadow !== true ? shadowColor ? "box-shadow: ".concat(shadowColor, " ").concat(hOffset, "px ").concat(vOffset, "px ").concat(blur, "px ").concat(spread, "px ").concat(inset ? "inset" : "", ";") : " " : " ", "\n  \n  \n    ");
+  var styesTab = "  \n    ".concat(noBorder !== true ? "\n        ".concat(borderColor ? borderStylesTab : " ", "\n        ").concat(radiusStylesTab, "\n        ") : " ", "\n      \n    ");
+  var styesMobile = "\n    ".concat(noBorder !== true ? "\n        ".concat(borderColor ? borderStylesMobile : " ", "\n        ").concat(radiusStylesMobile, "\n        ") : " ", "\n    ");
+  var stylesHoverDesktop = "\n    ".concat(noBorder !== true ? "\n        ".concat(HborderStyle !== "none" ? "\n              ".concat(HborderColor !== borderColor ? "border-color: ".concat(HborderColor, ";") : " ", " \n              ").concat(HborderStyle !== borderStyle ? "border-style: ".concat(HborderStyle, ";") : " ", "\n              ").concat(HborderStylesDesktop, "\n            ") : " ", "\n  \n        ").concat(HradiusStylesDesktop, "    \n        ") : " ", "   \n     \n    ").concat(noShadow !== true ? hoverShadowColor ? "box-shadow: ".concat(hoverShadowColor, " ").concat(hoverHOffset, "px ").concat(hoverVOffset, "px ").concat(hoverBlur, "px ").concat(hoverSpread, "px ").concat(inset ? "inset" : " ", ";") : " " : " ", "\n  \n    ");
+  var stylesHoverTab = "\n    ".concat(noBorder !== true ? "\n        ".concat(HborderStyle !== "none" ? HborderStylesTab : " ", "\n        ").concat(HradiusStylesTab, "  \n        ") : " ", "\n    ");
+  var stylesHoverMobile = "\n    ".concat(noBorder !== true ? "\n        ".concat(HborderStyle !== "none" ? HborderStylesMobile : " ", "\n        ").concat(HradiusStylesMobile, "\n        ") : " ", "\n     \n    ");
+  var transitionStyle = "\n  border ".concat(borderTransition || 0, "s, border-radius ").concat(radiusTransition || 0, "s, box-shadow ").concat(shadowTransition || 0, "s\n  ");
   return {
     styesDesktop: styesDesktop,
     styesTab: styesTab,
     styesMobile: styesMobile,
     stylesHoverDesktop: stylesHoverDesktop,
     stylesHoverTab: stylesHoverTab,
-    stylesHoverMobile: stylesHoverMobile
+    stylesHoverMobile: stylesHoverMobile,
+    transitionStyle: transitionStyle
   };
-}; // function to generate Background control styles based on the unique controlName(prefix)
+};
 
-var generateBackgroundControlStyles = function generateBackgroundControlStyles(_ref14) {
-  var controlName = _ref14.controlName,
-      attributes = _ref14.attributes;
-  var backgroundType = attributes["".concat(controlName, "backgroundType")],
-      backgroundColor = attributes["".concat(controlName, "backgroundColor")],
-      gradientColor = attributes["".concat(controlName, "gradientColor")],
-      bgImageURL = attributes["".concat(controlName, "bgImageURL")],
-      backgroundSize = attributes["".concat(controlName, "backgroundSize")],
-      bgImgCustomSize = attributes["".concat(controlName, "bgImgCustomSize")],
-      bgImgCustomSizeUnit = attributes["".concat(controlName, "bgImgCustomSizeUnit")],
-      bgImgPos = attributes["".concat(controlName, "bgImgPos")],
-      bgImgcustomPosX = attributes["".concat(controlName, "bgImgcustomPosX")],
-      bgImgcustomPosXUnit = attributes["".concat(controlName, "bgImgcustomPosXUnit")],
-      bgImgcustomPosY = attributes["".concat(controlName, "bgImgcustomPosY")],
-      bgImgcustomPosYUnit = attributes["".concat(controlName, "bgImgcustomPosYUnit")],
-      bgImgAttachment = attributes["".concat(controlName, "bgImgAttachment")],
-      bgImgRepeat = attributes["".concat(controlName, "bgImgRepeat")],
-      _attributes$13 = attributes["".concat(controlName, "overlyColor")],
-      overlyColor = _attributes$13 === void 0 ? "#00000080" : _attributes$13,
-      overlyType = attributes["".concat(controlName, "overlyType")],
-      isBgOverly = attributes["".concat(controlName, "isBgOverly")],
-      overlyGradient = attributes["".concat(controlName, "overlyGradient")],
-      TABbackgroundSize = attributes["TAB".concat(controlName, "backgroundSize")],
-      TABbgImgCustomSize = attributes["TAB".concat(controlName, "bgImgCustomSize")],
-      TABbgImgCustomSizeUnit = attributes["TAB".concat(controlName, "bgImgCustomSizeUnit")],
-      TABbgImgPos = attributes["TAB".concat(controlName, "bgImgPos")],
-      TABbgImgcustomPosX = attributes["TAB".concat(controlName, "bgImgcustomPosX")],
-      TABbgImgcustomPosXUnit = attributes["TAB".concat(controlName, "bgImgcustomPosXUnit")],
-      TABbgImgcustomPosY = attributes["TAB".concat(controlName, "bgImgcustomPosY")],
-      TABbgImgcustomPosYUnit = attributes["TAB".concat(controlName, "bgImgcustomPosYUnit")],
-      TABbgImgRepeat = attributes["TAB".concat(controlName, "bgImgRepeat")],
-      MOBbackgroundSize = attributes["MOB".concat(controlName, "backgroundSize")],
-      MOBbgImgCustomSize = attributes["MOB".concat(controlName, "bgImgCustomSize")],
-      MOBbgImgCustomSizeUnit = attributes["MOB".concat(controlName, "bgImgCustomSizeUnit")],
-      MOBbgImgPos = attributes["MOB".concat(controlName, "bgImgPos")],
-      MOBbgImgcustomPosX = attributes["MOB".concat(controlName, "bgImgcustomPosX")],
-      MOBbgImgcustomPosXUnit = attributes["MOB".concat(controlName, "bgImgcustomPosXUnit")],
-      MOBbgImgcustomPosY = attributes["MOB".concat(controlName, "bgImgcustomPosY")],
-      MOBbgImgcustomPosYUnit = attributes["MOB".concat(controlName, "bgImgcustomPosYUnit")],
-      MOBbgImgRepeat = attributes["MOB".concat(controlName, "bgImgRepeat")];
-  var backgroundStylesDesktop = "\n    background-image: ".concat(backgroundType === "image" && bgImageURL ? "url(\"".concat(bgImageURL, "\")") : backgroundType === "gradient" ? gradientColor : "none", ";\n\n    ").concat(backgroundType === "image" && bgImageURL ? "\n        ".concat(backgroundSize && backgroundSize !== "custom" ? "background-size: ".concat(backgroundSize, ";") : backgroundSize === "custom" ? "background-size: ".concat(bgImgCustomSize).concat(bgImgCustomSizeUnit, " auto;") : " ", "\n\n        ").concat(bgImgPos && bgImgPos !== "custom" ? "background-position: ".concat(bgImgPos, ";") : bgImgPos === "custom" ? "background-position: ".concat(bgImgcustomPosX).concat(bgImgcustomPosXUnit, " ").concat(bgImgcustomPosY).concat(bgImgcustomPosYUnit, ";") : " ", "\n\n        ").concat(bgImgAttachment ? "background-attachment: ".concat(bgImgAttachment, ";") : " ", "\n\n        ").concat(bgImgRepeat ? "background-repeat: ".concat(bgImgRepeat, ";") : " ", "\n        \n        ").concat(isBgOverly ? "\n              z-index: 2;\n              position: relative;\n            " : " ", "\t\n        ") : " ", "\n  \n\t\t").concat(backgroundColor ? "background-color: ".concat(backgroundColor, ";") : " ", "\n\n  ");
-  var backgroundStylesTab = "\n    ".concat(backgroundType === "image" && bgImageURL ? "\n        ".concat(TABbackgroundSize && TABbackgroundSize !== "custom" ? "background-size: ".concat(TABbackgroundSize, ";") : TABbackgroundSize === "custom" ? "background-size: ".concat(TABbgImgCustomSize).concat(TABbgImgCustomSizeUnit, " auto;") : " ", "\n\n        ").concat(TABbgImgPos && TABbgImgPos !== "custom" ? "background-position: ".concat(TABbgImgPos, ";") : TABbgImgPos === "custom" ? "background-position: ".concat(TABbgImgcustomPosX).concat(TABbgImgcustomPosXUnit, " ").concat(TABbgImgcustomPosY).concat(TABbgImgcustomPosYUnit, ";") : " ", "\n\n        ").concat(TABbgImgRepeat ? "background-repeat: ".concat(TABbgImgRepeat, ";") : " ", "\n\n        ") : " ", "\n\n    ").concat(backgroundType === "image" ? "background-attachment: scroll;" : " ", "\n\n  ");
-  var backgroundStylesMobile = "\n    ".concat(backgroundType === "image" && bgImageURL ? "\n        ".concat(MOBbackgroundSize && MOBbackgroundSize !== "custom" ? "background-size: ".concat(MOBbackgroundSize, ";") : MOBbackgroundSize === "custom" ? "background-size: ".concat(MOBbgImgCustomSize).concat(MOBbgImgCustomSizeUnit, " auto;") : " ", "\n\n        ").concat(MOBbgImgPos && MOBbgImgPos !== "custom" ? "background-position: ".concat(MOBbgImgPos, ";") : MOBbgImgPos === "custom" ? "background-position: ".concat(MOBbgImgcustomPosX).concat(MOBbgImgcustomPosXUnit, " ").concat(MOBbgImgcustomPosY).concat(MOBbgImgcustomPosYUnit, ";") : " ", "\n\n        ").concat(MOBbgImgRepeat ? "background-repeat: ".concat(MOBbgImgRepeat, ";") : " ", "\n\n        ") : " ", "\n\n  ");
-  var overlyStyles = "\n  \n    ".concat(backgroundType === "image" && isBgOverly ? "\n          content: \"\";\n          position: absolute;\n          top: 0;\n          bottom: 0;\n          right: 0;\n          left: 0;\n          z-index: -1;\n\n          ".concat(overlyType === "fill" ? "background-color: ".concat(overlyColor, ";") : overlyType === "gradient" ? "background-image: ".concat(overlyGradient, ";") : " ", "\n      ") : " ", "\n  \n  \n  ");
-  return {
-    backgroundStylesDesktop: backgroundStylesDesktop,
-    backgroundStylesTab: backgroundStylesTab,
-    backgroundStylesMobile: backgroundStylesMobile,
-    overlyStyles: overlyStyles
-  };
-}; // function to generate responsive range controller attributes for multiple range control based on the array of prefix
+/***/ }),
 
-var generateResponsiveRangeAttributes = function generateResponsiveRangeAttributes(controlName) {
-  var _objectSpread11;
+/***/ "./util/helpers/dimensionHelpers.js":
+/*!******************************************!*\
+  !*** ./util/helpers/dimensionHelpers.js ***!
+  \******************************************/
+/*! exports provided: generateDimensionsAttributes, generateDimensionsControlStyles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-  var defaultRange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  var desktop = defaultRange ? _defineProperty({}, "".concat(controlName, "Range"), {
-    type: "number",
-    "default": "".concat(defaultRange)
-  }) : _defineProperty({}, "".concat(controlName, "Range"), {
-    type: "number"
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateDimensionsAttributes", function() { return generateDimensionsAttributes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateDimensionsControlStyles", function() { return generateDimensionsControlStyles; });
+/* harmony import */ var _hasVal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasVal */ "./util/helpers/hasVal.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+ // function to generate New Dimensions-Control's attributes for multiple Dimensions control based on the array of values(prefixs)
+
+var generateDimensionsAttributes = function generateDimensionsAttributes(controlName) {
+  var _objectSpread2, _objectSpread3;
+
+  var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var top = defaults.top,
+      right = defaults.right,
+      bottom = defaults.bottom,
+      left = defaults.left,
+      _defaults$isLinked = defaults.isLinked,
+      isLinked = _defaults$isLinked === void 0 ? true : _defaults$isLinked;
+  var desktopTop = Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(top) ? _defineProperty({}, "".concat(controlName, "Top"), {
+    type: "string",
+    "default": "".concat(top)
+  }) : _defineProperty({}, "".concat(controlName, "Top"), {
+    type: "string"
   });
-
-  var result = _objectSpread(_objectSpread(_defineProperty({}, "".concat(controlName, "Unit"), {
+  var desktopRight = Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(right) ? _defineProperty({}, "".concat(controlName, "Right"), {
+    type: "string",
+    "default": "".concat(right)
+  }) : _defineProperty({}, "".concat(controlName, "Right"), {
+    type: "string"
+  });
+  var desktopBottom = Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(bottom) ? _defineProperty({}, "".concat(controlName, "Bottom"), {
+    type: "string",
+    "default": "".concat(bottom)
+  }) : _defineProperty({}, "".concat(controlName, "Bottom"), {
+    type: "string"
+  });
+  var desktopLeft = Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(left) ? _defineProperty({}, "".concat(controlName, "Left"), {
+    type: "string",
+    "default": "".concat(left)
+  }) : _defineProperty({}, "".concat(controlName, "Left"), {
+    type: "string"
+  });
+  return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread((_objectSpread2 = {}, _defineProperty(_objectSpread2, "".concat(controlName, "isLinked"), {
+    type: "boolean",
+    "default": isLinked
+  }), _defineProperty(_objectSpread2, "".concat(controlName, "Unit"), {
     type: "string",
     "default": "px"
-  }), desktop), {}, (_objectSpread11 = {}, _defineProperty(_objectSpread11, "TAB".concat(controlName, "Unit"), {
+  }), _objectSpread2), desktopTop), desktopRight), desktopBottom), desktopLeft), {}, (_objectSpread3 = {}, _defineProperty(_objectSpread3, "TAB".concat(controlName, "Unit"), {
     type: "string",
     "default": "px"
-  }), _defineProperty(_objectSpread11, "TAB".concat(controlName, "Range"), {
-    type: "number"
-  }), _defineProperty(_objectSpread11, "MOB".concat(controlName, "Unit"), {
+  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "Top"), {
+    type: "string"
+  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "Right"), {
+    type: "string"
+  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "Bottom"), {
+    type: "string"
+  }), _defineProperty(_objectSpread3, "TAB".concat(controlName, "Left"), {
+    type: "string"
+  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "Unit"), {
     type: "string",
     "default": "px"
-  }), _defineProperty(_objectSpread11, "MOB".concat(controlName, "Range"), {
-    type: "number"
-  }), _objectSpread11));
+  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "Top"), {
+    type: "string"
+  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "Right"), {
+    type: "string"
+  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "Bottom"), {
+    type: "string"
+  }), _defineProperty(_objectSpread3, "MOB".concat(controlName, "Left"), {
+    type: "string"
+  }), _objectSpread3));
+}; //
+// function to generate dimensions-controls styles for an element based on it's controlName(prefix)
 
-  return _objectSpread({}, result);
-}; // function to generate responsive range control styles for an element based on it's prefix
+var generateDimensionsControlStyles = function generateDimensionsControlStyles(_ref9) {
+  var controlName = _ref9.controlName,
+      styleFor = _ref9.styleFor,
+      attributes = _ref9.attributes;
+  var isLinked = attributes["".concat(controlName, "isLinked")],
+      dimensionUnit = attributes["".concat(controlName, "Unit")],
+      dimensionTop = attributes["".concat(controlName, "Top")],
+      dimensionRight = attributes["".concat(controlName, "Right")],
+      dimensionBottom = attributes["".concat(controlName, "Bottom")],
+      dimensionLeft = attributes["".concat(controlName, "Left")],
+      TABdimensionUnit = attributes["TAB".concat(controlName, "Unit")],
+      TABdimensionTop = attributes["TAB".concat(controlName, "Top")],
+      TABdimensionRight = attributes["TAB".concat(controlName, "Right")],
+      TABdimensionBottom = attributes["TAB".concat(controlName, "Bottom")],
+      TABdimensionLeft = attributes["TAB".concat(controlName, "Left")],
+      MOBdimensionUnit = attributes["MOB".concat(controlName, "Unit")],
+      MOBdimensionTop = attributes["MOB".concat(controlName, "Top")],
+      MOBdimensionRight = attributes["MOB".concat(controlName, "Right")],
+      MOBdimensionBottom = attributes["MOB".concat(controlName, "Bottom")],
+      MOBdimensionLeft = attributes["MOB".concat(controlName, "Left")];
+  var dimensionStylesDesktop = " ";
+  var dimensionStylesTab = " ";
+  var dimensionStylesMobile = " ";
 
-var generateResponsiveRangeStyles = function generateResponsiveRangeStyles(_ref17) {
-  var controlName = _ref17.controlName,
-      property = _ref17.property,
-      attributes = _ref17.attributes;
-  var desktopSizeUnit = attributes["".concat(controlName, "Unit")],
-      desktopRange = attributes["".concat(controlName, "Range")],
-      TABsizeUnit = attributes["TAB".concat(controlName, "Unit")],
-      TABrange = attributes["TAB".concat(controlName, "Range")],
-      MOBsizeUnit = attributes["MOB".concat(controlName, "Unit")],
-      MOBrange = attributes["MOB".concat(controlName, "Range")];
-  var size = isNaN(parseFloat(desktopRange)) ? "" : desktopSizeUnit;
-  var rangeStylesDesktop = desktopRange || desktopRange === 0 ? property + ":" + desktopRange + size + ";" : "";
-  var rangeStylesTab = TABrange || TABrange === 0 ? property + ":" + TABrange + TABsizeUnit + ";" : "";
-  var rangeStylesMobile = MOBrange || MOBrange === 0 ? property + ":" + MOBrange + MOBsizeUnit + ";" : "";
+  if (isLinked === true) {
+    if (styleFor === "border") {
+      dimensionStylesDesktop = "\n            ".concat(dimensionTop ? "border-width: ".concat(parseFloat(dimensionTop)).concat(dimensionUnit, "; ") : " ", "\n        \n            ");
+      dimensionStylesTab = "\n                ".concat(TABdimensionTop ? "border-width: ".concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n    \n            ");
+      dimensionStylesMobile = "\n                ".concat(MOBdimensionTop ? "border-width: ".concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n    \n            ");
+    } else if (styleFor === "border-radius") {
+      dimensionStylesDesktop = "\n                ".concat(dimensionTop ? "border-radius: ".concat(parseFloat(dimensionTop)).concat(dimensionUnit, ";") : " ", "\n        \n            ");
+      dimensionStylesTab = "\n                ".concat(TABdimensionTop ? "border-radius: ".concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n    \n            ");
+      dimensionStylesMobile = "\n                ".concat(MOBdimensionTop ? "border-radius: ".concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n    \n            ");
+    } else {
+      dimensionStylesDesktop = "\n            ".concat(dimensionTop ? "".concat(styleFor, ": ").concat(parseFloat(dimensionTop)).concat(dimensionUnit, ";") : " ", "\n        \n            ");
+      dimensionStylesTab = "\n                ".concat(TABdimensionTop ? "".concat(styleFor, ": ").concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n    \n            ");
+      dimensionStylesMobile = "\n                ".concat(MOBdimensionTop ? "".concat(styleFor, ": ").concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n    \n            ");
+    }
+  } else {
+    if (styleFor === "border") {
+      dimensionStylesDesktop = "\n            ".concat(dimensionTop ? "border-top-width: ".concat(parseFloat(dimensionTop)).concat(dimensionUnit, "; z-index:999;") : " ", "\n            ").concat(dimensionRight ? "border-right-width: ".concat(parseFloat(dimensionRight)).concat(dimensionUnit, ";") : " ", "\n            ").concat(dimensionLeft ? "border-left-width: ".concat(parseFloat(dimensionLeft)).concat(dimensionUnit, ";") : " ", "\n            ").concat(dimensionBottom ? "border-bottom-width: ".concat(parseFloat(dimensionBottom)).concat(dimensionUnit, ";") : " ", "\n        \n            ");
+      dimensionStylesTab = "\n                ".concat(TABdimensionTop ? "border-top-width: ".concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionRight ? "border-right-width: ".concat(parseFloat(TABdimensionRight)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionLeft ? "border-left-width: ".concat(parseFloat(TABdimensionLeft)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionBottom ? "border-bottom-width: ".concat(parseFloat(TABdimensionBottom)).concat(TABdimensionUnit, ";") : " ", "\n    \n            ");
+      dimensionStylesMobile = "\n                ".concat(MOBdimensionTop ? "border-top-width: ".concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionRight ? "border-right-width: ".concat(parseFloat(MOBdimensionRight)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionLeft ? "border-left-width: ".concat(parseFloat(MOBdimensionLeft)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionBottom ? "border-bottom-width: ".concat(parseFloat(MOBdimensionBottom)).concat(MOBdimensionUnit, ";") : " ", "\n    \n            ");
+    } else if (styleFor === "border-radius") {
+      dimensionStylesDesktop = "\n                ".concat(dimensionTop ? "border-top-left-radius: ".concat(parseFloat(dimensionTop)).concat(dimensionUnit, ";") : " ", "\n                ").concat(dimensionRight ? "border-top-right-radius: ".concat(parseFloat(dimensionRight)).concat(dimensionUnit, ";") : " ", "\n                ").concat(dimensionLeft ? "border-bottom-left-radius: ".concat(parseFloat(dimensionLeft)).concat(dimensionUnit, ";") : " ", "\n                ").concat(dimensionBottom ? "border-bottom-right-radius: ".concat(parseFloat(dimensionBottom)).concat(dimensionUnit, ";") : " ", "\n        \n            ");
+      dimensionStylesTab = "\n                ".concat(TABdimensionTop ? "border-top-left-radius: ".concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionRight ? "border-top-right-radius: ".concat(parseFloat(TABdimensionRight)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionLeft ? "border-bottom-left-radius: ".concat(parseFloat(TABdimensionLeft)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionBottom ? "border-bottom-right-radius: ".concat(parseFloat(TABdimensionBottom)).concat(TABdimensionUnit, ";") : " ", "\n    \n            ");
+      dimensionStylesMobile = "\n                ".concat(MOBdimensionTop ? "border-top-left-radius: ".concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionRight ? "border-top-right-radius: ".concat(parseFloat(MOBdimensionRight)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionLeft ? "border-bottom-left-radius: ".concat(parseFloat(MOBdimensionLeft)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionBottom ? "border-bottom-right-radius: ".concat(parseFloat(MOBdimensionBottom)).concat(MOBdimensionUnit, ";") : " ", "\n    \n            ");
+    } else {
+      dimensionStylesDesktop = "\n            ".concat(dimensionTop ? "".concat(styleFor, "-top: ").concat(parseFloat(dimensionTop)).concat(dimensionUnit, ";") : " ", "\n            ").concat(dimensionRight ? "".concat(styleFor, "-right: ").concat(parseFloat(dimensionRight)).concat(dimensionUnit, ";") : " ", "\n            ").concat(dimensionLeft ? "".concat(styleFor, "-left: ").concat(parseFloat(dimensionLeft)).concat(dimensionUnit, ";") : " ", "\n            ").concat(dimensionBottom ? "".concat(styleFor, "-bottom: ").concat(parseFloat(dimensionBottom)).concat(dimensionUnit, ";") : " ", "\n        \n            ");
+      dimensionStylesTab = "\n                ".concat(TABdimensionTop ? "".concat(styleFor, "-top: ").concat(parseFloat(TABdimensionTop)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionRight ? "".concat(styleFor, "-right: ").concat(parseFloat(TABdimensionRight)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionLeft ? "".concat(styleFor, "-left: ").concat(parseFloat(TABdimensionLeft)).concat(TABdimensionUnit, ";") : " ", "\n                ").concat(TABdimensionBottom ? "".concat(styleFor, "-bottom: ").concat(parseFloat(TABdimensionBottom)).concat(TABdimensionUnit, ";") : " ", "\n    \n            ");
+      dimensionStylesMobile = "\n                ".concat(MOBdimensionTop ? "".concat(styleFor, "-top: ").concat(parseFloat(MOBdimensionTop)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionRight ? "".concat(styleFor, "-right: ").concat(parseFloat(MOBdimensionRight)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionLeft ? "".concat(styleFor, "-left: ").concat(parseFloat(MOBdimensionLeft)).concat(MOBdimensionUnit, ";") : " ", "\n                ").concat(MOBdimensionBottom ? "".concat(styleFor, "-bottom: ").concat(parseFloat(MOBdimensionBottom)).concat(MOBdimensionUnit, ";") : " ", "\n    \n            ");
+    }
+  } // console.log({
+  //   dimensionStylesDesktop,
+  //   // dimensionStylesTab,
+  //   // dimensionStylesMobile,
+  // });
+
+
   return {
-    rangeStylesDesktop: rangeStylesDesktop,
-    rangeStylesTab: rangeStylesTab,
-    rangeStylesMobile: rangeStylesMobile
+    dimensionStylesDesktop: dimensionStylesDesktop,
+    dimensionStylesTab: dimensionStylesTab,
+    dimensionStylesMobile: dimensionStylesMobile
   };
-}; // Return flilp value based on type
+};
 
+/***/ }),
+
+/***/ "./util/helpers/flipboxHelpers.js":
+/*!****************************************!*\
+  !*** ./util/helpers/flipboxHelpers.js ***!
+  \****************************************/
+/*! exports provided: getFlipTransform, getButtonClasses */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFlipTransform", function() { return getFlipTransform; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getButtonClasses", function() { return getButtonClasses; });
+// Return flilp value based on type
 var getFlipTransform = function getFlipTransform(flipType) {
   switch (flipType) {
     case "flip-left":
@@ -8611,58 +11139,35 @@ var getButtonClasses = function getButtonClasses(buttonStyle) {
       return "";
   }
 };
-var getBackgroundImage = function getBackgroundImage(type, gradientValue, imageURL) {
-  switch (type) {
-    case "fill":
-      return "none";
 
-    case "gradient":
-      return gradientValue;
+/***/ }),
 
-    case "image":
-      if (imageURL) {
-        return "url(".concat(imageURL, ")");
-      }
+/***/ "./util/helpers/funcsForUseEffect.js":
+/*!*******************************************!*\
+  !*** ./util/helpers/funcsForUseEffect.js ***!
+  \*******************************************/
+/*! exports provided: mimmikCssForResBtns, mimmikCssForPreviewBtnClick, mimmikCssOnPreviewBtnClickWhileBlockSelected, duplicateBlockIdFix */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-      return "none";
-  }
-}; //
-// These following 3 functions to handle the resBtns click
-// function 1: to handle desktop button click
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mimmikCssForResBtns", function() { return mimmikCssForResBtns; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mimmikCssForPreviewBtnClick", function() { return mimmikCssForPreviewBtnClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mimmikCssOnPreviewBtnClickWhileBlockSelected", function() { return mimmikCssOnPreviewBtnClickWhileBlockSelected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "duplicateBlockIdFix", function() { return duplicateBlockIdFix; });
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-var handleDesktopBtnClick = function handleDesktopBtnClick(_ref18) {
-  var setPreviewDeviceType = _ref18.setPreviewDeviceType,
-      setAttributes = _ref18.setAttributes;
-  setAttributes({
-    resOption: "Desktop"
-  });
-  setPreviewDeviceType("Desktop");
-}; // function 2: to handle Tab button click
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-var handleTabBtnClick = function handleTabBtnClick(_ref19) {
-  var setPreviewDeviceType = _ref19.setPreviewDeviceType,
-      setAttributes = _ref19.setAttributes;
-  setAttributes({
-    resOption: "Tablet"
-  });
-  setPreviewDeviceType("Tablet");
-}; // function 3: to handle Mobile button click
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var handleMobileBtnClick = function handleMobileBtnClick(_ref20) {
-  var setPreviewDeviceType = _ref20.setPreviewDeviceType,
-      setAttributes = _ref20.setAttributes;
-  setAttributes({
-    resOption: "Mobile"
-  });
-  setPreviewDeviceType("Mobile");
-}; //
+//
 // function to mimmik css when clicking the responsive buttons in the inspector panel
-
-var mimmikCssForResBtns = function mimmikCssForResBtns(_ref21) {
-  var _ref21$isForPreviewBu = _ref21.isForPreviewButton,
-      isForPreviewButton = _ref21$isForPreviewBu === void 0 ? false : _ref21$isForPreviewBu,
-      domObj = _ref21.domObj,
-      resOption = _ref21.resOption;
+var mimmikCssForResBtns = function mimmikCssForResBtns(_ref) {
+  var _ref$isForPreviewButt = _ref.isForPreviewButton,
+      isForPreviewButton = _ref$isForPreviewButt === void 0 ? false : _ref$isForPreviewButt,
+      domObj = _ref.domObj,
+      resOption = _ref.resOption;
   var allEbBlocksWrapper;
 
   if (isForPreviewButton) {
@@ -8699,9 +11204,9 @@ var mimmikCssForResBtns = function mimmikCssForResBtns(_ref21) {
 // IMPORTANT: The following fuction declaration must be below the 'mimmikCssForResBtns' function declaration
 // function to mimmik css for responsive preview when clicking the buttons in the 'Preview button of wordpress' located beside the 'update' button
 
-var mimmikCssForPreviewBtnClick = function mimmikCssForPreviewBtnClick(_ref22) {
-  var domObj = _ref22.domObj,
-      select = _ref22.select;
+var mimmikCssForPreviewBtnClick = function mimmikCssForPreviewBtnClick(_ref2) {
+  var domObj = _ref2.domObj,
+      select = _ref2.select;
   var bodyClasses = domObj.body.className;
   if (/eb\-mimmik\-added/i.test(bodyClasses)) return;
   domObj.body.classList.add("eb-mimmik-added");
@@ -8723,10 +11228,10 @@ var mimmikCssForPreviewBtnClick = function mimmikCssForPreviewBtnClick(_ref22) {
 }; // IMPORTANT: The following fuction declaration must be below the 'mimmikCssForResBtns' function declaration
 // function to mimmik css for responsive preview when clicking the buttons in the 'Preview button of wordpress' located beside the 'update' button while any block is selected and it's inspector panel is mounted in the DOM
 
-var mimmikCssOnPreviewBtnClickWhileBlockSelected = function mimmikCssOnPreviewBtnClickWhileBlockSelected(_ref23) {
-  var domObj = _ref23.domObj,
-      select = _ref23.select,
-      setAttributes = _ref23.setAttributes;
+var mimmikCssOnPreviewBtnClickWhileBlockSelected = function mimmikCssOnPreviewBtnClickWhileBlockSelected(_ref3) {
+  var domObj = _ref3.domObj,
+      select = _ref3.select,
+      setAttributes = _ref3.setAttributes;
   var wpResBtnsWrap = domObj.querySelector("#editor .edit-post-layout + .popover-slot");
 
   var handleCLick = function handleCLick(e) {
@@ -8754,12 +11259,12 @@ var mimmikCssOnPreviewBtnClickWhileBlockSelected = function mimmikCssOnPreviewBt
 }; //
 // this function is for creating a unique blockId for each block's unique className
 
-var duplicateBlockIdFix = function duplicateBlockIdFix(_ref24) {
-  var BLOCK_PREFIX = _ref24.BLOCK_PREFIX,
-      blockId = _ref24.blockId,
-      setAttributes = _ref24.setAttributes,
-      select = _ref24.select,
-      clientId = _ref24.clientId;
+var duplicateBlockIdFix = function duplicateBlockIdFix(_ref4) {
+  var BLOCK_PREFIX = _ref4.BLOCK_PREFIX,
+      blockId = _ref4.blockId,
+      setAttributes = _ref4.setAttributes,
+      select = _ref4.select,
+      clientId = _ref4.clientId;
   var unique_id = BLOCK_PREFIX + "-" + Math.random().toString(36).substr(2, 7);
   /**
    * Define and Generate Unique Block ID
@@ -8818,6 +11323,406 @@ var duplicateBlockIdFix = function duplicateBlockIdFix(_ref24) {
 
 /***/ }),
 
+/***/ "./util/helpers/handlingPreviewBtnsHelpers.js":
+/*!****************************************************!*\
+  !*** ./util/helpers/handlingPreviewBtnsHelpers.js ***!
+  \****************************************************/
+/*! exports provided: handleDesktopBtnClick, handleTabBtnClick, handleMobileBtnClick */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleDesktopBtnClick", function() { return handleDesktopBtnClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTabBtnClick", function() { return handleTabBtnClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleMobileBtnClick", function() { return handleMobileBtnClick; });
+//
+// These following 3 functions to handle the resBtns click
+// function 1: to handle desktop button click
+var handleDesktopBtnClick = function handleDesktopBtnClick(_ref) {
+  var setPreviewDeviceType = _ref.setPreviewDeviceType,
+      setAttributes = _ref.setAttributes;
+  setAttributes({
+    resOption: "Desktop"
+  });
+  setPreviewDeviceType("Desktop");
+}; // function 2: to handle Tab button click
+
+var handleTabBtnClick = function handleTabBtnClick(_ref2) {
+  var setPreviewDeviceType = _ref2.setPreviewDeviceType,
+      setAttributes = _ref2.setAttributes;
+  setAttributes({
+    resOption: "Tablet"
+  });
+  setPreviewDeviceType("Tablet");
+}; // function 3: to handle Mobile button click
+
+var handleMobileBtnClick = function handleMobileBtnClick(_ref3) {
+  var setPreviewDeviceType = _ref3.setPreviewDeviceType,
+      setAttributes = _ref3.setAttributes;
+  setAttributes({
+    resOption: "Mobile"
+  });
+  setPreviewDeviceType("Mobile");
+};
+
+/***/ }),
+
+/***/ "./util/helpers/hasVal.js":
+/*!********************************!*\
+  !*** ./util/helpers/hasVal.js ***!
+  \********************************/
+/*! exports provided: hasVal */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasVal", function() { return hasVal; });
+// check if range controller input numbers  has value
+var hasVal = function hasVal(val) {
+  return val || val === 0;
+};
+
+/***/ }),
+
+/***/ "./util/helpers/index.js":
+/*!*******************************!*\
+  !*** ./util/helpers/index.js ***!
+  \*******************************/
+/*! exports provided: generateBackgroundControlStyles, generateBackgroundAttributes, generateTypographyAttributes, generateTypographyStyles, generateDimensionsAttributes, generateDimensionsControlStyles, generateBorderShadowAttributes, generateBorderShadowStyles, generateResponsiveRangeStyles, generateResponsiveRangeAttributes, textInsideForEdit, generateRandomNumber, hardMinifyCssStrings, softMinifyCssStrings, isCssExists, handleDesktopBtnClick, handleTabBtnClick, handleMobileBtnClick, mimmikCssForResBtns, mimmikCssForPreviewBtnClick, mimmikCssOnPreviewBtnClickWhileBlockSelected, duplicateBlockIdFix, getFlipTransform, getButtonClasses */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _backgroundHelpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./backgroundHelpers */ "./util/helpers/backgroundHelpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateBackgroundControlStyles", function() { return _backgroundHelpers__WEBPACK_IMPORTED_MODULE_0__["generateBackgroundControlStyles"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateBackgroundAttributes", function() { return _backgroundHelpers__WEBPACK_IMPORTED_MODULE_0__["generateBackgroundAttributes"]; });
+
+/* harmony import */ var _typoHelpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./typoHelpers */ "./util/helpers/typoHelpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateTypographyAttributes", function() { return _typoHelpers__WEBPACK_IMPORTED_MODULE_1__["generateTypographyAttributes"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateTypographyStyles", function() { return _typoHelpers__WEBPACK_IMPORTED_MODULE_1__["generateTypographyStyles"]; });
+
+/* harmony import */ var _dimensionHelpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dimensionHelpers */ "./util/helpers/dimensionHelpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateDimensionsAttributes", function() { return _dimensionHelpers__WEBPACK_IMPORTED_MODULE_2__["generateDimensionsAttributes"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateDimensionsControlStyles", function() { return _dimensionHelpers__WEBPACK_IMPORTED_MODULE_2__["generateDimensionsControlStyles"]; });
+
+/* harmony import */ var _borderShadowHelpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./borderShadowHelpers */ "./util/helpers/borderShadowHelpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateBorderShadowAttributes", function() { return _borderShadowHelpers__WEBPACK_IMPORTED_MODULE_3__["generateBorderShadowAttributes"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateBorderShadowStyles", function() { return _borderShadowHelpers__WEBPACK_IMPORTED_MODULE_3__["generateBorderShadowStyles"]; });
+
+/* harmony import */ var _responsiveRangeHelpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./responsiveRangeHelpers */ "./util/helpers/responsiveRangeHelpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateResponsiveRangeStyles", function() { return _responsiveRangeHelpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeStyles"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateResponsiveRangeAttributes", function() { return _responsiveRangeHelpers__WEBPACK_IMPORTED_MODULE_4__["generateResponsiveRangeAttributes"]; });
+
+/* harmony import */ var _miniHelperFuncs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./miniHelperFuncs */ "./util/helpers/miniHelperFuncs.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "textInsideForEdit", function() { return _miniHelperFuncs__WEBPACK_IMPORTED_MODULE_5__["textInsideForEdit"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateRandomNumber", function() { return _miniHelperFuncs__WEBPACK_IMPORTED_MODULE_5__["generateRandomNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hardMinifyCssStrings", function() { return _miniHelperFuncs__WEBPACK_IMPORTED_MODULE_5__["hardMinifyCssStrings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "softMinifyCssStrings", function() { return _miniHelperFuncs__WEBPACK_IMPORTED_MODULE_5__["softMinifyCssStrings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isCssExists", function() { return _miniHelperFuncs__WEBPACK_IMPORTED_MODULE_5__["isCssExists"]; });
+
+/* harmony import */ var _handlingPreviewBtnsHelpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./handlingPreviewBtnsHelpers */ "./util/helpers/handlingPreviewBtnsHelpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "handleDesktopBtnClick", function() { return _handlingPreviewBtnsHelpers__WEBPACK_IMPORTED_MODULE_6__["handleDesktopBtnClick"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "handleTabBtnClick", function() { return _handlingPreviewBtnsHelpers__WEBPACK_IMPORTED_MODULE_6__["handleTabBtnClick"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "handleMobileBtnClick", function() { return _handlingPreviewBtnsHelpers__WEBPACK_IMPORTED_MODULE_6__["handleMobileBtnClick"]; });
+
+/* harmony import */ var _funcsForUseEffect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./funcsForUseEffect */ "./util/helpers/funcsForUseEffect.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mimmikCssForResBtns", function() { return _funcsForUseEffect__WEBPACK_IMPORTED_MODULE_7__["mimmikCssForResBtns"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mimmikCssForPreviewBtnClick", function() { return _funcsForUseEffect__WEBPACK_IMPORTED_MODULE_7__["mimmikCssForPreviewBtnClick"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mimmikCssOnPreviewBtnClickWhileBlockSelected", function() { return _funcsForUseEffect__WEBPACK_IMPORTED_MODULE_7__["mimmikCssOnPreviewBtnClickWhileBlockSelected"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "duplicateBlockIdFix", function() { return _funcsForUseEffect__WEBPACK_IMPORTED_MODULE_7__["duplicateBlockIdFix"]; });
+
+/* harmony import */ var _flipboxHelpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./flipboxHelpers */ "./util/helpers/flipboxHelpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFlipTransform", function() { return _flipboxHelpers__WEBPACK_IMPORTED_MODULE_8__["getFlipTransform"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getButtonClasses", function() { return _flipboxHelpers__WEBPACK_IMPORTED_MODULE_8__["getButtonClasses"]; });
+
+
+
+
+
+
+
+
+
+ //
+// // unused function
+// export const getBackgroundImage = (type, gradientValue, imageURL) => {
+//   switch (type) {
+//     case "fill":
+//       return "none";
+//     case "gradient":
+//       return gradientValue;
+//     case "image":
+//       if (imageURL) {
+//         return `url(${imageURL})`;
+//       }
+//       return "none";
+//   }
+// };
+
+/***/ }),
+
+/***/ "./util/helpers/miniHelperFuncs.js":
+/*!*****************************************!*\
+  !*** ./util/helpers/miniHelperFuncs.js ***!
+  \*****************************************/
+/*! exports provided: textInsideForEdit, generateRandomNumber, hardMinifyCssStrings, softMinifyCssStrings, isCssExists */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "textInsideForEdit", function() { return textInsideForEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateRandomNumber", function() { return generateRandomNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hardMinifyCssStrings", function() { return hardMinifyCssStrings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "softMinifyCssStrings", function() { return softMinifyCssStrings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCssExists", function() { return isCssExists; });
+// helper Functions: function 'textInsideForEdit' is for setting the innertext depending on whether separator should be shown and which separator should be shown in the number-counter block
+var textInsideForEdit = function textInsideForEdit(value, isShowSeparator, separator) {
+  return isShowSeparator ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator) : value.toString();
+}; // generateRandomNumber function is for generating a random number
+
+var generateRandomNumber = function generateRandomNumber() {
+  return Math.floor(Math.random() * 1000000000);
+}; // hardMinifyCssStrings is for minifying the css which is in the style tag as a string  for view.js
+
+var hardMinifyCssStrings = function hardMinifyCssStrings(cssString) {
+  // console.log({ cssString });
+  return cssString.replace(/\s+/g, " ").replace(/(?<=\:).+(?=\;)/g, function (match) {
+    // console.log({ match, g1, offset, string });
+    return match.trim().replace(/\s+/g, "__s_p_a_c_e__");
+  }) // .replace(/\s+(?!(?:[\w\d\.\-\#]+\{))/g, "")
+  .replace(/\s+(?![\w\d\.\-\#]+\{)/g, "").replace(/\s+/g, " ").replace(/__s_p_a_c_e__/g, " ");
+}; // softMinifyCssStrings is for minifying the css which is in the style tag as a string  for view.js
+
+var softMinifyCssStrings = function softMinifyCssStrings(cssString) {
+  return cssString.replace(/\s+/g, " ");
+}; // check if css string is empty or not.
+
+var isCssExists = function isCssExists(cssString) {
+  return /.+(?=\:(?!hover)(?!focus))/.test(cssString);
+};
+
+/***/ }),
+
+/***/ "./util/helpers/responsiveRangeHelpers.js":
+/*!************************************************!*\
+  !*** ./util/helpers/responsiveRangeHelpers.js ***!
+  \************************************************/
+/*! exports provided: generateResponsiveRangeAttributes, generateResponsiveRangeStyles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateResponsiveRangeAttributes", function() { return generateResponsiveRangeAttributes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateResponsiveRangeStyles", function() { return generateResponsiveRangeStyles; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// function to generate responsive range controller attributes for multiple range control based on the array of prefix
+var generateResponsiveRangeAttributes = function generateResponsiveRangeAttributes(controlName) {
+  var _ref3, _objectSpread2;
+
+  var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var defaultRange = defaults.defaultRange,
+      noUnits = defaults.noUnits;
+  var desktop = defaultRange ? _defineProperty({}, "".concat(controlName, "Range"), {
+    type: "number",
+    "default": defaultRange
+  }) : _defineProperty({}, "".concat(controlName, "Range"), {
+    type: "number"
+  });
+  var units = noUnits === true ? {} : (_ref3 = {}, _defineProperty(_ref3, "".concat(controlName, "Unit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ref3, "TAB".concat(controlName, "Unit"), {
+    type: "string",
+    "default": "px"
+  }), _defineProperty(_ref3, "MOB".concat(controlName, "Unit"), {
+    type: "string",
+    "default": "px"
+  }), _ref3);
+  return _objectSpread(_objectSpread({}, desktop), {}, (_objectSpread2 = {}, _defineProperty(_objectSpread2, "TAB".concat(controlName, "Range"), {
+    type: "number"
+  }), _defineProperty(_objectSpread2, "MOB".concat(controlName, "Range"), {
+    type: "number"
+  }), _objectSpread2), units);
+}; // function to generate responsive range control styles for an element based on it's prefix
+
+var generateResponsiveRangeStyles = function generateResponsiveRangeStyles(_ref4) {
+  var controlName = _ref4.controlName,
+      property = _ref4.property,
+      attributes = _ref4.attributes,
+      customUnit = _ref4.customUnit;
+  // console.log({ controlName, property, attributes, customUnit });
+  var desktopSizeUnit;
+  var TABsizeUnit;
+  var MOBsizeUnit;
+
+  if (!customUnit) {
+    desktopSizeUnit = attributes["".concat(controlName, "Unit")];
+    TABsizeUnit = attributes["TAB".concat(controlName, "Unit")];
+    MOBsizeUnit = attributes["MOB".concat(controlName, "Unit")];
+  } else {
+    desktopSizeUnit = TABsizeUnit = MOBsizeUnit = customUnit;
+  }
+
+  var desktopRange = attributes["".concat(controlName, "Range")],
+      TABrange = attributes["TAB".concat(controlName, "Range")],
+      MOBrange = attributes["MOB".concat(controlName, "Range")];
+  var rangeStylesDesktop = desktopRange || desktopRange === 0 ? property + ":" + desktopRange + (customUnit || desktopSizeUnit) + ";" : "";
+  var rangeStylesTab = TABrange || TABrange === 0 ? property + ":" + TABrange + (customUnit || TABsizeUnit) + ";" : "";
+  var rangeStylesMobile = MOBrange || MOBrange === 0 ? property + ":" + MOBrange + (customUnit || MOBsizeUnit) + ";" : "";
+  return {
+    rangeStylesDesktop: rangeStylesDesktop,
+    rangeStylesTab: rangeStylesTab,
+    rangeStylesMobile: rangeStylesMobile
+  };
+};
+
+/***/ }),
+
+/***/ "./util/helpers/typoHelpers.js":
+/*!*************************************!*\
+  !*** ./util/helpers/typoHelpers.js ***!
+  \*************************************/
+/*! exports provided: generateTypographyAttributes, generateTypographyStyles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateTypographyAttributes", function() { return generateTypographyAttributes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateTypographyStyles", function() { return generateTypographyStyles; });
+/* harmony import */ var _hasVal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasVal */ "./util/helpers/hasVal.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+ // function to generate typography attributes for multiple typography control based on the array of prefix
+
+var generateTypographyAttributes = function generateTypographyAttributes(prefixArray) {
+  var typoAttrs = prefixArray.reduce(function (total, current) {
+    var _result;
+
+    var result = (_result = {}, _defineProperty(_result, "".concat(current, "FontFamily"), {
+      type: "string"
+    }), _defineProperty(_result, "".concat(current, "SizeUnit"), {
+      type: "string",
+      "default": "px"
+    }), _defineProperty(_result, "".concat(current, "FontSize"), {
+      type: "number"
+    }), _defineProperty(_result, "".concat(current, "FontWeight"), {
+      type: "string"
+    }), _defineProperty(_result, "".concat(current, "TextTransform"), {
+      type: "string"
+    }), _defineProperty(_result, "".concat(current, "TextDecoration"), {
+      type: "string"
+    }), _defineProperty(_result, "".concat(current, "LetterSpacingUnit"), {
+      type: "string",
+      "default": "px"
+    }), _defineProperty(_result, "".concat(current, "LetterSpacing"), {
+      type: "number"
+    }), _defineProperty(_result, "".concat(current, "LineHeightUnit"), {
+      type: "string",
+      "default": "em"
+    }), _defineProperty(_result, "".concat(current, "LineHeight"), {
+      type: "number"
+    }), _defineProperty(_result, "TAB".concat(current, "SizeUnit"), {
+      type: "string",
+      "default": "px"
+    }), _defineProperty(_result, "TAB".concat(current, "FontSize"), {
+      type: "number"
+    }), _defineProperty(_result, "TAB".concat(current, "LetterSpacingUnit"), {
+      type: "string",
+      "default": "px"
+    }), _defineProperty(_result, "TAB".concat(current, "LetterSpacing"), {
+      type: "number"
+    }), _defineProperty(_result, "TAB".concat(current, "LineHeightUnit"), {
+      type: "string",
+      "default": "em"
+    }), _defineProperty(_result, "TAB".concat(current, "LineHeight"), {
+      type: "number"
+    }), _defineProperty(_result, "MOB".concat(current, "SizeUnit"), {
+      type: "string",
+      "default": "px"
+    }), _defineProperty(_result, "MOB".concat(current, "FontSize"), {
+      type: "number"
+    }), _defineProperty(_result, "MOB".concat(current, "LetterSpacingUnit"), {
+      type: "string",
+      "default": "px"
+    }), _defineProperty(_result, "MOB".concat(current, "LetterSpacing"), {
+      type: "number"
+    }), _defineProperty(_result, "MOB".concat(current, "LineHeightUnit"), {
+      type: "string",
+      "default": "em"
+    }), _defineProperty(_result, "MOB".concat(current, "LineHeight"), {
+      type: "number"
+    }), _result);
+    return _objectSpread(_objectSpread({}, total), result);
+  }, {}); //
+  // console.log({ typoAttrs });
+
+  return typoAttrs;
+}; //
+// function to generate typography styles for an element based on it's prefix
+
+var generateTypographyStyles = function generateTypographyStyles(_ref) {
+  var prefixConstant = _ref.prefixConstant,
+      defaultFontSize = _ref.defaultFontSize,
+      attributes = _ref.attributes;
+  var fontFamily = attributes["".concat(prefixConstant, "FontFamily")],
+      fontWeight = attributes["".concat(prefixConstant, "FontWeight")],
+      textTransform = attributes["".concat(prefixConstant, "TextTransform")],
+      textDecoration = attributes["".concat(prefixConstant, "TextDecoration")],
+      _attributes$ = attributes["".concat(prefixConstant, "FontSize")],
+      fontSize = _attributes$ === void 0 ? defaultFontSize : _attributes$,
+      sizeUnit = attributes["".concat(prefixConstant, "SizeUnit")],
+      letterSpacing = attributes["".concat(prefixConstant, "LetterSpacing")],
+      letterSpacingUnit = attributes["".concat(prefixConstant, "LetterSpacingUnit")],
+      lineHeight = attributes["".concat(prefixConstant, "LineHeight")],
+      lineHeightUnit = attributes["".concat(prefixConstant, "LineHeightUnit")],
+      TABsizeUnit = attributes["TAB".concat(prefixConstant, "SizeUnit")],
+      TABletterSpacingUnit = attributes["TAB".concat(prefixConstant, "LetterSpacingUnit")],
+      TABlineHeightUnit = attributes["TAB".concat(prefixConstant, "LineHeightUnit")],
+      TABfontSize = attributes["TAB".concat(prefixConstant, "FontSize")],
+      TABletterSpacing = attributes["TAB".concat(prefixConstant, "LetterSpacing")],
+      TABlineHeight = attributes["TAB".concat(prefixConstant, "LineHeight")],
+      MOBsizeUnit = attributes["MOB".concat(prefixConstant, "SizeUnit")],
+      MOBletterSpacingUnit = attributes["MOB".concat(prefixConstant, "LetterSpacingUnit")],
+      MOBlineHeightUnit = attributes["MOB".concat(prefixConstant, "LineHeightUnit")],
+      MOBfontSize = attributes["MOB".concat(prefixConstant, "FontSize")],
+      MOBletterSpacing = attributes["MOB".concat(prefixConstant, "LetterSpacing")],
+      MOBlineHeight = attributes["MOB".concat(prefixConstant, "LineHeight")];
+  var typoStylesDesktop = "\n              ".concat(fontFamily ? "font-family: ".concat(fontFamily, ";") : " ", "\n              ").concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(fontSize) ? "font-size: ".concat(fontSize).concat(sizeUnit, ";") : " ", "\n              ").concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(lineHeight) ? "line-height: ".concat(lineHeight).concat(lineHeightUnit, ";") : " ", "\n              ").concat(fontWeight ? "font-weight: ".concat(fontWeight, ";") : " ", "\n              ").concat(textDecoration ? "text-decoration: ".concat(textDecoration, ";") : " ", "\n              ").concat(textTransform ? "text-transform: ".concat(textTransform, ";") : " ", "\n              ").concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(letterSpacing) ? "letter-spacing: ".concat(letterSpacing).concat(letterSpacingUnit, ";") : " ", "\n          ");
+  var typoStylesTab = "\n              ".concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(TABfontSize) ? "font-size: ".concat(TABfontSize).concat(TABsizeUnit, ";") : " ", "\n              ").concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(TABlineHeight) ? "line-height: ".concat(TABlineHeight).concat(TABlineHeightUnit, ";") : " ", "\n              ").concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(TABletterSpacing) ? "letter-spacing: ".concat(TABletterSpacing).concat(TABletterSpacingUnit, ";") : " ", "\n          ");
+  var typoStylesMobile = "\n              ".concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(MOBfontSize) ? "font-size: ".concat(MOBfontSize).concat(MOBsizeUnit, ";") : " ", "\n              ").concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(MOBlineHeight) ? "line-height: ".concat(MOBlineHeight).concat(MOBlineHeightUnit, ";") : " ", "\n              ").concat(Object(_hasVal__WEBPACK_IMPORTED_MODULE_0__["hasVal"])(MOBletterSpacing) ? "letter-spacing: ".concat(MOBletterSpacing).concat(MOBletterSpacingUnit, ";") : " ", "\n          ");
+  return {
+    typoStylesDesktop: typoStylesDesktop,
+    typoStylesTab: typoStylesTab,
+    typoStylesMobile: typoStylesMobile
+  };
+};
+
+/***/ }),
+
 /***/ "./util/image-avatar/index.js":
 /*!************************************!*\
   !*** ./util/image-avatar/index.js ***!
@@ -8835,7 +11740,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -8954,29 +11859,76 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
       units = _ref.units,
       min = _ref.min,
       max = _ref.max,
-      step = _ref.step;
+      step = _ref.step,
+      noUnits = _ref.noUnits;
   var attributes = resRequiredProps.attributes,
       setAttributes = resRequiredProps.setAttributes,
       resOption = resRequiredProps.resOption;
+  var desktopSizeUnit;
+  var TABsizeUnit;
+  var MOBsizeUnit;
+  var defaultUnits;
   var desktopRange = attributes["".concat(controlName, "Range")],
-      desktopSizeUnit = attributes["".concat(controlName, "Unit")],
       TABrange = attributes["TAB".concat(controlName, "Range")],
-      TABsizeUnit = attributes["TAB".concat(controlName, "Unit")],
-      MOBrange = attributes["MOB".concat(controlName, "Range")],
-      MOBsizeUnit = attributes["MOB".concat(controlName, "Unit")];
-  var UNITS = [{
-    label: "px",
-    value: "px"
-  }, {
-    label: "em",
-    value: "em"
-  }, {
-    label: "%",
-    value: "%"
-  }];
-  return /*#__PURE__*/React.createElement(React.Fragment, null, resOption == "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      MOBrange = attributes["MOB".concat(controlName, "Range")];
+
+  if (!noUnits) {
+    desktopSizeUnit = attributes["".concat(controlName, "Unit")];
+    TABsizeUnit = attributes["TAB".concat(controlName, "Unit")];
+    MOBsizeUnit = attributes["MOB".concat(controlName, "Unit")];
+    defaultUnits = [{
+      label: "px",
+      value: "px"
+    }, {
+      label: "em",
+      value: "em"
+    }, {
+      label: "%",
+      value: "%"
+    }];
+  }
+
+  return /*#__PURE__*/React.createElement("div", {
+    className: "responsiveRangeControllerWrapper"
+  }, noUnits ? /*#__PURE__*/React.createElement(React.Fragment, null, resOption == "Desktop" && /*#__PURE__*/React.createElement(_responsive_btn__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    label: baseLabel,
+    resRequiredProps: resRequiredProps,
+    controlName: controlName
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: desktopRange,
+    onChange: function onChange(desktopRange) {
+      return setAttributes(_defineProperty({}, "".concat(controlName, "Range"), desktopRange));
+    },
+    step: step || 1,
+    min: min || 0,
+    max: max || 100
+  })), resOption == "Tablet" && /*#__PURE__*/React.createElement(_responsive_btn__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    label: baseLabel,
+    resRequiredProps: resRequiredProps,
+    controlName: controlName
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: TABrange,
+    onChange: function onChange(TABrange) {
+      return setAttributes(_defineProperty({}, "TAB".concat(controlName, "Range"), TABrange));
+    },
+    step: step || 1,
+    min: min || 0,
+    max: max || 100
+  })), resOption == "Mobile" && /*#__PURE__*/React.createElement(_responsive_btn__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    label: baseLabel,
+    resRequiredProps: resRequiredProps,
+    controlName: controlName
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    value: MOBrange,
+    onChange: function onChange(MOBrange) {
+      return setAttributes(_defineProperty({}, "MOB".concat(controlName, "Range"), MOBrange));
+    },
+    step: step || 1,
+    min: min || 0,
+    max: max || 100
+  }))) : /*#__PURE__*/React.createElement(React.Fragment, null, resOption == "Desktop" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
     selectedUnit: desktopSizeUnit,
-    unitTypes: units || UNITS,
+    unitTypes: units || defaultUnits,
     onClick: function onClick(desktopSizeUnit) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "Unit"), desktopSizeUnit));
     }
@@ -8989,12 +11941,12 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
     onChange: function onChange(desktopRange) {
       return setAttributes(_defineProperty({}, "".concat(controlName, "Range"), desktopRange));
     },
-    step: desktopSizeUnit === "em" ? 0.1 : desktopSizeUnit === "%" ? 1 : step,
-    min: desktopSizeUnit === "em" ? 0 : desktopSizeUnit === "%" ? 0 : min,
-    max: desktopSizeUnit === "em" ? 10 : desktopSizeUnit === "%" ? 100 : max
+    step: desktopSizeUnit === "em" ? 0.1 : step,
+    min: desktopSizeUnit === "px" ? min : 0,
+    max: desktopSizeUnit === "px" ? max : 100
   }))), resOption == "Tablet" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
     selectedUnit: TABsizeUnit,
-    unitTypes: units || UNITS,
+    unitTypes: units || defaultUnits,
     onClick: function onClick(TABsizeUnit) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "Unit"), TABsizeUnit));
     }
@@ -9007,12 +11959,12 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
     onChange: function onChange(TABrange) {
       return setAttributes(_defineProperty({}, "TAB".concat(controlName, "Range"), TABrange));
     },
-    step: TABsizeUnit === "em" ? 0.1 : TABsizeUnit === "%" ? 1 : step,
-    min: TABsizeUnit === "em" ? 0 : TABsizeUnit === "%" ? 0 : min,
-    max: TABsizeUnit === "em" ? 10 : TABsizeUnit === "%" ? 100 : max
+    step: TABsizeUnit === "em" ? 0.1 : step,
+    min: TABsizeUnit === "px" ? min : 0,
+    max: TABsizeUnit === "px" ? max : 100
   }))), resOption == "Mobile" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_unit_control__WEBPACK_IMPORTED_MODULE_1__["default"], {
     selectedUnit: MOBsizeUnit,
-    unitTypes: units || UNITS,
+    unitTypes: units || defaultUnits,
     onClick: function onClick(MOBsizeUnit) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "Unit"), MOBsizeUnit));
     }
@@ -9025,10 +11977,10 @@ var ResponsiveRangeController = function ResponsiveRangeController(_ref) {
     onChange: function onChange(MOBrange) {
       return setAttributes(_defineProperty({}, "MOB".concat(controlName, "Range"), MOBrange));
     },
-    step: MOBsizeUnit === "em" ? 0.1 : MOBsizeUnit === "%" ? 1 : step,
-    min: MOBsizeUnit === "em" ? 0 : MOBsizeUnit === "%" ? 0 : min,
-    max: MOBsizeUnit === "em" ? 10 : MOBsizeUnit === "%" ? 100 : max
-  }))));
+    step: MOBsizeUnit === "em" ? 0.1 : step,
+    min: MOBsizeUnit === "px" ? min : 0,
+    max: MOBsizeUnit === "px" ? max : 100
+  })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ResponsiveRangeController);
@@ -9125,7 +12077,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -9909,80 +12861,105 @@ var UnitControl = function UnitControl(_ref) {
 
 /***/ }),
 
-/***/ "@wordpress/block-editor":
-/*!*************************************!*\
-  !*** external ["wp","blockEditor"] ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./util/withResButtons/index.js":
+/*!**************************************!*\
+  !*** ./util/withResButtons/index.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-(function() { module.exports = window["wp"]["blockEditor"]; }());
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return WithResButtons; });
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers */ "./util/helpers/index.js");
+var dispatch = wp.data.dispatch;
+
+function WithResButtons(_ref) {
+  var className = _ref.className,
+      children = _ref.children,
+      resRequiredProps = _ref.resRequiredProps,
+      label = _ref.label;
+  var setAttributes = resRequiredProps.setAttributes,
+      resOption = resRequiredProps.resOption;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "wrap_res ".concat(className || " ")
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "".concat(label ? "resBtns" : "resIcons")
+  }, label && /*#__PURE__*/React.createElement("span", {
+    style: {
+      paddingRight: "5px"
+    },
+    className: "resLabel"
+  }, label), /*#__PURE__*/React.createElement("span", {
+    onClick: function onClick() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_0__["handleDesktopBtnClick"])({
+        setAttributes: setAttributes,
+        setPreviewDeviceType: dispatch("core/edit-post").__experimentalSetPreviewDeviceType
+      });
+    },
+    "class": "typoResButton dashicons dashicons-desktop ".concat(resOption === "Desktop" ? "active" : " ")
+  }), /*#__PURE__*/React.createElement("span", {
+    onClick: function onClick() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_0__["handleTabBtnClick"])({
+        setAttributes: setAttributes,
+        setPreviewDeviceType: dispatch("core/edit-post").__experimentalSetPreviewDeviceType
+      });
+    },
+    "class": "typoResButton dashicons dashicons-tablet ".concat(resOption === "Tablet" ? "active" : " ")
+  }), /*#__PURE__*/React.createElement("span", {
+    onClick: function onClick() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_0__["handleMobileBtnClick"])({
+        setAttributes: setAttributes,
+        setPreviewDeviceType: dispatch("core/edit-post").__experimentalSetPreviewDeviceType
+      });
+    },
+    "class": "typoResButton dashicons dashicons-smartphone ".concat(resOption === "Mobile" ? "active" : " ")
+  })), children);
+}
 
 /***/ }),
 
 /***/ "@wordpress/blocks":
-/*!********************************!*\
-  !*** external ["wp","blocks"] ***!
-  \********************************/
+/*!*****************************************!*\
+  !*** external {"this":["wp","blocks"]} ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["blocks"]; }());
-
-/***/ }),
-
-/***/ "@wordpress/components":
-/*!************************************!*\
-  !*** external ["wp","components"] ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["components"]; }());
-
-/***/ }),
-
-/***/ "@wordpress/element":
-/*!*********************************!*\
-  !*** external ["wp","element"] ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["element"]; }());
+(function() { module.exports = this["wp"]["blocks"]; }());
 
 /***/ }),
 
 /***/ "@wordpress/i18n":
-/*!******************************!*\
-  !*** external ["wp","i18n"] ***!
-  \******************************/
+/*!***************************************!*\
+  !*** external {"this":["wp","i18n"]} ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["i18n"]; }());
+(function() { module.exports = this["wp"]["i18n"]; }());
 
 /***/ }),
 
 /***/ "react":
-/*!************************!*\
-  !*** external "React" ***!
-  \************************/
+/*!*********************************!*\
+  !*** external {"this":"React"} ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["React"]; }());
+(function() { module.exports = this["React"]; }());
 
 /***/ }),
 
 /***/ "react-dom":
-/*!***************************!*\
-  !*** external "ReactDOM" ***!
-  \***************************/
+/*!************************************!*\
+  !*** external {"this":"ReactDOM"} ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["ReactDOM"]; }());
+(function() { module.exports = this["ReactDOM"]; }());
 
 /***/ })
 
