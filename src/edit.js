@@ -158,6 +158,7 @@ function Edit(props) {
 		stylesHoverDesktop: bdShadowStylesHoverDesktop,
 		stylesHoverTab: bdShadowStylesHoverTab,
 		stylesHoverMobile: bdShadowStylesHoverMobile,
+		transitionStyle: bdShadowTransitionStyle,
 	} = generateBorderShadowStyles({
 		controlName: borderShadow,
 		attributes,
@@ -230,6 +231,8 @@ function Edit(props) {
 		hoverOverlayStylesTab: frontHoverOverlayStylesTab,
 		overlayStylesMobile: frontOverlayStylesMobile,
 		hoverOverlayStylesMobile: frontHoverOverlayStylesMobile,
+		bgTransitionStyle: frontBgTransitionStyle,
+		ovlTransitionStyle: frontOvlTransitionStyle,
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxFrontWrapper,
@@ -264,6 +267,7 @@ function Edit(props) {
 		stylesHoverDesktop: frontIconBorderHoverDesktop,
 		stylesHoverTab: frontIconBorderHoverTab,
 		stylesHoverMobile: frontIconBorderHoverMobile,
+		transitionStyle: frontIconTransitionStyle,
 	} = generateBorderShadowStyles({
 		controlName: borderShadowFrontIcon,
 		attributes,
@@ -315,6 +319,8 @@ function Edit(props) {
 		hoverOverlayStylesTab: backHoverOverlayStylesTab,
 		overlayStylesMobile: backOverlayStylesMobile,
 		hoverOverlayStylesMobile: backHoverOverlayStylesMobile,
+		bgTransitionStyle: backBgTransitionStyle,
+		ovlTransitionStyle: backOvlTransitionStyle,
 	} = generateBackgroundControlStyles({
 		attributes,
 		controlName: flipboxBackWrapper,
@@ -367,6 +373,7 @@ function Edit(props) {
 		stylesHoverDesktop: backIconBorderHoverDesktop,
 		stylesHoverTab: backIconBorderHoverTab,
 		stylesHoverMobile: backIconBorderHoverMobile,
+		transitionStyle: backIconTransitionStyle,
 	} = generateBorderShadowStyles({
 		controlName: borderShadowBackIcon,
 		attributes,
@@ -520,7 +527,7 @@ function Edit(props) {
 			height: auto;
 			width: 100%;
 			z-index: 1;
-			transition: ${flipType === "fade" && "opacity 0.6s"};
+			transition: ${flipType === "fade" ? "opacity 0.6s, " : ''}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
 		}
 		
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
@@ -530,6 +537,7 @@ function Edit(props) {
 
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
 			${frontOverlayStylesDesktop}
+			transition: ${frontOvlTransitionStyle};
 		}
 
 		
@@ -628,6 +636,7 @@ function Edit(props) {
 			 width: 100%;
 			 text-align:${align};
 			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
+			 transition: ${frontIconTransitionStyle};
 		 }
 
 		 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front:hover {
@@ -682,7 +691,7 @@ function Edit(props) {
 					flipType === "fade") &&
 					"none")
 			};
-		transition: ${flipType === "fade" && "opacity 0.6s"};
+		transition: ${flipType === "fade" ? "opacity 0.6s, " : ''}${backBgTransitionStyle}, ${bdShadowTransitionStyle};
 		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
 		 ${
 				isHover && (flipType === "zoom-in" || flipType === "zoom-out")
@@ -699,6 +708,7 @@ function Edit(props) {
 	 
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
 		${backOverlayStylesDesktop}
+		transition: ${backOvlTransitionStyle};
 	}
 	
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
@@ -806,6 +816,7 @@ function Edit(props) {
 		 width: 100%;
 		 text-align: ${align};
 		 display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
+		 transition: ${backIconTransitionStyle};
 	 }
 
 	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
@@ -860,6 +871,7 @@ function Edit(props) {
 			stylesHoverDesktop: btnBdShadowStylesHoverDesktop,
 			stylesHoverTab: btnBdShadowStylesHoverTab,
 			stylesHoverMobile: btnBdShadowStylesHoverMobile,
+			transitionStyle: btnBdShadowTransitionStyle,
 		} = generateBorderShadowStyles({
 			controlName: borderShadowBtn,
 			attributes,
@@ -881,6 +893,7 @@ function Edit(props) {
 			 ${buttonSizeDesktop}
 			 background: ${buttonBackground};
 			 color: ${buttonColor};
+			 transition: ${btnBdShadowTransitionStyle};
 		 }
 
 		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
