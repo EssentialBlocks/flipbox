@@ -121,11 +121,9 @@ const Save = ({ attributes }) => {
 									>
 										<div className="eb-flipbox-button-content">
 											<span>{buttonText}</span>
-											<span
-												className={`${
-													buttonIcon ? "fa fa-" + buttonIcon + " " : ""
-												}eb-flipbox-button-icon`}
-											/>
+											{buttonIcon && (
+												<i className={`${buttonIcon} eb-flipbox-button-icon`}></i>
+											)}
 										</div>
 									</a>
 								</div>

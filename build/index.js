@@ -4572,7 +4572,7 @@ function Edit(props) {
         buttonSizeTab = _generateResponsiveRa12.rangeStylesTab,
         buttonSizeMobile = _generateResponsiveRa12.rangeStylesMobile;
 
-    backButtonStyleDesktop = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link {\n\t\t\t ").concat(buttonPaddingStylesDesktop, "\n\t\t\t ").concat(btnBdShadowStyesDesktop, "\n\t\t\t ").concat(buttonSizeDesktop, "\n\t\t\t background: ").concat(buttonBackground, ";\n\t\t\t color: ").concat(buttonColor, ";\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link:hover {\n\t\t\t ").concat(btnBdShadowStylesHoverDesktop, "\n\t\t }\n \n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-content {\n\t\t\t display: flex;\n\t\t\t flex-direction: ").concat(buttonIconPos === "after" ? "row" : "row-reverse", ";\n\t\t\t justify-content: space-around;\n\t\t }\n \n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-content .eb-flipbox-button-icon {\n\t\t\t display: ").concat(displayButtonIcon ? "block" : "none", ";\n\t\t }\n\t\t ");
+    backButtonStyleDesktop = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link {\n\t\t\t ").concat(buttonPaddingStylesDesktop, "\n\t\t\t ").concat(btnBdShadowStyesDesktop, "\n\t\t\t ").concat(buttonSizeDesktop, "\n\t\t\t background: ").concat(buttonBackground, ";\n\t\t\t color: ").concat(buttonColor, ";\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link:hover {\n\t\t\t ").concat(btnBdShadowStylesHoverDesktop, "\n\t\t }\n \n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-content {\n\t\t\t display: flex;\n\t\t\t flex-direction: ").concat(buttonIconPos === "after" ? "row" : "row-reverse", ";\n\t\t\t justify-content: space-around;\n\t\t\t align-items: center;\n\t\t }\n \n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-content .eb-flipbox-button-icon {\n\t\t\t display: ").concat(displayButtonIcon ? "block" : "none", ";\n\t\t }\n\t\t ");
     backButtonStyleTab = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link {\n\t\t\t ").concat(buttonPaddingStylesTab, "\n\t\t\t ").concat(btnBdShadowStyesTab, "\n\t\t\t ").concat(buttonSizeTab, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link:hover {\n\t\t\t").concat(buttonPaddingStylesTab, "\n\t\t\t").concat(btnBdShadowStylesHoverTab, "\n\t\t}\n\t\t ");
     backButtonStyleMobile = "\n\t\t .eb-flipbox-container.".concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link {\n\t\t\t ").concat(buttonPaddingStylesMobile, "\n\t\t\t ").concat(btnBdShadowStyesMobile, "\n\t\t\t ").concat(buttonSizeMobile, "\n\t\t }\n\n\t\t .eb-flipbox-container.").concat(blockId, " .eb-flipbox-button-container .eb-flipbox-button-link:hover {\n\t\t\t ").concat(btnBdShadowStylesHoverMobile, "\n\t\t }\n\t\t ");
   } // all css styles for large screen width (desktop/laptop) in strings ⬇
@@ -4733,8 +4733,8 @@ function Edit(props) {
     href: link ? link : "#"
   }, /*#__PURE__*/React.createElement("div", {
     className: "eb-flipbox-button-content"
-  }, /*#__PURE__*/React.createElement("span", null, buttonText), /*#__PURE__*/React.createElement("span", {
-    className: "".concat(buttonIcon ? "fa fa-" + buttonIcon + " " : "", "eb-flipbox-button-icon")
+  }, /*#__PURE__*/React.createElement("span", null, buttonText), buttonIcon && /*#__PURE__*/React.createElement("i", {
+    className: "".concat(buttonIcon, " eb-flipbox-button-icon")
   })))))))))];
 }
 
@@ -4905,7 +4905,8 @@ var _wp$components = wp.components,
     RangeControl = _wp$components.RangeControl,
     ToggleControl = _wp$components.ToggleControl,
     ButtonGroup = _wp$components.ButtonGroup,
-    BaseControl = _wp$components.BaseControl;
+    BaseControl = _wp$components.BaseControl,
+    TabPanel = _wp$components.TabPanel;
 var _wp$blockEditor = wp.blockEditor,
     InspectorControls = _wp$blockEditor.InspectorControls,
     MediaUpload = _wp$blockEditor.MediaUpload;
@@ -5016,572 +5017,595 @@ var Inspector = function Inspector(_ref) {
     keys: "controls"
   }, /*#__PURE__*/React.createElement("div", {
     className: "eb-panel-control"
-  }, /*#__PURE__*/React.createElement(PanelBody, null, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Selected Side")
-  }, /*#__PURE__*/React.createElement(ButtonGroup, {
-    id: "eb-flipbox-sides"
-  }, _constants__WEBPACK_IMPORTED_MODULE_5__["FLIPBOX_SIDES"].map(function (item) {
-    return /*#__PURE__*/React.createElement(Button, {
-      isLarge: true,
-      isPrimary: selectedSide === item.value,
-      isSecondary: selectedSide !== item.value,
-      onClick: function onClick() {
+  }, /*#__PURE__*/React.createElement(TabPanel, {
+    className: "eb-parent-tab-panel",
+    activeClass: "active-tab",
+    tabs: [{
+      name: "general",
+      title: "General",
+      className: "eb-tab general"
+    }, {
+      name: "styles",
+      title: "Styles",
+      className: "eb-tab styles"
+    }]
+  }, function (tab) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "eb-tab-controls" + tab.name
+    }, tab.name === "general" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelBody, null, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Selected Side")
+    }, /*#__PURE__*/React.createElement(ButtonGroup, {
+      id: "eb-flipbox-sides"
+    }, _constants__WEBPACK_IMPORTED_MODULE_5__["FLIPBOX_SIDES"].map(function (item) {
+      return /*#__PURE__*/React.createElement(Button, {
+        isLarge: true,
+        isPrimary: selectedSide === item.value,
+        isSecondary: selectedSide !== item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            selectedSide: item.value
+          });
+        }
+      }, item.label);
+    })))), /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Flipbox Settings"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Box Height", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxHeightAttr"],
+      resRequiredProps: resRequiredProps,
+      min: 310,
+      max: 600,
+      step: 1,
+      noUnits: true
+    }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Box Width", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxWidthAttr"],
+      resRequiredProps: resRequiredProps,
+      min: 0,
+      max: 600,
+      step: 1,
+      noUnits: true
+    }), /*#__PURE__*/React.createElement(SelectControl, {
+      label: __("Flipbox Type"),
+      value: flipType,
+      options: _constants__WEBPACK_IMPORTED_MODULE_5__["FLIPBOX_TYPE"],
+      onChange: function onChange(newStyle) {
         return setAttributes({
-          selectedSide: item.value
+          flipType: newStyle
         });
       }
-    }, item.label);
-  })))), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Flipbox Settings"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Box Height", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxHeightAttr"],
-    resRequiredProps: resRequiredProps,
-    min: 310,
-    max: 600,
-    step: 1,
-    noUnits: true
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Box Width", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxWidthAttr"],
-    resRequiredProps: resRequiredProps,
-    min: 0,
-    max: 600,
-    step: 1,
-    noUnits: true
-  }), /*#__PURE__*/React.createElement(SelectControl, {
-    label: __("Flipbox Type"),
-    value: flipType,
-    options: _constants__WEBPACK_IMPORTED_MODULE_5__["FLIPBOX_TYPE"],
-    onChange: function onChange(newStyle) {
-      return setAttributes({
-        flipType: newStyle
-      });
-    }
-  }), /*#__PURE__*/React.createElement(RangeControl, {
-    label: __("Transition Speed(millisecond)"),
-    value: transitionSpeed,
-    onChange: function onChange(newValue) {
-      var transitionSpeed = newValue;
-      setAttributes({
-        transitionSpeed: transitionSpeed
-      });
-    },
-    min: 0,
-    max: 5000,
-    step: 500
-  }), selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Icon Type"),
-    id: "eb-flipbox-icon-type"
-  }, /*#__PURE__*/React.createElement(ButtonGroup, {
-    id: "eb-flipbox-icon-type"
-  }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_TYPE"].map(function (item) {
-    return /*#__PURE__*/React.createElement(Button, {
-      isLarge: true,
-      isPrimary: frontIconOrImage === item.value,
-      isSecondary: frontIconOrImage !== item.value,
-      onClick: function onClick() {
+    }), /*#__PURE__*/React.createElement(RangeControl, {
+      label: __("Transition Speed(millisecond)"),
+      value: transitionSpeed,
+      onChange: function onChange(newValue) {
+        var transitionSpeed = newValue;
+        setAttributes({
+          transitionSpeed: transitionSpeed
+        });
+      },
+      min: 0,
+      max: 5000,
+      step: 500
+    }), selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Icon Type"),
+      id: "eb-flipbox-icon-type"
+    }, /*#__PURE__*/React.createElement(ButtonGroup, {
+      id: "eb-flipbox-icon-type"
+    }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_TYPE"].map(function (item) {
+      return /*#__PURE__*/React.createElement(Button, {
+        isLarge: true,
+        isPrimary: frontIconOrImage === item.value,
+        isSecondary: frontIconOrImage !== item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            frontIconOrImage: item.value
+          });
+        }
+      }, item.label);
+    })))), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Icon Type"),
+      id: "eb-flipbox-icon-type"
+    }, /*#__PURE__*/React.createElement(ButtonGroup, {
+      id: "eb-flipbox-icon-type"
+    }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_TYPE"].map(function (item) {
+      return /*#__PURE__*/React.createElement(Button, {
+        isLarge: true,
+        isPrimary: backIconOrImage === item.value,
+        isSecondary: backIconOrImage !== item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            backIconOrImage: item.value
+          });
+        }
+      }, item.label);
+    }))))), selectedSide === "front" && frontIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Front Icon Settings"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Select Front Icon")
+    }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
+      value: frontIcon,
+      onChange: function onChange(frontIcon) {
         return setAttributes({
-          frontIconOrImage: item.value
+          frontIcon: frontIcon
+        });
+      },
+      appendTo: "body",
+      closeOnSelect: true
+    })), frontIcon && /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Icon Size", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxFrontIconSizeAttr"],
+      resRequiredProps: resRequiredProps,
+      min: 8,
+      max: 100
+    }))), selectedSide === "front" && frontIconOrImage === "image" && /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Front Image Settings"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Flipbox Image"),
+      id: "eb-flipbox-front-image"
+    }, frontImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      imageUrl: frontImageUrl,
+      onDeleteImage: function onDeleteImage() {
+        return setAttributes({
+          frontImageUrl: null
         });
       }
-    }, item.label);
-  })))), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Icon Type"),
-    id: "eb-flipbox-icon-type"
-  }, /*#__PURE__*/React.createElement(ButtonGroup, {
-    id: "eb-flipbox-icon-type"
-  }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_TYPE"].map(function (item) {
-    return /*#__PURE__*/React.createElement(Button, {
-      isLarge: true,
-      isPrimary: backIconOrImage === item.value,
-      isSecondary: backIconOrImage !== item.value,
-      onClick: function onClick() {
+    }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Image Size", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["frontImgSizeAttr"],
+      resRequiredProps: resRequiredProps,
+      units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
+      min: 0,
+      max: 300,
+      step: 1
+    }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Image Radius", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["frontImgRadiusAttr"],
+      resRequiredProps: resRequiredProps,
+      units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
+      min: 0,
+      max: 100
+    })) : /*#__PURE__*/React.createElement(MediaUpload, {
+      onSelect: function onSelect(media) {
         return setAttributes({
-          backIconOrImage: item.value
+          frontImageId: media.id,
+          frontImageUrl: media.url
+        });
+      },
+      type: "image",
+      value: frontImageId,
+      render: function render(_ref2) {
+        var open = _ref2.open;
+        return !frontImageUrl && /*#__PURE__*/React.createElement(Button, {
+          className: "eb-flipbox-upload-button",
+          label: __("Upload Image"),
+          icon: "format-image",
+          onClick: open
         });
       }
-    }, item.label);
-  }))))), selectedSide === "front" && frontIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Front Icon Settings"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Select Front Icon")
-  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
-    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
-    value: frontIcon,
-    onChange: function onChange(frontIcon) {
-      return setAttributes({
-        frontIcon: frontIcon
-      });
-    },
-    appendTo: "body",
-    closeOnSelect: true
-  })), frontIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Icon Color"),
-    color: frontIconColor,
-    onChange: function onChange(frontIconColor) {
-      return setAttributes({
-        frontIconColor: frontIconColor
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Icon Background"),
-    color: frontIconBackground,
-    onChange: function onChange(frontIconBackground) {
-      return setAttributes({
-        frontIconBackground: frontIconBackground
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Icon Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxFrontIconSizeAttr"],
-    resRequiredProps: resRequiredProps,
-    min: 8,
-    max: 100
-  }), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Margin & Padding"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    resRequiredProps: resRequiredProps,
-    className: "frontIconMargin",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["frontIconMargin"],
-    baseLabel: "Margin"
-  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    resRequiredProps: resRequiredProps,
-    className: "frontIconPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["frontIconPadding"],
-    baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Border & Shadow"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowFrontIcon"],
-    resRequiredProps: resRequiredProps,
-    noShadow: true
-  }))))), selectedSide === "front" && frontIconOrImage === "image" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Front Image Settings"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Flipbox Image"),
-    id: "eb-flipbox-front-image"
-  }, frontImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    imageUrl: frontImageUrl,
-    onDeleteImage: function onDeleteImage() {
-      return setAttributes({
-        frontImageUrl: null
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Image Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["frontImgSizeAttr"],
-    resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
-    min: 0,
-    max: 300,
-    step: 1
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Image Radius", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["frontImgRadiusAttr"],
-    resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
-    min: 0,
-    max: 100
-  })) : /*#__PURE__*/React.createElement(MediaUpload, {
-    onSelect: function onSelect(media) {
-      return setAttributes({
-        frontImageId: media.id,
-        frontImageUrl: media.url
-      });
-    },
-    type: "image",
-    value: frontImageId,
-    render: function render(_ref2) {
-      var open = _ref2.open;
-      return !frontImageUrl && /*#__PURE__*/React.createElement(Button, {
-        className: "eb-flipbox-upload-button",
-        label: __("Upload Image"),
-        icon: "format-image",
-        onClick: open
-      });
-    }
-  }))), selectedSide === "back" && backIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Back Icon Settings"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Select Back Icon"),
-    id: "eb-flipbox-back-icon"
-  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
-    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
-    value: backIcon,
-    onChange: function onChange(backIcon) {
-      return setAttributes({
-        backIcon: backIcon
-      });
-    },
-    appendTo: "body",
-    closeOnSelect: true
-  })), backIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Icon Color"),
-    color: backIconColor,
-    onChange: function onChange(backIconColor) {
-      return setAttributes({
-        backIconColor: backIconColor
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Icon Background"),
-    color: backIconBackground,
-    onChange: function onChange(backIconBackground) {
-      return setAttributes({
-        backIconBackground: backIconBackground
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Icon Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxBackIconSizeAttr"],
-    resRequiredProps: resRequiredProps,
-    min: 8,
-    max: 100
-  }), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Margin & Padding"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    resRequiredProps: resRequiredProps,
-    className: "backIconMargin",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["backIconMargin"],
-    baseLabel: "Margin"
-  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    resRequiredProps: resRequiredProps,
-    className: "backIconPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["backIconPadding"],
-    baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Border & Shadow"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowBackIcon"],
-    resRequiredProps: resRequiredProps,
-    noShadow: true
-  }))))), selectedSide === "back" && backIconOrImage === "image" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Back Image Settings"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Flipbox Image")
-  }, backImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    imageUrl: backImageUrl,
-    onDeleteImage: function onDeleteImage() {
-      return setAttributes({
-        backImageUrl: null
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Image Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["backImgSizeAttr"],
-    resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
-    min: 0,
-    max: 300
-  }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Image Radius", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["backImgRadiusAttr"],
-    resRequiredProps: resRequiredProps,
-    units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
-    min: 0,
-    max: 100
-  })) : /*#__PURE__*/React.createElement(MediaUpload, {
-    onSelect: function onSelect(media) {
-      return setAttributes({
-        backImageId: media.id,
-        backImageUrl: media.url
-      });
-    },
-    type: "image",
-    value: backImageId,
-    render: function render(_ref3) {
-      var open = _ref3.open;
-      return !backImageUrl && /*#__PURE__*/React.createElement(Button, {
-        className: "eb-flipbox-upload-button",
-        label: __("Upload Image"),
-        icon: "format-image",
-        onClick: open
-      });
-    }
-  }))), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Flipbox Content"),
-    initialOpen: false
-  }, selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ToggleControl, {
-    label: __("Show Title?"),
-    checked: showFrontTitle,
-    onChange: function onChange() {
-      setAttributes({
-        showFrontTitle: !showFrontTitle
-      });
-    }
-  }), showFrontTitle && /*#__PURE__*/React.createElement(TextControl, {
-    label: __("Front Title"),
-    value: frontTitle,
-    onChange: function onChange(newText) {
-      return setAttributes({
-        frontTitle: newText
-      });
-    }
-  }), /*#__PURE__*/React.createElement(ToggleControl, {
-    label: __("Show Content?"),
-    checked: showFrontContent,
-    onChange: function onChange() {
-      setAttributes({
-        showFrontContent: !showFrontContent
-      });
-    }
-  }), showFrontContent && /*#__PURE__*/React.createElement(TextareaControl, {
-    label: __("Front Content"),
-    value: frontContent,
-    onChange: function onChange(newText) {
-      return setAttributes({
-        frontContent: newText
-      });
-    }
-  })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ToggleControl, {
-    label: __("Show Title?"),
-    checked: showBackTitle,
-    onChange: function onChange() {
-      setAttributes({
-        showBackTitle: !showBackTitle
-      });
-    }
-  }), showBackTitle && /*#__PURE__*/React.createElement(TextControl, {
-    label: __("Back Title"),
-    value: backTitle,
-    onChange: function onChange(newText) {
-      return setAttributes({
-        backTitle: newText
-      });
-    }
-  }), /*#__PURE__*/React.createElement(ToggleControl, {
-    label: __("Show Content?"),
-    checked: showBackContent,
-    onChange: function onChange() {
-      setAttributes({
-        showBackContent: !showBackContent
-      });
-    }
-  }), showBackContent && /*#__PURE__*/React.createElement(TextareaControl, {
-    label: __("Back Content"),
-    value: backContent,
-    onChange: function onChange(newText) {
-      return setAttributes({
-        backContent: newText
-      });
-    }
-  }))), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Flipbox Style"),
-    initialOpen: false
-  }, selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Front Title"),
-    color: frontTitleColor,
-    onChange: function onChange(frontTitleColor) {
-      return setAttributes({
-        frontTitleColor: frontTitleColor
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Front Content"),
-    color: frontContentColor,
-    onChange: function onChange(frontContentColor) {
-      return setAttributes({
-        frontContentColor: frontContentColor
-      });
-    }
-  })), selectedSide === "front" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Background"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_12__["flipboxFrontWrapper"],
-    resRequiredProps: resRequiredProps
-  })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Back Title Color"),
-    color: backTitleColor,
-    onChange: function onChange(backTitleColor) {
-      return setAttributes({
-        backTitleColor: backTitleColor
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Back Content Color"),
-    color: backContentColor,
-    onChange: function onChange(backContentColor) {
-      return setAttributes({
-        backContentColor: backContentColor
-      });
-    }
-  })), selectedSide === "back" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Background"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_12__["flipboxBackWrapper"],
-    resRequiredProps: resRequiredProps
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Margin & Padding"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    resRequiredProps: resRequiredProps,
-    className: "forWrapperMargin",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["dimensionsMargin"],
-    baseLabel: "Margin"
-  }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    resRequiredProps: resRequiredProps,
-    className: "forWrapperPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["dimensionsPadding"],
-    baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Border & Shadow"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadow"],
-    resRequiredProps: resRequiredProps
-  }))), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Typography"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    baseLabel: __("Title", "flipbox"),
-    typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_15__["typoPrefix_title"],
-    resRequiredProps: resRequiredProps
-  }), /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    baseLabel: __("Content", "flipbox"),
-    typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_15__["typoPrefix_content"],
-    resRequiredProps: resRequiredProps
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Link Settings"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement("em", null, __("Note: Link settings will only work on back side."))), /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Link Type"),
-    id: "eb-flipbox-link-type"
-  }, /*#__PURE__*/React.createElement(ButtonGroup, {
-    id: "eb-flipbox-link-type"
-  }, _constants__WEBPACK_IMPORTED_MODULE_5__["LINK_TYPE"].map(function (item) {
-    return /*#__PURE__*/React.createElement(Button, {
-      isLarge: true,
-      isPrimary: linkType === item.value,
-      isSecondary: linkType !== item.value,
-      onClick: function onClick() {
+    }))), selectedSide === "back" && backIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Back Icon Settings"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Select Back Icon"),
+      id: "eb-flipbox-back-icon"
+    }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
+      value: backIcon,
+      onChange: function onChange(backIcon) {
         return setAttributes({
-          linkType: item.value
+          backIcon: backIcon
+        });
+      },
+      appendTo: "body",
+      closeOnSelect: true
+    })), backIcon && /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Icon Size", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["boxBackIconSizeAttr"],
+      resRequiredProps: resRequiredProps,
+      min: 8,
+      max: 100
+    }))), selectedSide === "back" && backIconOrImage === "image" && /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Back Image Settings"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Flipbox Image")
+    }, backImageUrl ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_image_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      imageUrl: backImageUrl,
+      onDeleteImage: function onDeleteImage() {
+        return setAttributes({
+          backImageUrl: null
         });
       }
-    }, item.label);
-  }))), /*#__PURE__*/React.createElement(TextControl, {
-    label: __("Link"),
-    value: link,
-    placeholder: "https://your-link.com",
-    onChange: function onChange(newLink) {
-      return setAttributes({
-        link: newLink
-      });
-    }
-  }), linkType === "button" && /*#__PURE__*/React.createElement(TextControl, {
-    label: __("Button Text"),
-    value: buttonText,
-    onChange: function onChange(newText) {
-      return setAttributes({
-        buttonText: newText
-      });
-    }
-  }), linkType === "button" && /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Button Settings")
-  }, /*#__PURE__*/React.createElement(SelectControl, {
-    label: __("Button Style"),
-    value: buttonStyle,
-    options: _constants__WEBPACK_IMPORTED_MODULE_5__["BUTTON_STYLES"],
-    onChange: function onChange(newStyle) {
-      return handleButtonStyle(newStyle);
-    }
-  }), buttonStyle === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Background "),
-    color: buttonBackground,
-    onChange: function onChange(buttonBackground) {
-      return setAttributes({
-        buttonBackground: buttonBackground
-      });
-    }
-  }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: __("Color"),
-    color: buttonColor,
-    onChange: function onChange(buttonColor) {
-      return setAttributes({
-        buttonColor: buttonColor
-      });
-    }
-  }), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Button Size"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    baseLabel: __("Button Size", "flipbox"),
-    controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["buttonIconSizeAttr"],
-    resRequiredProps: resRequiredProps,
-    min: 20,
-    max: 600
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Button Padding"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    resRequiredProps: resRequiredProps,
-    className: "forWrapperPadding",
-    controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["buttonPadding"],
-    baseLabel: "Padding"
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Button Border & Shadow"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowBtn"],
-    resRequiredProps: resRequiredProps
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __("Button Icon"),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(ToggleControl, {
-    label: __("Display Button Icon"),
-    checked: displayButtonIcon,
-    onChange: function onChange() {
-      return setAttributes({
-        displayButtonIcon: !displayButtonIcon
-      });
-    }
-  }), displayButtonIcon && /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Select Icon"),
-    id: "eb-flipbox-link-icon",
-    help: "Add icon with button (optional)"
-  }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
-    icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
-    value: buttonIcon,
-    onChange: function onChange(buttonIcon) {
-      return setAttributes({
-        buttonIcon: buttonIcon
-      });
-    },
-    appendTo: "body",
-    closeOnSelect: true
-  })), displayButtonIcon && buttonIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
-    label: __("Icon Position"),
-    id: "eb-flipbox-icon-pos"
-  }, /*#__PURE__*/React.createElement(ButtonGroup, {
-    id: "eb-flipbox-icon-pos"
-  }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_POSITIONS"].map(function (item) {
-    return /*#__PURE__*/React.createElement(Button, {
-      style: {
-        zIndex: 0
-      } // ? Add this style to fix icon list and primary button issue
-      ,
-      isLarge: true,
-      isSecondary: buttonIconPos !== item.value,
-      isPrimary: buttonIconPos === item.value,
-      onClick: function onClick() {
+    }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Image Size", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["backImgSizeAttr"],
+      resRequiredProps: resRequiredProps,
+      units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
+      min: 0,
+      max: 300
+    }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Image Radius", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["backImgRadiusAttr"],
+      resRequiredProps: resRequiredProps,
+      units: _constants__WEBPACK_IMPORTED_MODULE_5__["FRONT_IMAGE_UNITS"],
+      min: 0,
+      max: 100
+    })) : /*#__PURE__*/React.createElement(MediaUpload, {
+      onSelect: function onSelect(media) {
         return setAttributes({
-          buttonIconPos: item.value
+          backImageId: media.id,
+          backImageUrl: media.url
+        });
+      },
+      type: "image",
+      value: backImageId,
+      render: function render(_ref3) {
+        var open = _ref3.open;
+        return !backImageUrl && /*#__PURE__*/React.createElement(Button, {
+          className: "eb-flipbox-upload-button",
+          label: __("Upload Image"),
+          icon: "format-image",
+          onClick: open
         });
       }
-    }, item.label);
-  }))))))))));
+    }))), /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Flipbox Content"),
+      initialOpen: false
+    }, selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ToggleControl, {
+      label: __("Show Title?"),
+      checked: showFrontTitle,
+      onChange: function onChange() {
+        setAttributes({
+          showFrontTitle: !showFrontTitle
+        });
+      }
+    }), showFrontTitle && /*#__PURE__*/React.createElement(TextControl, {
+      label: __("Front Title"),
+      value: frontTitle,
+      onChange: function onChange(newText) {
+        return setAttributes({
+          frontTitle: newText
+        });
+      }
+    }), /*#__PURE__*/React.createElement(ToggleControl, {
+      label: __("Show Content?"),
+      checked: showFrontContent,
+      onChange: function onChange() {
+        setAttributes({
+          showFrontContent: !showFrontContent
+        });
+      }
+    }), showFrontContent && /*#__PURE__*/React.createElement(TextareaControl, {
+      label: __("Front Content"),
+      value: frontContent,
+      onChange: function onChange(newText) {
+        return setAttributes({
+          frontContent: newText
+        });
+      }
+    })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ToggleControl, {
+      label: __("Show Title?"),
+      checked: showBackTitle,
+      onChange: function onChange() {
+        setAttributes({
+          showBackTitle: !showBackTitle
+        });
+      }
+    }), showBackTitle && /*#__PURE__*/React.createElement(TextControl, {
+      label: __("Back Title"),
+      value: backTitle,
+      onChange: function onChange(newText) {
+        return setAttributes({
+          backTitle: newText
+        });
+      }
+    }), /*#__PURE__*/React.createElement(ToggleControl, {
+      label: __("Show Content?"),
+      checked: showBackContent,
+      onChange: function onChange() {
+        setAttributes({
+          showBackContent: !showBackContent
+        });
+      }
+    }), showBackContent && /*#__PURE__*/React.createElement(TextareaControl, {
+      label: __("Back Content"),
+      value: backContent,
+      onChange: function onChange(newText) {
+        return setAttributes({
+          backContent: newText
+        });
+      }
+    }))), /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Link Settings"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement("em", null, __("Note: Link settings will only work on back side."))), /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Link Type"),
+      id: "eb-flipbox-link-type"
+    }, /*#__PURE__*/React.createElement(ButtonGroup, {
+      id: "eb-flipbox-link-type"
+    }, _constants__WEBPACK_IMPORTED_MODULE_5__["LINK_TYPE"].map(function (item) {
+      return /*#__PURE__*/React.createElement(Button, {
+        isLarge: true,
+        isPrimary: linkType === item.value,
+        isSecondary: linkType !== item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            linkType: item.value
+          });
+        }
+      }, item.label);
+    }))), /*#__PURE__*/React.createElement(TextControl, {
+      label: __("Link"),
+      value: link,
+      placeholder: "https://your-link.com",
+      onChange: function onChange(newLink) {
+        return setAttributes({
+          link: newLink
+        });
+      }
+    }), linkType === "button" && /*#__PURE__*/React.createElement(TextControl, {
+      label: __("Button Text"),
+      value: buttonText,
+      onChange: function onChange(newText) {
+        return setAttributes({
+          buttonText: newText
+        });
+      }
+    }), /*#__PURE__*/React.createElement(SelectControl, {
+      label: __("Button Style"),
+      value: buttonStyle,
+      options: _constants__WEBPACK_IMPORTED_MODULE_5__["BUTTON_STYLES"],
+      onChange: function onChange(newStyle) {
+        return handleButtonStyle(newStyle);
+      }
+    }))), tab.name === "styles" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelBody, null, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Selected Side")
+    }, /*#__PURE__*/React.createElement(ButtonGroup, {
+      id: "eb-flipbox-sides"
+    }, _constants__WEBPACK_IMPORTED_MODULE_5__["FLIPBOX_SIDES"].map(function (item) {
+      return /*#__PURE__*/React.createElement(Button, {
+        isLarge: true,
+        isPrimary: selectedSide === item.value,
+        isSecondary: selectedSide !== item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            selectedSide: item.value
+          });
+        }
+      }, item.label);
+    })))), /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Flipbox Style"),
+      initialOpen: false
+    }, selectedSide === "front" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Front Title"),
+      color: frontTitleColor,
+      onChange: function onChange(frontTitleColor) {
+        return setAttributes({
+          frontTitleColor: frontTitleColor
+        });
+      }
+    }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Front Content"),
+      color: frontContentColor,
+      onChange: function onChange(frontContentColor) {
+        return setAttributes({
+          frontContentColor: frontContentColor
+        });
+      }
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Front Side Background"))), /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_12__["flipboxFrontWrapper"],
+      resRequiredProps: resRequiredProps
+    })), selectedSide === "back" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Back Title Color"),
+      color: backTitleColor,
+      onChange: function onChange(backTitleColor) {
+        return setAttributes({
+          backTitleColor: backTitleColor
+        });
+      }
+    }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Back Content Color"),
+      color: backContentColor,
+      onChange: function onChange(backContentColor) {
+        return setAttributes({
+          backContentColor: backContentColor
+        });
+      }
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Back Side Background"))), /*#__PURE__*/React.createElement(_util_background_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      controlName: _constants_backgroundsConstants__WEBPACK_IMPORTED_MODULE_12__["flipboxBackWrapper"],
+      resRequiredProps: resRequiredProps
+    })), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Margin & Padding"))), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      resRequiredProps: resRequiredProps,
+      className: "forWrapperMargin",
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["dimensionsMargin"],
+      baseLabel: "Margin"
+    }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      resRequiredProps: resRequiredProps,
+      className: "forWrapperPadding",
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["dimensionsPadding"],
+      baseLabel: "Padding"
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Border & Shadow"))), /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadow"],
+      resRequiredProps: resRequiredProps
+    })), selectedSide === "front" && frontIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Front Icon Style"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(React.Fragment, null, frontIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Icon Color"),
+      color: frontIconColor,
+      onChange: function onChange(frontIconColor) {
+        return setAttributes({
+          frontIconColor: frontIconColor
+        });
+      }
+    }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Icon Background"),
+      color: frontIconBackground,
+      onChange: function onChange(frontIconBackground) {
+        return setAttributes({
+          frontIconBackground: frontIconBackground
+        });
+      }
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Margin & Padding"))), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      resRequiredProps: resRequiredProps,
+      className: "frontIconMargin",
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["frontIconMargin"],
+      baseLabel: "Margin"
+    }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      resRequiredProps: resRequiredProps,
+      className: "frontIconPadding",
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["frontIconPadding"],
+      baseLabel: "Padding"
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Border"))), /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowFrontIcon"],
+      resRequiredProps: resRequiredProps,
+      noShadow: true
+    })))), selectedSide === "back" && backIconOrImage === "icon" && /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Back Icon Style"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(React.Fragment, null, backIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Icon Color"),
+      color: backIconColor,
+      onChange: function onChange(backIconColor) {
+        return setAttributes({
+          backIconColor: backIconColor
+        });
+      }
+    }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Icon Background"),
+      color: backIconBackground,
+      onChange: function onChange(backIconBackground) {
+        return setAttributes({
+          backIconBackground: backIconBackground
+        });
+      }
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Margin & Padding"))), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      resRequiredProps: resRequiredProps,
+      className: "backIconMargin",
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["backIconMargin"],
+      baseLabel: "Margin"
+    }), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      resRequiredProps: resRequiredProps,
+      className: "backIconPadding",
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["backIconPadding"],
+      baseLabel: "Padding"
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Border"))), /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowBackIcon"],
+      resRequiredProps: resRequiredProps,
+      noShadow: true
+    })))), /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Typography"),
+      initialOpen: false
+    }, /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      baseLabel: __("Title", "flipbox"),
+      typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_15__["typoPrefix_title"],
+      resRequiredProps: resRequiredProps
+    }), /*#__PURE__*/React.createElement(_util_typography_control_v2__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      baseLabel: __("Content", "flipbox"),
+      typographyPrefixConstant: _constants_typographyPrefixConstants__WEBPACK_IMPORTED_MODULE_15__["typoPrefix_content"],
+      resRequiredProps: resRequiredProps
+    })), linkType === "button" && /*#__PURE__*/React.createElement(PanelBody, {
+      title: __("Button Style")
+    }, buttonStyle === "custom" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Background "),
+      color: buttonBackground,
+      onChange: function onChange(buttonBackground) {
+        return setAttributes({
+          buttonBackground: buttonBackground
+        });
+      }
+    }), /*#__PURE__*/React.createElement(_util_color_control__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      label: __("Color"),
+      color: buttonColor,
+      onChange: function onChange(buttonColor) {
+        return setAttributes({
+          buttonColor: buttonColor
+        });
+      }
+    }), /*#__PURE__*/React.createElement(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      baseLabel: __("Button Size", "flipbox"),
+      controlName: _constants_rangeNames__WEBPACK_IMPORTED_MODULE_16__["buttonIconSizeAttr"],
+      resRequiredProps: resRequiredProps,
+      min: 20,
+      max: 600
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Padding"))), /*#__PURE__*/React.createElement(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      resRequiredProps: resRequiredProps,
+      className: "forWrapperPadding",
+      controlName: _constants_dimensionsNames__WEBPACK_IMPORTED_MODULE_13__["buttonPadding"],
+      baseLabel: "Padding"
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Border & Shadow"))), /*#__PURE__*/React.createElement(_util_border_shadow_control__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      controlName: _constants_borderShadowConstants__WEBPACK_IMPORTED_MODULE_14__["borderShadowBtn"],
+      resRequiredProps: resRequiredProps
+    }), /*#__PURE__*/React.createElement(BaseControl, null, /*#__PURE__*/React.createElement("h3", {
+      className: "eb-control-title"
+    }, __("Button Icon"))), /*#__PURE__*/React.createElement(ToggleControl, {
+      label: __("Display Button Icon"),
+      checked: displayButtonIcon,
+      onChange: function onChange() {
+        return setAttributes({
+          displayButtonIcon: !displayButtonIcon
+        });
+      }
+    }), displayButtonIcon && /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Select Icon"),
+      id: "eb-flipbox-link-icon",
+      help: "Add icon with button (optional)"
+    }, /*#__PURE__*/React.createElement(_fonticonpicker_react_fonticonpicker__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      icons: _util_faIcons__WEBPACK_IMPORTED_MODULE_1__["default"],
+      value: buttonIcon,
+      onChange: function onChange(buttonIcon) {
+        return setAttributes({
+          buttonIcon: buttonIcon
+        });
+      },
+      appendTo: "body",
+      closeOnSelect: true
+    })), displayButtonIcon && buttonIcon && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BaseControl, {
+      label: __("Icon Position"),
+      id: "eb-flipbox-icon-pos"
+    }, /*#__PURE__*/React.createElement(ButtonGroup, {
+      id: "eb-flipbox-icon-pos"
+    }, _constants__WEBPACK_IMPORTED_MODULE_5__["ICON_POSITIONS"].map(function (item) {
+      return /*#__PURE__*/React.createElement(Button, {
+        style: {
+          zIndex: 0
+        } // ? Add this style to fix icon list and primary button issue
+        ,
+        isLarge: true,
+        isSecondary: buttonIconPos !== item.value,
+        isPrimary: buttonIconPos === item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            buttonIconPos: item.value
+          });
+        }
+      }, item.label);
+    }))))))));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Inspector);
@@ -5695,8 +5719,8 @@ var Save = function Save(_ref) {
     href: link ? link : "#"
   }, /*#__PURE__*/React.createElement("div", {
     className: "eb-flipbox-button-content"
-  }, /*#__PURE__*/React.createElement("span", null, buttonText), /*#__PURE__*/React.createElement("span", {
-    className: "".concat(buttonIcon ? "fa fa-" + buttonIcon + " " : "", "eb-flipbox-button-icon")
+  }, /*#__PURE__*/React.createElement("span", null, buttonText), buttonIcon && /*#__PURE__*/React.createElement("i", {
+    className: "".concat(buttonIcon, " eb-flipbox-button-icon")
   })))))))));
 };
 

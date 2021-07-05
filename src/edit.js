@@ -891,6 +891,7 @@ function Edit(props) {
 			 display: flex;
 			 flex-direction: ${buttonIconPos === "after" ? "row" : "row-reverse"};
 			 justify-content: space-around;
+			 align-items: center;
 		 }
  
 		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-content .eb-flipbox-button-icon {
@@ -1152,11 +1153,10 @@ function Edit(props) {
 									>
 										<div className="eb-flipbox-button-content">
 											<span>{buttonText}</span>
-											<span
-												className={`${
-													buttonIcon ? "fa fa-" + buttonIcon + " " : ""
-												}eb-flipbox-button-icon`}
-											/>
+											{buttonIcon && (
+												<i className={`${buttonIcon} eb-flipbox-button-icon`}></i>
+											)}
+											
 										</div>
 									</a>
 								</div>
