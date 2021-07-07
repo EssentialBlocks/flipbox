@@ -30,6 +30,7 @@
 /* back, initially hidden pane */
 .eb-flipbox-back {
 	transform: rotateY(180deg);
+	z-index: 0;
 }
 
 /* icon wrapper style */
