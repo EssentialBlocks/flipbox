@@ -80,6 +80,12 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
+= 1.1.0 - (dev)
+* Improved: Inspector Panel Design & controls
+* Improved: Responsive Device Preview improved. Now the preview options synced with the wordpress's default preview button.
+* Added: Fade style
+* Fixed: Issue from [WordPres.org](https://wordpress.org/support/topic/flipbox-is-flickering/)
+
 = 1.0.2 - 07/09/2020 =
 * Added : Keywords
 * Fixed : Missing css files
