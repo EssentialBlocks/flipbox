@@ -48,41 +48,40 @@ function create_block_flipbox_block_init()
 		filemtime("$dir/$index_js")
 	);
 
+
+	$fontpicker_theme = 'assets/css/fonticonpicker.base-theme.react.css';
+	wp_register_style(
+			'fontpicker-default-theme',
+			plugins_url($fontpicker_theme, __FILE__),
+			array()
+	);
+
+	$fontpicker_material_theme = 'assets/css/fonticonpicker.material-theme.react.css';
+	wp_register_style(
+			'fontpicker-matetial-theme',
+			plugins_url($fontpicker_material_theme, __FILE__),
+			array()
+	);
 	$editor_css = 'build/index.css';
 	wp_register_style(
 		'create-block-flipbox-block-editor',
 		plugins_url($editor_css, __FILE__),
-		array(),
+		array('fontpicker-default-theme','fontpicker-matetial-theme'),
 		filemtime("$dir/$editor_css")
+	);
+	$fontawesome_css = 'assets/css/font-awesome5.css';
+	wp_register_style(
+			'fontawesome-frontend-css',
+			plugins_url($fontawesome_css, __FILE__),
+			array()
 	);
 
 	$style_css = 'build/style-index.css';
 	wp_register_style(
 		'create-block-flipbox-block',
 		plugins_url($style_css, __FILE__),
-		array(),
+		array('fontawesome-frontend-css'),
 		filemtime("$dir/$style_css")
-	);
-
-	$fontpicker_theme = 'assets/css/fonticonpicker.base-theme.react.css';
-	wp_enqueue_style(
-		'fontpicker-default-theme',
-		plugins_url($fontpicker_theme, __FILE__),
-		array()
-	);
-
-	$fontpicker_material_theme = 'assets/css/fonticonpicker.material-theme.react.css';
-	wp_enqueue_style(
-		'fontpicker-matetial-theme',
-		plugins_url($fontpicker_material_theme, __FILE__),
-		array()
-	);
-
-	$fontawesome_css = 'assets/css/font-awesome5.css';
-	wp_enqueue_style(
-		'fontawesome-frontend-css',
-		plugins_url($fontawesome_css, __FILE__),
-		array()
 	);
 
 	if (!WP_Block_Type_Registry::get_instance()->is_registered('essential-blocks/flipbox')) {
@@ -90,9 +89,6 @@ function create_block_flipbox_block_init()
 			'editor_script' => 'create-block-flipbox-block-editor',
 			'editor_style' => 'create-block-flipbox-block-editor',
 			'style'         => 'create-block-flipbox-block',
-			'fontpicker_theme' => 'fontpicker-default-theme',
-			'fontpicker_material_theme' => 'fontpicker-material-theme',
-			'fontawesome_css' => 'fontawesome-frontend-css',
 		));
 	}
 }
