@@ -1,6 +1,6 @@
 {
 	"name": "flipbox-block",
-	"version": "0.1.0",
+	"version": "1.1.0",
 	"description": "Deliver your content beautifully to grab attention with an animated Flipbox block.",
 	"author": "WPDeveloper",
 	"license": "GPL-2.0-or-later",
@@ -19,13 +19,13 @@
 	},
 	"dependencies": {
 		"@fonticonpicker/react-fonticonpicker": "^1.2.0",
-		"@wordpress/components": "^10.0.1",
-		"@wordpress/element": "^2.16.0",
-		"classnames": "^2.2.6",
-		"prop-types": "^15.7.2",
-		"react-transition-group": "^4.4.1",
 		"@wordpress/block-editor": "^5.3.1",
 		"@wordpress/blocks": "^8.0.1",
-		"@wordpress/i18n": "^3.19.1"
+		"@wordpress/components": "^10.0.1",
+		"@wordpress/element": "^2.16.0",
+		"@wordpress/i18n": "^3.19.1",
+		"classnames": "^2.2.6",
+		"prop-types": "^15.7.2",
+		"react-transition-group": "^4.4.1"
 	}
 }
