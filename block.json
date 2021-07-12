@@ -1,5 +1,6 @@
 {
-	"name": "block/flipbox",
+	"apiVersion": 2,
+	"name": "flipbox/flipbox-block",
 	"title": "Flipbox",
 	"category": "widgets",
 	"description": "Deliver Your Content Beautifully To Grab Attention",

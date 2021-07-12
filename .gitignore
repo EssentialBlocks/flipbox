@@ -25,3 +25,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# mac device created files
+.DS_Store

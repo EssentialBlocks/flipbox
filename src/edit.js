@@ -2,22 +2,71 @@
  * WordPress dependencits
  */
 const { __ } = wp.i18n;
-const { Component } = wp.element;
 const { Toolbar, ToolbarButton } = wp.components;
-const { BlockControls, AlignmentToolbar } = wp.blockEditor;
+const { BlockControls, AlignmentToolbar, useBlockProps } = wp.blockEditor;
+const { useEffect } = wp.element;
+const { select } = wp.data;
+
+/**
+ * Editor CSS
+ */
+import "./editor.scss";
 
 /*
  * Internal dependencies
  */
-import { FlipboxButton } from "./flipbox-button";
-import FlipboxContent from "./flipbox-content";
-import FlipboxWrapper from "./flipbox-wrapper";
-import { getBackgroundImage, getFlipTransform } from "../util/helper";
-import { DEFAULT_ICON_SIZE } from "./constants";
 import Inspector from "./inspector";
+import {
+	dimensionsMargin,
+	dimensionsPadding,
+	buttonPadding,
+	frontIconMargin,
+	frontIconPadding,
+	backIconMargin,
+	backIconPadding,
+} from "./constants/dimensionsNames";
+import {
+	typoPrefix_title,
+	typoPrefix_content,
+} from "./constants/typographyPrefixConstants";
 
-class Edit extends Component {
-	getImageAlign = (align) => {
+import {
+	flipboxBackWrapper,
+	flipboxFrontWrapper,
+} from "./constants/backgroundsConstants";
+
+import {
+	boxHeightAttr,
+	boxFrontIconSizeAttr,
+	boxBackIconSizeAttr,
+	boxWidthAttr,
+	buttonIconSizeAttr,
+	frontImgSizeAttr,
+	backImgSizeAttr,
+	frontImgRadiusAttr,
+	backImgRadiusAttr,
+} from "./constants/rangeNames";
+import {
+	borderShadow,
+	borderShadowBtn,
+	borderShadowFrontIcon,
+	borderShadowBackIcon,
+} from "./constants/borderShadowConstants";
+import {
+	getFlipTransform,
+	mimmikCssForPreviewBtnClick,
+	duplicateBlockIdFix,
+	softMinifyCssStrings,
+	isCssExists,
+	generateTypographyStyles,
+	generateDimensionsControlStyles,
+	generateResponsiveRangeStyles,
+	generateBackgroundControlStyles,
+	generateBorderShadowStyles,
+} from "../util/helpers";
+
+function Edit(props) {
+	const getFlexAlign = (align) => {
 		switch (align) {
 			case "left":
 				return "flex-start";
@@ -28,495 +77,1109 @@ class Edit extends Component {
 		}
 	};
 
-	render() {
-		const { isSelected, attributes, setAttributes } = this.props;
-		const {
-			flipboxStyle,
-			boxHeight,
-			boxWidth,
-			isHover,
-			flipType,
-			selectedSide,
-			frontIconOrImage,
-			frontIcon,
-			frontImageUrl,
-			frontImageId,
-			backIconOrImage,
-			backIcon,
-			backImageUrl,
-			backImageId,
-			frontTitle,
-			frontContent,
-			backTitle,
-			backContent,
-			frontImageSize,
-			backImageSize,
-			frontBackground,
-			backBackground,
-			borderStyle,
-			borderColor,
-			borderWidth,
-			borderRadius,
-			addLink,
-			linkType,
-			buttonText,
-			buttonIcon,
-			buttonIconPos,
-			link,
-			frontTitleColor,
-			backTitleColor,
-			frontContentColor,
-			backContentColor,
-			frontImageRadius,
-			backImageRadius,
-			frontIconSize,
-			backIconSize,
-			frontIconColor,
-			backIconColor,
-			boxShadowColor,
-			shadowVOffset,
-			shadowHOffset,
-			shadowSpread,
-			shadowBlur,
-			buttonStyle,
-			buttonClasses,
-			buttonBackground,
-			buttonColor,
-			buttonSize,
-			buttonBorderSize,
-			buttonBorderColor,
-			buttonBorderType,
-			buttonBorderRadius,
-			buttonPaddingTop,
-			buttonPaddingRight,
-			buttonPaddingBottom,
-			buttonPaddingLeft,
-			btnShadowColor,
-			btnShadowVOffset,
-			btnShadowHOffset,
-			btnShadowBlur,
-			btnShadowSpread,
-			frontIconBackground,
-			frontIconPadding,
-			frontIconBorderRadius,
-			frontIconTopMargin,
-			frontIconBorderSize,
-			frontIconBorderType,
-			frontIconBorderColor,
-			backIconBackground,
-			backIconPadding,
-			backIconBorderRadius,
-			backIconTopMargin,
-			backIconBorderSize,
-			backIconBorderType,
-			backIconBorderColor,
-			frontBackgroundType,
-			frontBackgroundGradient,
-			backBackgroundType,
-			backBackgroundGradient,
-			transitionSpeed,
-			frontBackgroundImageID,
-			frontBackgroundImageURL,
-			frontBackgroundPosition,
-			frontBackgroundPosX,
-			frontBackgroundPosXUnit,
-			frontBackgroundPosY,
-			frontBackgroundPosYUnit,
-			frontBackgroundSize,
-			frontBackgroundWidth,
-			frontBackgroundWidthUnit,
-			frontBackgroundRepeat,
-			backBackgroundImageID,
-			backBackgroundImageURL,
-			backBackgroundPosition,
-			backBackgroundPosX,
-			backBackgroundPosXUnit,
-			backBackgroundPosY,
-			backBackgroundPosYUnit,
-			backBackgroundSize,
-			backBackgroundWidth,
-			backBackgroundWidthUnit,
-			backBackgroundRepeat,
-			displayButtonIcon,
-			titleFontSize,
-			titleFontSizeUnit,
-			contentFontSize,
-			contentFontSizeUnit,
-			containerMarginTop,
-			containerMarginRight,
-			containerMarginBottom,
-			containerMarginLeft,
-			containerPaddingTop,
-			containerPaddingRight,
-			containerPaddingBottom,
-			containerPaddingLeft,
-			align,
-			marginUnit,
-			paddingUnit,
-			radiusUnit,
-			buttonSizeUnit,
-			buttonPaddingUnit,
-			heightUnit,
-			widthUnit,
-			titleFontFamily,
-			titleFontWeight,
-			titleTextTransform,
-			titleTextDecoration,
-			titleLetterSpacing,
-			titleLetterSpacingUnit,
-			titleLineHeight,
-			titleLineHeightUnit,
-			contentFontFamily,
-			contentFontWeight,
-			contentTextTransform,
-			contentTextDecoration,
-			contentLetterSpacing,
-			contentLetterSpacingUnit,
-			contentLineHeight,
-			contentLineHeightUnit,
-		} = attributes;
+	const { isSelected, attributes, setAttributes, clientId } = props;
+	const {
+		blockId,
+		blockMeta,
+		// responsive control attribute ⬇
+		resOption,
+		isHover,
+		flipType,
+		selectedSide,
+		frontIconOrImage,
+		frontIcon,
+		frontImageUrl,
+		backIconOrImage,
+		backIcon,
+		backImageUrl,
+		showFrontTitle,
+		frontTitle,
+		showFrontContent,
+		frontContent,
+		showBackTitle,
+		backTitle,
+		showBackContent,
+		backContent,
+		linkType,
+		buttonText,
+		buttonIcon,
+		buttonIconPos,
+		link,
+		frontTitleColor,
+		backTitleColor,
+		frontContentColor,
+		backContentColor,
+		frontIconColor,
+		backIconColor,
+		buttonStyle,
+		buttonClasses,
+		buttonBackground,
+		buttonColor,
+		frontIconBackground,
+		backIconBackground,
+		transitionSpeed,
+		displayButtonIcon,
+		align,
+	} = attributes;
 
-		// Default colors
-		const defaultFrontBackground = "#7967ff";
-		const deafultFrontTitleColor = "#ffffff";
-		const defaultFrontContentColor = "#ffffff";
-		const defautlBackContentColor = "#ffffff";
-		const defaultBackBackground = "#3074ff";
-		const defaultBackTitleColor = "#ffffff";
-		const defaultBorderColor = "#000000";
-		const defaultBoxShadowColor = "#abb8c3";
-		const defaultButtonBorderColor = "#eeeeee";
-		const deafultBtnShadowColor = "#abb8c3";
-		const defaultFrontIconBackground = "transparent";
-		const defaultFrontIconBorderColor = "#000000";
-		const defaultBackIconBackground = "transparent";
-		const defaultBackIconBorderColor = "#000000";
+	// Default colors
+	const deafultFrontTitleColor = "#ffffff";
+	const defaultFrontContentColor = "#ffffff";
+	const defautlBackContentColor = "#ffffff";
+	const defaultBackTitleColor = "#ffffff";
+	const defaultFrontIconBackground = "transparent";
+	const defaultBackIconBackground = "transparent";
 
-		const flipContainerStyle = {
-			height: `${boxHeight || 310}${heightUnit}`,
-			maxWidth: `${boxWidth || 600}${widthUnit}`,
-			width: "100%",
-			margin: `${containerMarginTop}${marginUnit} ${containerMarginRight}${marginUnit} ${containerMarginBottom}${marginUnit} ${containerMarginLeft}${marginUnit}`,
-			padding: `${containerPaddingTop}${paddingUnit} ${containerPaddingRight}${paddingUnit} ${containerPaddingBottom}${paddingUnit} ${containerPaddingLeft}${paddingUnit}`,
-		};
+	// wrapper styles css in strings ⬇
+	const {
+		dimensionStylesDesktop: wrapperMarginStylesDesktop,
+		dimensionStylesTab: wrapperMarginStylesTab,
+		dimensionStylesMobile: wrapperMarginStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: dimensionsMargin,
+		styleFor: "margin",
+		attributes,
+	});
 
-		const flipperStyle = {
-			transform:
-				isHover || selectedSide === "back"
-					? getFlipTransform(flipType)
-					: "none",
-			transition: `${transitionSpeed ? transitionSpeed / 10 : 0.6}s`,
-		};
+	const {
+		dimensionStylesDesktop: wrapperPaddingStylesDesktop,
+		dimensionStylesTab: wrapperPaddingStylesTab,
+		dimensionStylesMobile: wrapperPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: dimensionsPadding,
+		styleFor: "padding",
+		attributes,
+	});
+	// wrapper border & shadow settings
+	const {
+		styesDesktop: bdShadowStyesDesktop,
+		styesTab: bdShadowStyesTab,
+		styesMobile: bdShadowStyesMobile,
+		stylesHoverDesktop: bdShadowStylesHoverDesktop,
+		stylesHoverTab: bdShadowStylesHoverTab,
+		stylesHoverMobile: bdShadowStylesHoverMobile,
+		transitionStyle: bdShadowTransitionStyle,
+	} = generateBorderShadowStyles({
+		controlName: borderShadow,
+		attributes,
+	});
 
-		const frontStyle = {
-			display: "flex",
-			justifyContent: "center",
-			alignItems: "center",
-			minHeight: `${boxHeight || 310}${heightUnit}`,
-			maxWidth: `${boxWidth || 600}${widthUnit}`,
-			height: "auto",
-			width: "100%",
-			backgroundImage: getBackgroundImage(
-				frontBackgroundType,
-				frontBackgroundGradient,
-				frontBackgroundImageURL
-			),
-			backgroundSize:
-				frontBackgroundSize === "custom"
-					? `${frontBackgroundWidth}${frontBackgroundWidthUnit}`
-					: frontBackgroundSize,
-			backgroundPosition:
-				frontBackgroundPosition === "custom"
-					? `${frontBackgroundPosX}${frontBackgroundPosXUnit} ${frontBackgroundPosY}${frontBackgroundPosYUnit}`
-					: frontBackgroundPosition,
-			backgroundRepeat: frontBackgroundRepeat,
-			backgroundColor:
-				frontBackgroundType === "fill" && frontBackground
-					? frontBackground
-					: defaultFrontBackground,
-			borderStyle: borderStyle,
-			borderColor: borderColor || defaultBorderColor,
-			borderWidth: `${borderWidth || 0}px`,
-			borderRadius: `${borderRadius || 0}${radiusUnit}`,
-			boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-				shadowBlur || 0
-			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
-		};
+	// responsive range controller
+	const {
+		rangeStylesDesktop: wrapperHeightStylesDesktop,
+		rangeStylesTab: wrapperHeightStylesTab,
+		rangeStylesMobile: wrapperHeightStylesMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxHeightAttr,
+		property: "height",
+		attributes,
+		customUnit: "px",
+	});
 
-		const frontImageStyle = {
-			wrapper: {
-				alignSelf: this.getImageAlign(align),
-				display:
-					frontIconOrImage === "image" && frontImageUrl ? "block" : "none",
-			},
-			image: {
-				height: `${frontImageSize || 100}px`,
-				width: `${frontImageSize || 100}px`,
-				borderRadius: `${frontImageRadius || 0}%`,
-			},
-		};
+	const {
+		rangeStylesDesktop: wrapperMinHeightStylesDesktop,
+		rangeStylesTab: wrapperMinHeightStylesTab,
+		rangeStylesMobile: wrapperMinHeightStylesMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxHeightAttr,
+		property: "min-height",
+		attributes,
+		customUnit: "px",
+	});
 
-		const frontIconStyle = {
-			fontSize: `${frontIconSize || DEFAULT_ICON_SIZE}px`,
-			color: frontIconColor || "#ffffff",
-			borderRadius: `${frontIconBorderRadius || 0}px`,
-			background: frontIconBackground || defaultFrontIconBackground,
-			padding: `${frontIconPadding || 0}px`,
-			marginTop: `${frontIconTopMargin || 0}px`,
-			borderStyle: frontIconBorderType,
-			borderColor: frontIconBorderColor || defaultFrontIconBorderColor,
-			borderWidth: `${frontIconBorderSize || 0}px`,
-			width: "100%",
-			textAlign: align,
-		};
+	const {
+		rangeStylesDesktop: wrapperWidthStylesDesktop,
+		rangeStylesTab: wrapperWidthStylesTab,
+		rangeStylesMobile: wrapperWidthStylesMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxWidthAttr,
+		property: "max-width",
+		attributes,
+	});
 
-		const frontTitleStyle = {
-			fontFamily: titleFontFamily,
-			fontSize: titleFontSize
-				? `${titleFontSize}${titleFontSizeUnit}`
-				: undefined,
-			fontWeight: titleFontWeight,
-			textDecoration: titleTextDecoration,
-			textTransform: titleTextTransform,
-			lineHeight: titleLineHeight
-				? `${titleLineHeight}${titleLineHeightUnit}`
-				: undefined,
-			letterSpacing: titleLetterSpacing
-				? `${titleLetterSpacing}${titleLetterSpacingUnit}`
-				: undefined,
-			color: frontTitleColor || deafultFrontTitleColor,
-			width: "100%",
-			textAlign: align,
-		};
+	const {
+		rangeStylesDesktop: frontFontSizeDesktop,
+		rangeStylesTab: frontFontSizeTab,
+		rangeStylesMobile: frontFontSizeMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxFrontIconSizeAttr,
+		property: "font-size",
+		attributes,
+	});
 
-		const frontContentStyle = {
-			fontFamily: contentFontFamily,
-			fontSize: contentFontSize
-				? `${contentFontSize}${contentFontSizeUnit}`
-				: undefined,
-			fontWeight: contentFontWeight,
-			textDecoration: contentTextDecoration,
-			textTransform: contentTextTransform,
-			lineHeight: contentLineHeight
-				? `${contentLineHeight}${contentLineHeightUnit}`
-				: undefined,
-			letterSpacing: contentLetterSpacing
-				? `${contentLetterSpacing}${contentLetterSpacingUnit}`
-				: undefined,
-			color: frontContentColor || defaultFrontContentColor,
-			width: "100%",
-			textAlign: align,
-		};
+	const {
+		rangeStylesDesktop: backFontSizeDesktop,
+		rangeStylesTab: backFontSizeTab,
+		rangeStylesMobile: backFontSizeMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: boxBackIconSizeAttr,
+		property: "font-size",
+		attributes,
+	});
 
-		const backStyle = {
-			display: "flex",
-			flexDirection: "column",
-			justifyContent: "center",
-			alignItems: "center",
-			minHeight: `${boxHeight || 310}${heightUnit}`,
-			maxWidth: `${boxWidth || 600}${widthUnit}`,
-			height: "auto",
-			width: "100%",
-			backgroundImage: getBackgroundImage(
-				backBackgroundType,
-				backBackgroundGradient,
-				backBackgroundImageURL
-			),
-			backgroundSize:
-				backBackgroundSize === "custom"
-					? `${backBackgroundWidth}${backBackgroundWidthUnit}`
-					: backBackgroundSize,
-			backgroundPosition:
-				backBackgroundPosition === "custom"
-					? `${backBackgroundPosX}${backBackgroundPosXUnit} ${backBackgroundPosY}${backBackgroundPosYUnit}`
-					: backBackgroundPosition,
-			backgroundRepeat: backBackgroundRepeat,
-			backgroundColor:
-				backBackgroundType === "fill" && backBackground
-					? backBackground
-					: defaultBackBackground,
-			borderStyle: borderStyle,
-			bordercolor: borderColor || defaultBorderColor,
-			borderWidth: `${borderWidth || 0}px`,
-			borderRadius: `${borderRadius || 0}${radiusUnit}`,
-			//  ? move it to helper file
-			transform:
+	// front background controller
+	const {
+		backgroundStylesDesktop: frontBackgroundStylesDesktop,
+		hoverBackgroundStylesDesktop: frontHoverBackgroundStylesDesktop,
+		backgroundStylesTab: frontBackgroundStylesTab,
+		hoverBackgroundStylesTab: frontHoverBackgroundStylesTab,
+		backgroundStylesMobile: frontBackgroundStylesMobile,
+		hoverBackgroundStylesMobile: frontHoverBackgroundStylesMobile,
+		overlayStylesDesktop: frontOverlayStylesDesktop,
+		hoverOverlayStylesDesktop: frontHoverOverlayStylesDesktop,
+		overlayStylesTab: frontOverlayStylesTab,
+		hoverOverlayStylesTab: frontHoverOverlayStylesTab,
+		overlayStylesMobile: frontOverlayStylesMobile,
+		hoverOverlayStylesMobile: frontHoverOverlayStylesMobile,
+		bgTransitionStyle: frontBgTransitionStyle,
+		ovlTransitionStyle: frontOvlTransitionStyle,
+	} = generateBackgroundControlStyles({
+		attributes,
+		controlName: flipboxFrontWrapper,
+	});
+
+	// front Icon Margin & Padding
+	const {
+		dimensionStylesDesktop: frontIconMarginStylesDesktop,
+		dimensionStylesTab: frontIconMarginStylesTab,
+		dimensionStylesMobile: frontIconMarginStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontIconMargin,
+		styleFor: "margin",
+		attributes,
+	});
+
+	const {
+		dimensionStylesDesktop: frontIconPaddingStylesDesktop,
+		dimensionStylesTab: frontIconPaddingStylesTab,
+		dimensionStylesMobile: frontIconPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontIconPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// front icon border
+	const {
+		styesDesktop: frontIconBorderDesktop,
+		styesTab: frontIconBorderTab,
+		styesMobile: frontIconBorderMobile,
+		stylesHoverDesktop: frontIconBorderHoverDesktop,
+		stylesHoverTab: frontIconBorderHoverTab,
+		stylesHoverMobile: frontIconBorderHoverMobile,
+		transitionStyle: frontIconTransitionStyle,
+	} = generateBorderShadowStyles({
+		controlName: borderShadowFrontIcon,
+		attributes,
+		noShadow: true,
+	});
+
+	// front image
+	const {
+		rangeStylesDesktop: frontImgHeightDesktop,
+		rangeStylesTab: frontImgHeightTab,
+		rangeStylesMobile: frontImgHeightMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: frontImgSizeAttr,
+		property: "height",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: frontImgWidthDesktop,
+		rangeStylesTab: frontImgWidthTab,
+		rangeStylesMobile: frontImgWidthMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: frontImgSizeAttr,
+		property: "width",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: frontImgRadiusDesktop,
+		rangeStylesTab: frontImgRadiusTab,
+		rangeStylesMobile: frontImgRadiusMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: frontImgRadiusAttr,
+		property: "border-radius",
+		attributes,
+	});
+
+	// back background controller
+	const {
+		backgroundStylesDesktop: backBackgroundStylesDesktop,
+		hoverBackgroundStylesDesktop: backHoverBackgroundStylesDesktop,
+		backgroundStylesTab: backBackgroundStylesTab,
+		hoverBackgroundStylesTab: backHoverBackgroundStylesTab,
+		backgroundStylesMobile: backBackgroundStylesMobile,
+		hoverBackgroundStylesMobile: backHoverBackgroundStylesMobile,
+		overlayStylesDesktop: backOverlayStylesDesktop,
+		hoverOverlayStylesDesktop: backHoverOverlayStylesDesktop,
+		overlayStylesTab: backOverlayStylesTab,
+		hoverOverlayStylesTab: backHoverOverlayStylesTab,
+		overlayStylesMobile: backOverlayStylesMobile,
+		hoverOverlayStylesMobile: backHoverOverlayStylesMobile,
+		bgTransitionStyle: backBgTransitionStyle,
+		ovlTransitionStyle: backOvlTransitionStyle,
+	} = generateBackgroundControlStyles({
+		attributes,
+		controlName: flipboxBackWrapper,
+	});
+
+	const {
+		typoStylesDesktop: titleTypoStylesDesktop,
+		typoStylesTab: titleTypoStylesTab,
+		typoStylesMobile: titleTypoStylesMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: typoPrefix_title,
+	});
+
+	const {
+		typoStylesDesktop: contentTypoStylesDesktop,
+		typoStylesTab: contentTypoStylesTab,
+		typoStylesMobile: contentTypoStylesMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: typoPrefix_content,
+	});
+
+	// back Icon Margin & Padding
+	const {
+		dimensionStylesDesktop: backIconMarginStylesDesktop,
+		dimensionStylesTab: backIconMarginStylesTab,
+		dimensionStylesMobile: backIconMarginStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backIconMargin,
+		styleFor: "margin",
+		attributes,
+	});
+
+	const {
+		dimensionStylesDesktop: backIconPaddingStylesDesktop,
+		dimensionStylesTab: backIconPaddingStylesTab,
+		dimensionStylesMobile: backIconPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backIconPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// back icon border
+	const {
+		styesDesktop: backIconBorderDesktop,
+		styesTab: backIconBorderTab,
+		styesMobile: backIconBorderMobile,
+		stylesHoverDesktop: backIconBorderHoverDesktop,
+		stylesHoverTab: backIconBorderHoverTab,
+		stylesHoverMobile: backIconBorderHoverMobile,
+		transitionStyle: backIconTransitionStyle,
+	} = generateBorderShadowStyles({
+		controlName: borderShadowBackIcon,
+		attributes,
+		noShadow: true,
+	});
+
+	// back image
+	const {
+		rangeStylesDesktop: backImgHeightDesktop,
+		rangeStylesTab: backImgHeightTab,
+		rangeStylesMobile: backImgHeightMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: backImgSizeAttr,
+		property: "height",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: backImgWidthDesktop,
+		rangeStylesTab: backImgWidthTab,
+		rangeStylesMobile: backImgWidthMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: backImgSizeAttr,
+		property: "width",
+		attributes,
+	});
+
+	const {
+		rangeStylesDesktop: backImgRadiusDesktop,
+		rangeStylesTab: backImgRadiusTab,
+		rangeStylesMobile: backImgRadiusMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: backImgRadiusAttr,
+		property: "border-radius",
+		attributes,
+	});
+
+	const flipContainerStyleDesktop = `
+	 .eb-flipbox-container.${blockId}{
+		 ${wrapperMarginStylesDesktop}
+		 ${wrapperPaddingStylesDesktop}
+		 ${wrapperHeightStylesDesktop}
+		 ${wrapperWidthStylesDesktop}
+		 width: 100%;
+	 }
+	 `;
+
+	const flipContainerStyleTab = `
+	 .eb-flipbox-container.${blockId}{
+		 ${wrapperMarginStylesTab}
+		 ${wrapperPaddingStylesTab}
+		 ${wrapperHeightStylesTab}
+		 ${wrapperWidthStylesTab}
+	 }
+	 `;
+
+	const flipContainerStyleMobile = `
+	 .eb-flipbox-container.${blockId}{
+		 ${wrapperMarginStylesMobile}
+		 ${wrapperPaddingStylesMobile}
+		 ${wrapperHeightStylesMobile}
+		 ${wrapperWidthStylesMobile}
+	 }
+	 `;
+
+	const itemsContainerStyle = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-items-container {
+		align-items: ${getFlexAlign(align)};
+	 }
+	`;
+
+	// prefix title styles css in strings ⬇
+	const titleStylesDesktop = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title, .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
+		 ${titleTypoStylesDesktop}
+		 width: 100%;
+		 text-align: ${align};
+	 }
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title {
+		 color: ${frontTitleColor || deafultFrontTitleColor};
+	 }
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
+		 color: ${backTitleColor || defaultBackTitleColor};
+	 }
+	 `;
+
+	const titleStylesTab = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title, .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
+		 ${titleTypoStylesTab}
+	 }
+	 `;
+
+	const titleStylesMobile = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title, .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
+		 ${titleTypoStylesMobile}
+	 }
+	 `;
+
+	// prefix content styles css in strings ⬇
+	const contentStylesDesktop = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content, .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
+		 ${contentTypoStylesDesktop}
+		 width: 100%;
+		 text-align: ${align};
+		 margin: 10px 0;
+	 }
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content {
+		 color: ${frontContentColor || defaultFrontContentColor};
+	 }
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
+		 color: ${backContentColor || defautlBackContentColor};
+	 }
+	 `;
+
+	const contentStylesTab = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content, .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
+		 ${contentTypoStylesTab}
+	 }
+	 `;
+
+	const contentStylesMobile = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content, .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
+		 ${contentTypoStylesMobile}
+	 }
+	 `;
+
+	// flipper style
+	const flipperStyle = `
+	 .eb-flipbox-container.${blockId} .eb-flipper {
+		 transition: ${transitionSpeed ? transitionSpeed / 1000 : 0.6}s
+	 }
+	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected {
+		 transform:
+			  ${isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none"};
+	 }
+	 `;
+
+	const frontStyleDesktop = `
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front {
+			${frontBackgroundStylesDesktop}
+			${wrapperMinHeightStylesDesktop}
+			${wrapperWidthStylesDesktop}
+			${bdShadowStyesDesktop}
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: auto;
+			width: 100%;
+			z-index: 1;
+			transition: ${flipType === "fade" ? "opacity 0.6s, " : ''}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
+		}
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${frontHoverBackgroundStylesDesktop}
+			${bdShadowStylesHoverDesktop}
+		}
+
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
+			${frontOverlayStylesDesktop}
+			transition: ${frontOvlTransitionStyle};
+		}
+
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
+			${frontHoverOverlayStylesDesktop}
+		}
+
+		.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
+			opacity: ${(isHover || selectedSide === "front") && flipType === "fade" && 0};
+		}
+	 `;
+
+	const frontStyleTab = `
+		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front {
+			${wrapperMinHeightStylesTab}
+			${wrapperWidthStylesTab}
+			${frontBackgroundStylesTab}
+			${bdShadowStyesTab}
+		 }
+
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${frontHoverBackgroundStylesTab}
+			${bdShadowStylesHoverTab}
+		}
+
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
+			${frontOverlayStylesTab}
+		}
+				
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
+			${frontHoverOverlayStylesTab}
+		}
+
+	 `;
+
+	const frontStyleMobile = `
+		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front {
+			 ${wrapperMinHeightStylesMobile}
+			 ${wrapperWidthStylesMobile}
+			${frontBackgroundStylesMobile}
+			${bdShadowStyesMobile}
+		 }
+		 
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
+			${frontHoverBackgroundStylesMobile}
+			${bdShadowStylesHoverMobile}
+		}
+
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
+			${frontOverlayStylesMobile}
+		}
+
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
+			${frontHoverOverlayStylesMobile}
+		}
+	 `;
+
+	const frontImageStyleDesktop = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container {
+		 display: ${frontIconOrImage === "image" && frontImageUrl ? "flex" : "none"};
+		 justify-content: center;
+	 }
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
+		 ${frontImgHeightDesktop}
+		 ${frontImgWidthDesktop}
+		 ${frontImgRadiusDesktop}
+	 }
+	 `;
+
+	const frontImageStyleTab = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
+		${frontImgHeightTab}
+		 ${frontImgWidthTab}
+		 ${frontImgRadiusTab}
+	}
+	`;
+
+	const frontImageStyleMobile = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
+		${frontImgHeightMobile}
+		 ${frontImgWidthMobile}
+		 ${frontImgRadiusMobile}
+	}
+	`;
+
+	const frontIconStyleDesktop = `
+		 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front {
+			 ${frontFontSizeDesktop}
+			 ${frontIconMarginStylesDesktop}
+			 ${frontIconPaddingStylesDesktop}
+			 ${frontIconBorderDesktop}
+			 color: ${frontIconColor || "#ffffff"};
+			 background: ${frontIconBackground || defaultFrontIconBackground};
+			 width: 100%;
+			 text-align:${align};
+			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
+			 transition: ${frontIconTransitionStyle};
+		 }
+
+		 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front:hover {
+			 ${frontIconBorderHoverDesktop}
+		 }
+	 `;
+
+	const frontIconStyleTab = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front {
+		${frontFontSizeTab}
+		${frontIconMarginStylesTab}
+		${frontIconPaddingStylesTab}
+		${frontIconBorderTab}
+	 }
+
+	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front:hover {
+		${frontIconBorderHoverTab}
+	}
+	 `;
+
+	const frontIconStyleMobile = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front {
+		${frontFontSizeMobile}
+		${frontIconMarginStylesMobile}
+		${frontIconPaddingStylesMobile}
+		${frontIconBorderMobile}
+	 }
+
+	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front:hover {
+		${frontIconBorderHoverMobile}
+	}
+	 `;
+
+	const backStyleDesktop = `
+
+	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back {	
+		${backBackgroundStylesDesktop}
+		${wrapperMinHeightStylesDesktop}
+		${wrapperWidthStylesDesktop}
+		${bdShadowStyesDesktop}
+		 display: flex;
+		 flex-direction: column;
+		 justify-content: center;
+		 align-items: center;
+		 height: auto;
+		 width: 100%;
+		 transform:  ${
 				(flipType === "flip-up" && "rotateX(-180deg)") ||
 				(flipType === "flip-bottom" && "rotateX(180deg)") ||
-				((flipType === "zoom-in" || flipType === "zoom-out") && "none"),
-			zIndex:
-				isHover && (flipType === "zoom-in" || flipType === "zoom-out" ? 5 : 0),
-			boxShadow: `${shadowVOffset || 0}px ${shadowHOffset || 0}px ${
-				shadowBlur || 0
-			}px ${shadowSpread || 0}px ${boxShadowColor || defaultBoxShadowColor}`,
-			cursor: linkType === "box" && link ? "pointer" : "default",
+				((flipType === "zoom-in" ||
+					flipType === "zoom-out" ||
+					flipType === "fade") &&
+					"none")
+			};
+		transition: ${flipType === "fade" ? "opacity 0.6s, " : ''}${backBgTransitionStyle}, ${bdShadowTransitionStyle};
+		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
+		 ${
+				isHover && (flipType === "zoom-in" || flipType === "zoom-out")
+					? "z-index: 5;"
+					: ""
+			}
+	 }
+
+	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
+		${backHoverBackgroundStylesDesktop}
+		${bdShadowStylesHoverDesktop}
+	 }
+
+	 
+	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
+		${backOverlayStylesDesktop}
+		transition: ${backOvlTransitionStyle};
+	}
+	
+	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
+		${backHoverOverlayStylesDesktop}
+	}
+
+
+	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
+		opacity: ${(isHover || selectedSide === "back") && flipType === "fade" && 1};
+	 }
+	 
+	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front,
+	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back{
+		position: absolute;
+	 }
+
+
+	 `;
+
+	const backStyleTab = `
+		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back {
+			 ${wrapperMinHeightStylesTab}
+			 ${wrapperWidthStylesTab}
+			 ${backBackgroundStylesTab}
+			 ${bdShadowStyesTab}
+		 }
+
+		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
+			${backHoverBackgroundStylesTab}
+			${bdShadowStylesHoverTab}
+		 }	
+		 
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
+			${backOverlayStylesTab}
+		}
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
+			${backHoverOverlayStylesTab}
+		}
+	
+	 `;
+
+	const backStyleMobile = `
+		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back {
+			 ${wrapperMinHeightStylesMobile}
+			 ${wrapperWidthStylesMobile}
+			 ${backBackgroundStylesMobile}
+			 ${bdShadowStyesMobile}
+			 ${bdShadowStylesHoverMobile}
+		 }
+
+		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
+			${backHoverBackgroundStylesMobile}
+			${bdShadowStylesHoverMobile}
+		 }
+		 
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
+			${backOverlayStylesMobile}
+		}
+		
+		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
+			${backHoverOverlayStylesMobile}
+		}
+	 `;
+
+	const backImageStyleDesktop = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
+		 display: ${backIconOrImage === "image" && backImageUrl ? "flex" : "none"};
+		 justify-content: center;
+	 }
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
+		 ${backImgHeightDesktop}
+		 ${backImgWidthDesktop}
+		 ${backImgRadiusDesktop}
+	 }
+	 `;
+
+	const backImageStyleTab = `
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
+		 ${backImgHeightTab}
+		 ${backImgWidthTab}
+		 ${backImgRadiusTab}
+	 }
+	 `;
+
+	const backImageStyleMobile = `
+ 
+	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
+		 ${backImgHeightMobile}
+		 ${backImgWidthMobile}
+		 ${backImgRadiusMobile}
+	 }
+	 `;
+
+	const backIconStyleDesktop = `
+	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-back {
+		 ${backFontSizeDesktop}
+		 ${backIconMarginStylesDesktop}
+		 ${backIconPaddingStylesDesktop}
+		 ${backIconBorderDesktop}
+		 color: ${backIconColor || "#ffffff"};
+		 background: ${backIconBackground || defaultBackIconBackground};
+		 width: 100%;
+		 text-align: ${align};
+		 display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
+		 transition: ${backIconTransitionStyle};
+	 }
+
+	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
+		 ${backIconBorderHoverDesktop}
+	 }
+	 `;
+
+	const backIconStyleTab = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-icon-back {
+		${backFontSizeTab}
+		${backIconMarginStylesTab}
+		${backIconPaddingStylesTab}
+		${backIconBorderTab}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
+		${backIconBorderHoverTab}
+	}
+	`;
+
+	const backIconStyleMobile = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-icon-back {
+		${backFontSizeMobile}
+		${backIconMarginStylesMobile}
+		${backIconPaddingStylesMobile}
+		${backIconBorderMobile}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
+		${backIconBorderHoverMobile}
+	}
+	`;
+
+	let backButtonStyleDesktop,
+		backButtonStyleTab,
+		backButtonStyleMobile = "";
+	if (buttonStyle === "custom") {
+		const {
+			dimensionStylesDesktop: buttonPaddingStylesDesktop,
+			dimensionStylesTab: buttonPaddingStylesTab,
+			dimensionStylesMobile: buttonPaddingStylesMobile,
+		} = generateDimensionsControlStyles({
+			controlName: buttonPadding,
+			styleFor: "padding",
+			attributes,
+		});
+		// border & shadow controller
+		const {
+			styesDesktop: btnBdShadowStyesDesktop,
+			styesTab: btnBdShadowStyesTab,
+			styesMobile: btnBdShadowStyesMobile,
+			stylesHoverDesktop: btnBdShadowStylesHoverDesktop,
+			stylesHoverTab: btnBdShadowStylesHoverTab,
+			stylesHoverMobile: btnBdShadowStylesHoverMobile,
+			transitionStyle: btnBdShadowTransitionStyle,
+		} = generateBorderShadowStyles({
+			controlName: borderShadowBtn,
+			attributes,
+		});
+		// button size
+		const {
+			rangeStylesDesktop: buttonSizeDesktop,
+			rangeStylesTab: buttonSizeTab,
+			rangeStylesMobile: buttonSizeMobile,
+		} = generateResponsiveRangeStyles({
+			controlName: buttonIconSizeAttr,
+			property: "width",
+			attributes,
+		});
+		backButtonStyleDesktop = `
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
+			 ${buttonPaddingStylesDesktop}
+			 ${btnBdShadowStyesDesktop}
+			 ${buttonSizeDesktop}
+			 background: ${buttonBackground};
+			 color: ${buttonColor};
+			 transition: ${btnBdShadowTransitionStyle};
+		 }
+
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
+			 ${btnBdShadowStylesHoverDesktop}
+		 }
+ 
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-content {
+			 display: flex;
+			 flex-direction: ${buttonIconPos === "after" ? "row" : "row-reverse"};
+			 justify-content: space-around;
+			 align-items: center;
+		 }
+ 
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-content .eb-flipbox-button-icon {
+			 display: ${displayButtonIcon ? "block" : "none"};
+		 }
+		 `;
+
+		backButtonStyleTab = `
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
+			 ${buttonPaddingStylesTab}
+			 ${btnBdShadowStyesTab}
+			 ${buttonSizeTab}
+		 }
+
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
+			${buttonPaddingStylesTab}
+			${btnBdShadowStylesHoverTab}
+		}
+		 `;
+
+		backButtonStyleMobile = `
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link {
+			 ${buttonPaddingStylesMobile}
+			 ${btnBdShadowStyesMobile}
+			 ${buttonSizeMobile}
+		 }
+
+		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
+			 ${btnBdShadowStylesHoverMobile}
+		 }
+		 `;
+	}
+
+	// all css styles for large screen width (desktop/laptop) in strings ⬇
+	const desktopAllStyles = softMinifyCssStrings(`
+		 ${isCssExists(itemsContainerStyle) ? itemsContainerStyle : " "}
+		 ${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
+		 ${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
+		 ${isCssExists(contentStylesDesktop) ? contentStylesDesktop : " "}
+		 ${isCssExists(flipperStyle) ? flipperStyle : " "}
+		 ${isCssExists(frontStyleDesktop) ? frontStyleDesktop : " "}
+		 ${isCssExists(frontImageStyleDesktop) ? frontImageStyleDesktop : " "}
+		 ${isCssExists(frontIconStyleDesktop) ? frontIconStyleDesktop : " "}
+		 ${isCssExists(backIconStyleDesktop) ? backIconStyleDesktop : " "}
+		 ${isCssExists(backStyleDesktop) ? backStyleDesktop : " "}
+		 ${isCssExists(backImageStyleDesktop) ? backImageStyleDesktop : " "}
+		 ${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
+	 `);
+
+	// all css styles for Tab in strings ⬇
+	const tabAllStyles = softMinifyCssStrings(`
+		 ${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
+		 ${isCssExists(titleStylesTab) ? titleStylesTab : " "}
+		 ${isCssExists(contentStylesTab) ? contentStylesTab : " "}
+		 ${isCssExists(backButtonStyleTab) ? backButtonStyleTab : " "}
+		 ${isCssExists(frontStyleTab) ? frontStyleTab : " "}
+		 ${isCssExists(backStyleTab) ? backStyleTab : " "}
+		 ${isCssExists(frontIconStyleTab) ? frontIconStyleTab : " "}
+		 ${isCssExists(backIconStyleTab) ? backIconStyleTab : " "}
+		 ${isCssExists(frontImageStyleTab) ? frontImageStyleTab : " "}
+		 ${isCssExists(backImageStyleTab) ? backImageStyleTab : " "}
+	 `);
+
+	// all css styles for Mobile in strings ⬇
+	const mobileAllStyles = softMinifyCssStrings(`
+		 ${isCssExists(flipContainerStyleMobile) ? flipContainerStyleMobile : " "}
+		 ${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
+		 ${isCssExists(contentStylesMobile) ? contentStylesMobile : " "}
+		 ${isCssExists(backButtonStyleMobile) ? backButtonStyleMobile : " "}
+		 ${isCssExists(frontStyleMobile) ? frontStyleMobile : " "}
+		 ${isCssExists(backStyleMobile) ? backStyleMobile : " "}
+		 ${isCssExists(frontIconStyleMobile) ? frontIconStyleMobile : " "}
+		 ${isCssExists(backIconStyleMobile) ? backIconStyleMobile : " "}
+		 ${isCssExists(frontImageStyleMobile) ? frontImageStyleMobile : " "}
+		 ${isCssExists(backImageStyleMobile) ? backImageStyleMobile : " "}
+	 `);
+	// Set All Style in "blockMeta" Attribute
+	useEffect(() => {
+		const styleObject = {
+			desktop: desktopAllStyles,
+			tab: tabAllStyles,
+			mobile: mobileAllStyles,
 		};
+		if (JSON.stringify(blockMeta) != JSON.stringify(styleObject)) {
+			setAttributes({ blockMeta: styleObject });
+		}
+	}, [attributes]);
 
-		const backImageStyle = {
-			wrapper: {
-				alignSelf: this.getImageAlign(align),
-				display: backIconOrImage === "image" && backImageUrl ? "block" : "none",
-			},
-			image: {
-				height: `${backImageSize || 100}px`,
-				width: `${backImageSize || 100}px`,
-				borderRadius: `${backImageRadius || 0}%`,
-			},
-		};
+	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
+	useEffect(() => {
+		setAttributes({
+			resOption: select("core/edit-post").__experimentalGetPreviewDeviceType(),
+		});
+	}, []);
 
-		const backIconStyle = {
-			fontSize: `${backIconSize || DEFAULT_ICON_SIZE}px`,
-			color: backIconColor || "#ffffff",
-			borderRadius: `${backIconBorderRadius || 0}%`,
-			background: backIconBackground || defaultBackIconBackground,
-			padding: `${backIconPadding || 0}px`,
-			marginTop: `${backIconTopMargin || 0}px`,
-			borderStyle: backIconBorderType,
-			borderColor: backIconBorderColor || defaultBackIconBorderColor,
-			borderWidth: `${backIconBorderSize || 0}px`,
-			width: "100%",
-			textAlign: align,
-		};
+	// this useEffect is for creating an unique id for each block's unique className by a random unique number
+	useEffect(() => {
+		const BLOCK_PREFIX = "eb-flipbox";
+		duplicateBlockIdFix({
+			BLOCK_PREFIX,
+			blockId,
+			setAttributes,
+			select,
+			clientId,
+		});
+	}, []);
 
-		const backTitleStyle = {
-			fontFamily: titleFontFamily,
-			fontSize: titleFontSize
-				? `${titleFontSize}${titleFontSizeUnit}`
-				: undefined,
-			fontWeight: titleFontWeight,
-			textDecoration: titleTextDecoration,
-			textTransform: titleTextTransform,
-			lineHeight: titleLineHeight
-				? `${titleLineHeight}${titleLineHeightUnit}`
-				: undefined,
-			letterSpacing: titleLetterSpacing
-				? `${titleLetterSpacing}${titleLetterSpacingUnit}`
-				: undefined,
-			color: backTitleColor || defaultBackTitleColor,
-			width: "100%",
-			textAlign: align,
-		};
+	// this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
+	useEffect(() => {
+		mimmikCssForPreviewBtnClick({
+			domObj: document,
+			select,
+		});
+	}, []);
 
-		const backContentStyle = {
-			fontFamily: contentFontFamily,
-			fontSize: contentFontSize
-				? `${contentFontSize}${contentFontSizeUnit}`
-				: undefined,
-			fontWeight: contentFontWeight,
-			textDecoration: contentTextDecoration,
-			textTransform: contentTextTransform,
-			lineHeight: contentLineHeight
-				? `${contentLineHeight}${contentLineHeightUnit}`
-				: undefined,
-			letterSpacing: contentLetterSpacing
-				? `${contentLetterSpacing}${contentLetterSpacingUnit}`
-				: undefined,
-			color: backContentColor || defautlBackContentColor,
-			width: "100%",
-			textAlign: align,
-		};
+	const blockProps = useBlockProps({
+		className: `eb-guten-block-main-parent-wrapper`,
+	});
 
-		// Empty button object for custom styling
-		const backButtonStyle =
-			buttonStyle === "custom"
-				? {
-						background: buttonBackground,
-						color: buttonColor,
-						width: `${buttonSize || 18}${buttonSizeUnit}`,
-						border: `${buttonBorderSize || 0}px ${buttonBorderType} ${
-							buttonBorderColor || defaultButtonBorderColor
-						}`,
-						borderRadius: `${buttonBorderRadius || 0}px`,
-						padding: `${buttonPaddingTop}${buttonPaddingUnit} ${buttonPaddingRight}${buttonPaddingUnit} ${buttonPaddingBottom}${buttonPaddingUnit} ${buttonPaddingLeft}${buttonPaddingUnit}`,
-						boxShadow: `${btnShadowVOffset || 0}px ${btnShadowHOffset || 0}px ${
-							btnShadowBlur || 0
-						}px ${btnShadowSpread || 0}px ${
-							btnShadowColor || deafultBtnShadowColor
-						}`,
-						textDecoration: "none",
-				  }
-				: {};
-
-		return [
-			isSelected && (
-				<Inspector attributes={attributes} setAttributes={setAttributes} />
-			),
-			<BlockControls>
-				<Toolbar>
-					<ToolbarButton
-						title="Front"
-						icon="arrow-right-alt2"
-						isActive={selectedSide === "front"}
-						onClick={() => setAttributes({ selectedSide: "front" })}
-					/>
-					<ToolbarButton
-						title="Back"
-						icon="arrow-left-alt2"
-						isActive={selectedSide === "back"}
-						onClick={() => setAttributes({ selectedSide: "back" })}
-					/>
-				</Toolbar>
-				<AlignmentToolbar
-					value={align}
-					onChange={(align) => setAttributes({ align })}
+	return [
+		isSelected && (
+			<Inspector attributes={attributes} setAttributes={setAttributes} />
+		),
+		<BlockControls>
+			<Toolbar>
+				<ToolbarButton
+					title="Front"
+					icon="arrow-right-alt2"
+					isActive={selectedSide === "front"}
+					onClick={() => setAttributes({ selectedSide: "front" })}
 				/>
-			</BlockControls>,
-			// Edit view here
+				<ToolbarButton
+					title="Back"
+					icon="arrow-left-alt2"
+					isActive={selectedSide === "back"}
+					onClick={() => setAttributes({ selectedSide: "back" })}
+				/>
+			</Toolbar>
+			<AlignmentToolbar
+				value={align}
+				onChange={(align) => setAttributes({ align })}
+			/>
+		</BlockControls>,
+		// Edit view here
+		<div {...blockProps}>
+			<style>
+				{`
+				 ${desktopAllStyles}
+ 
+				 /* mimmikcssStart */
+ 
+				 ${resOption === "Tablet" ? tabAllStyles : " "}
+				 ${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
+ 
+				 /* mimmikcssEnd */
+ 
+				 @media all and (max-width: 1024px) {	
+ 
+					 /* tabcssStart */			
+					 ${softMinifyCssStrings(tabAllStyles)}
+					 /* tabcssEnd */			
+				 
+				 }
+				 
+				 @media all and (max-width: 767px) {
+					 
+					 /* mobcssStart */			
+					 ${softMinifyCssStrings(mobileAllStyles)}
+					 /* mobcssEnd */			
+				 
+				 }
+				 `}
+			</style>
 			<div
-				className="flip-container"
+				className={`eb-flipbox-container ${blockId}`}
+				data-id={blockId}
 				onMouseEnter={() => setAttributes({ isHover: true })}
 				onMouseLeave={() => setAttributes({ isHover: false })}
-				style={flipContainerStyle}
 			>
-				<div className="flipper" style={flipperStyle}>
-					<FlipboxWrapper className="front" style={frontStyle}>
-						<FlipboxContent
-							selectedSide={selectedSide}
-							iconOrImage={frontIconOrImage}
-							imageUrl={frontImageUrl}
-							imageStyle={frontImageStyle}
-							icon={frontIcon}
-							iconStyle={frontIconStyle}
-							linkType={linkType}
-							title={frontTitle}
-							titleStyle={frontTitleStyle}
-							content={frontContent}
-							contentStyle={frontContentStyle}
-						/>
-					</FlipboxWrapper>
-
-					<div className="back" style={backStyle}>
-						<FlipboxContent
-							selectedSide={selectedSide}
-							iconOrImage={backIconOrImage}
-							imageUrl={backImageUrl}
-							imageStyle={backImageStyle}
-							icon={backIcon}
-							iconStyle={backIconStyle}
-							linkType={linkType}
-							title={backTitle}
-							titleStyle={backTitleStyle}
-							content={backContent}
-							contentStyle={backContentStyle}
-						/>
-
-						<FlipboxButton
-							link={link}
-							classNames={buttonClasses}
-							style={{
-								...backButtonStyle,
-								display: linkType === "button" ? "block" : "none",
-							}}
-							displayButtonIcon={displayButtonIcon}
-							buttonText={buttonText}
-							buttonIcon={buttonIcon}
-							buttonIconPos={buttonIconPos}
-						/>
+				<div
+					className={`eb-flipper${
+						isHover || selectedSide === "back" ? " back-is-selected" : ""
+					}`}
+				>
+					<div className="eb-flipbox-front">
+						<div className="eb-flipbox-items-container">
+							{frontIconOrImage !== "none" && (
+								<div className="eb-flipbox-icon-wrapper">
+									{frontIconOrImage === "image" && frontImageUrl && (
+										<div className="eb-flipbox-front-image-container">
+											<img src={frontImageUrl} />
+										</div>
+									)}
+									{frontIconOrImage === "icon" && frontIcon && (
+										<div
+											className="eb-flipbox-icon-front"
+											data-icon={frontIcon}
+										>
+											<span className={frontIcon} />
+										</div>
+									)}
+								</div>
+							)}
+							{showFrontTitle && (
+								<div className="eb-flipbox-front-title-wrapper">
+									{linkType === "title" && link ? (
+										<a href={link ? link : "#"} className="title-link">
+											<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+										</a>
+									) : (
+										<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+									)}
+								</div>
+							)}
+							{showFrontContent && (
+								<div className="eb-flipbox-front-content-wrapper">
+									<p className="eb-flipbox-front-content">{frontContent}</p>
+								</div>
+							)}
+						</div>
+					</div>
+					<div className="eb-flipbox-back">
+						<div className="eb-flipbox-items-container">
+							{backIconOrImage !== "none" && (
+								<div className="eb-flipbox-icon-wrapper">
+									{backIconOrImage === "image" && backImageUrl && (
+										<div className="eb-flipbox-back-image-container">
+											<img src={backImageUrl} />
+										</div>
+									)}
+									{backIconOrImage === "icon" && backIcon && (
+										<div className="eb-flipbox-icon-back" data-icon={backIcon}>
+											<span className={backIcon} />
+										</div>
+									)}
+								</div>
+							)}
+							{showBackTitle && (
+								<div className="eb-flipbox-back-title-wrapper">
+									{linkType === "title" && link ? (
+										<a href={link ? link : "#"} className="title-link">
+											<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+										</a>
+									) : (
+										<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+									)}
+								</div>
+							)}
+							{showBackContent && (
+								<div className="eb-flipbox-back-content-wrapper">
+									<p className="eb-flipbox-back-content">{backContent}</p>
+								</div>
+							)}
+							{linkType === "button" && (
+								<div className="eb-flipbox-button-container">
+									<a
+										className={`eb-flipbox-button-link ${buttonClasses}`}
+										href={link ? link : "#"}
+									>
+										<div className="eb-flipbox-button-content">
+											<span>{buttonText}</span>
+											{buttonIcon && (
+												<i className={`${buttonIcon} eb-flipbox-button-icon`}></i>
+											)}
+											
+										</div>
+									</a>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
-			</div>,
-		];
-	}
+			</div>
+		</div>,
+	];
 }
 
 export default Edit;

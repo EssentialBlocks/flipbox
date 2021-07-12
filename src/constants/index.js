@@ -1,6 +1,6 @@
-const { __ } = wp.i18n;
+import { __ } from "@wordpress/i18n";
 
-export const DEFAULT_ICON_SIZE = "100";
+export const DEFAULT_ICON_SIZE = "50";
 export const DEFAULT_FRONT_BACKGROUND = "#7967ff";
 export const DEFAULT_BACK_BACKGROUND = "#4a5059";
 
@@ -16,6 +16,7 @@ export const FLIPBOX_TYPE = [
 	{ label: __("Flip Bottom"), value: "flip-bottom" },
 	{ label: __("Zoom In"), value: "zoom-in" },
 	{ label: __("Zoom Out"), value: "zoom-out" },
+	{ label: __("Fade"), value: "fade" },
 ];
 
 export const BORDER_STYLES = [
@@ -128,4 +129,20 @@ export const TEXT_DECORATION = [
 	{ label: __("Line Through"), value: "line-through" },
 	{ label: __("Underline"), value: "underline" },
 	{ label: __("Underline Oveline"), value: "underline overline" },
+];
+
+export const UNIT_TYPES = [
+	{ label: "px", value: "px" },
+	{ label: "%", value: "%" },
+	{ label: "em", value: "em" },
+];
+
+export const BOX_HEIGHT_UNIT = [
+	{ label: "px", value: "px" },
+	{ label: "%", value: "%" },
+];
+
+export const FRONT_IMAGE_UNITS = [
+	{ label: "px", value: "px" },
+	{ label: "%", value: "%" },
 ];
