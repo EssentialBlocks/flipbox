@@ -64,21 +64,21 @@ function create_block_flipbox_block_init()
 		filemtime("$dir/$style_css")
 	);
 
-	$fontpicker_theme = 'src/css/fonticonpicker.base-theme.react.css';
+	$fontpicker_theme = 'assets/css/fonticonpicker.base-theme.react.css';
 	wp_enqueue_style(
 		'fontpicker-default-theme',
 		plugins_url($fontpicker_theme, __FILE__),
 		array()
 	);
 
-	$fontpicker_material_theme = 'src/css/fonticonpicker.material-theme.react.css';
+	$fontpicker_material_theme = 'assets/css/fonticonpicker.material-theme.react.css';
 	wp_enqueue_style(
 		'fontpicker-matetial-theme',
 		plugins_url($fontpicker_material_theme, __FILE__),
 		array()
 	);
 
-	$fontawesome_css = 'src/css/font-awesome5.css';
+	$fontawesome_css = 'assets/css/font-awesome5.css';
 	wp_enqueue_style(
 		'fontawesome-frontend-css',
 		plugins_url($fontawesome_css, __FILE__),
