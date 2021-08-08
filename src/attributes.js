@@ -258,12 +258,14 @@ const attributes = {
 	...generateBorderShadowAttributes(borderShadowBackIcon, { noShadow: true }),
 	// background Attributes
 	...generateBackgroundAttributes(flipboxFrontWrapper, {
+		isBgDefaultGradient: true,
 		defaultFillColor: "#7967ff",
-		defaultBgGradient: "linear-gradient(45deg,#3347CA,#8593F2)",
+		defaultBgGradient: "linear-gradient(90deg,#4919f6,#7529f9)",
 	}),
 	...generateBackgroundAttributes(flipboxBackWrapper, {
+		isBgDefaultGradient: true,
 		defaultFillColor: "#3074ff",
-		defaultBgGradient: "linear-gradient(45deg,#8593F2,#3347CA)",
+		defaultBgGradient: "linear-gradient(90deg,#7529f9,#4919f6)",
 	}),
 };
 

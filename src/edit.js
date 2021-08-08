@@ -454,11 +454,11 @@ function Edit(props) {
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title {
-		 color: ${frontTitleColor || deafultFrontTitleColor};
+		 color: ${frontTitleColor ? frontTitleColor : deafultFrontTitleColor};
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
-		 color: ${backTitleColor || defaultBackTitleColor};
+		 color: ${backTitleColor ? backTitleColor : defaultBackTitleColor};
 	 }
 	 `;
 
@@ -484,11 +484,11 @@ function Edit(props) {
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content {
-		 color: ${frontContentColor || defaultFrontContentColor};
+		 color: ${frontContentColor ? frontContentColor : defaultFrontContentColor};
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
-		 color: ${backContentColor || defautlBackContentColor};
+		 color: ${backContentColor ? backContentColor : defautlBackContentColor};
 	 }
 	 `;
 
@@ -527,7 +527,9 @@ function Edit(props) {
 			height: auto;
 			width: 100%;
 			z-index: 1;
-			transition: ${flipType === "fade" ? "opacity 0.6s, " : ''}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
+			transition: ${
+				flipType === "fade" ? "opacity 0.6s, " : ""
+			}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
 		}
 		
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
@@ -545,9 +547,16 @@ function Edit(props) {
 			${frontHoverOverlayStylesDesktop}
 		}
 
-		.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
-			opacity: ${(isHover || selectedSide === "front") && flipType === "fade" && 0};
+		${
+			(isHover || selectedSide === "front") && flipType === "fade"
+				? `
+			.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
+				opacity: 0;
+			}
+			`
+				: ""
 		}
+		
 	 `;
 
 	const frontStyleTab = `
@@ -631,8 +640,10 @@ function Edit(props) {
 			 ${frontIconMarginStylesDesktop}
 			 ${frontIconPaddingStylesDesktop}
 			 ${frontIconBorderDesktop}
-			 color: ${frontIconColor || "#ffffff"};
-			 background: ${frontIconBackground || defaultFrontIconBackground};
+			 color: ${frontIconColor ? frontIconColor : "#ffffff"};
+			 background: ${
+					frontIconBackground ? frontIconBackground : defaultFrontIconBackground
+				};
 			 width: 100%;
 			 text-align:${align};
 			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
@@ -691,7 +702,9 @@ function Edit(props) {
 					flipType === "fade") &&
 					"none")
 			};
-		transition: ${flipType === "fade" ? "opacity 0.6s, " : ''}${backBgTransitionStyle}, ${bdShadowTransitionStyle};
+		transition: ${
+			flipType === "fade" ? "opacity 0.6s, " : ""
+		}${backBgTransitionStyle}, ${bdShadowTransitionStyle};
 		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
 		 ${
 				isHover && (flipType === "zoom-in" || flipType === "zoom-out")
@@ -715,16 +728,19 @@ function Edit(props) {
 		${backHoverOverlayStylesDesktop}
 	}
 
-
-	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
-		opacity: ${(isHover || selectedSide === "back") && flipType === "fade" && 1};
-	 }
+	${
+		(isHover || selectedSide === "back") && flipType === "fade"
+			? `.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
+		opacity: 1;
+	 }`
+			: ""
+	}
+	 
 	 
 	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front,
 	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back{
 		position: absolute;
 	 }
-
 
 	 `;
 
@@ -811,8 +827,10 @@ function Edit(props) {
 		 ${backIconMarginStylesDesktop}
 		 ${backIconPaddingStylesDesktop}
 		 ${backIconBorderDesktop}
-		 color: ${backIconColor || "#ffffff"};
-		 background: ${backIconBackground || defaultBackIconBackground};
+		 color: ${backIconColor ? backIconColor : "#ffffff"};
+		 background: ${
+				backIconBackground ? backIconBackground : defaultBackIconBackground
+			};
 		 width: 100%;
 		 text-align: ${align};
 		 display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
@@ -1167,9 +1185,10 @@ function Edit(props) {
 										<div className="eb-flipbox-button-content">
 											<span>{buttonText}</span>
 											{buttonIcon && (
-												<i className={`${buttonIcon} eb-flipbox-button-icon`}></i>
+												<i
+													className={`${buttonIcon} eb-flipbox-button-icon`}
+												></i>
 											)}
-											
 										</div>
 									</a>
 								</div>
