@@ -80,6 +80,11 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
+= 1.2.0 - (dev) =
+* Improved: Few Controls
+* Improved: Default Design
+* Added: Wrapper Alignment Options
+
 = 1.1.0 - 11/07/2021 =
 * Improved: Inspector Panel Design & controls
 * Improved: Responsive Device Preview improved. Now the preview options synced with the wordpress's default preview button.
