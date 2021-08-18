@@ -26,12 +26,20 @@ const Save = ({ attributes }) => {
 		buttonText,
 		buttonIcon,
 		buttonClasses,
+		contentPosition,
 	} = attributes;
+
+	const alignmentClass =
+		contentPosition === "center"
+			? " eb-flipbox-align-center"
+			: contentPosition === "right"
+			? " eb-flipbox-align-right"
+			: "";
 
 	return (
 		<div {...useBlockProps.save()}>
 			<div
-				className={`eb-flipbox-container ${blockId}`}
+				className={`eb-flipbox-container ${blockId}${alignmentClass}`}
 				data-id={blockId}
 				data-flip-type={flipType}
 			>
@@ -122,7 +130,9 @@ const Save = ({ attributes }) => {
 										<div className="eb-flipbox-button-content">
 											<span>{buttonText}</span>
 											{buttonIcon && (
-												<i className={`${buttonIcon} eb-flipbox-button-icon`}></i>
+												<i
+													className={`${buttonIcon} eb-flipbox-button-icon`}
+												></i>
 											)}
 										</div>
 									</a>

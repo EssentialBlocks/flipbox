@@ -217,10 +217,20 @@ const attributes = {
 		type: "string",
 		default: "center",
 	},
+	contentPosition: {
+		type: "string",
+		default: "center",
+	},
 	// typography attributes ⬇
 	...generateTypographyAttributes(Object.values(prefixObjs)),
 	// margin padding attributes ⬇
-	...generateDimensionsAttributes(dimensionsMargin),
+	...generateDimensionsAttributes(dimensionsMargin, {
+		top: 28,
+		right: 0,
+		bottom: 28,
+		left: 0,
+		isLinked: false,
+	}),
 	...generateDimensionsAttributes(dimensionsPadding),
 	...generateDimensionsAttributes(buttonPadding),
 	...generateDimensionsAttributes(frontIconMargin),

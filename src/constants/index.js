@@ -1,4 +1,5 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
+const { Dashicon } = wp.components;
 
 export const DEFAULT_ICON_SIZE = "50";
 export const DEFAULT_FRONT_BACKGROUND = "#7967ff";
@@ -145,4 +146,10 @@ export const BOX_HEIGHT_UNIT = [
 export const FRONT_IMAGE_UNITS = [
 	{ label: "px", value: "px" },
 	{ label: "%", value: "%" },
+];
+
+export const CONTENT_POSITION = [
+	{ label: __(<Dashicon icon={"editor-alignleft"} />), value: "left" },
+	{ label: __(<Dashicon icon={"editor-aligncenter"} />), value: "center" },
+	{ label: __(<Dashicon icon={"editor-alignright"} />), value: "right" },
 ];

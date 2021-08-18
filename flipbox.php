@@ -44,6 +44,7 @@ function create_block_flipbox_block_init()
 			'wp-i18n',
 			'wp-element',
 			'wp-block-editor',
+			'lodash'
 		),
 		filemtime("$dir/$index_js")
 	);
@@ -51,29 +52,29 @@ function create_block_flipbox_block_init()
 
 	$fontpicker_theme = 'assets/css/fonticonpicker.base-theme.react.css';
 	wp_register_style(
-			'fontpicker-default-theme',
-			plugins_url($fontpicker_theme, __FILE__),
-			array()
+		'fontpicker-default-theme',
+		plugins_url($fontpicker_theme, __FILE__),
+		array()
 	);
 
 	$fontpicker_material_theme = 'assets/css/fonticonpicker.material-theme.react.css';
 	wp_register_style(
-			'fontpicker-matetial-theme',
-			plugins_url($fontpicker_material_theme, __FILE__),
-			array()
+		'fontpicker-matetial-theme',
+		plugins_url($fontpicker_material_theme, __FILE__),
+		array()
 	);
 	$editor_css = 'build/index.css';
 	wp_register_style(
 		'create-block-flipbox-block-editor',
 		plugins_url($editor_css, __FILE__),
-		array('fontpicker-default-theme','fontpicker-matetial-theme'),
+		array('fontpicker-default-theme', 'fontpicker-matetial-theme'),
 		filemtime("$dir/$editor_css")
 	);
 	$fontawesome_css = 'assets/css/font-awesome5.css';
 	wp_register_style(
-			'fontawesome-frontend-css',
-			plugins_url($fontawesome_css, __FILE__),
-			array()
+		'fontawesome-frontend-css',
+		plugins_url($fontawesome_css, __FILE__),
+		array()
 	);
 
 	$style_css = 'build/style-index.css';

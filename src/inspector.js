@@ -37,6 +37,7 @@ import {
 	LINK_TYPE,
 	BOX_HEIGHT_UNIT,
 	FRONT_IMAGE_UNITS,
+	CONTENT_POSITION,
 } from "./constants";
 import {
 	getButtonClasses,
@@ -123,6 +124,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 		backIconBackground,
 		transitionSpeed,
 		displayButtonIcon,
+		contentPosition,
 	} = attributes;
 
 	// Genereate different button styles
@@ -210,7 +212,31 @@ const Inspector = ({ attributes, setAttributes }) => {
 											</ButtonGroup>
 										</BaseControl>
 									</PanelBody>
-									<PanelBody title={__("Flipbox Settings")} initialOpen={false}>
+									<PanelBody
+										title={__("Flipbox Settings", "flipbox")}
+										initialOpen={true}
+									>
+										<BaseControl
+											label={__("Alignment", "flipbox")}
+											id="eb-button-group-alignment"
+										>
+											<ButtonGroup id="eb-button-group-alignment">
+												{CONTENT_POSITION.map((item) => (
+													<Button
+														isLarge
+														isPrimary={contentPosition === item.value}
+														isSecondary={contentPosition !== item.value}
+														onClick={() =>
+															setAttributes({
+																contentPosition: item.value,
+															})
+														}
+													>
+														{item.label}
+													</Button>
+												))}
+											</ButtonGroup>
+										</BaseControl>
 										<ResponsiveRangeController
 											baseLabel={__("Box Height", "flipbox")}
 											controlName={boxHeightAttr}
@@ -232,7 +258,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										/>
 
 										<SelectControl
-											label={__("Flipbox Type")}
+											label={__("Flipbox Type", "flipbox")}
 											value={flipType}
 											options={FLIPBOX_TYPE}
 											onChange={(newStyle) =>
@@ -241,7 +267,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										/>
 
 										<RangeControl
-											label={__("Transition Speed(millisecond)")}
+											label={__("Transition Speed(millisecond)", "flipbox")}
 											value={transitionSpeed}
 											onChange={(newValue) => {
 												let transitionSpeed = newValue;
@@ -255,7 +281,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "front" && (
 											<>
 												<BaseControl
-													label={__("Icon Type")}
+													label={__("Icon Type", "flipbox")}
 													id="eb-flipbox-icon-type"
 												>
 													<ButtonGroup id="eb-flipbox-icon-type">
@@ -281,7 +307,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "back" && (
 											<>
 												<BaseControl
-													label={__("Icon Type")}
+													label={__("Icon Type", "flipbox")}
 													id="eb-flipbox-icon-type"
 												>
 													<ButtonGroup id="eb-flipbox-icon-type">
@@ -307,11 +333,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 									{selectedSide === "front" && frontIconOrImage === "icon" && (
 										<PanelBody
-											title={__("Front Icon Settings")}
+											title={__("Front Icon Settings", "flipbox")}
 											initialOpen={false}
 										>
 											<>
-												<BaseControl label={__("Select Front Icon")}>
+												<BaseControl label={__("Select Front Icon", "flipbox")}>
 													<FontIconPicker
 														icons={faIcons}
 														value={frontIcon}
@@ -338,11 +364,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 									{selectedSide === "front" && frontIconOrImage === "image" && (
 										<PanelBody
-											title={__("Front Image Settings")}
+											title={__("Front Image Settings", "flipbox")}
 											initialOpen={false}
 										>
 											<BaseControl
-												label={__("Flipbox Image")}
+												label={__("Flipbox Image", "flipbox")}
 												id="eb-flipbox-front-image"
 											>
 												{frontImageUrl ? (
@@ -403,12 +429,12 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 									{selectedSide === "back" && backIconOrImage === "icon" && (
 										<PanelBody
-											title={__("Back Icon Settings")}
+											title={__("Back Icon Settings", "flipbox")}
 											initialOpen={false}
 										>
 											<>
 												<BaseControl
-													label={__("Select Back Icon")}
+													label={__("Select Back Icon", "flipbox")}
 													id="eb-flipbox-back-icon"
 												>
 													<FontIconPicker
@@ -435,10 +461,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 									{selectedSide === "back" && backIconOrImage === "image" && (
 										<PanelBody
-											title={__("Back Image Settings")}
+											title={__("Back Image Settings", "flipbox")}
 											initialOpen={false}
 										>
-											<BaseControl label={__("Flipbox Image")}>
+											<BaseControl label={__("Flipbox Image", "flipbox")}>
 												{backImageUrl ? (
 													<>
 														<ImageAvatar
@@ -493,11 +519,14 @@ const Inspector = ({ attributes, setAttributes }) => {
 										</PanelBody>
 									)}
 
-									<PanelBody title={__(`Flipbox Content`)} initialOpen={false}>
+									<PanelBody
+										title={__("Flipbox Content", "flipbox")}
+										initialOpen={false}
+									>
 										{selectedSide === "front" && (
 											<>
 												<ToggleControl
-													label={__("Show Title?")}
+													label={__("Show Title?", "flipbox")}
 													checked={showFrontTitle}
 													onChange={() => {
 														setAttributes({ showFrontTitle: !showFrontTitle });
@@ -505,7 +534,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 												{showFrontTitle && (
 													<TextControl
-														label={__("Front Title")}
+														label={__("Front Title", " flipbox")}
 														value={frontTitle}
 														onChange={(newText) =>
 															setAttributes({ frontTitle: newText })
@@ -513,7 +542,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 													/>
 												)}
 												<ToggleControl
-													label={__("Show Content?")}
+													label={__("Show Content?", "flipbox")}
 													checked={showFrontContent}
 													onChange={() => {
 														setAttributes({
@@ -523,7 +552,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 												{showFrontContent && (
 													<TextareaControl
-														label={__("Front Content")}
+														label={__("Front Content", "flipbox")}
 														value={frontContent}
 														onChange={(newText) =>
 															setAttributes({ frontContent: newText })
@@ -535,7 +564,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "back" && (
 											<>
 												<ToggleControl
-													label={__("Show Title?")}
+													label={__("Show Title?", "flipbox")}
 													checked={showBackTitle}
 													onChange={() => {
 														setAttributes({ showBackTitle: !showBackTitle });
@@ -543,7 +572,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 												{showBackTitle && (
 													<TextControl
-														label={__("Back Title")}
+														label={__("Back Title", "flipbox")}
 														value={backTitle}
 														onChange={(newText) =>
 															setAttributes({ backTitle: newText })
@@ -551,7 +580,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 													/>
 												)}
 												<ToggleControl
-													label={__("Show Content?")}
+													label={__("Show Content?", "flipbox")}
 													checked={showBackContent}
 													onChange={() => {
 														setAttributes({
@@ -561,7 +590,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 												{showBackContent && (
 													<TextareaControl
-														label={__("Back Content")}
+														label={__("Back Content", "flipbox")}
 														value={backContent}
 														onChange={(newText) =>
 															setAttributes({ backContent: newText })
@@ -572,14 +601,20 @@ const Inspector = ({ attributes, setAttributes }) => {
 										)}
 									</PanelBody>
 
-									<PanelBody title={__("Link Settings")} initialOpen={false}>
+									<PanelBody
+										title={__("Link Settings", "flipbox")}
+										initialOpen={false}
+									>
 										<PanelRow>
 											<em>
-												{__("Note: Link settings will only work on back side.")}
+												{__(
+													"Note: Link settings will only work on back side.",
+													"flipbox"
+												)}
 											</em>
 										</PanelRow>
 										<BaseControl
-											label={__("Link Type")}
+											label={__("Link Type", "flipbox")}
 											id="eb-flipbox-link-type"
 										>
 											<ButtonGroup id="eb-flipbox-link-type">
@@ -599,35 +634,36 @@ const Inspector = ({ attributes, setAttributes }) => {
 										</BaseControl>
 
 										<TextControl
-											label={__("Link")}
+											label={__("Link", "flipbox")}
 											value={link}
 											placeholder="https://your-link.com"
 											onChange={(newLink) => setAttributes({ link: newLink })}
 										/>
 
 										{linkType === "button" && (
-											<TextControl
-												label={__("Button Text")}
-												value={buttonText}
-												onChange={(newText) =>
-													setAttributes({ buttonText: newText })
-												}
-											/>
+											<>
+												<TextControl
+													label={__("Button Text", "flipbox")}
+													value={buttonText}
+													onChange={(newText) =>
+														setAttributes({ buttonText: newText })
+													}
+												/>
+												<SelectControl
+													label={__("Button Style", "flipbox")}
+													value={buttonStyle}
+													options={BUTTON_STYLES}
+													onChange={(newStyle) => handleButtonStyle(newStyle)}
+												/>
+											</>
 										)}
-
-										<SelectControl
-											label={__("Button Style")}
-											value={buttonStyle}
-											options={BUTTON_STYLES}
-											onChange={(newStyle) => handleButtonStyle(newStyle)}
-										/>
 									</PanelBody>
 								</>
 							)}
 							{tab.name === "styles" && (
 								<>
 									<PanelBody>
-										<BaseControl label={__("Selected Side")}>
+										<BaseControl label={__("Selected Side", "flipbox")}>
 											<ButtonGroup id="eb-flipbox-sides">
 												{FLIPBOX_SIDES.map((item) => (
 													<Button
@@ -646,11 +682,14 @@ const Inspector = ({ attributes, setAttributes }) => {
 											</ButtonGroup>
 										</BaseControl>
 									</PanelBody>
-									<PanelBody title={__("Flipbox Style")} initialOpen={false}>
+									<PanelBody
+										title={__("Flipbox Style", "flipbox")}
+										initialOpen={true}
+									>
 										{selectedSide === "front" && (
 											<>
 												<ColorControl
-													label={__("Front Title")}
+													label={__("Front Title", "flipbox")}
 													color={frontTitleColor}
 													onChange={(frontTitleColor) =>
 														setAttributes({ frontTitleColor })
@@ -658,7 +697,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 
 												<ColorControl
-													label={__("Front Content")}
+													label={__("Front Content", "flipbox")}
 													color={frontContentColor}
 													onChange={(frontContentColor) =>
 														setAttributes({ frontContentColor })
@@ -666,7 +705,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 												<BaseControl>
 													<h3 className="eb-control-title">
-														{__("Front Side Background")}
+														{__("Front Side Background", "flipbox")}
 													</h3>
 												</BaseControl>
 												<BackgroundControl
@@ -679,7 +718,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "back" && (
 											<>
 												<ColorControl
-													label={__("Back Title Color")}
+													label={__("Back Title Color", "flipbox")}
 													color={backTitleColor}
 													onChange={(backTitleColor) =>
 														setAttributes({ backTitleColor })
@@ -687,7 +726,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 
 												<ColorControl
-													label={__("Back Content Color")}
+													label={__("Back Content Color", "flipbox")}
 													color={backContentColor}
 													onChange={(backContentColor) =>
 														setAttributes({ backContentColor })
@@ -695,7 +734,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 												<BaseControl>
 													<h3 className="eb-control-title">
-														{__("Back Side Background")}
+														{__("Back Side Background", "flipbox")}
 													</h3>
 												</BaseControl>
 												<BackgroundControl
@@ -707,7 +746,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 										<BaseControl>
 											<h3 className="eb-control-title">
-												{__("Margin & Padding")}
+												{__("Margin & Padding", "flipbox")}
 											</h3>
 										</BaseControl>
 										<ResponsiveDimensionsControl
@@ -724,7 +763,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 										/>
 										<BaseControl>
 											<h3 className="eb-control-title">
-												{__("Border & Shadow")}
+												{__("Border & Shadow", "flipbox")}
 											</h3>
 										</BaseControl>
 										<BorderShadowControl
@@ -734,14 +773,14 @@ const Inspector = ({ attributes, setAttributes }) => {
 									</PanelBody>
 									{selectedSide === "front" && frontIconOrImage === "icon" && (
 										<PanelBody
-											title={__("Front Icon Style")}
+											title={__("Front Icon Style", "flipbox")}
 											initialOpen={false}
 										>
 											<>
 												{frontIcon && (
 													<>
 														<ColorControl
-															label={__("Icon Color")}
+															label={__("Icon Color", "flipbox")}
 															color={frontIconColor}
 															onChange={(frontIconColor) =>
 																setAttributes({ frontIconColor })
@@ -749,7 +788,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 														/>
 
 														<ColorControl
-															label={__("Icon Background")}
+															label={__("Icon Background", "flipbox")}
 															color={frontIconBackground}
 															onChange={(frontIconBackground) =>
 																setAttributes({ frontIconBackground })
@@ -758,7 +797,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 														<BaseControl>
 															<h3 className="eb-control-title">
-																{__("Margin & Padding")}
+																{__("Margin & Padding", "flipbox")}
 															</h3>
 														</BaseControl>
 														<ResponsiveDimensionsControl
@@ -775,7 +814,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 														/>
 														<BaseControl>
 															<h3 className="eb-control-title">
-																{__("Border")}
+																{__("Border", "flipbox")}
 															</h3>
 														</BaseControl>
 														<BorderShadowControl
@@ -790,14 +829,14 @@ const Inspector = ({ attributes, setAttributes }) => {
 									)}
 									{selectedSide === "back" && backIconOrImage === "icon" && (
 										<PanelBody
-											title={__("Back Icon Style")}
+											title={__("Back Icon Style", "flipbox")}
 											initialOpen={false}
 										>
 											<>
 												{backIcon && (
 													<>
 														<ColorControl
-															label={__("Icon Color")}
+															label={__("Icon Color", "flipbox")}
 															color={backIconColor}
 															onChange={(backIconColor) =>
 																setAttributes({ backIconColor })
@@ -805,7 +844,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 														/>
 
 														<ColorControl
-															label={__("Icon Background")}
+															label={__("Icon Background", "flipbox")}
 															color={backIconBackground}
 															onChange={(backIconBackground) =>
 																setAttributes({ backIconBackground })
@@ -814,7 +853,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 														<BaseControl>
 															<h3 className="eb-control-title">
-																{__("Margin & Padding")}
+																{__("Margin & Padding", "flipbox")}
 															</h3>
 														</BaseControl>
 														<ResponsiveDimensionsControl
@@ -831,7 +870,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 														/>
 														<BaseControl>
 															<h3 className="eb-control-title">
-																{__("Border")}
+																{__("Border", "flipbox")}
 															</h3>
 														</BaseControl>
 														<BorderShadowControl
@@ -844,7 +883,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 											</>
 										</PanelBody>
 									)}
-									<PanelBody title={__("Typography")} initialOpen={false}>
+									<PanelBody
+										title={__("Typography", "flipbox")}
+										initialOpen={false}
+									>
 										<TypographyDropdown
 											baseLabel={__("Title", "flipbox")}
 											typographyPrefixConstant={typoPrefix_title}
@@ -857,124 +899,125 @@ const Inspector = ({ attributes, setAttributes }) => {
 											resRequiredProps={resRequiredProps}
 										/>
 									</PanelBody>
-									{linkType === "button" && (
-										<PanelBody title={__("Button Style")}>
-											{buttonStyle === "custom" && (
-												<>
-													<ColorControl
-														label={__("Background ")}
-														color={buttonBackground}
-														onChange={(buttonBackground) =>
-															setAttributes({ buttonBackground })
-														}
-													/>
+									{linkType === "button" && buttonStyle === "custom" && (
+										<PanelBody title={__("Button Style", "flipbox")}>
+											<>
+												<ColorControl
+													label={__("Background", "flipbox")}
+													color={buttonBackground}
+													onChange={(buttonBackground) =>
+														setAttributes({ buttonBackground })
+													}
+												/>
 
-													<ColorControl
-														label={__("Color")}
-														color={buttonColor}
-														onChange={(buttonColor) =>
-															setAttributes({ buttonColor })
-														}
-													/>
+												<ColorControl
+													label={__("Color", "flipbox")}
+													color={buttonColor}
+													onChange={(buttonColor) =>
+														setAttributes({ buttonColor })
+													}
+												/>
 
-													<ResponsiveRangeController
-														baseLabel={__("Button Size", "flipbox")}
-														controlName={buttonIconSizeAttr}
-														resRequiredProps={resRequiredProps}
-														min={20}
-														max={600}
-													/>
+												<ResponsiveRangeController
+													baseLabel={__("Button Size", "flipbox")}
+													controlName={buttonIconSizeAttr}
+													resRequiredProps={resRequiredProps}
+													min={20}
+													max={600}
+												/>
 
-													<BaseControl>
-														<h3 className="eb-control-title">
-															{__("Padding")}
-														</h3>
+												<BaseControl>
+													<h3 className="eb-control-title">
+														{__("Padding", "flipbox")}
+													</h3>
+												</BaseControl>
+
+												<ResponsiveDimensionsControl
+													resRequiredProps={resRequiredProps}
+													className="forWrapperPadding"
+													controlName={buttonPadding}
+													baseLabel="Padding"
+												/>
+
+												<BaseControl>
+													<h3 className="eb-control-title">
+														{__("Border & Shadow", "flipbox")}
+													</h3>
+												</BaseControl>
+
+												<BorderShadowControl
+													controlName={borderShadowBtn}
+													resRequiredProps={resRequiredProps}
+												/>
+
+												<BaseControl>
+													<h3 className="eb-control-title">
+														{__("Button Icon", "flipbox")}
+													</h3>
+												</BaseControl>
+
+												<ToggleControl
+													label={__("Display Button Icon", "flipbox")}
+													checked={displayButtonIcon}
+													onChange={() =>
+														setAttributes({
+															displayButtonIcon: !displayButtonIcon,
+														})
+													}
+												/>
+
+												{displayButtonIcon && (
+													<BaseControl
+														label={__("Select Icon")}
+														id="eb-flipbox-link-icon"
+														help={__(
+															"Add icon with button (optional)",
+															"flipbox"
+														)}
+													>
+														<FontIconPicker
+															icons={faIcons}
+															value={buttonIcon}
+															onChange={(buttonIcon) =>
+																setAttributes({
+																	buttonIcon,
+																})
+															}
+															appendTo="body"
+															closeOnSelect
+														/>
 													</BaseControl>
+												)}
 
-													<ResponsiveDimensionsControl
-														resRequiredProps={resRequiredProps}
-														className="forWrapperPadding"
-														controlName={buttonPadding}
-														baseLabel="Padding"
-													/>
-
-													<BaseControl>
-														<h3 className="eb-control-title">
-															{__("Border & Shadow")}
-														</h3>
-													</BaseControl>
-
-													<BorderShadowControl
-														controlName={borderShadowBtn}
-														resRequiredProps={resRequiredProps}
-													/>
-
-													<BaseControl>
-														<h3 className="eb-control-title">
-															{__("Button Icon")}
-														</h3>
-													</BaseControl>
-
-													<ToggleControl
-														label={__("Display Button Icon")}
-														checked={displayButtonIcon}
-														onChange={() =>
-															setAttributes({
-																displayButtonIcon: !displayButtonIcon,
-															})
-														}
-													/>
-
-													{displayButtonIcon && (
+												{displayButtonIcon && buttonIcon && (
+													<>
 														<BaseControl
-															label={__("Select Icon")}
-															id="eb-flipbox-link-icon"
-															help="Add icon with button (optional)"
+															label={__("Icon Position", "flipbox")}
+															id="eb-flipbox-icon-pos"
 														>
-															<FontIconPicker
-																icons={faIcons}
-																value={buttonIcon}
-																onChange={(buttonIcon) =>
-																	setAttributes({
-																		buttonIcon,
-																	})
-																}
-																appendTo="body"
-																closeOnSelect
-															/>
+															<ButtonGroup id="eb-flipbox-icon-pos">
+																{ICON_POSITIONS.map((item) => (
+																	<Button
+																		style={{
+																			zIndex: 0,
+																		}} // ? Add this style to fix icon list and primary button issue
+																		isLarge
+																		isSecondary={buttonIconPos !== item.value}
+																		isPrimary={buttonIconPos === item.value}
+																		onClick={() =>
+																			setAttributes({
+																				buttonIconPos: item.value,
+																			})
+																		}
+																	>
+																		{item.label}
+																	</Button>
+																))}
+															</ButtonGroup>
 														</BaseControl>
-													)}
-
-													{displayButtonIcon && buttonIcon && (
-														<>
-															<BaseControl
-																label={__("Icon Position")}
-																id="eb-flipbox-icon-pos"
-															>
-																<ButtonGroup id="eb-flipbox-icon-pos">
-																	{ICON_POSITIONS.map((item) => (
-																		<Button
-																			style={{
-																				zIndex: 0,
-																			}} // ? Add this style to fix icon list and primary button issue
-																			isLarge
-																			isSecondary={buttonIconPos !== item.value}
-																			isPrimary={buttonIconPos === item.value}
-																			onClick={() =>
-																				setAttributes({
-																					buttonIconPos: item.value,
-																				})
-																			}
-																		>
-																			{item.label}
-																		</Button>
-																	))}
-																</ButtonGroup>
-															</BaseControl>
-														</>
-													)}
-												</>
-											)}
+													</>
+												)}
+											</>
 										</PanelBody>
 									)}
 								</>

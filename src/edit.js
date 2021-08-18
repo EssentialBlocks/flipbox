@@ -120,6 +120,7 @@ function Edit(props) {
 		transitionSpeed,
 		displayButtonIcon,
 		align,
+		contentPosition,
 	} = attributes;
 
 	// Default colors
@@ -412,14 +413,21 @@ function Edit(props) {
 	});
 
 	const flipContainerStyleDesktop = `
-	 .eb-flipbox-container.${blockId}{
-		 ${wrapperMarginStylesDesktop}
-		 ${wrapperPaddingStylesDesktop}
-		 ${wrapperHeightStylesDesktop}
-		 ${wrapperWidthStylesDesktop}
-		 width: 100%;
-	 }
-	 `;
+		.eb-flipbox-align-center {
+			margin-right: auto !important;
+			margin-left: auto !important;
+		}
+		.eb-flipbox-align-right {
+			margin-left: auto !important;
+		}
+		.eb-flipbox-container.${blockId}{
+			${wrapperMarginStylesDesktop}
+			${wrapperPaddingStylesDesktop}
+			${wrapperHeightStylesDesktop}
+			${wrapperWidthStylesDesktop}
+			width: 100%;
+		}
+	`;
 
 	const flipContainerStyleTab = `
 	 .eb-flipbox-container.${blockId}{
@@ -584,8 +592,8 @@ function Edit(props) {
 
 	const frontStyleMobile = `
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front {
-			 ${wrapperMinHeightStylesMobile}
-			 ${wrapperWidthStylesMobile}
+			${wrapperMinHeightStylesMobile}
+			${wrapperWidthStylesMobile}
 			${frontBackgroundStylesMobile}
 			${bdShadowStyesMobile}
 		 }
@@ -769,11 +777,11 @@ function Edit(props) {
 
 	const backStyleMobile = `
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back {
-			 ${wrapperMinHeightStylesMobile}
-			 ${wrapperWidthStylesMobile}
-			 ${backBackgroundStylesMobile}
-			 ${bdShadowStyesMobile}
-			 ${bdShadowStylesHoverMobile}
+			${wrapperMinHeightStylesMobile}
+			${wrapperWidthStylesMobile}
+			${backBackgroundStylesMobile}
+			${bdShadowStyesMobile}ßß
+			${bdShadowStylesHoverMobile}
 		 }
 
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
@@ -792,53 +800,53 @@ function Edit(props) {
 
 	const backImageStyleDesktop = `
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
-		 display: ${backIconOrImage === "image" && backImageUrl ? "flex" : "none"};
-		 justify-content: center;
+		display: ${backIconOrImage === "image" && backImageUrl ? "flex" : "none"};
+		justify-content: center;
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
-		 ${backImgHeightDesktop}
-		 ${backImgWidthDesktop}
-		 ${backImgRadiusDesktop}
+		${backImgHeightDesktop}
+		${backImgWidthDesktop}
+		${backImgRadiusDesktop}
 	 }
 	 `;
 
 	const backImageStyleTab = `
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
-		 ${backImgHeightTab}
-		 ${backImgWidthTab}
-		 ${backImgRadiusTab}
+		${backImgHeightTab}
+		${backImgWidthTab}
+		${backImgRadiusTab}
 	 }
 	 `;
 
 	const backImageStyleMobile = `
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
-		 ${backImgHeightMobile}
-		 ${backImgWidthMobile}
-		 ${backImgRadiusMobile}
+		${backImgHeightMobile}
+		${backImgWidthMobile}
+		${backImgRadiusMobile}
 	 }
 	 `;
 
 	const backIconStyleDesktop = `
 	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-back {
-		 ${backFontSizeDesktop}
-		 ${backIconMarginStylesDesktop}
-		 ${backIconPaddingStylesDesktop}
-		 ${backIconBorderDesktop}
-		 color: ${backIconColor ? backIconColor : "#ffffff"};
-		 background: ${
-				backIconBackground ? backIconBackground : defaultBackIconBackground
-			};
-		 width: 100%;
-		 text-align: ${align};
-		 display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
-		 transition: ${backIconTransitionStyle};
+		${backFontSizeDesktop}
+		${backIconMarginStylesDesktop}
+		${backIconPaddingStylesDesktop}
+		${backIconBorderDesktop}
+		color: ${backIconColor ? backIconColor : "#ffffff"};
+		background: ${
+			backIconBackground ? backIconBackground : defaultBackIconBackground
+		};
+		width: 100%;
+		text-align: ${align};
+		display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
+		transition: ${backIconTransitionStyle};
 	 }
 
 	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
-		 ${backIconBorderHoverDesktop}
+		${backIconBorderHoverDesktop}
 	 }
 	 `;
 
@@ -1038,6 +1046,13 @@ function Edit(props) {
 		});
 	}, []);
 
+	const alignmentClass =
+		contentPosition === "center"
+			? " eb-flipbox-align-center"
+			: contentPosition === "right"
+			? " eb-flipbox-align-right"
+			: "";
+
 	const blockProps = useBlockProps({
 		className: `eb-guten-block-main-parent-wrapper`,
 	});
@@ -1097,7 +1112,7 @@ function Edit(props) {
 				 `}
 			</style>
 			<div
-				className={`eb-flipbox-container ${blockId}`}
+				className={`eb-flipbox-container ${blockId}${alignmentClass}`}
 				data-id={blockId}
 				onMouseEnter={() => setAttributes({ isHover: true })}
 				onMouseLeave={() => setAttributes({ isHover: false })}
