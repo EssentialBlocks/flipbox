@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-const { useBlockProps } = wp.blockEditor;
-const { omit } = lodash;
+import { useBlockProps } from "@wordpress/block-editor";
+import { omit } from "lodash";
 
 import attributes from "./attributes";
 

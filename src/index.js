@@ -1,26 +1,32 @@
-const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks;
+/**
+ * WordPress dependencies
+ */
+import { __ } from "@wordpress/i18n";
 
-import "./style.scss";
+/*
+ * Internal dependencies
+ */
+import { FlipboxIcon } from "./icon";
 import Edit from "./edit";
-import save from "./save";
-import attributes from "./attributes";
+import Save from "./save";
 import example from "./example";
-import icon from "./icon";
+import attributes from "./attributes";
+import "./style.scss";
+import metadata from "../block.json";
 import deprecated from "./deprecated";
-registerBlockType("flipbox/flipbox-block", {
-	apiVersion: 2,
-	title: __("Flipbox", "flipbox"),
-	description: __(
-		"Deliver Your Content Beautifully To Grab Attention",
-		"flipbox"
-	),
-	category: "widgets",
-	keywords: ["flipbox", "flip", "box"],
-	icon,
+
+const { ebConditionalRegisterBlockType } = EBFlipboxControls;
+
+ebConditionalRegisterBlockType(metadata, {
+	icon: FlipboxIcon,
 	attributes,
-	example,
+	keywords: [
+		__("eb flipbox", "flipbox"),
+		__("essential", "flipbox"),
+		__("box", "flipbox"),
+	],
 	edit: Edit,
-	save,
+	save: Save,
+	example: example,
 	deprecated,
 });

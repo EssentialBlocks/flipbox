@@ -1,9 +1,10 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { useEffect } = wp.element;
-const {
+import { __ } from "@wordpress/i18n";
+import { useEffect } from "@wordpress/element";
+import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
+import {
 	PanelBody,
 	PanelRow,
 	SelectControl,
@@ -14,20 +15,19 @@ const {
 	ToggleControl,
 	ButtonGroup,
 	BaseControl,
-	TabPanel,
-} = wp.components;
-const { InspectorControls, MediaUpload } = wp.blockEditor;
-const { select } = wp.data;
+	TabPanel
+} from "@wordpress/components";
+import { select } from "@wordpress/data";
 
-import objAttributes from "./attributes";
+/*
+ * External dependencies
+ */
+import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 /*
  * Internal dependencies
  */
-import faIcons from "../util/faIcons";
-import ImageAvatar from "../util/image-avatar";
-import BorderShadowControl from "../util/border-shadow-control";
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
+import objAttributes from "./attributes";
 import {
 	BUTTON_STYLES,
 	FLIPBOX_SIDES,
@@ -35,20 +35,47 @@ import {
 	ICON_POSITIONS,
 	ICON_TYPE,
 	LINK_TYPE,
-	BOX_HEIGHT_UNIT,
+	// BOX_HEIGHT_UNIT,
 	FRONT_IMAGE_UNITS,
 	CONTENT_POSITION,
 } from "./constants";
-import {
+
+// import faIcons from "../../../util/faIcons";
+// import ImageAvatar from "../../../util/image-avatar";
+// import BorderShadowControl from "../../../util/border-shadow-control";
+// import {
+// 	getButtonClasses,
+// 	mimmikCssForResBtns,
+// 	mimmikCssOnPreviewBtnClickWhileBlockSelected,
+// } from "../../../util/helpers";
+// import ResponsiveDimensionsControl from "../../../util/dimensions-control-v2";
+// import ResponsiveRangeController from "../../../util/responsive-range-control";
+// import TypographyDropdown from "../../../util/typography-control-v2";
+// import ColorControl from "../../../util/color-control";
+// import BackgroundControl from "../../../util/background-control";
+
+const {
+	faIcons,
+	ImageAvatar,
+	BorderShadowControl,
+
+	//
 	getButtonClasses,
-	mimmikCssForResBtns,
-	mimmikCssOnPreviewBtnClickWhileBlockSelected,
-} from "../util/helpers";
-import ResponsiveDimensionsControl from "../util/dimensions-control-v2";
-import ResponsiveRangeController from "../util/responsive-range-control";
-import TypographyDropdown from "../util/typography-control-v2";
-import ColorControl from "../util/color-control";
-import BackgroundControl from "../util/background-control";
+	// mimmikCssForResBtns,
+	// mimmikCssOnPreviewBtnClickWhileBlockSelected,
+
+	//
+	ResponsiveDimensionsControl,
+	ResponsiveRangeController,
+	TypographyDropdown,
+	ColorControl,
+	BackgroundControl,
+} = window.EBFlipboxControls;
+
+const editorStoreForGettingPreivew =
+	eb_style_handler.editor_type === "edit-site"
+		? "core/edit-site"
+		: "core/edit-post";
 
 import {
 	flipboxFrontWrapper,
@@ -138,29 +165,29 @@ const Inspector = ({ attributes, setAttributes }) => {
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class only the first time once
 	useEffect(() => {
 		setAttributes({
-			resOption: select("core/edit-post").__experimentalGetPreviewDeviceType(),
+			resOption: select(editorStoreForGettingPreivew).__experimentalGetPreviewDeviceType(),
 		});
 	}, []);
 
-	// this useEffect is for mimmiking css for all the eb blocks on resOption changing
-	useEffect(() => {
-		mimmikCssForResBtns({
-			domObj: document,
-			resOption,
-		});
-	}, [resOption]);
+	// // this useEffect is for mimmiking css for all the eb blocks on resOption changing
+	// useEffect(() => {
+	// 	mimmikCssForResBtns({
+	// 		domObj: document,
+	// 		resOption,
+	// 	});
+	// }, [resOption]);
 
-	// this useEffect is to mimmik css for responsive preview in the editor page when clicking the buttons in the 'Preview button of wordpress' located beside the 'update' button while any block is selected and it's inspector panel is mounted in the DOM
-	useEffect(() => {
-		const cleanUp = mimmikCssOnPreviewBtnClickWhileBlockSelected({
-			domObj: document,
-			select,
-			setAttributes,
-		});
-		return () => {
-			cleanUp();
-		};
-	}, []);
+	// // this useEffect is to mimmik css for responsive preview in the editor page when clicking the buttons in the 'Preview button of wordpress' located beside the 'update' button while any block is selected and it's inspector panel is mounted in the DOM
+	// useEffect(() => {
+	// 	const cleanUp = mimmikCssOnPreviewBtnClickWhileBlockSelected({
+	// 		domObj: document,
+	// 		select,
+	// 		setAttributes,
+	// 	});
+	// 	return () => {
+	// 		cleanUp();
+	// 	};
+	// }, []);
 
 	const resRequiredProps = {
 		setAttributes,
@@ -178,12 +205,12 @@ const Inspector = ({ attributes, setAttributes }) => {
 					tabs={[
 						{
 							name: "general",
-							title: "General",
+							title: __("General", "flipbox"),
 							className: "eb-tab general",
 						},
 						{
 							name: "styles",
-							title: "Styles",
+							title: __("Style", "flipbox"),
 							className: "eb-tab styles",
 						},
 					]}
@@ -193,11 +220,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 							{tab.name === "general" && (
 								<>
 									<PanelBody>
-										<BaseControl label={__("Selected Side")}>
+										<BaseControl label={__("Selected Side", "flipbox")}>
 											<ButtonGroup id="eb-flipbox-sides">
 												{FLIPBOX_SIDES.map((item) => (
 													<Button
-														isLarge
+														// isLarge
 														isPrimary={selectedSide === item.value}
 														isSecondary={selectedSide !== item.value}
 														onClick={() =>
@@ -223,7 +250,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 											<ButtonGroup id="eb-button-group-alignment">
 												{CONTENT_POSITION.map((item) => (
 													<Button
-														isLarge
+														// isLarge
 														isPrimary={contentPosition === item.value}
 														isSecondary={contentPosition !== item.value}
 														onClick={() =>
@@ -267,7 +294,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 										/>
 
 										<RangeControl
-											label={__("Transition Speed(millisecond)", "flipbox")}
+											label={__(
+												"Transition Speed(millisecond)",
+												"flipbox"
+											)}
 											value={transitionSpeed}
 											onChange={(newValue) => {
 												let transitionSpeed = newValue;
@@ -287,7 +317,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 													<ButtonGroup id="eb-flipbox-icon-type">
 														{ICON_TYPE.map((item) => (
 															<Button
-																isLarge
+																// isLarge
 																isPrimary={frontIconOrImage === item.value}
 																isSecondary={frontIconOrImage !== item.value}
 																onClick={() =>
@@ -313,7 +343,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 													<ButtonGroup id="eb-flipbox-icon-type">
 														{ICON_TYPE.map((item) => (
 															<Button
-																isLarge
+																// isLarge
 																isPrimary={backIconOrImage === item.value}
 																isSecondary={backIconOrImage !== item.value}
 																onClick={() =>
@@ -337,7 +367,9 @@ const Inspector = ({ attributes, setAttributes }) => {
 											initialOpen={false}
 										>
 											<>
-												<BaseControl label={__("Select Front Icon", "flipbox")}>
+												<BaseControl
+													label={__("Select Front Icon", "flipbox")}
+												>
 													<FontIconPicker
 														icons={faIcons}
 														value={frontIcon}
@@ -415,7 +447,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 															!frontImageUrl && (
 																<Button
 																	className="eb-flipbox-upload-button"
-																	label={__("Upload Image")}
+																	label={__("Upload Image", "flipbox")}
 																	icon="format-image"
 																	onClick={open}
 																/>
@@ -464,7 +496,9 @@ const Inspector = ({ attributes, setAttributes }) => {
 											title={__("Back Image Settings", "flipbox")}
 											initialOpen={false}
 										>
-											<BaseControl label={__("Flipbox Image", "flipbox")}>
+											<BaseControl
+												label={__("Flipbox Image", "flipbox")}
+											>
 												{backImageUrl ? (
 													<>
 														<ImageAvatar
@@ -507,7 +541,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 															!backImageUrl && (
 																<Button
 																	className="eb-flipbox-upload-button"
-																	label={__("Upload Image")}
+																	label={__("Upload Image", "flipbox")}
 																	icon="format-image"
 																	onClick={open}
 																/>
@@ -534,7 +568,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 												/>
 												{showFrontTitle && (
 													<TextControl
-														label={__("Front Title", " flipbox")}
+														label={__("Front Title", "flipbox")}
 														value={frontTitle}
 														onChange={(newText) =>
 															setAttributes({ frontTitle: newText })
@@ -620,7 +654,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 											<ButtonGroup id="eb-flipbox-link-type">
 												{LINK_TYPE.map((item) => (
 													<Button
-														isLarge
+														// isLarge
 														isPrimary={linkType === item.value}
 														isSecondary={linkType !== item.value}
 														onClick={() =>
@@ -663,11 +697,13 @@ const Inspector = ({ attributes, setAttributes }) => {
 							{tab.name === "styles" && (
 								<>
 									<PanelBody>
-										<BaseControl label={__("Selected Side", "flipbox")}>
+										<BaseControl
+											label={__("Selected Side", "flipbox")}
+										>
 											<ButtonGroup id="eb-flipbox-sides">
 												{FLIPBOX_SIDES.map((item) => (
 													<Button
-														isLarge
+														// isLarge
 														isPrimary={selectedSide === item.value}
 														isSecondary={selectedSide !== item.value}
 														onClick={() =>
@@ -754,6 +790,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 											className="forWrapperMargin"
 											controlName={dimensionsMargin}
 											baseLabel="Margin"
+											disableLeftRight={true}
 										/>
 										<ResponsiveDimensionsControl
 											resRequiredProps={resRequiredProps}
@@ -968,7 +1005,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 												{displayButtonIcon && (
 													<BaseControl
-														label={__("Select Icon")}
+														label={__("Select Icon", "flipbox")}
 														id="eb-flipbox-link-icon"
 														help={__(
 															"Add icon with button (optional)",
@@ -1001,7 +1038,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 																		style={{
 																			zIndex: 0,
 																		}} // ? Add this style to fix icon list and primary button issue
-																		isLarge
+																		// isLarge
 																		isSecondary={buttonIconPos !== item.value}
 																		isPrimary={buttonIconPos === item.value}
 																		onClick={() =>

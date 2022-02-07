@@ -25,18 +25,28 @@ import {
 	borderShadowFrontIcon,
 	borderShadowBackIcon,
 } from "./constants/borderShadowConstants";
-import {
+
+// import {
+// 	generateTypographyAttributes,
+// 	generateDimensionsAttributes,
+// 	generateResponsiveRangeAttributes,
+// 	generateBackgroundAttributes,
+// 	generateBorderShadowAttributes,
+// } from "../../../util/helpers";
+
+const {
 	generateTypographyAttributes,
 	generateDimensionsAttributes,
 	generateResponsiveRangeAttributes,
 	generateBackgroundAttributes,
 	generateBorderShadowAttributes,
-} from "../util/helpers";
+} = window.EBFlipboxControls;
 
 import {
 	flipboxFrontWrapper,
 	flipboxBackWrapper,
 } from "./constants/backgroundsConstants";
+
 const attributes = {
 	// responsive control attributes ⬇
 	resOption: {
@@ -230,6 +240,7 @@ const attributes = {
 		bottom: 28,
 		left: 0,
 		isLinked: false,
+		disableLeftRight: true,
 	}),
 	...generateDimensionsAttributes(dimensionsPadding),
 	...generateDimensionsAttributes(buttonPadding),

@@ -1,4 +1,4 @@
-export default function () {
+export const FlipboxIcon = () => {
 	return (
 		<svg
 			width="600"
@@ -30,4 +30,4 @@ export default function () {
 			</g>
 		</svg>
 	);
-}
+};

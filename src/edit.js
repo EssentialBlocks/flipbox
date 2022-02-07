@@ -1,20 +1,25 @@
 /**
  * WordPress dependencits
  */
-const { __ } = wp.i18n;
-const { Toolbar, ToolbarButton } = wp.components;
-const { BlockControls, AlignmentToolbar, useBlockProps } = wp.blockEditor;
-const { useEffect } = wp.element;
-const { select } = wp.data;
+import { __ } from "@wordpress/i18n";
+import { useEffect } from "@wordpress/element";
+import {
+	BlockControls,
+	AlignmentToolbar,
+	useBlockProps,
+} from "@wordpress/block-editor";
+import { ToolbarGroup, ToolbarButton } from "@wordpress/components";
+import { select } from "@wordpress/data";
 
 /**
- * Editor CSS
+ * External depencencies
  */
-import "./editor.scss";
 
 /*
  * Internal dependencies
  */
+import classnames from "classnames";
+
 import Inspector from "./inspector";
 import {
 	dimensionsMargin,
@@ -52,18 +57,35 @@ import {
 	borderShadowFrontIcon,
 	borderShadowBackIcon,
 } from "./constants/borderShadowConstants";
-import {
+
+// import {
+// 	getFlipTransform,
+// 	mimmikCssForPreviewBtnClick,
+// 	duplicateBlockIdFix,
+// 	softMinifyCssStrings,
+// 	generateTypographyStyles,
+// 	generateDimensionsControlStyles,
+// 	generateResponsiveRangeStyles,
+// 	generateBackgroundControlStyles,
+// 	generateBorderShadowStyles,
+// } from "../../../util/helpers";
+
+const {
 	getFlipTransform,
-	mimmikCssForPreviewBtnClick,
+	// mimmikCssForPreviewBtnClick,
 	duplicateBlockIdFix,
 	softMinifyCssStrings,
-	isCssExists,
 	generateTypographyStyles,
 	generateDimensionsControlStyles,
 	generateResponsiveRangeStyles,
 	generateBackgroundControlStyles,
 	generateBorderShadowStyles,
-} from "../util/helpers";
+} = window.EBFlipboxControls;
+
+const editorStoreForGettingPreivew =
+	eb_style_handler.editor_type === "edit-site"
+		? "core/edit-site"
+		: "core/edit-post";
 
 function Edit(props) {
 	const getFlexAlign = (align) => {
@@ -77,7 +99,7 @@ function Edit(props) {
 		}
 	};
 
-	const { isSelected, attributes, setAttributes, clientId } = props;
+	const { isSelected, attributes, setAttributes, className, clientId } = props;
 	const {
 		blockId,
 		blockMeta,
@@ -413,19 +435,18 @@ function Edit(props) {
 	});
 
 	const flipContainerStyleDesktop = `
-		.eb-flipbox-align-center {
+		.eb-flipbox-align-center .eb-flipper {
 			margin-right: auto !important;
 			margin-left: auto !important;
 		}
-		.eb-flipbox-align-right {
+		.eb-flipbox-align-right .eb-flipper {
 			margin-left: auto !important;
 		}
 		.eb-flipbox-container.${blockId}{
 			${wrapperMarginStylesDesktop}
 			${wrapperPaddingStylesDesktop}
-			${wrapperHeightStylesDesktop}
-			${wrapperWidthStylesDesktop}
 			width: 100%;
+			overflow: hidden;
 		}
 	`;
 
@@ -433,8 +454,6 @@ function Edit(props) {
 	 .eb-flipbox-container.${blockId}{
 		 ${wrapperMarginStylesTab}
 		 ${wrapperPaddingStylesTab}
-		 ${wrapperHeightStylesTab}
-		 ${wrapperWidthStylesTab}
 	 }
 	 `;
 
@@ -442,8 +461,6 @@ function Edit(props) {
 	 .eb-flipbox-container.${blockId}{
 		 ${wrapperMarginStylesMobile}
 		 ${wrapperPaddingStylesMobile}
-		 ${wrapperHeightStylesMobile}
-		 ${wrapperWidthStylesMobile}
 	 }
 	 `;
 
@@ -515,13 +532,29 @@ function Edit(props) {
 	// flipper style
 	const flipperStyle = `
 	 .eb-flipbox-container.${blockId} .eb-flipper {
-		 transition: ${transitionSpeed ? transitionSpeed / 1000 : 0.6}s
+		 transition: ${transitionSpeed ? transitionSpeed / 1000 : 0.6}s;
+		 ${wrapperMinHeightStylesDesktop}
+		 ${wrapperWidthStylesDesktop}
 	 }
 	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected {
 		 transform:
 			  ${isHover || selectedSide === "back" ? getFlipTransform(flipType) : "none"};
 	 }
 	 `;
+
+	const flipperStyleTab = `
+		.eb-flipbox-container.${blockId} .eb-flipper {
+			${wrapperMinHeightStylesTab}
+			${wrapperWidthStylesTab}
+		}
+	`;
+
+	const flipperStyleMobile = `
+		.eb-flipbox-container.${blockId} .eb-flipper {
+			${wrapperMinHeightStylesMobile}
+			${wrapperWidthStylesMobile}
+		}
+	`;
 
 	const frontStyleDesktop = `
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front {
@@ -780,7 +813,7 @@ function Edit(props) {
 			${wrapperMinHeightStylesMobile}
 			${wrapperWidthStylesMobile}
 			${backBackgroundStylesMobile}
-			${bdShadowStyesMobile}ßß
+			${bdShadowStyesMobile}
 			${bdShadowStylesHoverMobile}
 		 }
 
@@ -876,9 +909,9 @@ function Edit(props) {
 	}
 	`;
 
-	let backButtonStyleDesktop,
-		backButtonStyleTab,
-		backButtonStyleMobile = "";
+	let backButtonStyleDesktop = "";
+	let backButtonStyleTab = "";
+	let backButtonStyleMobile = "";
 	if (buttonStyle === "custom") {
 		const {
 			dimensionStylesDesktop: buttonPaddingStylesDesktop,
@@ -966,46 +999,48 @@ function Edit(props) {
 
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
-		 ${isCssExists(itemsContainerStyle) ? itemsContainerStyle : " "}
-		 ${isCssExists(flipContainerStyleDesktop) ? flipContainerStyleDesktop : " "}
-		 ${isCssExists(titleStylesDesktop) ? titleStylesDesktop : " "}
-		 ${isCssExists(contentStylesDesktop) ? contentStylesDesktop : " "}
-		 ${isCssExists(flipperStyle) ? flipperStyle : " "}
-		 ${isCssExists(frontStyleDesktop) ? frontStyleDesktop : " "}
-		 ${isCssExists(frontImageStyleDesktop) ? frontImageStyleDesktop : " "}
-		 ${isCssExists(frontIconStyleDesktop) ? frontIconStyleDesktop : " "}
-		 ${isCssExists(backIconStyleDesktop) ? backIconStyleDesktop : " "}
-		 ${isCssExists(backStyleDesktop) ? backStyleDesktop : " "}
-		 ${isCssExists(backImageStyleDesktop) ? backImageStyleDesktop : " "}
-		 ${isCssExists(backButtonStyleDesktop) ? backButtonStyleDesktop : " "}
+		 ${itemsContainerStyle}
+		 ${flipContainerStyleDesktop}
+		 ${titleStylesDesktop}
+		 ${contentStylesDesktop}
+		 ${flipperStyle}
+		 ${frontStyleDesktop}
+		 ${frontImageStyleDesktop}
+		 ${frontIconStyleDesktop}
+		 ${backIconStyleDesktop}
+		 ${backStyleDesktop}
+		 ${backImageStyleDesktop}
+		 ${backButtonStyleDesktop}
 	 `);
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
-		 ${isCssExists(flipContainerStyleTab) ? flipContainerStyleTab : " "}
-		 ${isCssExists(titleStylesTab) ? titleStylesTab : " "}
-		 ${isCssExists(contentStylesTab) ? contentStylesTab : " "}
-		 ${isCssExists(backButtonStyleTab) ? backButtonStyleTab : " "}
-		 ${isCssExists(frontStyleTab) ? frontStyleTab : " "}
-		 ${isCssExists(backStyleTab) ? backStyleTab : " "}
-		 ${isCssExists(frontIconStyleTab) ? frontIconStyleTab : " "}
-		 ${isCssExists(backIconStyleTab) ? backIconStyleTab : " "}
-		 ${isCssExists(frontImageStyleTab) ? frontImageStyleTab : " "}
-		 ${isCssExists(backImageStyleTab) ? backImageStyleTab : " "}
+		 ${flipContainerStyleTab}
+		 ${titleStylesTab}
+		 ${contentStylesTab}
+		 ${flipperStyleTab}
+		 ${backButtonStyleTab}
+		 ${frontStyleTab}
+		 ${backStyleTab}
+		 ${frontIconStyleTab}
+		 ${backIconStyleTab}
+		 ${frontImageStyleTab}
+		 ${backImageStyleTab}
 	 `);
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
-		 ${isCssExists(flipContainerStyleMobile) ? flipContainerStyleMobile : " "}
-		 ${isCssExists(titleStylesMobile) ? titleStylesMobile : " "}
-		 ${isCssExists(contentStylesMobile) ? contentStylesMobile : " "}
-		 ${isCssExists(backButtonStyleMobile) ? backButtonStyleMobile : " "}
-		 ${isCssExists(frontStyleMobile) ? frontStyleMobile : " "}
-		 ${isCssExists(backStyleMobile) ? backStyleMobile : " "}
-		 ${isCssExists(frontIconStyleMobile) ? frontIconStyleMobile : " "}
-		 ${isCssExists(backIconStyleMobile) ? backIconStyleMobile : " "}
-		 ${isCssExists(frontImageStyleMobile) ? frontImageStyleMobile : " "}
-		 ${isCssExists(backImageStyleMobile) ? backImageStyleMobile : " "}
+		 ${flipContainerStyleMobile}
+		 ${titleStylesMobile}
+		 ${contentStylesMobile}
+		 ${flipperStyleMobile}
+		 ${backButtonStyleMobile}
+		 ${frontStyleMobile}
+		 ${backStyleMobile}
+		 ${frontIconStyleMobile}
+		 ${backIconStyleMobile}
+		 ${frontImageStyleMobile}
+		 ${backImageStyleMobile}
 	 `);
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {
@@ -1022,7 +1057,9 @@ function Edit(props) {
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
 	useEffect(() => {
 		setAttributes({
-			resOption: select("core/edit-post").__experimentalGetPreviewDeviceType(),
+			resOption: select(
+				editorStoreForGettingPreivew
+			).__experimentalGetPreviewDeviceType(),
 		});
 	}, []);
 
@@ -1038,13 +1075,13 @@ function Edit(props) {
 		});
 	}, []);
 
-	// this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
-	useEffect(() => {
-		mimmikCssForPreviewBtnClick({
-			domObj: document,
-			select,
-		});
-	}, []);
+	// // this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
+	// useEffect(() => {
+	// 	mimmikCssForPreviewBtnClick({
+	// 		domObj: document,
+	// 		select,
+	// 	});
+	// }, []);
 
 	const alignmentClass =
 		contentPosition === "center"
@@ -1054,166 +1091,171 @@ function Edit(props) {
 			: "";
 
 	const blockProps = useBlockProps({
-		className: `eb-guten-block-main-parent-wrapper`,
+		className: classnames(className, `eb-guten-block-main-parent-wrapper`),
 	});
 
-	return [
-		isSelected && (
-			<Inspector attributes={attributes} setAttributes={setAttributes} />
-		),
-		<BlockControls>
-			<Toolbar>
-				<ToolbarButton
-					title="Front"
-					icon="arrow-right-alt2"
-					isActive={selectedSide === "front"}
-					onClick={() => setAttributes({ selectedSide: "front" })}
+	return (
+		<>
+			{isSelected && (
+				<Inspector attributes={attributes} setAttributes={setAttributes} />
+			)}
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarButton
+						title="Front"
+						icon="arrow-right-alt2"
+						isActive={selectedSide === "front"}
+						onClick={() => setAttributes({ selectedSide: "front" })}
+					/>
+					<ToolbarButton
+						title="Back"
+						icon="arrow-left-alt2"
+						isActive={selectedSide === "back"}
+						onClick={() => setAttributes({ selectedSide: "back" })}
+					/>
+				</ToolbarGroup>
+				<AlignmentToolbar
+					value={align}
+					onChange={(align) => setAttributes({ align })}
 				/>
-				<ToolbarButton
-					title="Back"
-					icon="arrow-left-alt2"
-					isActive={selectedSide === "back"}
-					onClick={() => setAttributes({ selectedSide: "back" })}
-				/>
-			</Toolbar>
-			<AlignmentToolbar
-				value={align}
-				onChange={(align) => setAttributes({ align })}
-			/>
-		</BlockControls>,
-		// Edit view here
-		<div {...blockProps}>
-			<style>
-				{`
-				 ${desktopAllStyles}
- 
-				 /* mimmikcssStart */
- 
-				 ${resOption === "Tablet" ? tabAllStyles : " "}
-				 ${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
- 
-				 /* mimmikcssEnd */
- 
-				 @media all and (max-width: 1024px) {	
- 
-					 /* tabcssStart */			
-					 ${softMinifyCssStrings(tabAllStyles)}
-					 /* tabcssEnd */			
+			</BlockControls>
+			// Edit view here
+			<div {...blockProps}>
+				<style>
+					{`
+			 ${desktopAllStyles}
+
+			 /* mimmikcssStart */
+
+			 ${resOption === "Tablet" ? tabAllStyles : " "}
+			 ${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
+
+			 /* mimmikcssEnd */
+
+			 @media all and (max-width: 1024px) {	
+
+				 /* tabcssStart */			
+				 ${softMinifyCssStrings(tabAllStyles)}
+				 /* tabcssEnd */			
+			 
+			 }
+			 
+			 @media all and (max-width: 767px) {
 				 
-				 }
-				 
-				 @media all and (max-width: 767px) {
-					 
-					 /* mobcssStart */			
-					 ${softMinifyCssStrings(mobileAllStyles)}
-					 /* mobcssEnd */			
-				 
-				 }
-				 `}
-			</style>
-			<div
-				className={`eb-flipbox-container ${blockId}${alignmentClass}`}
-				data-id={blockId}
-				onMouseEnter={() => setAttributes({ isHover: true })}
-				onMouseLeave={() => setAttributes({ isHover: false })}
-			>
+				 /* mobcssStart */			
+				 ${softMinifyCssStrings(mobileAllStyles)}
+				 /* mobcssEnd */			
+			 
+			 }
+			 `}
+				</style>
 				<div
-					className={`eb-flipper${
-						isHover || selectedSide === "back" ? " back-is-selected" : ""
-					}`}
+					className={`eb-flipbox-container ${blockId}${alignmentClass}`}
+					data-id={blockId}
+					onMouseEnter={() => setAttributes({ isHover: true })}
+					onMouseLeave={() => setAttributes({ isHover: false })}
 				>
-					<div className="eb-flipbox-front">
-						<div className="eb-flipbox-items-container">
-							{frontIconOrImage !== "none" && (
-								<div className="eb-flipbox-icon-wrapper">
-									{frontIconOrImage === "image" && frontImageUrl && (
-										<div className="eb-flipbox-front-image-container">
-											<img src={frontImageUrl} />
-										</div>
-									)}
-									{frontIconOrImage === "icon" && frontIcon && (
-										<div
-											className="eb-flipbox-icon-front"
-											data-icon={frontIcon}
-										>
-											<span className={frontIcon} />
-										</div>
-									)}
-								</div>
-							)}
-							{showFrontTitle && (
-								<div className="eb-flipbox-front-title-wrapper">
-									{linkType === "title" && link ? (
-										<a href={link ? link : "#"} className="title-link">
+					<div
+						className={`eb-flipper${
+							isHover || selectedSide === "back" ? " back-is-selected" : ""
+						}`}
+					>
+						<div className="eb-flipbox-front">
+							<div className="eb-flipbox-items-container">
+								{frontIconOrImage !== "none" && (
+									<div className="eb-flipbox-icon-wrapper">
+										{frontIconOrImage === "image" && frontImageUrl && (
+											<div className="eb-flipbox-front-image-container">
+												<img src={frontImageUrl} />
+											</div>
+										)}
+										{frontIconOrImage === "icon" && frontIcon && (
+											<div
+												className="eb-flipbox-icon-front"
+												data-icon={frontIcon}
+											>
+												<span className={frontIcon} />
+											</div>
+										)}
+									</div>
+								)}
+								{showFrontTitle && (
+									<div className="eb-flipbox-front-title-wrapper">
+										{linkType === "title" && link ? (
+											<a href={link ? link : "#"} className="title-link">
+												<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+											</a>
+										) : (
 											<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
-										</a>
-									) : (
-										<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
-									)}
-								</div>
-							)}
-							{showFrontContent && (
-								<div className="eb-flipbox-front-content-wrapper">
-									<p className="eb-flipbox-front-content">{frontContent}</p>
-								</div>
-							)}
+										)}
+									</div>
+								)}
+								{showFrontContent && (
+									<div className="eb-flipbox-front-content-wrapper">
+										<p className="eb-flipbox-front-content">{frontContent}</p>
+									</div>
+								)}
+							</div>
 						</div>
-					</div>
-					<div className="eb-flipbox-back">
-						<div className="eb-flipbox-items-container">
-							{backIconOrImage !== "none" && (
-								<div className="eb-flipbox-icon-wrapper">
-									{backIconOrImage === "image" && backImageUrl && (
-										<div className="eb-flipbox-back-image-container">
-											<img src={backImageUrl} />
-										</div>
-									)}
-									{backIconOrImage === "icon" && backIcon && (
-										<div className="eb-flipbox-icon-back" data-icon={backIcon}>
-											<span className={backIcon} />
-										</div>
-									)}
-								</div>
-							)}
-							{showBackTitle && (
-								<div className="eb-flipbox-back-title-wrapper">
-									{linkType === "title" && link ? (
-										<a href={link ? link : "#"} className="title-link">
+						<div className="eb-flipbox-back">
+							<div className="eb-flipbox-items-container">
+								{backIconOrImage !== "none" && (
+									<div className="eb-flipbox-icon-wrapper">
+										{backIconOrImage === "image" && backImageUrl && (
+											<div className="eb-flipbox-back-image-container">
+												<img src={backImageUrl} />
+											</div>
+										)}
+										{backIconOrImage === "icon" && backIcon && (
+											<div
+												className="eb-flipbox-icon-back"
+												data-icon={backIcon}
+											>
+												<span className={backIcon} />
+											</div>
+										)}
+									</div>
+								)}
+								{showBackTitle && (
+									<div className="eb-flipbox-back-title-wrapper">
+										{linkType === "title" && link ? (
+											<a href={link ? link : "#"} className="title-link">
+												<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+											</a>
+										) : (
 											<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+										)}
+									</div>
+								)}
+								{showBackContent && (
+									<div className="eb-flipbox-back-content-wrapper">
+										<p className="eb-flipbox-back-content">{backContent}</p>
+									</div>
+								)}
+								{linkType === "button" && (
+									<div className="eb-flipbox-button-container">
+										<a
+											className={`eb-flipbox-button-link ${buttonClasses}`}
+											href={link ? link : "#"}
+										>
+											<div className="eb-flipbox-button-content">
+												<span>{buttonText}</span>
+												{buttonIcon && (
+													<i
+														className={`${buttonIcon} eb-flipbox-button-icon`}
+													></i>
+												)}
+											</div>
 										</a>
-									) : (
-										<h3 className="eb-flipbox-back-title">{backTitle}</h3>
-									)}
-								</div>
-							)}
-							{showBackContent && (
-								<div className="eb-flipbox-back-content-wrapper">
-									<p className="eb-flipbox-back-content">{backContent}</p>
-								</div>
-							)}
-							{linkType === "button" && (
-								<div className="eb-flipbox-button-container">
-									<a
-										className={`eb-flipbox-button-link ${buttonClasses}`}
-										href={link ? link : "#"}
-									>
-										<div className="eb-flipbox-button-content">
-											<span>{buttonText}</span>
-											{buttonIcon && (
-												<i
-													className={`${buttonIcon} eb-flipbox-button-icon`}
-												></i>
-											)}
-										</div>
-									</a>
-								</div>
-							)}
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>,
-	];
+		</>
+	);
 }
 
 export default Edit;
