@@ -9,6 +9,7 @@ export { default as BorderShadowControl } from "../controls/src/controls/border-
 export { default as BackgroundControl } from "../controls/src/controls/background-control";
 export { default as ResponsiveRangeController } from "../controls/src/controls/responsive-range-control";
 export { default as faIcons } from "../controls/src/extras/faIcons";
+export { default as ImageAvatar } from "../controls/src/controls/image-avatar";
 //Export Helper Functions
 export {
 	softMinifyCssStrings,

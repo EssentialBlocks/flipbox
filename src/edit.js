@@ -535,6 +535,7 @@ function Edit(props) {
 		 transition: ${transitionSpeed ? transitionSpeed / 1000 : 0.6}s;
 		 ${wrapperMinHeightStylesDesktop}
 		 ${wrapperWidthStylesDesktop}
+		 height: auto;
 	 }
 	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected {
 		 transform:
@@ -1119,7 +1120,6 @@ function Edit(props) {
 					onChange={(align) => setAttributes({ align })}
 				/>
 			</BlockControls>
-			// Edit view here
 			<div {...blockProps}>
 				<style>
 					{`
