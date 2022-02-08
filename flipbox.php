@@ -35,7 +35,7 @@ function create_block_flipbox_block_init()
 	$script_asset_path = EB_FLIPBOX_BLOCKS_ADMIN_PATH . "/dist/index.asset.php";
 	if (!file_exists($script_asset_path)) {
 		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "typing-text/typing-text-block" block first.'
+			'You need to run `npm start` or `npm run build` for the "flipbox/flipbox-block" block first.'
 		);
 	}
 	$index_js = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'dist/index.js';
