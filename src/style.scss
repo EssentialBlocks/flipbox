@@ -1,6 +1,14 @@
 /* entire container, keeps perspective */
 .eb-flipbox-container {
 	perspective: 1000px;
+	.eb-flipbox-front-content,
+	.eb-flipbox-back-content {
+		font-size: 14px;
+	}
+	.eb-flipbox-front-title,
+	.eb-flipbox-back-title {
+		font-size: 24px;
+	}
 }
 
 /* flip speed goes here */
@@ -37,6 +45,10 @@
 .eb-flipbox-icon-wrapper {
 	display: flex;
 	align-items: center;
+	.eb-flipbox-icon-front,
+	.eb-flipbox-icon-back {
+		padding-bottom: 20px;
+	}
 }
 
 /* 
@@ -402,6 +414,7 @@
 	transition: opacity 0.6s;
 }
 .fade .eb-flipbox-back {
+	z-index: 1;
 	transform: none;
 }
 .fade:hover .eb-flipbox-front,

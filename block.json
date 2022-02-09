@@ -6,6 +6,5 @@
 	"description": "Deliver Your Content Beautifully To Grab Attention",
 	"keywords": ["flipbox", "flip", "box"],
 	"textdomain": "flipbox",
-	"editorScript": "file:./build/index.js",
-	"style": "file:./build/style-index.css"
+	"editorScript": "file:./dist/index.js"
 }
