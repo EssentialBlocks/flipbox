@@ -4,7 +4,7 @@
  * Plugin Name:     Flipbox
  * Plugin URI: 		https://essential-blocks.com
  * Description:     Deliver your content beautifully to grab attention with an animated Flipbox block.
- * Version:         1.1.0
+ * Version:         1.2.0
  * Author:          WPDeveloper
  * Author URI: 		https://wpdeveloper.net
  * License:         GPL-2.0-or-later
@@ -28,7 +28,7 @@ require_once __DIR__ . '/lib/style-handler/style-handler.php';
 
 function create_block_flipbox_block_init()
 {
-	define('EB_FLIPBOX_BLOCKS_VERSION', "1.1.0");
+	define('EB_FLIPBOX_BLOCKS_VERSION', "1.2.0");
 	define('EB_FLIPBOX_BLOCKS_ADMIN_URL', plugin_dir_url(__FILE__));
 	define('EB_FLIPBOX_BLOCKS_ADMIN_PATH', dirname(__FILE__));
 
