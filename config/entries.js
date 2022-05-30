@@ -10,6 +10,10 @@ export { default as BackgroundControl } from "../controls/src/controls/backgroun
 export { default as ResponsiveRangeController } from "../controls/src/controls/responsive-range-control";
 export { default as faIcons } from "../controls/src/extras/faIcons";
 export { default as ImageAvatar } from "../controls/src/controls/image-avatar";
+
+import "../controls/src/group-controls";
+export { default as AdvancedControls } from "../controls/src/group-controls/components/advanced-controls";
+
 //Export Helper Functions
 export {
 	softMinifyCssStrings,

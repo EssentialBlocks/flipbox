@@ -7,6 +7,14 @@ import {
 	frontIconPadding,
 	backIconMargin,
 	backIconPadding,
+	frontTitlePadding,
+	backTitlePadding,
+	frontContentPadding,
+	backContentPadding,
+	frontImgPadding,
+	backImgPadding,
+	frontItemPadding,
+	backItemPadding,
 } from "./constants/dimensionsNames";
 import {
 	boxHeightAttr,
@@ -198,7 +206,7 @@ const attributes = {
 	},
 	buttonStyle: {
 		type: "string",
-		defautl: "styleOne",
+		default: "styleOne",
 	},
 	buttonClasses: {
 		type: "string",
@@ -231,6 +239,10 @@ const attributes = {
 		type: "string",
 		default: "center",
 	},
+	linkOpenNewTab: {
+		type: "boolean",
+		default: false,
+	},
 	// typography attributes ⬇
 	...generateTypographyAttributes(Object.values(prefixObjs)),
 	// margin padding attributes ⬇
@@ -248,6 +260,14 @@ const attributes = {
 	...generateDimensionsAttributes(frontIconPadding),
 	...generateDimensionsAttributes(backIconMargin),
 	...generateDimensionsAttributes(backIconPadding),
+	...generateDimensionsAttributes(frontTitlePadding),
+	...generateDimensionsAttributes(backTitlePadding),
+	...generateDimensionsAttributes(frontContentPadding),
+	...generateDimensionsAttributes(backContentPadding),
+	...generateDimensionsAttributes(frontImgPadding),
+	...generateDimensionsAttributes(backImgPadding),
+	...generateDimensionsAttributes(frontItemPadding),
+	...generateDimensionsAttributes(backItemPadding),
 	// range controller
 	...generateResponsiveRangeAttributes(boxHeightAttr, {
 		defaultRange: 310,
