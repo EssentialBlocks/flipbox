@@ -4,7 +4,7 @@
  * Plugin Name:     Flipbox
  * Plugin URI: 		https://essential-blocks.com
  * Description:     Deliver your content beautifully to grab attention with an animated Flipbox block.
- * Version:         1.2.0
+ * Version:         1.2.1
  * Author:          WPDeveloper
  * Author URI: 		https://wpdeveloper.net
  * License:         GPL-2.0-or-later
@@ -28,7 +28,7 @@ require_once __DIR__ . '/lib/style-handler/style-handler.php';
 
 function create_block_flipbox_block_init()
 {
-	define('EB_FLIPBOX_BLOCKS_VERSION', "1.2.0");
+	define('EB_FLIPBOX_BLOCKS_VERSION', "1.2.1");
 	define('EB_FLIPBOX_BLOCKS_ADMIN_URL', plugin_dir_url(__FILE__));
 	define('EB_FLIPBOX_BLOCKS_ADMIN_PATH', dirname(__FILE__));
 
@@ -45,7 +45,8 @@ function create_block_flipbox_block_init()
 		'wp-i18n',
 		'wp-element',
 		'wp-block-editor',
-		'eb-flipbox-blocks-controls-util'
+		'eb-flipbox-blocks-controls-util',
+		'essential-blocks-eb-animation'
 	));
 
 	wp_register_script(
@@ -53,6 +54,23 @@ function create_block_flipbox_block_init()
 		$index_js,
 		$all_dependencies,
 		$script_asset['version']
+	);
+
+	$load_animation_js = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'assets/js/eb-animation-load.js';
+	wp_register_script(
+		'essential-blocks-eb-animation',
+		$load_animation_js,
+		array(),
+		EB_FLIPBOX_BLOCKS_VERSION,
+		true
+	);
+
+	$animate_css = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'assets/css/animate.min.css';
+	wp_register_style(
+		'essential-blocks-animation',
+		$animate_css,
+		array(),
+		EB_FLIPBOX_BLOCKS_VERSION
 	);
 
 
@@ -82,7 +100,7 @@ function create_block_flipbox_block_init()
 	wp_register_style(
 		'eb-flipbox-block-frontend-style',
 		$style_css,
-		array('fontawesome-frontend-css'),
+		array('fontawesome-frontend-css', 'essential-blocks-animation'),
 		filemtime(EB_FLIPBOX_BLOCKS_ADMIN_PATH . '/dist/style.css')
 	);
 
@@ -92,8 +110,14 @@ function create_block_flipbox_block_init()
 			array(
 				'editor_script' => 'eb-flipbox-block-editor-js',
 				'style'         => 'eb-flipbox-block-frontend-style',
+				'render_callback' => function ($attributes, $content) {
+					if (!is_admin()) {
+						wp_enqueue_script('essential-blocks-eb-animation');
+					}
+					return $content;
+				}
 			)
 		);
 	}
 }
-add_action('init', 'create_block_flipbox_block_init');
+add_action('init', 'create_block_flipbox_block_init', 99);

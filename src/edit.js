@@ -29,6 +29,14 @@ import {
 	frontIconPadding,
 	backIconMargin,
 	backIconPadding,
+	frontTitlePadding,
+	backTitlePadding,
+	frontContentPadding,
+	backContentPadding,
+	frontImgPadding,
+	backImgPadding,
+	frontItemPadding,
+	backItemPadding,
 } from "./constants/dimensionsNames";
 import {
 	typoPrefix_title,
@@ -58,18 +66,6 @@ import {
 	borderShadowBackIcon,
 } from "./constants/borderShadowConstants";
 
-// import {
-// 	getFlipTransform,
-// 	mimmikCssForPreviewBtnClick,
-// 	duplicateBlockIdFix,
-// 	softMinifyCssStrings,
-// 	generateTypographyStyles,
-// 	generateDimensionsControlStyles,
-// 	generateResponsiveRangeStyles,
-// 	generateBackgroundControlStyles,
-// 	generateBorderShadowStyles,
-// } from "../../../util/helpers";
-
 const {
 	getFlipTransform,
 	// mimmikCssForPreviewBtnClick,
@@ -83,7 +79,7 @@ const {
 } = window.EBFlipboxControls;
 
 const editorStoreForGettingPreivew =
-	eb_style_handler.editor_type === "edit-site"
+	eb_conditional_localize.editor_type === "edit-site"
 		? "core/edit-site"
 		: "core/edit-post";
 
@@ -143,6 +139,7 @@ function Edit(props) {
 		displayButtonIcon,
 		align,
 		contentPosition,
+		classHook,
 	} = attributes;
 
 	// Default colors
@@ -434,6 +431,94 @@ function Edit(props) {
 		attributes,
 	});
 
+	// front title
+	const {
+		dimensionStylesDesktop: frontTitlePaddingStylesDesktop,
+		dimensionStylesTab: frontTitlePaddingStylesTab,
+		dimensionStylesMobile: frontTitlePaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontTitlePadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// back title
+	const {
+		dimensionStylesDesktop: backTitlePaddingStylesDesktop,
+		dimensionStylesTab: backTitlePaddingStylesTab,
+		dimensionStylesMobile: backTitlePaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backTitlePadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// front content padding
+	const {
+		dimensionStylesDesktop: frontContentPaddingStylesDesktop,
+		dimensionStylesTab: frontContentPaddingStylesTab,
+		dimensionStylesMobile: frontContentPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontContentPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// back content Padding
+	const {
+		dimensionStylesDesktop: backContentPaddingStylesDesktop,
+		dimensionStylesTab: backContentPaddingStylesTab,
+		dimensionStylesMobile: backContentPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backContentPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// front Image Padding
+	const {
+		dimensionStylesDesktop: frontImgPaddingStylesDesktop,
+		dimensionStylesTab: frontImgPaddingStylesTab,
+		dimensionStylesMobile: frontImgPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontImgPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// back Image Padding
+	const {
+		dimensionStylesDesktop: backImgPaddingStylesDesktop,
+		dimensionStylesTab: backImgPaddingStylesTab,
+		dimensionStylesMobile: backImgPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backImgPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// front Item Padding
+	const {
+		dimensionStylesDesktop: frontItemPaddingStylesDesktop,
+		dimensionStylesTab: frontItemPaddingStylesTab,
+		dimensionStylesMobile: frontItemPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: frontItemPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// back Item Padding
+	const {
+		dimensionStylesDesktop: backItemPaddingStylesDesktop,
+		dimensionStylesTab: backItemPaddingStylesTab,
+		dimensionStylesMobile: backItemPaddingStylesMobile,
+	} = generateDimensionsControlStyles({
+		controlName: backItemPadding,
+		styleFor: "padding",
+		attributes,
+	});
+
 	const flipContainerStyleDesktop = `
 		.eb-flipbox-align-center .eb-flipper {
 			margin-right: auto !important;
@@ -446,7 +531,11 @@ function Edit(props) {
 			${wrapperMarginStylesDesktop}
 			${wrapperPaddingStylesDesktop}
 			width: 100%;
-			overflow: hidden;
+			overflow: hidden
+		}
+
+		.eb-flipbox-container.${blockId}.editor-zoom-in, .eb-flipbox-container.${blockId}[data-flip-type="zoom-in"] {
+			overflow: visible !important;
 		}
 	`;
 
@@ -465,9 +554,37 @@ function Edit(props) {
 	 `;
 
 	const itemsContainerStyle = `
-	 .eb-flipbox-container.${blockId} .eb-flipbox-items-container {
-		align-items: ${getFlexAlign(align)};
-	 }
+	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-items-container {
+		${frontItemPaddingStylesDesktop}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-items-container {
+		${backItemPaddingStylesDesktop}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-items-container {
+	align-items: ${getFlexAlign(align)};
+	}
+	`;
+
+	const itemsContainerStyleTab = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-items-container {
+		${frontItemPaddingStylesTab}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-items-container {
+		${backItemPaddingStylesTab}
+	}
+	`;
+
+	const itemsContainerStyleMobile = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-items-container {
+		${frontItemPaddingStylesMobile}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-items-container {
+		${backItemPaddingStylesMobile}
+	}
 	`;
 
 	// prefix title styles css in strings ⬇
@@ -479,21 +596,39 @@ function Edit(props) {
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title {
+		${frontTitlePaddingStylesDesktop}
 		 color: ${frontTitleColor ? frontTitleColor : deafultFrontTitleColor};
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
+		${backTitlePaddingStylesDesktop}
 		 color: ${backTitleColor ? backTitleColor : defaultBackTitleColor};
 	 }
 	 `;
 
 	const titleStylesTab = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front-title {
+		${frontTitlePaddingStylesTab}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-back-title {
+		${frontTitlePaddingStylesTab}
+	}
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title, .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
 		 ${titleTypoStylesTab}
 	 }
 	 `;
 
 	const titleStylesMobile = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front-title {
+		${frontTitlePaddingStylesMobile}
+	}
+
+	.eb-flipbox-container.${blockId} .eb-flipbox-back-title {
+		${frontTitlePaddingStylesMobile}
+	}
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title, .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
 		 ${titleTypoStylesMobile}
 	 }
@@ -509,21 +644,39 @@ function Edit(props) {
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content {
+		 ${frontContentPaddingStylesDesktop}
 		 color: ${frontContentColor ? frontContentColor : defaultFrontContentColor};
 	 }
  
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
+		 ${backContentPaddingStylesDesktop}
 		 color: ${backContentColor ? backContentColor : defautlBackContentColor};
 	 }
 	 `;
 
 	const contentStylesTab = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front-content {
+		${frontContentPaddingStylesTab}
+	}
+	
+	.eb-flipbox-container.${blockId} .eb-flipbox-back-content {
+		${backContentPaddingStylesTab}
+	}
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content, .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
 		 ${contentTypoStylesTab}
 	 }
 	 `;
 
 	const contentStylesMobile = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front-content {
+		${frontContentPaddingStylesMobile}
+	}
+	
+	.eb-flipbox-container.${blockId} .eb-flipbox-back-content {
+		${backContentPaddingStylesMobile}
+	}
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content, .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
 		 ${contentTypoStylesMobile}
 	 }
@@ -535,7 +688,6 @@ function Edit(props) {
 		 transition: ${transitionSpeed ? transitionSpeed / 1000 : 0.6}s;
 		 ${wrapperMinHeightStylesDesktop}
 		 ${wrapperWidthStylesDesktop}
-		 height: auto;
 	 }
 	 .eb-flipbox-container.${blockId} .eb-flipper.back-is-selected {
 		 transform:
@@ -649,6 +801,7 @@ function Edit(props) {
 
 	const frontImageStyleDesktop = `
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container {
+		 ${frontImgPaddingStylesDesktop}
 		 display: ${frontIconOrImage === "image" && frontImageUrl ? "flex" : "none"};
 		 justify-content: center;
 	 }
@@ -661,6 +814,10 @@ function Edit(props) {
 	 `;
 
 	const frontImageStyleTab = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container {
+		${frontImgPaddingStylesTab}
+	}
+
 	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
 		${frontImgHeightTab}
 		 ${frontImgWidthTab}
@@ -669,6 +826,10 @@ function Edit(props) {
 	`;
 
 	const frontImageStyleMobile = `
+	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container {
+		${frontImgPaddingStylesMobile}
+	}
+
 	.eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
 		${frontImgHeightMobile}
 		 ${frontImgWidthMobile}
@@ -778,11 +939,10 @@ function Edit(props) {
 			: ""
 	}
 	 
-	 
-	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front,
-	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back{
-		position: absolute;
-	 }
+	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front,
+	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back{
+	position: absolute;
+	}
 
 	 `;
 
@@ -834,6 +994,7 @@ function Edit(props) {
 
 	const backImageStyleDesktop = `
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
+		${backImgPaddingStylesDesktop}
 		display: ${backIconOrImage === "image" && backImageUrl ? "flex" : "none"};
 		justify-content: center;
 	 }
@@ -846,7 +1007,10 @@ function Edit(props) {
 	 `;
 
 	const backImageStyleTab = `
- 
+	.eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
+		${backImgPaddingStylesTab}
+	}
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
 		${backImgHeightTab}
 		${backImgWidthTab}
@@ -855,7 +1019,10 @@ function Edit(props) {
 	 `;
 
 	const backImageStyleMobile = `
- 
+	.eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container {
+		${backImgPaddingStylesMobile}
+	}
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
 		${backImgHeightMobile}
 		${backImgWidthMobile}
@@ -951,8 +1118,8 @@ function Edit(props) {
 			 ${buttonPaddingStylesDesktop}
 			 ${btnBdShadowStyesDesktop}
 			 ${buttonSizeDesktop}
-			 background: ${buttonBackground};
-			 color: ${buttonColor};
+			 ${buttonBackground ? `background: ${buttonBackground};` : ""}
+			 ${buttonColor ? `color: ${buttonColor};` : ""}
 			 transition: ${btnBdShadowTransitionStyle};
 		 }
 
@@ -1016,6 +1183,7 @@ function Edit(props) {
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
+		 ${itemsContainerStyleTab}
 		 ${flipContainerStyleTab}
 		 ${titleStylesTab}
 		 ${contentStylesTab}
@@ -1031,6 +1199,7 @@ function Edit(props) {
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
+		 ${itemsContainerStyleMobile}
 		 ${flipContainerStyleMobile}
 		 ${titleStylesMobile}
 		 ${contentStylesMobile}
@@ -1120,135 +1289,142 @@ function Edit(props) {
 					onChange={(align) => setAttributes({ align })}
 				/>
 			</BlockControls>
+
 			<div {...blockProps}>
 				<style>
 					{`
-			 ${desktopAllStyles}
-
-			 /* mimmikcssStart */
-
-			 ${resOption === "Tablet" ? tabAllStyles : " "}
-			 ${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
-
-			 /* mimmikcssEnd */
-
-			 @media all and (max-width: 1024px) {	
-
-				 /* tabcssStart */			
-				 ${softMinifyCssStrings(tabAllStyles)}
-				 /* tabcssEnd */			
-			 
-			 }
-			 
-			 @media all and (max-width: 767px) {
+				 ${desktopAllStyles}
+ 
+				 /* mimmikcssStart */
+ 
+				 ${resOption === "Tablet" ? tabAllStyles : " "}
+				 ${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
+ 
+				 /* mimmikcssEnd */
+ 
+				 @media all and (max-width: 1024px) {	
+ 
+					 /* tabcssStart */			
+					 ${softMinifyCssStrings(tabAllStyles)}
+					 /* tabcssEnd */			
 				 
-				 /* mobcssStart */			
-				 ${softMinifyCssStrings(mobileAllStyles)}
-				 /* mobcssEnd */			
-			 
-			 }
-			 `}
+				 }
+				 
+				 @media all and (max-width: 767px) {
+					 
+					 /* mobcssStart */			
+					 ${softMinifyCssStrings(mobileAllStyles)}
+					 /* mobcssEnd */			
+				 
+				 }
+				 `}
 				</style>
-				<div
-					className={`eb-flipbox-container ${blockId}${alignmentClass}`}
-					data-id={blockId}
-					onMouseEnter={() => setAttributes({ isHover: true })}
-					onMouseLeave={() => setAttributes({ isHover: false })}
-				>
+				<div className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}>
 					<div
-						className={`eb-flipper${
-							isHover || selectedSide === "back" ? " back-is-selected" : ""
+						className={`eb-flipbox-container ${blockId}${alignmentClass}${
+							flipType === "zoom-in" ? " editor-zoom-in" : ""
 						}`}
+						data-id={blockId}
+						onMouseEnter={() => setAttributes({ isHover: true })}
+						onMouseLeave={() => setAttributes({ isHover: false })}
 					>
-						<div className="eb-flipbox-front">
-							<div className="eb-flipbox-items-container">
-								{frontIconOrImage !== "none" && (
-									<div className="eb-flipbox-icon-wrapper">
-										{frontIconOrImage === "image" && frontImageUrl && (
-											<div className="eb-flipbox-front-image-container">
-												<img src={frontImageUrl} />
-											</div>
-										)}
-										{frontIconOrImage === "icon" && frontIcon && (
-											<div
-												className="eb-flipbox-icon-front"
-												data-icon={frontIcon}
-											>
-												<span className={frontIcon} />
-											</div>
-										)}
-									</div>
-								)}
-								{showFrontTitle && (
-									<div className="eb-flipbox-front-title-wrapper">
-										{linkType === "title" && link ? (
-											<a href={link ? link : "#"} className="title-link">
+						<div
+							className={`eb-flipper${
+								isHover || selectedSide === "back" ? " back-is-selected" : ""
+							}`}
+						>
+							<div className="eb-flipbox-front">
+								<div className="eb-flipbox-items-container">
+									{frontIconOrImage !== "none" && (
+										<div className="eb-flipbox-icon-wrapper">
+											{frontIconOrImage === "image" && frontImageUrl && (
+												<div className="eb-flipbox-front-image-container">
+													<img src={frontImageUrl} />
+												</div>
+											)}
+											{frontIconOrImage === "icon" && frontIcon && (
+												<div
+													className="eb-flipbox-icon-front"
+													data-icon={frontIcon}
+												>
+													<span className={frontIcon} />
+												</div>
+											)}
+										</div>
+									)}
+									{showFrontTitle && (
+										<div className="eb-flipbox-front-title-wrapper">
+											{linkType === "title" && link ? (
+												<a href={link ? link : "#"} className="title-link">
+													<h3 className="eb-flipbox-front-title">
+														{frontTitle}
+													</h3>
+												</a>
+											) : (
 												<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
-											</a>
-										) : (
-											<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
-										)}
-									</div>
-								)}
-								{showFrontContent && (
-									<div className="eb-flipbox-front-content-wrapper">
-										<p className="eb-flipbox-front-content">{frontContent}</p>
-									</div>
-								)}
+											)}
+										</div>
+									)}
+									{showFrontContent && (
+										<div className="eb-flipbox-front-content-wrapper">
+											<p className="eb-flipbox-front-content">{frontContent}</p>
+										</div>
+									)}
+								</div>
 							</div>
-						</div>
-						<div className="eb-flipbox-back">
-							<div className="eb-flipbox-items-container">
-								{backIconOrImage !== "none" && (
-									<div className="eb-flipbox-icon-wrapper">
-										{backIconOrImage === "image" && backImageUrl && (
-											<div className="eb-flipbox-back-image-container">
-												<img src={backImageUrl} />
-											</div>
-										)}
-										{backIconOrImage === "icon" && backIcon && (
-											<div
-												className="eb-flipbox-icon-back"
-												data-icon={backIcon}
-											>
-												<span className={backIcon} />
-											</div>
-										)}
-									</div>
-								)}
-								{showBackTitle && (
-									<div className="eb-flipbox-back-title-wrapper">
-										{linkType === "title" && link ? (
-											<a href={link ? link : "#"} className="title-link">
+							<div className="eb-flipbox-back">
+								<div className="eb-flipbox-items-container">
+									{backIconOrImage !== "none" && (
+										<div className="eb-flipbox-icon-wrapper">
+											{backIconOrImage === "image" && backImageUrl && (
+												<div className="eb-flipbox-back-image-container">
+													<img src={backImageUrl} />
+												</div>
+											)}
+											{backIconOrImage === "icon" && backIcon && (
+												<div
+													className="eb-flipbox-icon-back"
+													data-icon={backIcon}
+												>
+													<span className={backIcon} />
+												</div>
+											)}
+										</div>
+									)}
+									{showBackTitle && (
+										<div className="eb-flipbox-back-title-wrapper">
+											{linkType === "title" && link ? (
+												<a href={link ? link : "#"} className="title-link">
+													<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+												</a>
+											) : (
 												<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+											)}
+										</div>
+									)}
+									{showBackContent && (
+										<div className="eb-flipbox-back-content-wrapper">
+											<p className="eb-flipbox-back-content">{backContent}</p>
+										</div>
+									)}
+									{linkType === "button" && (
+										<div className="eb-flipbox-button-container">
+											<a
+												className={`eb-flipbox-button-link ${buttonClasses}`}
+												href={link ? link : "#"}
+											>
+												<div className="eb-flipbox-button-content">
+													<span>{buttonText}</span>
+													{buttonIcon && (
+														<i
+															className={`${buttonIcon} eb-flipbox-button-icon`}
+														></i>
+													)}
+												</div>
 											</a>
-										) : (
-											<h3 className="eb-flipbox-back-title">{backTitle}</h3>
-										)}
-									</div>
-								)}
-								{showBackContent && (
-									<div className="eb-flipbox-back-content-wrapper">
-										<p className="eb-flipbox-back-content">{backContent}</p>
-									</div>
-								)}
-								{linkType === "button" && (
-									<div className="eb-flipbox-button-container">
-										<a
-											className={`eb-flipbox-button-link ${buttonClasses}`}
-											href={link ? link : "#"}
-										>
-											<div className="eb-flipbox-button-content">
-												<span>{buttonText}</span>
-												{buttonIcon && (
-													<i
-														className={`${buttonIcon} eb-flipbox-button-icon`}
-													></i>
-												)}
-											</div>
-										</a>
-									</div>
-								)}
+										</div>
+									)}
+								</div>
 							</div>
 						</div>
 					</div>

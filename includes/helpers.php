@@ -43,7 +43,7 @@ class Flipbox_Helper
         /**
          * Only for Admin Add/Edit Pages 
          */
-        if ($hook == 'post-new.php' || $hook == 'post.php' || $hook == 'site-editor.php') {
+        if ($hook == 'post-new.php' || $hook == 'post.php' || $hook == 'site-editor.php' || ($hook == 'themes.php' && !empty($_SERVER['QUERY_STRING']) && str_contains($_SERVER['QUERY_STRING'], 'gutenberg-edit-site'))) {
             $controls_dependencies = include_once EB_FLIPBOX_BLOCKS_ADMIN_PATH . '/dist/controls.asset.php';
 
             wp_register_script(
@@ -58,6 +58,16 @@ class Flipbox_Helper
                 'eb_wp_version' => (float) get_bloginfo('version'),
                 'rest_rootURL' => get_rest_url(),
             ));
+
+            if ($hook == 'post-new.php' || $hook == 'post.php') {
+                wp_localize_script('eb-flipbox-blocks-controls-util', 'eb_conditional_localize', array(
+                    'editor_type' => 'edit-post'
+                ));
+            } else if ($hook == 'site-editor.php') {
+                wp_localize_script('eb-flipbox-blocks-controls-util', 'eb_conditional_localize', array(
+                    'editor_type' => 'edit-site'
+                ));
+            }
 
             wp_enqueue_style(
                 'essential-blocks-editor-css',
