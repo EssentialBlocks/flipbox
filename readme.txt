@@ -80,7 +80,7 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.2.1 - dev =
+= 1.2.1 - 31/05/2022 =
 * Added: Animation, Responsive Controls & Custom CSS options
 * Fixed: Zoom in effect overflow issue
 * Improved: Controls and structure
