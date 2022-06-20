@@ -531,7 +531,6 @@ function Edit(props) {
 			${wrapperMarginStylesDesktop}
 			${wrapperPaddingStylesDesktop}
 			width: 100%;
-			overflow: hidden
 		}
 
 		.eb-flipbox-container.${blockId}.editor-zoom-in, .eb-flipbox-container.${blockId}[data-flip-type="zoom-in"] {
