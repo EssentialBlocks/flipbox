@@ -1,4 +1,8 @@
 /* entire container, keeps perspective */
+.eb-flipbox-container * {
+	box-sizing: border-box;
+}
+
 .eb-flipbox-container {
 	perspective: 1000px;
 	.eb-flipbox-front-content,
