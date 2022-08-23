@@ -3,7 +3,7 @@ Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, fencermonir
 Tags: block, blocks, flipbox, flip box, flipper, animated box, gutenberg, gutenberg blocks
 Requires at least: 5.6
 Tested up to: 6.0
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +79,9 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.2.3 - dev =
+* Improved: Update controls
 
 = 1.2.2 - 03/08/2022 =
 * Fixed: Minor CSS issues
