@@ -52,11 +52,6 @@ const {
 	AdvancedControls,
 } = window.EBFlipboxControls;
 
-const editorStoreForGettingPreivew =
-	eb_conditional_localize.editor_type === "edit-site"
-		? "core/edit-site"
-		: "core/edit-post";
-
 import {
 	flipboxFrontWrapper,
 	flipboxBackWrapper,
@@ -150,15 +145,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 
 		setAttributes({ buttonStyle, buttonClasses });
 	};
-
-	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class only the first time once
-	useEffect(() => {
-		setAttributes({
-			resOption: select(
-				editorStoreForGettingPreivew
-			).__experimentalGetPreviewDeviceType(),
-		});
-	}, []);
 
 	const resRequiredProps = {
 		setAttributes,
@@ -653,7 +639,7 @@ const Inspector = ({ attributes, setAttributes }) => {
 											onChange={(newLink) => setAttributes({ link: newLink })}
 										/>
 										<ToggleControl
-											label={__("Open link in new tab?", "essential-blocks")}
+											label={__("Open in New Tab", "essential-blocks")}
 											checked={linkOpenNewTab}
 											onChange={() =>
 												setAttributes({
