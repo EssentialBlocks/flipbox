@@ -20,6 +20,7 @@ const { ebConditionalRegisterBlockType } = EBFlipboxControls;
 
 ebConditionalRegisterBlockType(metadata, {
 	icon: FlipboxIcon,
+	category: "essential-blocks",
 	attributes,
 	keywords: [
 		__("eb flipbox", "essential-blocks"),

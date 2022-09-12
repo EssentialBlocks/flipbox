@@ -78,11 +78,6 @@ const {
 	generateBorderShadowStyles,
 } = window.EBFlipboxControls;
 
-const editorStoreForGettingPreivew =
-	eb_conditional_localize.editor_type === "edit-site"
-		? "core/edit-site"
-		: "core/edit-post";
-
 function Edit(props) {
 	const getFlexAlign = (align) => {
 		switch (align) {
@@ -519,6 +514,8 @@ function Edit(props) {
 		attributes,
 	});
 
+	
+
 	const flipContainerStyleDesktop = `
 		.eb-flipbox-align-center .eb-flipper {
 			margin-right: auto !important;
@@ -531,10 +528,7 @@ function Edit(props) {
 			${wrapperMarginStylesDesktop}
 			${wrapperPaddingStylesDesktop}
 			width: 100%;
-		}
-
-		.eb-flipbox-container.${blockId}.editor-zoom-in, .eb-flipbox-container.${blockId}[data-flip-type="zoom-in"] {
-			overflow: visible !important;
+			overflow: hidden;
 		}
 	`;
 
@@ -720,9 +714,8 @@ function Edit(props) {
 			height: auto;
 			width: 100%;
 			z-index: 1;
-			transition: ${
-				flipType === "fade" ? "opacity 0.6s, " : ""
-			}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
+			transition: ${flipType === "fade" ? "opacity 0.6s, " : ""
+		}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
 		}
 		
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
@@ -740,14 +733,13 @@ function Edit(props) {
 			${frontHoverOverlayStylesDesktop}
 		}
 
-		${
-			(isHover || selectedSide === "front") && flipType === "fade"
-				? `
+		${(isHover || selectedSide === "front") && flipType === "fade"
+			? `
 			.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
 				opacity: 0;
 			}
 			`
-				: ""
+			: ""
 		}
 		
 	 `;
@@ -843,9 +835,8 @@ function Edit(props) {
 			 ${frontIconPaddingStylesDesktop}
 			 ${frontIconBorderDesktop}
 			 color: ${frontIconColor ? frontIconColor : "#ffffff"};
-			 background: ${
-					frontIconBackground ? frontIconBackground : defaultFrontIconBackground
-				};
+			 background: ${frontIconBackground ? frontIconBackground : defaultFrontIconBackground
+		};
 			 width: 100%;
 			 text-align:${align};
 			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
@@ -896,23 +887,20 @@ function Edit(props) {
 		 align-items: center;
 		 height: auto;
 		 width: 100%;
-		 transform:  ${
-				(flipType === "flip-up" && "rotateX(-180deg)") ||
-				(flipType === "flip-bottom" && "rotateX(180deg)") ||
-				((flipType === "zoom-in" ||
-					flipType === "zoom-out" ||
-					flipType === "fade") &&
-					"none")
-			};
-		transition: ${
-			flipType === "fade" ? "opacity 0.6s, " : ""
+		 transform:  ${(flipType === "flip-up" && "rotateX(-180deg)") ||
+		(flipType === "flip-bottom" && "rotateX(180deg)") ||
+		((flipType === "zoom-in" ||
+			flipType === "zoom-out" ||
+			flipType === "fade") &&
+			"none")
+		};
+		transition: ${flipType === "fade" ? "opacity 0.6s, " : ""
 		}${backBgTransitionStyle}, ${bdShadowTransitionStyle};
 		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
-		 ${
-				isHover && (flipType === "zoom-in" || flipType === "zoom-out")
-					? "z-index: 5;"
-					: ""
-			}
+		 ${isHover && (flipType === "zoom-in" || flipType === "zoom-out")
+			? "z-index: 5;"
+			: ""
+		}
 	 }
 
 	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
@@ -930,13 +918,12 @@ function Edit(props) {
 		${backHoverOverlayStylesDesktop}
 	}
 
-	${
-		(isHover || selectedSide === "back") && flipType === "fade"
+	${(isHover || selectedSide === "back") && flipType === "fade"
 			? `.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
 		opacity: 1;
 	 }`
 			: ""
-	}
+		}
 	 
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front,
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back{
@@ -1036,8 +1023,7 @@ function Edit(props) {
 		${backIconPaddingStylesDesktop}
 		${backIconBorderDesktop}
 		color: ${backIconColor ? backIconColor : "#ffffff"};
-		background: ${
-			backIconBackground ? backIconBackground : defaultBackIconBackground
+		background: ${backIconBackground ? backIconBackground : defaultBackIconBackground
 		};
 		width: 100%;
 		text-align: ${align};
@@ -1223,15 +1209,6 @@ function Edit(props) {
 		}
 	}, [attributes]);
 
-	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
-	useEffect(() => {
-		setAttributes({
-			resOption: select(
-				editorStoreForGettingPreivew
-			).__experimentalGetPreviewDeviceType(),
-		});
-	}, []);
-
 	// this useEffect is for creating an unique id for each block's unique className by a random unique number
 	useEffect(() => {
 		const BLOCK_PREFIX = "eb-flipbox";
@@ -1256,8 +1233,8 @@ function Edit(props) {
 		contentPosition === "center"
 			? " eb-flipbox-align-center"
 			: contentPosition === "right"
-			? " eb-flipbox-align-right"
-			: "";
+				? " eb-flipbox-align-right"
+				: "";
 
 	const blockProps = useBlockProps({
 		className: classnames(className, `eb-guten-block-main-parent-wrapper`),
@@ -1320,17 +1297,14 @@ function Edit(props) {
 				</style>
 				<div className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}>
 					<div
-						className={`eb-flipbox-container ${blockId}${alignmentClass}${
-							flipType === "zoom-in" ? " editor-zoom-in" : ""
-						}`}
+						className={`eb-flipbox-container ${blockId}${alignmentClass}`}
 						data-id={blockId}
 						onMouseEnter={() => setAttributes({ isHover: true })}
 						onMouseLeave={() => setAttributes({ isHover: false })}
 					>
 						<div
-							className={`eb-flipper${
-								isHover || selectedSide === "back" ? " back-is-selected" : ""
-							}`}
+							className={`eb-flipper${isHover || selectedSide === "back" ? " back-is-selected" : ""
+								}`}
 						>
 							<div className="eb-flipbox-front">
 								<div className="eb-flipbox-items-container">
@@ -1355,9 +1329,7 @@ function Edit(props) {
 										<div className="eb-flipbox-front-title-wrapper">
 											{linkType === "title" && link ? (
 												<a href={link ? link : "#"} className="title-link">
-													<h3 className="eb-flipbox-front-title">
-														{frontTitle}
-													</h3>
+													<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
 												</a>
 											) : (
 												<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
