@@ -80,8 +80,8 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.2.3 - dev =
-* Improved: Update controls
+= 1.2.3 - 12/09/2022 =
+* Improved: Update controls and structure
 
 = 1.2.2 - 03/08/2022 =
 * Fixed: Minor CSS issues
