@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useEffect } from "@wordpress/element";
 import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
 import {
 	PanelBody,
@@ -10,14 +9,12 @@ import {
 	SelectControl,
 	Button,
 	TextControl,
-	TextareaControl,
 	RangeControl,
 	ToggleControl,
 	ButtonGroup,
 	BaseControl,
 	TabPanel,
 } from "@wordpress/components";
-import { select } from "@wordpress/data";
 
 /*
  * External dependencies
@@ -109,13 +106,9 @@ const Inspector = ({ attributes, setAttributes }) => {
 		backImageUrl,
 		backImageId,
 		showFrontTitle,
-		frontTitle,
 		showFrontContent,
-		frontContent,
 		showBackTitle,
-		backTitle,
 		showBackContent,
-		backContent,
 		linkType,
 		buttonText,
 		buttonIcon,
@@ -530,15 +523,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 														setAttributes({ showFrontTitle: !showFrontTitle });
 													}}
 												/>
-												{showFrontTitle && (
-													<TextControl
-														label={__("Front Title", "essential-blocks")}
-														value={frontTitle}
-														onChange={(newText) =>
-															setAttributes({ frontTitle: newText })
-														}
-													/>
-												)}
 												<ToggleControl
 													label={__("Show Content?", "essential-blocks")}
 													checked={showFrontContent}
@@ -548,15 +532,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 														});
 													}}
 												/>
-												{showFrontContent && (
-													<TextareaControl
-														label={__("Front Content", "essential-blocks")}
-														value={frontContent}
-														onChange={(newText) =>
-															setAttributes({ frontContent: newText })
-														}
-													/>
-												)}
 											</>
 										)}
 										{selectedSide === "back" && (
@@ -568,15 +543,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 														setAttributes({ showBackTitle: !showBackTitle });
 													}}
 												/>
-												{showBackTitle && (
-													<TextControl
-														label={__("Back Title", "essential-blocks")}
-														value={backTitle}
-														onChange={(newText) =>
-															setAttributes({ backTitle: newText })
-														}
-													/>
-												)}
 												<ToggleControl
 													label={__("Show Content?", "essential-blocks")}
 													checked={showBackContent}
@@ -586,15 +552,6 @@ const Inspector = ({ attributes, setAttributes }) => {
 														});
 													}}
 												/>
-												{showBackContent && (
-													<TextareaControl
-														label={__("Back Content", "essential-blocks")}
-														value={backContent}
-														onChange={(newText) =>
-															setAttributes({ backContent: newText })
-														}
-													/>
-												)}
 											</>
 										)}
 									</PanelBody>

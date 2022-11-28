@@ -7,6 +7,7 @@ import {
 	BlockControls,
 	AlignmentToolbar,
 	useBlockProps,
+	RichText,
 } from "@wordpress/block-editor";
 import { ToolbarGroup, ToolbarButton } from "@wordpress/components";
 import { select } from "@wordpress/data";
@@ -514,8 +515,6 @@ function Edit(props) {
 		attributes,
 	});
 
-	
-
 	const flipContainerStyleDesktop = `
 		.eb-flipbox-align-center .eb-flipper {
 			margin-right: auto !important;
@@ -587,12 +586,12 @@ function Edit(props) {
 		 width: 100%;
 		 text-align: ${align};
 	 }
- 
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-title {
 		${frontTitlePaddingStylesDesktop}
 		 color: ${frontTitleColor ? frontTitleColor : deafultFrontTitleColor};
 	 }
- 
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back-title {
 		${backTitlePaddingStylesDesktop}
 		 color: ${backTitleColor ? backTitleColor : defaultBackTitleColor};
@@ -635,12 +634,12 @@ function Edit(props) {
 		 text-align: ${align};
 		 margin: 10px 0;
 	 }
- 
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front-content {
 		 ${frontContentPaddingStylesDesktop}
 		 color: ${frontContentColor ? frontContentColor : defaultFrontContentColor};
 	 }
- 
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back-content {
 		 ${backContentPaddingStylesDesktop}
 		 color: ${backContentColor ? backContentColor : defautlBackContentColor};
@@ -651,7 +650,7 @@ function Edit(props) {
 	.eb-flipbox-container.${blockId} .eb-flipbox-front-content {
 		${frontContentPaddingStylesTab}
 	}
-	
+
 	.eb-flipbox-container.${blockId} .eb-flipbox-back-content {
 		${backContentPaddingStylesTab}
 	}
@@ -665,7 +664,7 @@ function Edit(props) {
 	.eb-flipbox-container.${blockId} .eb-flipbox-front-content {
 		${frontContentPaddingStylesMobile}
 	}
-	
+
 	.eb-flipbox-container.${blockId} .eb-flipbox-back-content {
 		${backContentPaddingStylesMobile}
 	}
@@ -714,10 +713,11 @@ function Edit(props) {
 			height: auto;
 			width: 100%;
 			z-index: 1;
-			transition: ${flipType === "fade" ? "opacity 0.6s, " : ""
-		}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
+			transition: ${
+				flipType === "fade" ? "opacity 0.6s, " : ""
+			}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
 		}
-		
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
 			${frontHoverBackgroundStylesDesktop}
 			${bdShadowStylesHoverDesktop}
@@ -728,20 +728,21 @@ function Edit(props) {
 			transition: ${frontOvlTransitionStyle};
 		}
 
-		
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
 			${frontHoverOverlayStylesDesktop}
 		}
 
-		${(isHover || selectedSide === "front") && flipType === "fade"
-			? `
+		${
+			(isHover || selectedSide === "front") && flipType === "fade"
+				? `
 			.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-front {
 				opacity: 0;
 			}
 			`
-			: ""
+				: ""
 		}
-		
+
 	 `;
 
 	const frontStyleTab = `
@@ -760,7 +761,7 @@ function Edit(props) {
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:before{
 			${frontOverlayStylesTab}
 		}
-				
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
 			${frontHoverOverlayStylesTab}
 		}
@@ -774,7 +775,7 @@ function Edit(props) {
 			${frontBackgroundStylesMobile}
 			${bdShadowStyesMobile}
 		 }
-		 
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
 			${frontHoverBackgroundStylesMobile}
 			${bdShadowStylesHoverMobile}
@@ -784,7 +785,7 @@ function Edit(props) {
 			${frontOverlayStylesMobile}
 		}
 
-		
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover:before{
 			${frontHoverOverlayStylesMobile}
 		}
@@ -796,7 +797,7 @@ function Edit(props) {
 		 display: ${frontIconOrImage === "image" && frontImageUrl ? "flex" : "none"};
 		 justify-content: center;
 	 }
- 
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-front .eb-flipbox-front-image-container img {
 		 ${frontImgHeightDesktop}
 		 ${frontImgWidthDesktop}
@@ -835,8 +836,9 @@ function Edit(props) {
 			 ${frontIconPaddingStylesDesktop}
 			 ${frontIconBorderDesktop}
 			 color: ${frontIconColor ? frontIconColor : "#ffffff"};
-			 background: ${frontIconBackground ? frontIconBackground : defaultFrontIconBackground
-		};
+			 background: ${
+					frontIconBackground ? frontIconBackground : defaultFrontIconBackground
+				};
 			 width: 100%;
 			 text-align:${align};
 			 display: ${frontIconOrImage === "icon" && frontIcon ? "block" : "none"};
@@ -876,7 +878,7 @@ function Edit(props) {
 
 	const backStyleDesktop = `
 
-	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back {	
+	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back {
 		${backBackgroundStylesDesktop}
 		${wrapperMinHeightStylesDesktop}
 		${wrapperWidthStylesDesktop}
@@ -887,20 +889,23 @@ function Edit(props) {
 		 align-items: center;
 		 height: auto;
 		 width: 100%;
-		 transform:  ${(flipType === "flip-up" && "rotateX(-180deg)") ||
-		(flipType === "flip-bottom" && "rotateX(180deg)") ||
-		((flipType === "zoom-in" ||
-			flipType === "zoom-out" ||
-			flipType === "fade") &&
-			"none")
-		};
-		transition: ${flipType === "fade" ? "opacity 0.6s, " : ""
+		 transform:  ${
+				(flipType === "flip-up" && "rotateX(-180deg)") ||
+				(flipType === "flip-bottom" && "rotateX(180deg)") ||
+				((flipType === "zoom-in" ||
+					flipType === "zoom-out" ||
+					flipType === "fade") &&
+					"none")
+			};
+		transition: ${
+			flipType === "fade" ? "opacity 0.6s, " : ""
 		}${backBgTransitionStyle}, ${bdShadowTransitionStyle};
 		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
-		 ${isHover && (flipType === "zoom-in" || flipType === "zoom-out")
-			? "z-index: 5;"
-			: ""
-		}
+		 ${
+				isHover && (flipType === "zoom-in" || flipType === "zoom-out")
+					? "z-index: 5;"
+					: ""
+			}
 	 }
 
 	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
@@ -908,23 +913,24 @@ function Edit(props) {
 		${bdShadowStylesHoverDesktop}
 	 }
 
-	 
+
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
 		${backOverlayStylesDesktop}
 		transition: ${backOvlTransitionStyle};
 	}
-	
+
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
 		${backHoverOverlayStylesDesktop}
 	}
 
-	${(isHover || selectedSide === "back") && flipType === "fade"
+	${
+		(isHover || selectedSide === "back") && flipType === "fade"
 			? `.eb-flipbox-container.${blockId} .eb-flipper.back-is-selected .eb-flipbox-back {
 		opacity: 1;
 	 }`
 			: ""
-		}
-	 
+	}
+
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front,
 	.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back{
 	position: absolute;
@@ -943,16 +949,16 @@ function Edit(props) {
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
 			${backHoverBackgroundStylesTab}
 			${bdShadowStylesHoverTab}
-		 }	
-		 
+		 }
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
 			${backOverlayStylesTab}
 		}
-		
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
 			${backHoverOverlayStylesTab}
 		}
-	
+
 	 `;
 
 	const backStyleMobile = `
@@ -968,11 +974,11 @@ function Edit(props) {
 			${backHoverBackgroundStylesMobile}
 			${bdShadowStylesHoverMobile}
 		 }
-		 
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:before{
 			${backOverlayStylesMobile}
 		}
-		
+
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover:before{
 			${backHoverOverlayStylesMobile}
 		}
@@ -984,7 +990,7 @@ function Edit(props) {
 		display: ${backIconOrImage === "image" && backImageUrl ? "flex" : "none"};
 		justify-content: center;
 	 }
- 
+
 	 .eb-flipbox-container.${blockId} .eb-flipbox-back .eb-flipbox-back-image-container img {
 		${backImgHeightDesktop}
 		${backImgWidthDesktop}
@@ -1023,7 +1029,8 @@ function Edit(props) {
 		${backIconPaddingStylesDesktop}
 		${backIconBorderDesktop}
 		color: ${backIconColor ? backIconColor : "#ffffff"};
-		background: ${backIconBackground ? backIconBackground : defaultBackIconBackground
+		background: ${
+			backIconBackground ? backIconBackground : defaultBackIconBackground
 		};
 		width: 100%;
 		text-align: ${align};
@@ -1111,14 +1118,14 @@ function Edit(props) {
 		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-link:hover {
 			 ${btnBdShadowStylesHoverDesktop}
 		 }
- 
+
 		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-content {
 			 display: flex;
 			 flex-direction: ${buttonIconPos === "after" ? "row" : "row-reverse"};
 			 justify-content: space-around;
 			 align-items: center;
 		 }
- 
+
 		 .eb-flipbox-container.${blockId} .eb-flipbox-button-container .eb-flipbox-button-content .eb-flipbox-button-icon {
 			 display: ${displayButtonIcon ? "block" : "none"};
 		 }
@@ -1233,8 +1240,17 @@ function Edit(props) {
 		contentPosition === "center"
 			? " eb-flipbox-align-center"
 			: contentPosition === "right"
-				? " eb-flipbox-align-right"
-				: "";
+			? " eb-flipbox-align-right"
+			: "";
+
+	const allowedFormatsArr = [
+		"core/bold",
+		"core/italic",
+		"core/text-color",
+		"core/code",
+		"core/superscript",
+		"core/subscript",
+	];
 
 	const blockProps = useBlockProps({
 		className: classnames(className, `eb-guten-block-main-parent-wrapper`),
@@ -1270,28 +1286,28 @@ function Edit(props) {
 				<style>
 					{`
 				 ${desktopAllStyles}
- 
+
 				 /* mimmikcssStart */
- 
+
 				 ${resOption === "Tablet" ? tabAllStyles : " "}
 				 ${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
- 
+
 				 /* mimmikcssEnd */
- 
-				 @media all and (max-width: 1024px) {	
- 
-					 /* tabcssStart */			
+
+				 @media all and (max-width: 1024px) {
+
+					 /* tabcssStart */
 					 ${softMinifyCssStrings(tabAllStyles)}
-					 /* tabcssEnd */			
-				 
+					 /* tabcssEnd */
+
 				 }
-				 
+
 				 @media all and (max-width: 767px) {
-					 
-					 /* mobcssStart */			
+
+					 /* mobcssStart */
 					 ${softMinifyCssStrings(mobileAllStyles)}
-					 /* mobcssEnd */			
-				 
+					 /* mobcssEnd */
+
 				 }
 				 `}
 				</style>
@@ -1303,8 +1319,9 @@ function Edit(props) {
 						onMouseLeave={() => setAttributes({ isHover: false })}
 					>
 						<div
-							className={`eb-flipper${isHover || selectedSide === "back" ? " back-is-selected" : ""
-								}`}
+							className={`eb-flipper${
+								selectedSide === "back" ? " back-is-selected" : ""
+							}`}
 						>
 							<div className="eb-flipbox-front">
 								<div className="eb-flipbox-items-container">
@@ -1329,16 +1346,51 @@ function Edit(props) {
 										<div className="eb-flipbox-front-title-wrapper">
 											{linkType === "title" && link ? (
 												<a href={link ? link : "#"} className="title-link">
-													<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+													<RichText
+														tagName={"h3"}
+														className="eb-flipbox-front-title"
+														value={frontTitle}
+														onChange={(frontTitle) =>
+															setAttributes({ frontTitle })
+														}
+														placeholder={__(
+															"Add frontend title",
+															"essential-blocks"
+														)}
+													/>
 												</a>
 											) : (
-												<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
+												<RichText
+													tagName={"h3"}
+													className="eb-flipbox-front-title"
+													value={frontTitle}
+													onChange={(frontTitle) =>
+														setAttributes({ frontTitle })
+													}
+													allowedFormats={allowedFormatsArr}
+													placeholder={__(
+														"Add frontend title",
+														"essential-blocks"
+													)}
+												/>
 											)}
 										</div>
 									)}
 									{showFrontContent && (
 										<div className="eb-flipbox-front-content-wrapper">
-											<p className="eb-flipbox-front-content">{frontContent}</p>
+											<RichText
+												tagName={"p"}
+												className="eb-flipbox-front-content"
+												value={frontContent}
+												onChange={(frontContent) =>
+													setAttributes({ frontContent })
+												}
+												allowedFormats={allowedFormatsArr}
+												placeholder={__(
+													"Add frontend content",
+													"essential-blocks"
+												)}
+											/>
 										</div>
 									)}
 								</div>
@@ -1366,16 +1418,47 @@ function Edit(props) {
 										<div className="eb-flipbox-back-title-wrapper">
 											{linkType === "title" && link ? (
 												<a href={link ? link : "#"} className="title-link">
-													<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+													<RichText
+														tagName={"h3"}
+														className="eb-flipbox-back-title"
+														value={backTitle}
+														allowedFormats={allowedFormatsArr}
+														onChange={(backTitle) =>
+															setAttributes({ backTitle })
+														}
+														placeholder={__(
+															"Add backside title",
+															"essential-blocks"
+														)}
+													/>
 												</a>
 											) : (
-												<h3 className="eb-flipbox-back-title">{backTitle}</h3>
+												<RichText
+													tagName={"h3"}
+													className="eb-flipbox-front-title"
+													value={backTitle}
+													allowedFormats={allowedFormatsArr}
+													onChange={(backTitle) => setAttributes({ backTitle })}
+													placeholder={__(
+														"Add backside title",
+														"essential-blocks"
+													)}
+												/>
 											)}
 										</div>
 									)}
 									{showBackContent && (
 										<div className="eb-flipbox-back-content-wrapper">
-											<p className="eb-flipbox-back-content">{backContent}</p>
+											<RichText
+												tagName={"p"}
+												className="eb-flipbox-back-content"
+												value={backContent}
+												allowedFormats={allowedFormatsArr}
+												onChange={(backContent) =>
+													setAttributes({ backContent })
+												}
+												placeholder={__("Add content", "essential-blocks")}
+											/>
 										</div>
 									)}
 									{linkType === "button" && (
