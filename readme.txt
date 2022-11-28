@@ -79,7 +79,7 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
-= 1.2.4 - dev =
+= 1.2.4 - 28/11/2022 =
 * Added: Text formatting option in Flipbox
 
 = 1.2.3 - 12/09/2022 =
