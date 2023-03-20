@@ -7,7 +7,6 @@ import {
 	BlockControls,
 	AlignmentToolbar,
 	useBlockProps,
-	RichText,
 } from "@wordpress/block-editor";
 import { ToolbarGroup, ToolbarButton } from "@wordpress/components";
 import { select } from "@wordpress/data";
@@ -1243,15 +1242,6 @@ function Edit(props) {
 			? " eb-flipbox-align-right"
 			: "";
 
-	const allowedFormatsArr = [
-		"core/bold",
-		"core/italic",
-		"core/text-color",
-		"core/code",
-		"core/superscript",
-		"core/subscript",
-	];
-
 	const blockProps = useBlockProps({
 		className: classnames(className, `eb-guten-block-main-parent-wrapper`),
 	});
@@ -1320,7 +1310,7 @@ function Edit(props) {
 					>
 						<div
 							className={`eb-flipper${
-								selectedSide === "back" ? " back-is-selected" : ""
+								isHover || selectedSide === "back" ? " back-is-selected" : ""
 							}`}
 						>
 							<div className="eb-flipbox-front">
@@ -1346,51 +1336,18 @@ function Edit(props) {
 										<div className="eb-flipbox-front-title-wrapper">
 											{linkType === "title" && link ? (
 												<a href={link ? link : "#"} className="title-link">
-													<RichText
-														tagName={"h3"}
-														className="eb-flipbox-front-title"
-														value={frontTitle}
-														onChange={(frontTitle) =>
-															setAttributes({ frontTitle })
-														}
-														placeholder={__(
-															"Add frontend title",
-															"essential-blocks"
-														)}
-													/>
+													<h3 className="eb-flipbox-front-title">
+														{frontTitle}
+													</h3>
 												</a>
 											) : (
-												<RichText
-													tagName={"h3"}
-													className="eb-flipbox-front-title"
-													value={frontTitle}
-													onChange={(frontTitle) =>
-														setAttributes({ frontTitle })
-													}
-													allowedFormats={allowedFormatsArr}
-													placeholder={__(
-														"Add frontend title",
-														"essential-blocks"
-													)}
-												/>
+												<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
 											)}
 										</div>
 									)}
 									{showFrontContent && (
 										<div className="eb-flipbox-front-content-wrapper">
-											<RichText
-												tagName={"p"}
-												className="eb-flipbox-front-content"
-												value={frontContent}
-												onChange={(frontContent) =>
-													setAttributes({ frontContent })
-												}
-												allowedFormats={allowedFormatsArr}
-												placeholder={__(
-													"Add frontend content",
-													"essential-blocks"
-												)}
-											/>
+											<p className="eb-flipbox-front-content">{frontContent}</p>
 										</div>
 									)}
 								</div>
@@ -1418,47 +1375,16 @@ function Edit(props) {
 										<div className="eb-flipbox-back-title-wrapper">
 											{linkType === "title" && link ? (
 												<a href={link ? link : "#"} className="title-link">
-													<RichText
-														tagName={"h3"}
-														className="eb-flipbox-back-title"
-														value={backTitle}
-														allowedFormats={allowedFormatsArr}
-														onChange={(backTitle) =>
-															setAttributes({ backTitle })
-														}
-														placeholder={__(
-															"Add backside title",
-															"essential-blocks"
-														)}
-													/>
+													<h3 className="eb-flipbox-back-title">{backTitle}</h3>
 												</a>
 											) : (
-												<RichText
-													tagName={"h3"}
-													className="eb-flipbox-front-title"
-													value={backTitle}
-													allowedFormats={allowedFormatsArr}
-													onChange={(backTitle) => setAttributes({ backTitle })}
-													placeholder={__(
-														"Add backside title",
-														"essential-blocks"
-													)}
-												/>
+												<h3 className="eb-flipbox-back-title">{backTitle}</h3>
 											)}
 										</div>
 									)}
 									{showBackContent && (
 										<div className="eb-flipbox-back-content-wrapper">
-											<RichText
-												tagName={"p"}
-												className="eb-flipbox-back-content"
-												value={backContent}
-												allowedFormats={allowedFormatsArr}
-												onChange={(backContent) =>
-													setAttributes({ backContent })
-												}
-												placeholder={__("Add content", "essential-blocks")}
-											/>
+											<p className="eb-flipbox-back-content">{backContent}</p>
 										</div>
 									)}
 									{linkType === "button" && (
