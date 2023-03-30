@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { useBlockProps, RichText } from "@wordpress/block-editor";
+import { useBlockProps } from "@wordpress/block-editor";
 
 const Save = ({ attributes }) => {
 	const {
@@ -35,8 +35,8 @@ const Save = ({ attributes }) => {
 		contentPosition === "center"
 			? " eb-flipbox-align-center"
 			: contentPosition === "right"
-			? " eb-flipbox-align-right"
-			: "";
+				? " eb-flipbox-align-right"
+				: "";
 
 	return (
 		<div {...useBlockProps.save()}>
@@ -70,22 +70,16 @@ const Save = ({ attributes }) => {
 									<div className="eb-flipbox-front-title-wrapper">
 										{linkType === "title" && link ? (
 											<a href={link ? link : "#"} className="title-link">
-												<h3 className="eb-flipbox-front-title">
-													<RichText.Content value={frontTitle} />
-												</h3>
+												<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
 											</a>
 										) : (
-											<h3 className="eb-flipbox-front-title">
-												<RichText.Content value={frontTitle} />
-											</h3>
+											<h3 className="eb-flipbox-front-title">{frontTitle}</h3>
 										)}
 									</div>
 								)}
 								{showFrontContent && (
 									<div className="eb-flipbox-front-content-wrapper">
-										<p className="eb-flipbox-front-content">
-											<RichText.Content value={frontContent} />
-										</p>
+										<p className="eb-flipbox-front-content">{frontContent}</p>
 									</div>
 								)}
 							</div>
@@ -97,8 +91,8 @@ const Save = ({ attributes }) => {
 								linkType === "box" && link && linkOpenNewTab
 									? `window.open('${link}', '_blank');`
 									: linkType === "box" && link
-									? `window.location='${link}'`
-									: undefined
+										? `window.location='${link}'`
+										: undefined
 							}
 						>
 							<div className="eb-flipbox-items-container">
@@ -110,10 +104,7 @@ const Save = ({ attributes }) => {
 											</div>
 										)}
 										{backIconOrImage === "icon" && backIcon && (
-											<div
-												className="eb-flipbox-icon-back"
-												data-icon={backIcon}
-											>
+											<div className="eb-flipbox-icon-back" data-icon={backIcon}>
 												<span className={backIcon} />
 											</div>
 										)}
@@ -128,22 +119,16 @@ const Save = ({ attributes }) => {
 												target={linkOpenNewTab ? `_blank` : `_self`}
 												rel="noopener"
 											>
-												<h3 className="eb-flipbox-back-title">
-													<RichText.Content value={backTitle} />
-												</h3>
+												<h3 className="eb-flipbox-back-title">{backTitle}</h3>
 											</a>
 										) : (
-											<h3 className="eb-flipbox-back-title">
-												<RichText.Content value={backTitle} />
-											</h3>
+											<h3 className="eb-flipbox-back-title">{backTitle}</h3>
 										)}
 									</div>
 								)}
 								{showBackContent && (
 									<div className="eb-flipbox-back-content-wrapper">
-										<p className="eb-flipbox-back-content">
-											<RichText.Content value={backContent} />
-										</p>
+										<p className="eb-flipbox-back-content">{backContent}</p>
 									</div>
 								)}
 								{linkType === "button" && (

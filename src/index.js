@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
+import { registerBlockType } from "@wordpress/blocks";
 
 /*
  * Internal dependencies
@@ -19,6 +20,7 @@ const { ebConditionalRegisterBlockType } = EBFlipboxControls;
 
 ebConditionalRegisterBlockType(metadata, {
 	icon: FlipboxIcon,
+	category: "essential-blocks",
 	attributes,
 	keywords: [
 		__("eb flipbox", "essential-blocks"),
