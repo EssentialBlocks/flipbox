@@ -64,6 +64,15 @@ function create_block_flipbox_block_init() {
         true
     );
 
+	$frontend_js = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'dist/frontend/index.js';
+    wp_register_script(
+        'essential-blocks-frontend-js',
+        $frontend_js,
+        ['essential-blocks-eb-animation'],
+        EB_FLIPBOX_BLOCKS_VERSION,
+        true
+    );
+
     $animate_css = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'assets/css/animate.min.css';
     wp_register_style(
         'essential-blocks-animation',
@@ -109,7 +118,7 @@ function create_block_flipbox_block_init() {
                 'style'           => 'eb-flipbox-block-frontend-style',
                 'render_callback' => function ( $attributes, $content ) {
                     if ( ! is_admin() ) {
-                        wp_enqueue_script( 'essential-blocks-eb-animation' );
+						wp_enqueue_script( 'essential-blocks-frontend-js' );
                     }
                     return $content;
                 }
