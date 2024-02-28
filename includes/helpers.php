@@ -41,14 +41,14 @@ class Flipbox_Helper
     public function enqueues($hook)
     {
         /**
-         * Only for Admin Add/Edit Pages 
+         * Only for Admin Add/Edit Pages
          */
         if ($hook == 'post-new.php' || $hook == 'post.php' || $hook == 'site-editor.php' || ($hook == 'themes.php' && !empty($_SERVER['QUERY_STRING']) && str_contains($_SERVER['QUERY_STRING'], 'gutenberg-edit-site'))) {
-            $controls_dependencies = include_once EB_FLIPBOX_BLOCKS_ADMIN_PATH . '/dist/controls.asset.php';
+            $controls_dependencies = include_once EB_FLIPBOX_BLOCKS_ADMIN_PATH . '/dist/modules.asset.php';
 
             wp_register_script(
                 "eb-flipbox-blocks-controls-util",
-                EB_FLIPBOX_BLOCKS_ADMIN_URL . '/dist/controls.js',
+                EB_FLIPBOX_BLOCKS_ADMIN_URL . '/dist/modules.js',
                 array_merge($controls_dependencies['dependencies']),
                 $controls_dependencies['version'],
                 true
@@ -57,6 +57,7 @@ class Flipbox_Helper
             wp_localize_script('eb-flipbox-blocks-controls-util', 'EssentialBlocksLocalize', array(
                 'eb_wp_version' => (float) get_bloginfo('version'),
                 'rest_rootURL' => get_rest_url(),
+				'fontAwesome' => "true"
             ));
 
             if ($hook == 'post-new.php' || $hook == 'post.php') {
@@ -69,10 +70,18 @@ class Flipbox_Helper
                 ));
             }
 
+			wp_register_style(
+				'essential-blocks-iconpicker-css',
+				EB_FLIPBOX_BLOCKS_ADMIN_URL . 'dist/style-modules.css',
+				[],
+				EB_FLIPBOX_BLOCKS_VERSION,
+				'all'
+			);
+
             wp_enqueue_style(
                 'essential-blocks-editor-css',
-                EB_FLIPBOX_BLOCKS_ADMIN_URL . '/dist/controls.css',
-                array('fontpicker-default-theme', 'fontpicker-matetial-theme'),
+                EB_FLIPBOX_BLOCKS_ADMIN_URL . '/dist/modules.css',
+                array('essential-blocks-iconpicker-css','fontawesome-frontend-css'),
                 $controls_dependencies['version'],
                 'all'
             );

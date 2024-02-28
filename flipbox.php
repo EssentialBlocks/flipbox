@@ -4,7 +4,7 @@
  * Plugin Name:     Flipbox
  * Plugin URI:         https://essential-blocks.com
  * Description:     Deliver your content beautifully to grab attention with an animated Flipbox block.
- * Version:         1.2.5
+ * Version:         1.3.0
  * Author:          WPDeveloper
  * Author URI:         https://wpdeveloper.net
  * License:         GPL-2.0-or-later
@@ -27,7 +27,7 @@ require_once __DIR__ . '/includes/helpers.php';
 require_once __DIR__ . '/lib/style-handler/style-handler.php';
 
 function create_block_flipbox_block_init() {
-    define( 'EB_FLIPBOX_BLOCKS_VERSION', "1.2.5" );
+    define( 'EB_FLIPBOX_BLOCKS_VERSION', "1.3.0" );
     define( 'EB_FLIPBOX_BLOCKS_ADMIN_URL', plugin_dir_url( __FILE__ ) );
     define( 'EB_FLIPBOX_BLOCKS_ADMIN_PATH', dirname( __FILE__ ) );
 
@@ -64,6 +64,15 @@ function create_block_flipbox_block_init() {
         true
     );
 
+	$frontend_js = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'dist/frontend/index.js';
+    wp_register_script(
+        'essential-blocks-frontend-js',
+        $frontend_js,
+        ['essential-blocks-eb-animation'],
+        EB_FLIPBOX_BLOCKS_VERSION,
+        true
+    );
+
     $animate_css = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'assets/css/animate.min.css';
     wp_register_style(
         'essential-blocks-animation',
@@ -86,7 +95,7 @@ function create_block_flipbox_block_init() {
         []
     );
 
-    $fontawesome_css = 'assets/css/font-awesome5.css';
+    $fontawesome_css = 'assets/css/fontawesome/css/all.min.css';
     wp_register_style(
         'fontawesome-frontend-css',
         plugins_url( $fontawesome_css, __FILE__ ),
@@ -109,7 +118,7 @@ function create_block_flipbox_block_init() {
                 'style'           => 'eb-flipbox-block-frontend-style',
                 'render_callback' => function ( $attributes, $content ) {
                     if ( ! is_admin() ) {
-                        wp_enqueue_script( 'essential-blocks-eb-animation' );
+						wp_enqueue_script( 'essential-blocks-frontend-js' );
                     }
                     return $content;
                 }
