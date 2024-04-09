@@ -5,6 +5,5 @@
 	"category": "widgets",
 	"description": "Deliver Your Content Beautifully To Grab Attention",
 	"keywords": ["flipbox", "flip", "box"],
-	"textdomain": "flipbox",
-	"editorScript": "file:./dist/index.js"
+	"textdomain": "flipbox"
 }
