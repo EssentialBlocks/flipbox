@@ -1,9 +1,10 @@
 === Flipbox ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, fencermonir
 Tags: block, blocks, flipbox, flip box, flipper, animated box, gutenberg, gutenberg blocks
-Requires at least: 5.6
-Tested up to: 6.5
-Stable tag: 1.3.1
+Requires at least: 6.0
+Tested up to: 7.0
+Requires PHP: 7.4
+Stable tag: 1.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +80,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.5.0 - 09/08/2026 =
+* Fixed: Fatal error when the bundled style-handler library was missing
+* Fixed: Editor controls failing to load on PHP 8
+* Fixed: WordPress version detection on WordPress 7.0
+* Fixed: Animation preview in the editor on current browsers
 
 = 1.3.1 - 09/04/2024 =
 * Fixed: compatibility support with wordpress 6.5 version
