@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useEffect } from "@wordpress/element";
+import { applyFilters } from "@wordpress/hooks";
 import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
 import {
 	PanelBody,
@@ -17,12 +17,6 @@ import {
 	BaseControl,
 	TabPanel,
 } from "@wordpress/components";
-import { select } from "@wordpress/data";
-
-/*
- * External dependencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 /*
  * Internal dependencies
@@ -37,6 +31,7 @@ import {
 	LINK_TYPE,
 	FRONT_IMAGE_UNITS,
 	CONTENT_POSITION,
+	FLIP_MODE,
 } from "./constants";
 
 const {
@@ -50,6 +45,8 @@ const {
 	ColorControl,
 	BackgroundControl,
 	AdvancedControls,
+	DynamicInputControl,
+	EBIconPicker
 } = window.EBFlipboxControls;
 
 import {
@@ -103,10 +100,12 @@ const Inspector = ({ attributes, setAttributes }) => {
 		frontIconOrImage,
 		frontIcon,
 		frontImageUrl,
+		frontImageAlt,
 		frontImageId,
 		backIconOrImage,
 		backIcon,
 		backImageUrl,
+		backImageAlt,
 		backImageId,
 		showFrontTitle,
 		frontTitle,
@@ -136,6 +135,8 @@ const Inspector = ({ attributes, setAttributes }) => {
 		displayButtonIcon,
 		contentPosition,
 		linkOpenNewTab,
+		flipMode,
+		isMouseLeaveOn,
 	} = attributes;
 
 	// Genereate different button styles
@@ -183,53 +184,121 @@ const Inspector = ({ attributes, setAttributes }) => {
 								<>
 									<PanelBody>
 										<BaseControl
-											label={__("Selected Side", "essential-blocks")}
+											label={__(
+												"Selected Side",
+												"essential-blocks"
+											)}
 										>
 											<ButtonGroup id="eb-flipbox-sides">
-												{FLIPBOX_SIDES.map((item, index) => (
-													<Button
-														key={index}
-														isPrimary={selectedSide === item.value}
-														isSecondary={selectedSide !== item.value}
-														onClick={() =>
-															setAttributes({
-																selectedSide: item.value,
-															})
-														}
-													>
-														{item.label}
-													</Button>
-												))}
+												{FLIPBOX_SIDES.map(
+													(item, index) => (
+														<Button
+															key={index}
+															isPrimary={
+																selectedSide ===
+																item.value
+															}
+															isSecondary={
+																selectedSide !==
+																item.value
+															}
+															onClick={() =>
+																setAttributes({
+																	selectedSide:
+																		item.value,
+																})
+															}
+														>
+															{item.label}
+														</Button>
+													)
+												)}
 											</ButtonGroup>
 										</BaseControl>
 									</PanelBody>
 									<PanelBody
-										title={__("Flipbox Settings", "essential-blocks")}
+										title={__(
+											"Flipbox Settings",
+											"essential-blocks"
+										)}
 										initialOpen={true}
 									>
+										<SelectControl
+											label={__(
+												"Flip Mode",
+												"essential-blocks"
+											)}
+											value={flipMode}
+											options={applyFilters(
+												"eb_flipbox_modes",
+												FLIP_MODE
+											)}
+											onChange={(selected) =>
+												setAttributes({
+													flipMode: selected,
+												})
+											}
+											help={
+												flipMode === "click"
+													? __(
+														"Click mode only available in frontend.",
+														"essential-blocks"
+													)
+													: ""
+											}
+										/>
+										{"click" === flipMode && (
+											<ToggleControl
+												label={__(
+													"Use Mouse Leave when click mode on",
+													"essential-blocks"
+												)}
+												checked={isMouseLeaveOn}
+												onChange={() => {
+													setAttributes({
+														isMouseLeaveOn: !isMouseLeaveOn,
+													});
+												}}
+											/>
+										)}
 										<BaseControl
-											label={__("Alignment", "essential-blocks")}
+											label={__(
+												"Alignment",
+												"essential-blocks"
+											)}
 											id="eb-button-group-alignment"
 										>
 											<ButtonGroup id="eb-button-group-alignment">
-												{CONTENT_POSITION.map((item, index) => (
-													<Button
-														key={index}
-														isPrimary={contentPosition === item.value}
-														isSecondary={contentPosition !== item.value}
-														onClick={() =>
-															setAttributes({
-																contentPosition: item.value,
-															})
-														}
-													>
-														{item.label}
-													</Button>
-												))}
+												{CONTENT_POSITION.map(
+													(item, index) => (
+														<Button
+															key={index}
+															isPrimary={
+																contentPosition ===
+																item.value
+															}
+															isSecondary={
+																contentPosition !==
+																item.value
+															}
+															onClick={() =>
+																setAttributes({
+																	contentPosition:
+																		item.value,
+																})
+															}
+														>
+															{item.label}
+														</Button>
+													)
+												)}
 											</ButtonGroup>
 										</BaseControl>
 										<ResponsiveRangeController
-											baseLabel={__("Box Height", "essential-blocks")}
+											baseLabel={__(
+												"Box Height",
+												"essential-blocks"
+											)}
 											controlName={boxHeightAttr}
 											resRequiredProps={resRequiredProps}
 											min={0}
@@ -237,9 +306,11 @@ const Inspector = ({ attributes, setAttributes }) => {
 											step={1}
 											noUnits
 										/>
-
 										<ResponsiveRangeController
-											baseLabel={__("Box Width", "essential-blocks")}
+											baseLabel={__(
+												"Box Width",
+												"essential-blocks"
+											)}
 											controlName={boxWidthAttr}
 											resRequiredProps={resRequiredProps}
 											min={0}
@@ -247,13 +318,17 @@ const Inspector = ({ attributes, setAttributes }) => {
 											step={1}
 											noUnits
 										/>
-
 										<SelectControl
-											label={__("Flipbox Type", "essential-blocks")}
+											label={__(
+												"Flipbox Type",
+												"essential-blocks"
+											)}
 											value={flipType}
 											options={FLIPBOX_TYPE}
 											onChange={(newStyle) =>
-												setAttributes({ flipType: newStyle })
+												setAttributes({
+													flipType: newStyle,
+												})
 											}
 										/>
 
@@ -265,7 +340,9 @@ const Inspector = ({ attributes, setAttributes }) => {
 											value={transitionSpeed}
 											onChange={(newValue) => {
 												let transitionSpeed = newValue;
-												setAttributes({ transitionSpeed });
+												setAttributes({
+													transitionSpeed,
+												});
 											}}
 											min={0}
 											max={5000}
@@ -275,24 +352,38 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "front" && (
 											<>
 												<BaseControl
-													label={__("Icon Type", "essential-blocks")}
+													label={__(
+														"Icon Type",
+														"essential-blocks"
+													)}
 													id="eb-flipbox-icon-type"
 												>
 													<ButtonGroup id="eb-flipbox-icon-type">
-														{ICON_TYPE.map((item, index) => (
-															<Button
-																key={index}
-																isPrimary={frontIconOrImage === item.value}
-																isSecondary={frontIconOrImage !== item.value}
-																onClick={() =>
-																	setAttributes({
-																		frontIconOrImage: item.value,
-																	})
-																}
-															>
-																{item.label}
-															</Button>
-														))}
+														{ICON_TYPE.map(
+															(item, index) => (
+																<Button
+																	key={index}
+																	isPrimary={
+																		frontIconOrImage ===
+																		item.value
+																	}
+																	isSecondary={
+																		frontIconOrImage !==
+																		item.value
+																	}
+																	onClick={() =>
+																		setAttributes(
+																			{
+																				frontIconOrImage:
+																					item.value,
+																			}
+																		)
+																	}
+																>
+																	{item.label}
+																</Button>
+															)
+														)}
 													</ButtonGroup>
 												</BaseControl>
 											</>
@@ -301,246 +392,379 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "back" && (
 											<>
 												<BaseControl
-													label={__("Icon Type", "essential-blocks")}
+													label={__(
+														"Icon Type",
+														"essential-blocks"
+													)}
 													id="eb-flipbox-icon-type"
 												>
 													<ButtonGroup id="eb-flipbox-icon-type">
-														{ICON_TYPE.map((item, index) => (
-															<Button
-																key={index}
-																isPrimary={backIconOrImage === item.value}
-																isSecondary={backIconOrImage !== item.value}
-																onClick={() =>
-																	setAttributes({
-																		backIconOrImage: item.value,
-																	})
-																}
-															>
-																{item.label}
-															</Button>
-														))}
+														{ICON_TYPE.map(
+															(item, index) => (
+																<Button
+																	key={index}
+																	isPrimary={
+																		backIconOrImage ===
+																		item.value
+																	}
+																	isSecondary={
+																		backIconOrImage !==
+																		item.value
+																	}
+																	onClick={() =>
+																		setAttributes(
+																			{
+																				backIconOrImage:
+																					item.value,
+																			}
+																		)
+																	}
+																>
+																	{item.label}
+																</Button>
+															)
+														)}
 													</ButtonGroup>
 												</BaseControl>
 											</>
 										)}
 									</PanelBody>
 
-									{selectedSide === "front" && frontIconOrImage === "icon" && (
-										<PanelBody
-											title={__("Front Icon Settings", "essential-blocks")}
-											initialOpen={false}
-										>
-											<>
-												<BaseControl
-													label={__("Select Front Icon", "essential-blocks")}
-												>
-													<FontIconPicker
-														icons={faIcons}
+									{selectedSide === "front" &&
+										frontIconOrImage === "icon" && (
+											<PanelBody
+												title={__(
+													"Front Icon Settings",
+													"essential-blocks"
+												)}
+												initialOpen={false}
+											>
+												<>
+													<EBIconPicker
 														value={frontIcon}
 														onChange={(frontIcon) =>
-															setAttributes({ frontIcon })
-														}
-														appendTo="body"
-														closeOnSelect
-													/>
-												</BaseControl>
-
-												{frontIcon && (
-													<ResponsiveRangeController
-														baseLabel={__("Icon Size", "essential-blocks")}
-														controlName={boxFrontIconSizeAttr}
-														resRequiredProps={resRequiredProps}
-														min={8}
-														max={100}
-													/>
-												)}
-											</>
-										</PanelBody>
-									)}
-
-									{selectedSide === "front" && frontIconOrImage === "image" && (
-										<PanelBody
-											title={__("Front Image Settings", "essential-blocks")}
-											initialOpen={false}
-										>
-											<BaseControl
-												label={__("Flipbox Image", "essential-blocks")}
-												id="eb-flipbox-front-image"
-											>
-												{frontImageUrl ? (
-													<>
-														<ImageAvatar
-															imageUrl={frontImageUrl}
-															onDeleteImage={() =>
-																setAttributes({
-																	frontImageUrl: null,
-																})
-															}
-														/>
-
-														<ResponsiveRangeController
-															baseLabel={__("Image Size", "essential-blocks")}
-															controlName={frontImgSizeAttr}
-															resRequiredProps={resRequiredProps}
-															units={FRONT_IMAGE_UNITS}
-															min={0}
-															max={300}
-															step={1}
-														/>
-
-														<ResponsiveRangeController
-															baseLabel={__("Image Radius", "essential-blocks")}
-															controlName={frontImgRadiusAttr}
-															resRequiredProps={resRequiredProps}
-															units={FRONT_IMAGE_UNITS}
-															min={0}
-															max={100}
-														/>
-													</>
-												) : (
-													<MediaUpload
-														onSelect={(media) =>
 															setAttributes({
-																frontImageId: media.id,
-																frontImageUrl: media.url,
+																frontIcon,
 															})
 														}
-														type="image"
-														value={frontImageId}
-														render={({ open }) =>
-															!frontImageUrl && (
-																<Button
-																	className="eb-flipbox-upload-button"
-																	label={__("Upload Image", "essential-blocks")}
-																	icon="format-image"
-																	onClick={open}
-																/>
-															)
-														}
+														title={__("Select Front Icon", "essential-blocks")}
 													/>
-												)}
-											</BaseControl>
-										</PanelBody>
-									)}
+													{frontIcon && (
+														<ResponsiveRangeController
+															baseLabel={__(
+																"Icon Size",
+																"essential-blocks"
+															)}
+															controlName={
+																boxFrontIconSizeAttr
+															}
+															resRequiredProps={
+																resRequiredProps
+															}
+															min={8}
+															max={100}
+														/>
+													)}
+												</>
+											</PanelBody>
+										)}
 
-									{selectedSide === "back" && backIconOrImage === "icon" && (
-										<PanelBody
-											title={__("Back Icon Settings", "essential-blocks")}
-											initialOpen={false}
-										>
-											<>
+									{selectedSide === "front" &&
+										frontIconOrImage === "image" && (
+											<PanelBody
+												title={__(
+													"Front Image Settings",
+													"essential-blocks"
+												)}
+												initialOpen={false}
+											>
 												<BaseControl
-													label={__("Select Back Icon", "essential-blocks")}
-													id="eb-flipbox-back-icon"
+													label={__(
+														"Flipbox Image",
+														"essential-blocks"
+													)}
+													id="eb-flipbox-front-image"
 												>
-													<FontIconPicker
-														icons={faIcons}
-														value={backIcon}
-														onChange={(backIcon) => setAttributes({ backIcon })}
-														appendTo="body"
-														closeOnSelect
-													/>
-												</BaseControl>
+													{frontImageUrl ? (
+														<>
+															<ImageAvatar
+																imageUrl={
+																	frontImageUrl
+																}
+																onDeleteImage={() =>
+																	setAttributes(
+																		{
+																			frontImageUrl: null,
+																		}
+																	)
+																}
+															/>
 
-												{backIcon && (
-													<ResponsiveRangeController
-														baseLabel={__("Icon Size", "essential-blocks")}
-														controlName={boxBackIconSizeAttr}
-														resRequiredProps={resRequiredProps}
-														min={8}
-														max={100}
-													/>
-												)}
-											</>
-										</PanelBody>
-									)}
+															<ResponsiveRangeController
+																baseLabel={__(
+																	"Image Size",
+																	"essential-blocks"
+																)}
+																controlName={
+																	frontImgSizeAttr
+																}
+																resRequiredProps={
+																	resRequiredProps
+																}
+																units={
+																	FRONT_IMAGE_UNITS
+																}
+																min={0}
+																max={300}
+																step={1}
+															/>
 
-									{selectedSide === "back" && backIconOrImage === "image" && (
-										<PanelBody
-											title={__("Back Image Settings", "essential-blocks")}
-											initialOpen={false}
-										>
-											<BaseControl
-												label={__("Flipbox Image", "essential-blocks")}
-											>
-												{backImageUrl ? (
-													<>
-														<ImageAvatar
-															imageUrl={backImageUrl}
-															onDeleteImage={() =>
+															<ResponsiveRangeController
+																baseLabel={__(
+																	"Image Radius",
+																	"essential-blocks"
+																)}
+																controlName={
+																	frontImgRadiusAttr
+																}
+																resRequiredProps={
+																	resRequiredProps
+																}
+																units={
+																	FRONT_IMAGE_UNITS
+																}
+																min={0}
+																max={100}
+															/>
+														</>
+													) : (
+														<MediaUpload
+															onSelect={(media) =>
 																setAttributes({
-																	backImageUrl: null,
+																	frontImageId:
+																		media.id,
+																	frontImageUrl:
+																		media.url,
+																	frontImageAlt: media?.alt
+																		? media.alt
+																		: media.caption,
 																})
 															}
+															type="image"
+															value={frontImageId}
+															render={({
+																open,
+															}) =>
+																!frontImageUrl && (
+																	<Button
+																		className="eb-flipbox-upload-button"
+																		label={__(
+																			"Upload Image",
+																			"essential-blocks"
+																		)}
+																		icon="format-image"
+																		onClick={
+																			open
+																		}
+																	/>
+																)
+															}
 														/>
-														<ResponsiveRangeController
-															baseLabel={__("Image Size", "essential-blocks")}
-															controlName={backImgSizeAttr}
-															resRequiredProps={resRequiredProps}
-															units={FRONT_IMAGE_UNITS}
-															min={0}
-															max={300}
-														/>
+													)}
+												</BaseControl>
+											</PanelBody>
+										)}
 
-														<ResponsiveRangeController
-															baseLabel={__("Image Radius", "essential-blocks")}
-															controlName={backImgRadiusAttr}
-															resRequiredProps={resRequiredProps}
-															units={FRONT_IMAGE_UNITS}
-															min={0}
-															max={100}
-														/>
-													</>
-												) : (
-													<MediaUpload
-														onSelect={(media) =>
+									{selectedSide === "back" &&
+										backIconOrImage === "icon" && (
+											<PanelBody
+												title={__(
+													"Back Icon Settings",
+													"essential-blocks"
+												)}
+												initialOpen={false}
+											>
+												<>
+													<EBIconPicker
+														value={backIcon}
+														onChange={(backIcon) =>
 															setAttributes({
-																backImageId: media.id,
-																backImageUrl: media.url,
+																backIcon,
 															})
 														}
-														type="image"
-														value={backImageId}
-														render={({ open }) =>
-															!backImageUrl && (
-																<Button
-																	className="eb-flipbox-upload-button"
-																	label={__("Upload Image", "essential-blocks")}
-																	icon="format-image"
-																	onClick={open}
-																/>
-															)
-														}
+														title={__("Select Back Icon", "essential-blocks")}
 													/>
+													{backIcon && (
+														<ResponsiveRangeController
+															baseLabel={__(
+																"Icon Size",
+																"essential-blocks"
+															)}
+															controlName={
+																boxBackIconSizeAttr
+															}
+															resRequiredProps={
+																resRequiredProps
+															}
+															min={8}
+															max={100}
+														/>
+													)}
+												</>
+											</PanelBody>
+										)}
+
+									{selectedSide === "back" &&
+										backIconOrImage === "image" && (
+											<PanelBody
+												title={__(
+													"Back Image Settings",
+													"essential-blocks"
 												)}
-											</BaseControl>
-										</PanelBody>
-									)}
+												initialOpen={false}
+											>
+												<BaseControl
+													label={__(
+														"Flipbox Image",
+														"essential-blocks"
+													)}
+												>
+													{backImageUrl ? (
+														<>
+															<ImageAvatar
+																imageUrl={
+																	backImageUrl
+																}
+																onDeleteImage={() =>
+																	setAttributes(
+																		{
+																			backImageUrl: null,
+																		}
+																	)
+																}
+															/>
+															<ResponsiveRangeController
+																baseLabel={__(
+																	"Image Size",
+																	"essential-blocks"
+																)}
+																controlName={
+																	backImgSizeAttr
+																}
+																resRequiredProps={
+																	resRequiredProps
+																}
+																units={
+																	FRONT_IMAGE_UNITS
+																}
+																min={0}
+																max={300}
+															/>
+
+															<ResponsiveRangeController
+																baseLabel={__(
+																	"Image Radius",
+																	"essential-blocks"
+																)}
+																controlName={
+																	backImgRadiusAttr
+																}
+																resRequiredProps={
+																	resRequiredProps
+																}
+																units={
+																	FRONT_IMAGE_UNITS
+																}
+																min={0}
+																max={100}
+															/>
+														</>
+													) : (
+														<MediaUpload
+															onSelect={(media) =>
+																setAttributes({
+																	backImageId:
+																		media.id,
+																	backImageUrl:
+																		media.url,
+																	backImageAlt: media?.alt
+																		? media.alt
+																		: media.caption,
+																})
+															}
+															type="image"
+															value={backImageId}
+															render={({
+																open,
+															}) =>
+																!backImageUrl && (
+																	<Button
+																		className="eb-flipbox-upload-button"
+																		label={__(
+																			"Upload Image",
+																			"essential-blocks"
+																		)}
+																		icon="format-image"
+																		onClick={
+																			open
+																		}
+																	/>
+																)
+															}
+														/>
+													)}
+												</BaseControl>
+											</PanelBody>
+										)}
 
 									<PanelBody
-										title={__("Flipbox Content", "essential-blocks")}
+										title={__(
+											"Flipbox Content",
+											"essential-blocks"
+										)}
 										initialOpen={false}
 									>
 										{selectedSide === "front" && (
 											<>
 												<ToggleControl
-													label={__("Show Title?", "essential-blocks")}
+													label={__(
+														"Show Title?",
+														"essential-blocks"
+													)}
 													checked={showFrontTitle}
 													onChange={() => {
-														setAttributes({ showFrontTitle: !showFrontTitle });
+														setAttributes({
+															showFrontTitle: !showFrontTitle,
+														});
 													}}
 												/>
 												{showFrontTitle && (
-													<TextControl
-														label={__("Front Title", "essential-blocks")}
-														value={frontTitle}
-														onChange={(newText) =>
-															setAttributes({ frontTitle: newText })
-														}
-													/>
+													<>
+														<DynamicInputControl
+															label={__(
+																"Front Title",
+																"essential-blocks"
+															)}
+															attrName="frontTitle"
+															inputValue={
+																frontTitle
+															}
+															setAttributes={
+																setAttributes
+															}
+															onChange={(text) =>
+																setAttributes({
+																	frontTitle: text,
+																})
+															}
+														/>
+													</>
 												)}
 												<ToggleControl
-													label={__("Show Content?", "essential-blocks")}
+													label={__(
+														"Show Content?",
+														"essential-blocks"
+													)}
 													checked={showFrontContent}
 													onChange={() => {
 														setAttributes({
@@ -549,12 +773,13 @@ const Inspector = ({ attributes, setAttributes }) => {
 													}}
 												/>
 												{showFrontContent && (
-													<TextareaControl
+													<DynamicInputControl
 														label={__("Front Content", "essential-blocks")}
-														value={frontContent}
-														onChange={(newText) =>
-															setAttributes({ frontContent: newText })
-														}
+														attrName="frontContent"
+														inputValue={frontContent}
+														setAttributes={setAttributes}
+														onChange={(text) => setAttributes({ frontContent: text })}
+														isTextarea={true}
 													/>
 												)}
 											</>
@@ -562,23 +787,40 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "back" && (
 											<>
 												<ToggleControl
-													label={__("Show Title?", "essential-blocks")}
+													label={__(
+														"Show Title?",
+														"essential-blocks"
+													)}
 													checked={showBackTitle}
 													onChange={() => {
-														setAttributes({ showBackTitle: !showBackTitle });
+														setAttributes({
+															showBackTitle: !showBackTitle,
+														});
 													}}
 												/>
 												{showBackTitle && (
-													<TextControl
-														label={__("Back Title", "essential-blocks")}
-														value={backTitle}
-														onChange={(newText) =>
-															setAttributes({ backTitle: newText })
+													<DynamicInputControl
+														label={__(
+															"Back Title",
+															"essential-blocks"
+														)}
+														attrName="backTitle"
+														inputValue={backTitle}
+														setAttributes={
+															setAttributes
+														}
+														onChange={(text) =>
+															setAttributes({
+																backTitle: text,
+															})
 														}
 													/>
 												)}
 												<ToggleControl
-													label={__("Show Content?", "essential-blocks")}
+													label={__(
+														"Show Content?",
+														"essential-blocks"
+													)}
 													checked={showBackContent}
 													onChange={() => {
 														setAttributes({
@@ -587,12 +829,13 @@ const Inspector = ({ attributes, setAttributes }) => {
 													}}
 												/>
 												{showBackContent && (
-													<TextareaControl
+													<DynamicInputControl
 														label={__("Back Content", "essential-blocks")}
-														value={backContent}
-														onChange={(newText) =>
-															setAttributes({ backContent: newText })
-														}
+														attrName="backContent"
+														inputValue={backContent}
+														setAttributes={setAttributes}
+														onChange={(text) => setAttributes({ backContent: text })}
+														isTextarea={true}
 													/>
 												)}
 											</>
@@ -600,7 +843,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 									</PanelBody>
 
 									<PanelBody
-										title={__("Link Settings", "essential-blocks")}
+										title={__(
+											"Link Settings",
+											"essential-blocks"
+										)}
 										initialOpen={false}
 									>
 										<PanelRow>
@@ -612,34 +858,72 @@ const Inspector = ({ attributes, setAttributes }) => {
 											</em>
 										</PanelRow>
 										<BaseControl
-											label={__("Link Type", "essential-blocks")}
+											label={__(
+												"Link Type",
+												"essential-blocks"
+											)}
 											id="eb-flipbox-link-type"
 										>
 											<ButtonGroup id="eb-flipbox-link-type">
-												{LINK_TYPE.map((item, index) => (
-													<Button
-														key={index}
-														isPrimary={linkType === item.value}
-														isSecondary={linkType !== item.value}
-														onClick={() => {
-															setAttributes({ linkType: item.value }),
-																handleButtonStyle(buttonStyle);
-														}}
-													>
-														{item.label}
-													</Button>
-												))}
+												{LINK_TYPE.map(
+													(item, index) => (
+														<Button
+															key={index}
+															isPrimary={
+																linkType ===
+																item.value
+															}
+															isSecondary={
+																linkType !==
+																item.value
+															}
+															onClick={() => {
+																setAttributes({
+																	linkType:
+																		item.value,
+																}),
+																	handleButtonStyle(
+																		buttonStyle
+																	);
+															}}
+														>
+															{item.label}
+														</Button>
+													)
+												)}
 											</ButtonGroup>
 										</BaseControl>
 
-										<TextControl
-											label={__("Link", "essential-blocks")}
-											value={link}
-											placeholder="https://your-link.com"
-											onChange={(newLink) => setAttributes({ link: newLink })}
+										{/* <TextControl
+                                            label={__(
+                                                "Link",
+                                                "essential-blocks"
+                                            )}
+                                            value={link}
+                                            placeholder="https://your-link.com"
+                                            onChange={(newLink) =>
+                                                setAttributes({ link: newLink })
+                                            }
+                                        /> */}
+										<DynamicInputControl
+											label={__(
+												"Link",
+												"essential-blocks"
+											)}
+											attrName="link"
+											inputValue={link}
+											setAttributes={setAttributes}
+											onChange={(text) =>
+												setAttributes({
+													link: text,
+												})
+											}
 										/>
 										<ToggleControl
-											label={__("Open in New Tab", "essential-blocks")}
+											label={__(
+												"Open in New Tab",
+												"essential-blocks"
+											)}
 											checked={linkOpenNewTab}
 											onChange={() =>
 												setAttributes({
@@ -651,17 +935,29 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{linkType === "button" && (
 											<>
 												<TextControl
-													label={__("Button Text", "essential-blocks")}
+													label={__(
+														"Button Text",
+														"essential-blocks"
+													)}
 													value={buttonText}
 													onChange={(newText) =>
-														setAttributes({ buttonText: newText })
+														setAttributes({
+															buttonText: newText,
+														})
 													}
 												/>
 												<SelectControl
-													label={__("Button Style", "essential-blocks")}
+													label={__(
+														"Button Style",
+														"essential-blocks"
+													)}
 													value={buttonStyle}
 													options={BUTTON_STYLES}
-													onChange={(newStyle) => handleButtonStyle(newStyle)}
+													onChange={(newStyle) =>
+														handleButtonStyle(
+															newStyle
+														)
+													}
 												/>
 											</>
 										)}
@@ -672,68 +968,116 @@ const Inspector = ({ attributes, setAttributes }) => {
 								<>
 									<PanelBody>
 										<BaseControl
-											label={__("Selected Side", "essential-blocks")}
+											label={__(
+												"Selected Side",
+												"essential-blocks"
+											)}
 										>
 											<ButtonGroup id="eb-flipbox-sides">
-												{FLIPBOX_SIDES.map((item, index) => (
-													<Button
-														key={index}
-														isPrimary={selectedSide === item.value}
-														isSecondary={selectedSide !== item.value}
-														onClick={() =>
-															setAttributes({
-																selectedSide: item.value,
-															})
-														}
-													>
-														{item.label}
-													</Button>
-												))}
+												{FLIPBOX_SIDES.map(
+													(item, index) => (
+														<Button
+															key={index}
+															isPrimary={
+																selectedSide ===
+																item.value
+															}
+															isSecondary={
+																selectedSide !==
+																item.value
+															}
+															onClick={() =>
+																setAttributes({
+																	selectedSide:
+																		item.value,
+																})
+															}
+														>
+															{item.label}
+														</Button>
+													)
+												)}
 											</ButtonGroup>
 										</BaseControl>
 									</PanelBody>
 									<PanelBody
-										title={__("Flipbox Style", "essential-blocks")}
+										title={__(
+											"Flipbox Style",
+											"essential-blocks"
+										)}
 										initialOpen={true}
 									>
 										{selectedSide === "front" && (
 											<>
 												<ColorControl
-													label={__("Front Title", "essential-blocks")}
+													label={__(
+														"Front Title",
+														"essential-blocks"
+													)}
 													color={frontTitleColor}
-													onChange={(frontTitleColor) =>
-														setAttributes({ frontTitleColor })
+													onChange={(
+														frontTitleColor
+													) =>
+														setAttributes({
+															frontTitleColor,
+														})
 													}
 												/>
 												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={frontTitlePadding}
+													resRequiredProps={
+														resRequiredProps
+													}
+													controlName={
+														frontTitlePadding
+													}
 													baseLabel="Front Title Padding"
 												/>
 												<ColorControl
-													label={__("Front Content", "essential-blocks")}
+													label={__(
+														"Front Content",
+														"essential-blocks"
+													)}
 													color={frontContentColor}
-													onChange={(frontContentColor) =>
-														setAttributes({ frontContentColor })
+													onChange={(
+														frontContentColor
+													) =>
+														setAttributes({
+															frontContentColor,
+														})
 													}
 												/>
 												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={frontContentPadding}
+													resRequiredProps={
+														resRequiredProps
+													}
+													controlName={
+														frontContentPadding
+													}
 													baseLabel="Padding"
 												/>
 												<BaseControl>
 													<h3 className="eb-control-title">
-														{__("Front Side Background", "essential-blocks")}
+														{__(
+															"Front Side Background",
+															"essential-blocks"
+														)}
 													</h3>
 												</BaseControl>
 												<BackgroundControl
-													controlName={flipboxFrontWrapper}
-													resRequiredProps={resRequiredProps}
+													controlName={
+														flipboxFrontWrapper
+													}
+													resRequiredProps={
+														resRequiredProps
+													}
 												/>
 												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={frontItemPadding}
+													resRequiredProps={
+														resRequiredProps
+													}
+													controlName={
+														frontItemPadding
+													}
 													baseLabel="Items Padding"
 												/>
 											</>
@@ -742,314 +1086,524 @@ const Inspector = ({ attributes, setAttributes }) => {
 										{selectedSide === "back" && (
 											<>
 												<ColorControl
-													label={__("Back Title Color", "essential-blocks")}
+													label={__(
+														"Back Title Color",
+														"essential-blocks"
+													)}
 													color={backTitleColor}
-													onChange={(backTitleColor) =>
-														setAttributes({ backTitleColor })
+													onChange={(
+														backTitleColor
+													) =>
+														setAttributes({
+															backTitleColor,
+														})
 													}
 												/>
 												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={backTitlePadding}
+													resRequiredProps={
+														resRequiredProps
+													}
+													controlName={
+														backTitlePadding
+													}
 													baseLabel="Back Title Padding"
 												/>
 												<ColorControl
-													label={__("Back Content Color", "essential-blocks")}
+													label={__(
+														"Back Content Color",
+														"essential-blocks"
+													)}
 													color={backContentColor}
-													onChange={(backContentColor) =>
-														setAttributes({ backContentColor })
+													onChange={(
+														backContentColor
+													) =>
+														setAttributes({
+															backContentColor,
+														})
 													}
 												/>
 												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={backContentPadding}
+													resRequiredProps={
+														resRequiredProps
+													}
+													controlName={
+														backContentPadding
+													}
 													baseLabel="Padding"
 												/>
 												<BaseControl>
 													<h3 className="eb-control-title">
-														{__("Back Side Background", "essential-blocks")}
+														{__(
+															"Back Side Background",
+															"essential-blocks"
+														)}
 													</h3>
 												</BaseControl>
 												<BackgroundControl
-													controlName={flipboxBackWrapper}
-													resRequiredProps={resRequiredProps}
+													controlName={
+														flipboxBackWrapper
+													}
+													resRequiredProps={
+														resRequiredProps
+													}
 												/>
 												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={backItemPadding}
+													resRequiredProps={
+														resRequiredProps
+													}
+													controlName={
+														backItemPadding
+													}
 													baseLabel="Items Padding"
 												/>
 											</>
 										)}
 									</PanelBody>
-									{selectedSide === "front" && frontIconOrImage === "icon" && (
-										<PanelBody
-											title={__("Front Icon Style", "essential-blocks")}
-											initialOpen={false}
-										>
-											<>
-												{frontIcon && (
-													<>
-														<ColorControl
-															label={__("Icon Color", "essential-blocks")}
-															color={frontIconColor}
-															onChange={(frontIconColor) =>
-																setAttributes({ frontIconColor })
-															}
-														/>
-
-														<ColorControl
-															label={__("Icon Background", "essential-blocks")}
-															color={frontIconBackground}
-															onChange={(frontIconBackground) =>
-																setAttributes({ frontIconBackground })
-															}
-														/>
-
-														<BaseControl>
-															<h3 className="eb-control-title">
-																{__("Margin & Padding", "essential-blocks")}
-															</h3>
-														</BaseControl>
-														<ResponsiveDimensionsControl
-															resRequiredProps={resRequiredProps}
-															className="frontIconMargin"
-															controlName={frontIconMargin}
-															baseLabel="Margin"
-														/>
-														<ResponsiveDimensionsControl
-															resRequiredProps={resRequiredProps}
-															className="frontIconPadding"
-															controlName={frontIconPadding}
-															baseLabel="Padding"
-														/>
-														<BaseControl>
-															<h3 className="eb-control-title">
-																{__("Border", "essential-blocks")}
-															</h3>
-														</BaseControl>
-														<BorderShadowControl
-															controlName={borderShadowFrontIcon}
-															resRequiredProps={resRequiredProps}
-															noShadow
-														/>
-													</>
+									{selectedSide === "front" &&
+										frontIconOrImage === "icon" && (
+											<PanelBody
+												title={__(
+													"Front Icon Style",
+													"essential-blocks"
 												)}
-											</>
-										</PanelBody>
-									)}
-									{selectedSide === "front" && frontIconOrImage === "image" && (
-										<PanelBody
-											title={__("Front Image Style", "essential-blocks")}
-											initialOpen={false}
-										>
-											<>
-												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={frontImgPadding}
-													baseLabel="Padding"
-												/>
-											</>
-										</PanelBody>
-									)}
-									{selectedSide === "back" && backIconOrImage === "icon" && (
-										<PanelBody
-											title={__("Back Icon Style", "essential-blocks")}
-											initialOpen={false}
-										>
-											<>
-												{backIcon && (
-													<>
-														<ColorControl
-															label={__("Icon Color", "essential-blocks")}
-															color={backIconColor}
-															onChange={(backIconColor) =>
-																setAttributes({ backIconColor })
-															}
-														/>
+												initialOpen={false}
+											>
+												<>
+													{frontIcon && (
+														<>
+															<ColorControl
+																label={__(
+																	"Icon Color",
+																	"essential-blocks"
+																)}
+																color={
+																	frontIconColor
+																}
+																onChange={(
+																	frontIconColor
+																) =>
+																	setAttributes(
+																		{
+																			frontIconColor,
+																		}
+																	)
+																}
+															/>
 
-														<ColorControl
-															label={__("Icon Background", "essential-blocks")}
-															color={backIconBackground}
-															onChange={(backIconBackground) =>
-																setAttributes({ backIconBackground })
-															}
-														/>
+															<ColorControl
+																label={__(
+																	"Icon Background",
+																	"essential-blocks"
+																)}
+																color={
+																	frontIconBackground
+																}
+																onChange={(
+																	frontIconBackground
+																) =>
+																	setAttributes(
+																		{
+																			frontIconBackground,
+																		}
+																	)
+																}
+															/>
 
-														<BaseControl>
-															<h3 className="eb-control-title">
-																{__("Margin & Padding", "essential-blocks")}
-															</h3>
-														</BaseControl>
-														<ResponsiveDimensionsControl
-															resRequiredProps={resRequiredProps}
-															className="backIconMargin"
-															controlName={backIconMargin}
-															baseLabel="Margin"
-														/>
-														<ResponsiveDimensionsControl
-															resRequiredProps={resRequiredProps}
-															className="backIconPadding"
-															controlName={backIconPadding}
-															baseLabel="Padding"
-														/>
-														<BaseControl>
-															<h3 className="eb-control-title">
-																{__("Border", "essential-blocks")}
-															</h3>
-														</BaseControl>
-														<BorderShadowControl
-															controlName={borderShadowBackIcon}
-															resRequiredProps={resRequiredProps}
-															noShadow
-														/>
-													</>
+															<BaseControl>
+																<h3 className="eb-control-title">
+																	{__(
+																		"Margin & Padding",
+																		"essential-blocks"
+																	)}
+																</h3>
+															</BaseControl>
+															<ResponsiveDimensionsControl
+																resRequiredProps={
+																	resRequiredProps
+																}
+																className="frontIconMargin"
+																controlName={
+																	frontIconMargin
+																}
+																baseLabel="Margin"
+															/>
+															<ResponsiveDimensionsControl
+																resRequiredProps={
+																	resRequiredProps
+																}
+																className="frontIconPadding"
+																controlName={
+																	frontIconPadding
+																}
+																baseLabel="Padding"
+															/>
+															<BaseControl>
+																<h3 className="eb-control-title">
+																	{__(
+																		"Border",
+																		"essential-blocks"
+																	)}
+																</h3>
+															</BaseControl>
+															<BorderShadowControl
+																controlName={
+																	borderShadowFrontIcon
+																}
+																resRequiredProps={
+																	resRequiredProps
+																}
+																noShadow
+															/>
+														</>
+													)}
+												</>
+											</PanelBody>
+										)}
+									{selectedSide === "front" &&
+										frontIconOrImage === "image" && (
+											<PanelBody
+												title={__(
+													"Front Image Style",
+													"essential-blocks"
 												)}
-											</>
-										</PanelBody>
-									)}
-									{selectedSide === "back" && backIconOrImage === "image" && (
-										<PanelBody
-											title={__("Back Image Style", "essential-blocks")}
-											initialOpen={false}
-										>
-											<>
-												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													controlName={backImgPadding}
-													baseLabel="Padding"
-												/>
-											</>
-										</PanelBody>
-									)}
+												initialOpen={false}
+											>
+												<>
+													<ResponsiveDimensionsControl
+														resRequiredProps={
+															resRequiredProps
+														}
+														controlName={
+															frontImgPadding
+														}
+														baseLabel="Padding"
+													/>
+												</>
+											</PanelBody>
+										)}
+									{selectedSide === "back" &&
+										backIconOrImage === "icon" && (
+											<PanelBody
+												title={__(
+													"Back Icon Style",
+													"essential-blocks"
+												)}
+												initialOpen={false}
+											>
+												<>
+													{backIcon && (
+														<>
+															<ColorControl
+																label={__(
+																	"Icon Color",
+																	"essential-blocks"
+																)}
+																color={
+																	backIconColor
+																}
+																onChange={(
+																	backIconColor
+																) =>
+																	setAttributes(
+																		{
+																			backIconColor,
+																		}
+																	)
+																}
+															/>
+
+															<ColorControl
+																label={__(
+																	"Icon Background",
+																	"essential-blocks"
+																)}
+																color={
+																	backIconBackground
+																}
+																onChange={(
+																	backIconBackground
+																) =>
+																	setAttributes(
+																		{
+																			backIconBackground,
+																		}
+																	)
+																}
+															/>
+
+															<BaseControl>
+																<h3 className="eb-control-title">
+																	{__(
+																		"Margin & Padding",
+																		"essential-blocks"
+																	)}
+																</h3>
+															</BaseControl>
+															<ResponsiveDimensionsControl
+																resRequiredProps={
+																	resRequiredProps
+																}
+																className="backIconMargin"
+																controlName={
+																	backIconMargin
+																}
+																baseLabel="Margin"
+															/>
+															<ResponsiveDimensionsControl
+																resRequiredProps={
+																	resRequiredProps
+																}
+																className="backIconPadding"
+																controlName={
+																	backIconPadding
+																}
+																baseLabel="Padding"
+															/>
+															<BaseControl>
+																<h3 className="eb-control-title">
+																	{__(
+																		"Border",
+																		"essential-blocks"
+																	)}
+																</h3>
+															</BaseControl>
+															<BorderShadowControl
+																controlName={
+																	borderShadowBackIcon
+																}
+																resRequiredProps={
+																	resRequiredProps
+																}
+																noShadow
+															/>
+														</>
+													)}
+												</>
+											</PanelBody>
+										)}
+									{selectedSide === "back" &&
+										backIconOrImage === "image" && (
+											<PanelBody
+												title={__(
+													"Back Image Style",
+													"essential-blocks"
+												)}
+												initialOpen={false}
+											>
+												<>
+													<ResponsiveDimensionsControl
+														resRequiredProps={
+															resRequiredProps
+														}
+														controlName={
+															backImgPadding
+														}
+														baseLabel="Padding"
+													/>
+												</>
+											</PanelBody>
+										)}
 									<PanelBody
-										title={__("Typography", "essential-blocks")}
+										title={__(
+											"Typography",
+											"essential-blocks"
+										)}
 										initialOpen={false}
 									>
 										<TypographyDropdown
-											baseLabel={__("Title", "essential-blocks")}
-											typographyPrefixConstant={typoPrefix_title}
+											baseLabel={__(
+												"Title",
+												"essential-blocks"
+											)}
+											typographyPrefixConstant={
+												typoPrefix_title
+											}
 											resRequiredProps={resRequiredProps}
 										/>
 
 										<TypographyDropdown
-											baseLabel={__("Content", "essential-blocks")}
-											typographyPrefixConstant={typoPrefix_content}
+											baseLabel={__(
+												"Content",
+												"essential-blocks"
+											)}
+											typographyPrefixConstant={
+												typoPrefix_content
+											}
 											resRequiredProps={resRequiredProps}
 										/>
 									</PanelBody>
-									{linkType === "button" && buttonStyle === "custom" && (
-										<PanelBody title={__("Button Style", "essential-blocks")}>
-											<>
-												<ColorControl
-													label={__("Background", "essential-blocks")}
-													color={buttonBackground}
-													onChange={(buttonBackground) =>
-														setAttributes({ buttonBackground })
-													}
-												/>
-												<ColorControl
-													label={__("Color", "essential-blocks")}
-													color={buttonColor}
-													onChange={(buttonColor) =>
-														setAttributes({ buttonColor })
-													}
-												/>
-												<ResponsiveRangeController
-													baseLabel={__("Button Size", "essential-blocks")}
-													controlName={buttonIconSizeAttr}
-													resRequiredProps={resRequiredProps}
-													min={20}
-													max={600}
-												/>
-												<BaseControl>
-													<h3 className="eb-control-title">
-														{__("Padding", "essential-blocks")}
-													</h3>
-												</BaseControl>
-												<ResponsiveDimensionsControl
-													resRequiredProps={resRequiredProps}
-													className="forWrapperPadding"
-													controlName={buttonPadding}
-													baseLabel="Padding"
-												/>
-												<BaseControl>
-													<h3 className="eb-control-title">
-														{__("Border & Shadow", "essential-blocks")}
-													</h3>
-												</BaseControl>
-												<BorderShadowControl
-													controlName={borderShadowBtn}
-													resRequiredProps={resRequiredProps}
-												/>
-												<BaseControl>
-													<h3 className="eb-control-title">
-														{__("Button Icon", "essential-blocks")}
-													</h3>
-												</BaseControl>
-												<ToggleControl
-													label={__("Display Button Icon", "essential-blocks")}
-													checked={displayButtonIcon}
-													onChange={() =>
-														setAttributes({
-															displayButtonIcon: !displayButtonIcon,
-														})
-													}
-												/>
-												{displayButtonIcon && (
-													<BaseControl
-														label={__("Select Icon", "essential-blocks")}
-														id="eb-flipbox-link-icon"
-														help={__(
-															"Add icon with button (optional)",
+									{linkType === "button" &&
+										buttonStyle === "custom" && (
+											<PanelBody
+												title={__(
+													"Button Style",
+													"essential-blocks"
+												)}
+											>
+												<>
+													<ColorControl
+														label={__(
+															"Background",
 															"essential-blocks"
 														)}
-													>
-														<FontIconPicker
-															icons={faIcons}
+														color={buttonBackground}
+														onChange={(
+															buttonBackground
+														) =>
+															setAttributes({
+																buttonBackground,
+															})
+														}
+													/>
+													<ColorControl
+														label={__(
+															"Color",
+															"essential-blocks"
+														)}
+														color={buttonColor}
+														onChange={(
+															buttonColor
+														) =>
+															setAttributes({
+																buttonColor,
+															})
+														}
+													/>
+													<ResponsiveRangeController
+														baseLabel={__(
+															"Button Size",
+															"essential-blocks"
+														)}
+														controlName={
+															buttonIconSizeAttr
+														}
+														resRequiredProps={
+															resRequiredProps
+														}
+														min={20}
+														max={600}
+													/>
+													<BaseControl>
+														<h3 className="eb-control-title">
+															{__(
+																"Padding",
+																"essential-blocks"
+															)}
+														</h3>
+													</BaseControl>
+													<ResponsiveDimensionsControl
+														resRequiredProps={
+															resRequiredProps
+														}
+														className="forWrapperPadding"
+														controlName={
+															buttonPadding
+														}
+														baseLabel="Padding"
+													/>
+													<BaseControl>
+														<h3 className="eb-control-title">
+															{__(
+																"Border & Shadow",
+																"essential-blocks"
+															)}
+														</h3>
+													</BaseControl>
+													<BorderShadowControl
+														controlName={
+															borderShadowBtn
+														}
+														resRequiredProps={
+															resRequiredProps
+														}
+													/>
+													<BaseControl>
+														<h3 className="eb-control-title">
+															{__(
+																"Button Icon",
+																"essential-blocks"
+															)}
+														</h3>
+													</BaseControl>
+													<ToggleControl
+														label={__(
+															"Display Button Icon",
+															"essential-blocks"
+														)}
+														checked={
+															displayButtonIcon
+														}
+														onChange={() =>
+															setAttributes({
+																displayButtonIcon: !displayButtonIcon,
+															})
+														}
+													/>
+													{displayButtonIcon && (
+														<EBIconPicker
 															value={buttonIcon}
 															onChange={(buttonIcon) =>
 																setAttributes({
 																	buttonIcon,
 																})
 															}
-															appendTo="body"
-															closeOnSelect
+															title={__("Select Icon", "essential-blocks")}
 														/>
-													</BaseControl>
-												)}
-												{displayButtonIcon && buttonIcon && (
-													<>
-														<BaseControl
-															label={__("Icon Position", "essential-blocks")}
-															id="eb-flipbox-icon-pos"
-														>
-															<ButtonGroup id="eb-flipbox-icon-pos">
-																{ICON_POSITIONS.map((item, index) => (
-																	<Button
-																		key={index}
-																		style={{
-																			zIndex: 0,
-																		}} // ? Add this style to fix icon list and primary button issue
-																		// isLarge
-																		isSecondary={buttonIconPos !== item.value}
-																		isPrimary={buttonIconPos === item.value}
-																		onClick={() =>
-																			setAttributes({
-																				buttonIconPos: item.value,
-																			})
-																		}
-																	>
-																		{item.label}
-																	</Button>
-																))}
-															</ButtonGroup>
-														</BaseControl>
-													</>
-												)}
-											</>
-										</PanelBody>
-									)}
+													)}
+													{displayButtonIcon &&
+														buttonIcon && (
+															<>
+																<BaseControl
+																	label={__(
+																		"Icon Position",
+																		"essential-blocks"
+																	)}
+																	id="eb-flipbox-icon-pos"
+																>
+																	<ButtonGroup id="eb-flipbox-icon-pos">
+																		{ICON_POSITIONS.map(
+																			(
+																				item,
+																				index
+																			) => (
+																				<Button
+																					key={
+																						index
+																					}
+																					style={{
+																						zIndex: 0,
+																					}} // ? Add this style to fix icon list and primary button issue
+																					// isLarge
+																					isSecondary={
+																						buttonIconPos !==
+																						item.value
+																					}
+																					isPrimary={
+																						buttonIconPos ===
+																						item.value
+																					}
+																					onClick={() =>
+																						setAttributes(
+																							{
+																								buttonIconPos:
+																									item.value,
+																							}
+																						)
+																					}
+																				>
+																					{
+																						item.label
+																					}
+																				</Button>
+																			)
+																		)}
+																	</ButtonGroup>
+																</BaseControl>
+															</>
+														)}
+												</>
+											</PanelBody>
+										)}
 								</>
 							)}
 							{tab.name === "advanced" && (
@@ -1057,7 +1611,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 									<PanelBody>
 										<BaseControl>
 											<h3 className="eb-control-title">
-												{__("Margin & Padding", "essential-blocks")}
+												{__(
+													"Margin & Padding",
+													"essential-blocks"
+												)}
 											</h3>
 										</BaseControl>
 										<ResponsiveDimensionsControl
@@ -1075,7 +1632,10 @@ const Inspector = ({ attributes, setAttributes }) => {
 										/>
 										<BaseControl>
 											<h3 className="eb-control-title">
-												{__("Border & Shadow", "essential-blocks")}
+												{__(
+													"Border & Shadow",
+													"essential-blocks"
+												)}
 											</h3>
 										</BaseControl>
 										<BorderShadowControl

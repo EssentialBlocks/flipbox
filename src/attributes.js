@@ -50,10 +50,7 @@ const {
 	generateBorderShadowAttributes,
 } = window.EBFlipboxControls;
 
-import {
-	flipboxFrontWrapper,
-	flipboxBackWrapper,
-} from "./constants/backgroundsConstants";
+import { flipboxFrontWrapper, flipboxBackWrapper } from "./constants/backgroundsConstants";
 
 const attributes = {
 	// responsive control attributes ⬇
@@ -109,6 +106,9 @@ const attributes = {
 		selector: "eb-flipbox-front-image-container img",
 		attribute: "src",
 	},
+	frontImageAlt: {
+		type: "string",
+	},
 	frontImageId: {
 		type: "string",
 		default: null,
@@ -127,6 +127,9 @@ const attributes = {
 		type: "attribute",
 		selector: "back-image-container img",
 		attribute: "src",
+	},
+	backImageAlt: {
+		type: "string",
 	},
 	backImageId: {
 		type: "string",
@@ -243,6 +246,14 @@ const attributes = {
 		type: "boolean",
 		default: false,
 	},
+	flipMode: {
+		type: "string",
+		default: "hover",
+	},
+	isMouseLeaveOn: {
+		type: "boolean",
+		default: true,
+	},
 	// typography attributes ⬇
 	...generateTypographyAttributes(Object.values(prefixObjs)),
 	// margin padding attributes ⬇
@@ -295,7 +306,9 @@ const attributes = {
 	// border shadow controller
 	...generateBorderShadowAttributes(borderShadow),
 	...generateBorderShadowAttributes(borderShadowBtn),
-	...generateBorderShadowAttributes(borderShadowFrontIcon, { noShadow: true }),
+	...generateBorderShadowAttributes(borderShadowFrontIcon, {
+		noShadow: true,
+	}),
 	...generateBorderShadowAttributes(borderShadowBackIcon, { noShadow: true }),
 	// background Attributes
 	...generateBackgroundAttributes(flipboxFrontWrapper, {
