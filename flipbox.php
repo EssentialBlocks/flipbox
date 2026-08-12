@@ -4,15 +4,23 @@
  * Plugin Name:     Flipbox
  * Plugin URI:         https://essential-blocks.com
  * Description:     Deliver your content beautifully to grab attention with an animated Flipbox block.
- * Version:         1.3.1
+ * Version:         1.4.0
  * Author:          WPDeveloper
  * Author URI:         https://wpdeveloper.net
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:     flipbox
+ * Requires at least: 6.0
+ * Tested up to:    7.0
+ * Requires PHP:    7.4
  *
  * @package         flipbox
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 /**
  * Registers all block assets so that they can be enqueued through the block editor
@@ -21,16 +29,30 @@
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
  */
 
+if ( ! defined( 'EB_FLIPBOX_BLOCKS_VERSION' ) ) {
+    define( 'EB_FLIPBOX_BLOCKS_VERSION', '1.4.0' );
+}
+if ( ! defined( 'EB_FLIPBOX_BLOCKS_ADMIN_URL' ) ) {
+    define( 'EB_FLIPBOX_BLOCKS_ADMIN_URL', plugin_dir_url( __FILE__ ) );
+}
+if ( ! defined( 'EB_FLIPBOX_BLOCKS_ADMIN_PATH' ) ) {
+    define( 'EB_FLIPBOX_BLOCKS_ADMIN_PATH', dirname( __FILE__ ) );
+}
+
 require_once __DIR__ . '/includes/font-loader.php';
 require_once __DIR__ . '/includes/post-meta.php';
 require_once __DIR__ . '/includes/helpers.php';
-require_once __DIR__ . '/lib/style-handler/style-handler.php';
+
+/**
+ * `lib/style-handler` is a git submodule. It is absent from a checkout that was
+ * never initialised with `git submodule update --init`, so requiring it
+ * unconditionally fatals the whole site. Guard it.
+ */
+if ( file_exists( __DIR__ . '/lib/style-handler/style-handler.php' ) ) {
+    require_once __DIR__ . '/lib/style-handler/style-handler.php';
+}
 
 function create_block_flipbox_block_init() {
-    define( 'EB_FLIPBOX_BLOCKS_VERSION', "1.3.1" );
-    define( 'EB_FLIPBOX_BLOCKS_ADMIN_URL', plugin_dir_url( __FILE__ ) );
-    define( 'EB_FLIPBOX_BLOCKS_ADMIN_PATH', dirname( __FILE__ ) );
-
     $script_asset_path = EB_FLIPBOX_BLOCKS_ADMIN_PATH . "/dist/index.asset.php";
     if ( ! file_exists( $script_asset_path ) ) {
         throw new Error(
@@ -85,29 +107,36 @@ function create_block_flipbox_block_init() {
     wp_register_style(
         'fontpicker-default-theme',
         plugins_url( $fontpicker_theme, __FILE__ ),
-        []
+        [],
+        EB_FLIPBOX_BLOCKS_VERSION
     );
 
     $fontpicker_material_theme = 'assets/css/fonticonpicker.material-theme.react.css';
     wp_register_style(
         'fontpicker-matetial-theme',
         plugins_url( $fontpicker_material_theme, __FILE__ ),
-        []
+        [],
+        EB_FLIPBOX_BLOCKS_VERSION
     );
 
     $fontawesome_css = 'assets/css/fontawesome/css/all.min.css';
     wp_register_style(
         'fontawesome-frontend-css',
         plugins_url( $fontawesome_css, __FILE__ ),
-        []
+        [],
+        EB_FLIPBOX_BLOCKS_VERSION
     );
 
-    $style_css = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'dist/style.css';
+    $style_css      = EB_FLIPBOX_BLOCKS_ADMIN_URL . 'dist/style.css';
+    $style_css_path = EB_FLIPBOX_BLOCKS_ADMIN_PATH . '/dist/style.css';
+    // filemtime() emits a warning and returns false when the file is missing;
+    // on PHP 8 that false then reaches wp_register_style() as the version.
+    $style_css_ver = file_exists( $style_css_path ) ? filemtime( $style_css_path ) : EB_FLIPBOX_BLOCKS_VERSION;
     wp_register_style(
         'eb-flipbox-block-frontend-style',
         $style_css,
         ['fontawesome-frontend-css', 'essential-blocks-animation'],
-        filemtime( EB_FLIPBOX_BLOCKS_ADMIN_PATH . '/dist/style.css' )
+        $style_css_ver
     );
 
     if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'essential-blocks/flipbox' ) ) {
@@ -118,7 +147,7 @@ function create_block_flipbox_block_init() {
                 'style'           => 'eb-flipbox-block-frontend-style',
                 'render_callback' => function ( $attributes, $content ) {
                     if ( ! is_admin() ) {
-						wp_enqueue_script( 'essential-blocks-frontend-js' );
+                        wp_enqueue_script( 'essential-blocks-frontend-js' );
                     }
                     return $content;
                 }

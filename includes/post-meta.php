@@ -9,7 +9,10 @@ class Flipbox_Post_Meta
 {
     public function __construct()
     {
-        add_filter('init', array($this, 'register_meta'));
+        // `init` is an action, not a filter. add_filter() happened to work because both
+        // share one callback registry, but the callback returns null and would blank the
+        // value for anything that ever treats `init` as a filter.
+        add_action('init', array($this, 'register_meta'));
     }
 
     /**

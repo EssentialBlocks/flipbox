@@ -33,6 +33,7 @@ const Save = ({ attributes }) => {
 		flipMode,
 		isMouseLeaveOn,
 		classHook,
+		selectedSide,
 	} = attributes;
 
 	const alignmentClass =
@@ -43,6 +44,9 @@ const Save = ({ attributes }) => {
 				: "";
 	const flipModeClass =
 		flipMode === "hover" ? " eb-hover-mode" : " eb-click-mode";
+	// `isHover` is transient editor-preview state and must never reach the saved
+	// markup; only the author's explicit side choice does.
+	const selectedSideClass = selectedSide === "back" ? " back-is-selected" : "";
 
 	return (
 		<div {...useBlockProps.save()}>
@@ -60,7 +64,7 @@ const Save = ({ attributes }) => {
 				>
 					<div
 						className={`eb-flipper${"hover" === flipMode ? " " + flipType : ""
-							}`}
+							}${selectedSideClass}`}
 					>
 						<div className="eb-flipbox-front">
 							<div className="eb-flipbox-items-container">
