@@ -649,6 +649,62 @@ export default function Style(props) {
 	 }
 	 `;
 
+	// Front-end "default side" styles.
+	//
+	// save.js writes `back-is-selected` into the markup only when the author picked
+	// Back, so at rest the box shows its back and the hover/click interaction flips
+	// it to the front — the inverse of the default.
+	//
+	// style.scss flips the box with `!important`, so these overrides both use
+	// `!important` and out-specify it: `.eb-flipbox-container.<blockId>.<mode>` is
+	// one class more specific than `.eb-flipbox-container.eb-click-mode`.
+	//
+	// The mode classes exist only in saved markup, never on the editor canvas, so
+	// none of this reaches the editor preview — that keeps using the rule above.
+	const defaultSideStyle = (() => {
+		if (selectedSide !== "back") return "";
+
+		const container = `.eb-flipbox-container.${blockId}`;
+		const flipper = ".eb-flipper.back-is-selected";
+		// At rest the chosen side is showing; "active" is the flipped-back-to-front
+		// state: hovering in hover mode, or the class frontend.js toggles on click.
+		const rest = [`${container}.eb-hover-mode ${flipper}`, `${container}.eb-click-mode ${flipper}`];
+		const active = [
+			`${container}.eb-hover-mode:hover ${flipper}`,
+			`${container}.eb-click-mode ${flipper}.${flipType}`,
+		];
+		const transform = getFlipTransform(flipType);
+		// The suffix has to be appended to every selector in the list, not to the
+		// joined string — `a, b .x` would only scope `.x` to `b`.
+		const on = (selectors, suffix = "") =>
+			selectors.map((selector) => `${selector}${suffix}`).join(", ");
+
+		// Fade never rotates the flipper; it cross-fades the two faces instead.
+		if (flipType === "fade") {
+			return `
+			 ${on(rest, " .eb-flipbox-back")} { z-index: 1 !important; transform: none !important; opacity: 1 !important; }
+			 ${on(rest, " .eb-flipbox-front")} { opacity: 0 !important; }
+			 ${on(active, " .eb-flipbox-back")} { opacity: 0 !important; }
+			 ${on(active, " .eb-flipbox-front")} { opacity: 1 !important; }
+			 `;
+		}
+
+		// Zoom raises the back with z-index rather than rotating it into view.
+		if (flipType === "zoom-in" || flipType === "zoom-out") {
+			return `
+			 ${on(rest, " .eb-flipbox-back")} { z-index: 5 !important; transform: none !important; }
+			 ${on(active, " .eb-flipbox-back")} { z-index: 0 !important; transform: rotateY(180deg) !important; }
+			 ${on(active)} { transform: ${transform} !important; }
+			 `;
+		}
+
+		// flip-left / flip-right / flip-up / flip-bottom.
+		return `
+		 ${on(rest)} { transform: ${transform} !important; }
+		 ${on(active)} { transform: none !important; }
+		 `;
+	})();
+
 	const flipperStyleTab = `
 		.eb-flipbox-container.${blockId} .eb-flipper {
 			${wrapperMinHeightStylesTab}
@@ -1144,6 +1200,7 @@ export default function Style(props) {
 		 ${backStyleDesktop}
 		 ${backImageStyleDesktop}
 		 ${backButtonStyleDesktop}
+		 ${defaultSideStyle}
 	 `);
 
 	// all css styles for Tab in strings ⬇
