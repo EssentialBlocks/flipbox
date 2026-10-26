@@ -17,14 +17,39 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
-            submodules: recursive
-            token: ${{ secrets.EB_PAT }}
+          persist-credentials: false
+
+      # The controls and style-handler submodules are private repos, which
+      # GITHUB_TOKEN can't read. CONTROLS_PAT is a fine-grained PAT limited to
+      # EssentialBlocks/controls and EssentialBlocks/style-handler with
+      # Contents: read-only.
+      - name: Resolve submodule commits
+        id: submodules
+        run: |
+          echo "controls=$(git rev-parse HEAD:controls)" >> "$GITHUB_OUTPUT"
+          echo "style_handler=$(git rev-parse HEAD:lib/style-handler)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        with:
+          repository: EssentialBlocks/controls
+          ref: ${{ steps.submodules.outputs.controls }}
+          path: controls
+          token: ${{ secrets.CONTROLS_PAT }}
+          persist-credentials: false
+
+      - uses: actions/checkout@v7
+        with:
+          repository: EssentialBlocks/style-handler
+          ref: ${{ steps.submodules.outputs.style_handler }}
+          path: lib/style-handler
+          token: ${{ secrets.CONTROLS_PAT }}
+          persist-credentials: false
 
       # Runs a single command using the runners shell
       - name: WordPress.org plugin asset/readme update
-        uses: 10up/action-wordpress-plugin-asset-update@stable
+        uses: 10up/action-wordpress-plugin-asset-update@2480306f6f693672726d08b5917ea114cb2825f7 # 2.2.0
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}

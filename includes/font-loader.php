@@ -67,6 +67,9 @@ class Flipbox_Font_Loader {
         $keys             = preg_grep( '/^(\w+)FontFamily/i', array_keys( $attributes ), 0 );
         $googleFontFamily = [];
         foreach ( $keys as $key ) {
+            if ( ! is_string( $attributes[ $key ] ) || '' === $attributes[ $key ] ) {
+                continue;
+            }
             $googleFontFamily[$attributes[$key]] = $attributes[$key];
         }
         return $googleFontFamily;

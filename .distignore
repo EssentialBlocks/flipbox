@@ -86,6 +86,11 @@ lib/style-handler/README.md
 dist/*.map
 dist/**/*.map
 
+# Controls' eb_frontend helper bundle: built by webpack but never registered or
+# enqueued by this plugin. dist/frontend/index.js is the block's own script and ships.
+dist/frontend.js
+dist/frontend.asset.php
+
 # Docs & archives
 *.md
 README.md
