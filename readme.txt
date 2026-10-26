@@ -1,5 +1,5 @@
 === Flipbox ===
-Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, fencermonir, RahatSheikhLeon
+Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, RahatSheikhLeon
 Tags: block, blocks, flipbox, flip box, flipper, animated box, gutenberg, gutenberg blocks
 Requires at least: 6.0
 Tested up to: 7.0
