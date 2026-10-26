@@ -3,6 +3,15 @@
  */
 import { useBlockProps, RichText } from "@wordpress/block-editor";
 const { EBDisplayIcon } = window.EBFlipboxControls;
+
+// Links with a scheme must be web, mail or phone; scheme-less links are kept as typed.
+// Browsers drop control characters and whitespace inside a scheme, so test without them.
+const safeLink = (url) => {
+	if (typeof url !== "string" || !url.trim()) return undefined;
+	const scheme = url.replace(/[\u0000-\u0020\u007F]/g, "").match(/^([a-z][a-z0-9+.-]*):/i);
+	return !scheme || /^(https?|mailto|tel)$/i.test(scheme[1]) ? url : undefined;
+};
+
 const Save = ({ attributes }) => {
 	const {
 		blockId,
@@ -47,6 +56,7 @@ const Save = ({ attributes }) => {
 	// `isHover` is transient editor-preview state and must never reach the saved
 	// markup; only the author's explicit side choice does.
 	const selectedSideClass = selectedSide === "back" ? " back-is-selected" : "";
+	const boxLink = linkType === "box" ? safeLink(link) : undefined;
 
 	return (
 		<div {...useBlockProps.save()}>
@@ -94,7 +104,7 @@ const Save = ({ attributes }) => {
 									<div className="eb-flipbox-front-title-wrapper">
 										{linkType === "title" && link ? (
 											<a
-												href={link ? link : "#"}
+												href={safeLink(link) || "#"}
 												className="title-link"
 											>
 												<RichText.Content
@@ -126,13 +136,14 @@ const Save = ({ attributes }) => {
 
 						<div
 							className="eb-flipbox-back"
-							onClick={
-								linkType === "box" && link && linkOpenNewTab
-									? `window.open('${link}', '_blank');`
-									: linkType === "box" && link
-										? `window.location='${link}'`
-										: undefined
-							}
+							{...(boxLink
+								? {
+									"data-link": boxLink,
+									...(linkOpenNewTab
+										? { "data-new-tab": "true" }
+										: {}),
+								}
+								: {})}
 						>
 							<div className="eb-flipbox-items-container">
 								{backIconOrImage !== "none" && (
@@ -161,7 +172,7 @@ const Save = ({ attributes }) => {
 									<div className="eb-flipbox-back-title-wrapper">
 										{linkType === "title" && link ? (
 											<a
-												href={link ? link : "#"}
+												href={safeLink(link) || "#"}
 												className="title-link"
 												target={
 													linkOpenNewTab
@@ -198,7 +209,7 @@ const Save = ({ attributes }) => {
 									<div className="eb-flipbox-button-container">
 										<a
 											className={`eb-flipbox-button-link ${buttonClasses}`}
-											href={link ? link : "#"}
+											href={safeLink(link) || "#"}
 											target={
 												linkOpenNewTab
 													? `_blank`
