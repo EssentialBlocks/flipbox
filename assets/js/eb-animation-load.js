@@ -22,29 +22,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }, true);
     });
 
-    //For Admin Panel
-    // DOMNodeInserted is a Mutation Event: deprecated for years and removed from
-    // Chrome 127+ and Firefox 127+, so this handler simply stopped firing.
-    // MutationObserver is the supported equivalent and works back to IE11.
-    var boundAnimationSelect = null;
-    var bindAdminAnimationSelect = function () {
-        var adminChangeSelector = document.getElementById('eb-animation-style');
-
-        if (adminChangeSelector && adminChangeSelector !== boundAnimationSelect) {
-            boundAnimationSelect = adminChangeSelector;
-            adminChangeSelector.addEventListener('change', function (event) {
-                setTimeout(function () {
-                    replaceAnimationClasses(document.querySelectorAll(keySelector));
-                }, 500);
-            }, true);
+    //For Admin Panel: the animation select is rendered later, so listen on the document
+    document.addEventListener('change', function (event) {
+        if (event.target && event.target.id === 'eb-animation-style') {
+            setTimeout(function () {
+                replaceAnimationClasses(document.querySelectorAll(keySelector));
+            }, 500);
         }
-    };
-
-    bindAdminAnimationSelect();
-    new MutationObserver(bindAdminAnimationSelect).observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+    }, true);
 });
 
 
