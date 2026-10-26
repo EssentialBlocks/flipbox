@@ -4,11 +4,13 @@
 import { useBlockProps, RichText } from "@wordpress/block-editor";
 const { EBDisplayIcon } = window.EBFlipboxControls;
 
-// Only web, mail, phone, relative and anchor links are written to the markup.
-const safeLink = (url) =>
-	typeof url === "string" && /^(https?:|mailto:|tel:|\/|#)/i.test(url.trim())
-		? url
-		: undefined;
+// Links with a scheme must be web, mail or phone; scheme-less links are kept as typed.
+// Browsers drop control characters and whitespace inside a scheme, so test without them.
+const safeLink = (url) => {
+	if (typeof url !== "string" || !url.trim()) return undefined;
+	const scheme = url.replace(/[\u0000-\u0020\u007F]/g, "").match(/^([a-z][a-z0-9+.-]*):/i);
+	return !scheme || /^(https?|mailto|tel)$/i.test(scheme[1]) ? url : undefined;
+};
 
 const Save = ({ attributes }) => {
 	const {
