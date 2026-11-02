@@ -93,7 +93,7 @@ class Flipbox_Helper
 			);
 
             wp_enqueue_style(
-                'essential-blocks-editor-css',
+                'flipbox-controls-css',
                 EB_FLIPBOX_BLOCKS_ADMIN_URL . '/dist/modules.css',
                 array('essential-blocks-iconpicker-css','fontawesome-frontend-css'),
                 $controls_dependencies['version'],
