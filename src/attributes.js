@@ -252,7 +252,7 @@ const attributes = {
 	},
 	isMouseLeaveOn: {
 		type: "boolean",
-		default: true,
+		default: false,
 	},
 	// typography attributes ⬇
 	...generateTypographyAttributes(Object.values(prefixObjs)),
