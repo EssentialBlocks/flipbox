@@ -69,6 +69,23 @@
 	--------------------------
   */
 .eb-flipbox-container.eb-click-mode {
+	.eb-flipper {
+		cursor: pointer;
+	}
+
+	// The faces paint above the flipper, so the ring goes on the face that is showing.
+	// Dark ring outside, white ring inside: visible on light and dark backgrounds.
+	.eb-flipper:focus-visible {
+		outline: none;
+	}
+
+	.eb-flipper:focus-visible .eb-flipbox-front,
+	.eb-flipper:focus-visible .eb-flipbox-back {
+		outline: 3px solid #fff;
+		outline-offset: -6px;
+		box-shadow: inset 0 0 0 3px #1d2327;
+	}
+
 	.flip-up {
 		transform: rotateX(180deg) !important;
 	}
