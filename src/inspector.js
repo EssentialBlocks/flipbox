@@ -147,6 +147,13 @@ const Inspector = ({ attributes, setAttributes }) => {
 		setAttributes({ buttonStyle, buttonClasses });
 	};
 
+	// Other plugins can add modes through this filter. With only Hover and Click the
+	// mode is a simple "Flip on Click" toggle; with any other mode keep the dropdown.
+	const flipModes = applyFilters("eb_flipbox_modes", FLIP_MODE);
+	const hasCustomModes = flipModes.some(
+		(mode) => mode.value !== "hover" && mode.value !== "click"
+	);
+
 	const resRequiredProps = {
 		setAttributes,
 		resOption,
@@ -223,30 +230,55 @@ const Inspector = ({ attributes, setAttributes }) => {
 										)}
 										initialOpen={true}
 									>
-										<SelectControl
-											label={__(
-												"Flip Mode",
-												"essential-blocks"
-											)}
-											value={flipMode}
-											options={applyFilters(
-												"eb_flipbox_modes",
-												FLIP_MODE
-											)}
-											onChange={(selected) =>
-												setAttributes({
-													flipMode: selected,
-												})
-											}
-											help={
-												flipMode === "click"
-													? __(
-														"Click mode only available in frontend.",
-														"essential-blocks"
-													)
-													: ""
-											}
-										/>
+										{hasCustomModes ? (
+											<SelectControl
+												label={__(
+													"Flip Mode",
+													"essential-blocks"
+												)}
+												value={flipMode}
+												options={flipModes}
+												onChange={(selected) =>
+													setAttributes({
+														flipMode: selected,
+													})
+												}
+												help={
+													flipMode === "click"
+														? __(
+															"Click mode only available in frontend.",
+															"essential-blocks"
+														)
+														: ""
+												}
+											/>
+										) : (
+											<ToggleControl
+												label={__(
+													"Flip on Click",
+													"essential-blocks"
+												)}
+												checked={flipMode === "click"}
+												onChange={(isClick) =>
+													setAttributes({
+														flipMode: isClick
+															? "click"
+															: "hover",
+													})
+												}
+												help={
+													flipMode === "click"
+														? __(
+															"Click mode only available in frontend.",
+															"essential-blocks"
+														)
+														: __(
+															"Off: the box flips when you hover over it.",
+															"essential-blocks"
+														)
+												}
+											/>
+										)}
 										{"click" === flipMode && (
 											<ToggleControl
 												label={__(
