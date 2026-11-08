@@ -100,6 +100,9 @@ export default function Style(props) {
 		classHook,
 	} = attributes;
 
+	// Fade honours the Transition Speed setting like the flip types do (default 0.6s).
+	const fadeDuration = transitionSpeed ? transitionSpeed / 1000 : 0.6;
+
 	// Default colors
 	const deafultFrontTitleColor = "#ffffff";
 	const defaultFrontContentColor = "#ffffff";
@@ -731,7 +734,7 @@ export default function Style(props) {
 			height: auto;
 			width: 100%;
 			z-index: 1;
-			transition: ${flipType === "fade" ? "opacity 0.6s, " : ""
+			transition: ${flipType === "fade" ? `opacity ${fadeDuration}s, ` : ""
 		}${frontBgTransitionStyle}, ${bdShadowTransitionStyle};
 		}
 
@@ -922,7 +925,7 @@ export default function Style(props) {
 			flipType === "fade") &&
 			"none")
 		};
-		transition: ${flipType === "fade" ? "opacity 0.6s, " : ""
+		transition: ${flipType === "fade" ? `opacity ${fadeDuration}s, ` : ""
 		}${backBgTransitionStyle}, ${bdShadowTransitionStyle};
 		 cursor: ${linkType === "box" && link ? "pointer" : "default"};
 		 ${isHover && (flipType === "zoom-in" || flipType === "zoom-out")
