@@ -26,11 +26,33 @@ window.addEventListener("DOMContentLoaded", () => {
 
 		// flip on click
 		if (flipper && "click" === flipMode) {
+			// Make the box reachable and usable from the keyboard. A box that
+			// holds its own link or button keeps those as the interactive
+			// elements, so it gets no button role.
+			const isButton = !flipper.querySelector("a, button");
+			flipper.setAttribute("tabindex", "0");
+			if (isButton) {
+				flipper.setAttribute("role", "button");
+				flipper.setAttribute("aria-pressed", "false");
+			}
+
+			const setFlipped = function (flipped) {
+				flipper.classList.toggle(flipType, flipped);
+				if (isButton) {
+					flipper.setAttribute("aria-pressed", flipped ? "true" : "false");
+				}
+			};
+
 			flipper.addEventListener("click", function (event) {
-				if (flipper.classList.contains(flipType)) {
-					flipper.classList.remove(flipType);
-				} else {
-					flipper.classList.add(flipType);
+				setFlipped(!flipper.classList.contains(flipType));
+			});
+
+			// Enter or Space on the box itself flips it, like a button
+			flipper.addEventListener("keydown", function (event) {
+				if (event.target !== flipper) return;
+				if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
+					event.preventDefault();
+					setFlipped(!flipper.classList.contains(flipType));
 				}
 			});
 
@@ -38,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			if ("true" === flipMouseLeave) {
 				flipper.addEventListener("mouseleave", function (event) {
 					if (flipper.classList.contains(flipType)) {
-						flipper.classList.remove(flipType);
+						setFlipped(false);
 					}
 				});
 			}
