@@ -54,6 +54,16 @@ const {
 	StyleComponent
 } = window.EBFlipboxControls;
 
+// A hover "Fill" colour only sets `background-color`. When the normal state is a
+// gradient or an image, its `background-image` stays on top of that colour, so the
+// hover colour is never seen. Clear the image on hover when a hover colour is set.
+const withHoverImageReset = (hoverStyles) =>
+	hoverStyles &&
+	/background-color/.test(hoverStyles) &&
+	!/background-image/.test(hoverStyles)
+		? `${hoverStyles} background-image: none;`
+		: hoverStyles;
+
 export default function Style(props) {
 	const getFlexAlign = (align) => {
 		switch (align) {
@@ -736,7 +746,7 @@ export default function Style(props) {
 		}
 
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
-			${frontHoverBackgroundStylesDesktop}
+			${withHoverImageReset(frontHoverBackgroundStylesDesktop)}
 			${bdShadowStylesHoverDesktop}
 		}
 
@@ -770,7 +780,7 @@ export default function Style(props) {
 		 }
 
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
-			${frontHoverBackgroundStylesTab}
+			${withHoverImageReset(frontHoverBackgroundStylesTab)}
 			${bdShadowStylesHoverTab}
 		}
 
@@ -793,7 +803,7 @@ export default function Style(props) {
 		 }
 
 		.eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-front:hover {
-			${frontHoverBackgroundStylesMobile}
+			${withHoverImageReset(frontHoverBackgroundStylesMobile)}
 			${bdShadowStylesHoverMobile}
 		}
 
@@ -932,7 +942,7 @@ export default function Style(props) {
 	 }
 
 	 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
-		${backHoverBackgroundStylesDesktop}
+		${withHoverImageReset(backHoverBackgroundStylesDesktop)}
 		${bdShadowStylesHoverDesktop}
 	 }
 
@@ -969,7 +979,7 @@ export default function Style(props) {
 		 }
 
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
-			${backHoverBackgroundStylesTab}
+			${withHoverImageReset(backHoverBackgroundStylesTab)}
 			${bdShadowStylesHoverTab}
 		 }
 
@@ -993,7 +1003,7 @@ export default function Style(props) {
 		 }
 
 		 .eb-flipbox-container.${blockId} .eb-flipper .eb-flipbox-back:hover {
-			${backHoverBackgroundStylesMobile}
+			${withHoverImageReset(backHoverBackgroundStylesMobile)}
 			${bdShadowStylesHoverMobile}
 		 }
 
