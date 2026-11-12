@@ -5,12 +5,26 @@ import { useBlockProps, RichText } from "@wordpress/block-editor";
 import { omit } from "lodash";
 
 import attributes from "./attributes";
+import Save from "./save";
 
 const { EBDisplayIcon } = window.EBFlipboxControls;
 
+// Before this change "Use Mouse Leave" defaulted to on. The default is not written
+// into the block comment, so blocks saved with the old default have to be parsed
+// with it, or their saved `data-flip-mouseleave="true"` would no longer match.
+const legacyAttributes = {
+	...attributes,
+	isMouseLeaveOn: { ...attributes.isMouseLeaveOn, default: true },
+};
+
 const deprecated = [
 	{
-		attributes: { ...attributes },
+		// Markup of the current save(), parsed with the old isMouseLeaveOn default.
+		attributes: { ...legacyAttributes },
+		save: Save,
+	},
+	{
+		attributes: { ...legacyAttributes },
 		save: ({ attributes }) => {
 			const {
 				blockId,
@@ -233,7 +247,7 @@ const deprecated = [
 		},
 	},
 	{
-		attributes: { ...attributes },
+		attributes: { ...legacyAttributes },
 		save: ({ attributes }) => {
 			const {
 				blockId,
@@ -452,7 +466,7 @@ const deprecated = [
 		},
 	},
     {
-        attributes: { ...attributes },
+        attributes: { ...legacyAttributes },
         supports: {
             anchor: true,
         },
@@ -680,7 +694,7 @@ const deprecated = [
         },
     },
     {
-        attributes: omit({ ...attributes }, ["flipMode", "isMouseLeaveOn"]),
+        attributes: omit({ ...legacyAttributes }, ["flipMode", "isMouseLeaveOn"]),
         supports: {
             anchor: true,
         },
@@ -917,7 +931,7 @@ const deprecated = [
         },
     },
     {
-        attributes: omit({ ...attributes }, ["frontImageAlt", "backImageAlt"]),
+        attributes: omit({ ...legacyAttributes }, ["frontImageAlt", "backImageAlt"]),
         supports: {
             anchor: true,
         },
@@ -1146,7 +1160,7 @@ const deprecated = [
         },
     },
     {
-        attributes: { ...attributes },
+        attributes: { ...legacyAttributes },
         supports: {
             anchor: true,
         },
@@ -1363,7 +1377,7 @@ const deprecated = [
         },
     },
     {
-        attributes: { ...attributes },
+        attributes: { ...legacyAttributes },
         supports: {
             anchor: true,
         },
@@ -1548,7 +1562,7 @@ const deprecated = [
     {
         attributes: omit(
             {
-                ...attributes,
+                ...legacyAttributes,
             },
             ["contentPosition"]
         ),

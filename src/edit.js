@@ -68,7 +68,6 @@ function Edit(props) {
 		align,
 		contentPosition,
 		flipMode,
-		isMouseLeaveOn,
 		classHook,
 	} = attributes;
 
@@ -85,9 +84,6 @@ function Edit(props) {
 
 		if (!flipMode) {
 			setAttributes({ flipMode: "hover" });
-		}
-		if (!isMouseLeaveOn) {
-			setAttributes({ isMouseLeaveOn: true });
 		}
 	}, []);
 
